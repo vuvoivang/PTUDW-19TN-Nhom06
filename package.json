@@ -1,0 +1,32 @@
+{
+  "name": "ptudw-19tn-nhom06",
+  "version": "1.0.0",
+  "description": "My Project in Web Development course",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "nodemon --inspect src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vuvoivang/PTUDW-19TN-Nhom06.git"
+  },
+  "keywords": [
+    "handlebars",
+    "web",
+    "covid19",
+    "nodejs"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vuvoivang/PTUDW-19TN-Nhom06/issues"
+  },
+  "homepage": "https://github.com/vuvoivang/PTUDW-19TN-Nhom06#readme",
+  "dependencies": {
+    "express": "^4.17.3",
+    "express-handlebars": "^6.0.2",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.15"
+  }
+}
