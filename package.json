@@ -2,9 +2,9 @@
   "name": "ptudw-19tn-nhom06",
   "version": "1.0.0",
   "description": "My Project in Web Development course",
-  "main": "src/index.js",
+  "main": "src/app.js",
   "scripts": {
-    "start": "nodemon --inspect src/index.js",
+    "start": "nodemon --inspect src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,7 +15,8 @@
     "handlebars",
     "web",
     "covid19",
-    "nodejs"
+    "nodejs",
+    "package"
   ],
   "author": "",
   "license": "ISC",
