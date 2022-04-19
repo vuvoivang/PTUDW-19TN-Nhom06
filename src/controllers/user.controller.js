@@ -1,5 +1,7 @@
 module.exports = {
-    order: (req, res) => {
-        res.render("layouts/user/main");
+    get: (req, res) => {
+        res.render("layouts/user/accountInfo", {
+            layout: "user/main"
+        });
     }
 }
