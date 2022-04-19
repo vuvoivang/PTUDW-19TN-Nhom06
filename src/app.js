@@ -17,7 +17,8 @@ app.use(morgan('combined'));
 app.engine('hbs', handlebars.engine); // engine definition with name is hbs
 app.set('view engine', 'hbs'); // set view engine là hbs vừa tạo
 app.set('views', path.join(__dirname, 'views')); // config đường dẫn đến thư mục view
-route(app);
+app.use(express.static(path.join(__dirname, '/public')));// config đường dẫn đến thư mục public
+route(app); 
 // 127.0.0.1:3000
 app.listen(port, () => {
     // console.log(`Example app listening on port ${port}`)
