@@ -1,0 +1,312 @@
+body {
+    background-color: #F8F8F8;
+    overflow: hidden;
+    font-size: 12px;
+}
+
+.main {
+    display: flex;
+}
+
+.sidebar {
+    flex-basis: 22%;
+    background-color: #19212C;
+    height: 100vh;
+    color: white;
+}
+
+a {
+    text-decoration: none;
+}
+
+.app-logo {
+    display: flex;
+    gap: 10px;
+    margin: 5% 5% 15% 5%;
+}
+
+.app-logo h4 {
+    flex-basis: 60%;
+    margin-top: 15px;
+    font-size: 24px;
+}
+
+.main-tab {
+    padding-bottom: 50px;
+    border-bottom: 1.5px solid #3b3b3c;
+}
+
+.item {
+    margin: 20px;
+    padding: 15px 20px;
+    color: #a4a6b3;
+    border-radius: 10px;
+}
+
+.item i {
+    margin-right: 6px;
+}
+
+
+.item:hover {
+    background-color: #374151;
+
+}
+
+.item.active {
+    background-color: #374151;
+    border-radius: 10px;
+    color: white;
+}
+
+
+
+.content-container {
+    flex-basis: 82%;
+    margin: 25px 30px;
+}
+
+.head-bar .search-bar {
+    float: left;
+    display: flex;
+    width: 500px;
+    border: 1.5px solid #B0BABF;
+    padding-left: 10px;
+    border-radius: 12px;
+    background-color: white;
+}
+
+.head-bar .search-bar button {
+    background-color: white;
+    border: 0;
+    border-radius: 12px;
+}
+
+.search-bar input {
+    border: 0;
+    padding: 8px 0 8px 10px;
+    width: 100%;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    margin-left: 10px;
+    border-left: 1.5px solid #B0BABF;
+}
+
+.search-bar input:focus {
+    outline: none;
+}
+
+.head-bar .account-info {
+    float: right;
+    display: flex;
+    gap: 20px;
+    padding: 5px 5px;
+}
+
+.account-info i {
+    margin-right: 25px;
+    justify-content: center;
+    padding-right: 12px;
+    padding-top: 5px;
+    border-right: 1px solid black;
+}
+
+.account-info span {
+    margin-right: 10px;
+    margin-top: 2px;
+}
+
+/* Dropdown for account info */
+.dropbtn {
+    background-color: transparent;
+    border: none;
+    color: white;
+    display: block;
+    cursor: pointer;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropcheck {
+    display: none;
+}
+
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    right: 0;
+    left: auto;
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+/* Show the dropdown menu on click */
+.dropcheck:checked ~ .dropdown-content {
+    display: block;
+}
+
+.dropcheck:checked + .dropbtn {
+    background-color: #3e8e41;
+}
+
+/* -- */
+
+.form-container {
+    clear: both;
+    margin: 10%;
+    background-color: white;
+    border-radius: 20px;
+    width: 500px;
+    padding: 30px 40px;
+    padding-bottom: 20px;
+    box-shadow: 0 0 20px #ccc;
+}
+
+.form-container h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 24px;
+}
+
+#username,
+#password,
+#confirm-password {
+    border: 0px;
+    width: 100%;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+.input-field {
+    display: flex;
+    border: 2px solid #DFE0EB;
+    border-radius: 12px;
+    height: 30px;
+    margin-top: 10px;
+    padding-right: 3px;
+    margin-bottom: 20px;
+}
+
+.input-field .icon {
+    border-right: 3px solid #DFE0EB;
+    width: 40px;
+    text-align: center;
+}
+
+.icon i {
+    vertical-align: middle;
+    margin-top: 5px;
+}
+
+input:focus {
+    outline: none;
+    border-color: #719ECE;
+    box-shadow: 0 0 10px #719ECE;
+}
+
+.btn.create-account {
+    width: 100%;
+    background-color: #19212C;
+    border: 0;
+    border-radius: 10px;
+    color: white;
+    padding: 10px 0;
+    margin: 20px 0;
+}
+
+.modal-content {
+    border-radius: 16px;
+    padding: 10px;
+}
+
+.modal-footer .btn.update {
+    background-color: #719ECE;
+    border-radius: 10px;
+    padding: 8px;
+    color: white;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.modal-footer .btn.cancel {
+    background-color: lightslategray;
+    border-radius: 12px;
+    padding: 8px;
+    color: white;
+    font-weight: bold;
+    margin: 10px 0;
+    margin-right: 15px;
+}
+
+.modal-body {
+    background-color: white;
+    border-radius: 16px;
+    padding: 10px;
+}
+
+.modal-footer p {
+    margin: 0 10px;
+    font-size: 16px;
+}
+
+/* Toast */
+#snackbar {
+    visibility: hidden; /* Hidden by default. Visible on click */
+    min-width: 250px; /* Set a default minimum width */
+    margin-left: -125px; /* Divide value of min-width by 2 */
+    text-align: center; /* Centered text */
+    position: fixed; /* Sit on top of the screen */
+    z-index: 1; /* Add a z-index if needed */
+    left: 50%; /* Center the snackbar */
+    bottom: 30px; /* 30px from the bottom */
+  }
+  
+  /* Show the snackbar when clicking on a button (class added with JavaScript) */
+  #snackbar.show {
+    visibility: visible; /* Show the snackbar */
+    /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+    However, delay the fade out process for 2.5 seconds */
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  }
+  
+  /* Animations to fade the snackbar in and out */
+  @-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+  }
+  
+  @keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+  }
+  
+  @-webkit-keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+  }
+  
+  @keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+  }
