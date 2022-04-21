@@ -4,10 +4,19 @@ const expHbs = require('express-handlebars');
 const path = require('path'); //built-in nodejs
 const route = require('./routes/index.route');
 const app = express(); // đại diện cho ứng dụng nodejs
+const helper = {
+    section: function (name, options) {
+        if (!this._sections) this._sections = {};
+        this._sections[name] = options.fn(this);
+        return null;
+    }
+}
 const handlebars = expHbs.create({ // tạo handlebars với những config
-    extname: ".hbs"
+    extname: ".hbs",
+    helpers: helper
 });
-const port = 3000;  // run ở port 3000
+
+
 // route
 // tham số đầu: định nghĩa tuyến đường
 
@@ -17,9 +26,10 @@ app.use(morgan('combined'));
 app.engine('hbs', handlebars.engine); // engine definition with name is hbs
 app.set('view engine', 'hbs'); // set view engine là hbs vừa tạo
 app.set('views', path.join(__dirname, 'views')); // config đường dẫn đến thư mục view
-app.use(express.static(path.join(__dirname, '/public')));// config đường dẫn đến thư mục public
+app.use(express.static(path.join(__dirname, '/public')));// config đường dẫn đến thư mục public => serve static files in server
 route(app); 
 // 127.0.0.1:3000
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
-    // console.log(`Example app listening on port ${port}`)
+    console.log(`Example app listening on port ${port}`)
 })
