@@ -4,7 +4,7 @@ const expHbs = require('express-handlebars');
 const path = require('path'); //built-in nodejs
 const route = require('./routes/index.route');
 const app = express(); // đại diện cho ứng dụng nodejs
-const helper= {
+const helper = {
     section: function (name, options) {
         if (!this._sections) this._sections = {};
         this._sections[name] = options.fn(this);
