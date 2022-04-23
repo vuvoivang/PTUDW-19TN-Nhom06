@@ -1,12 +1,12 @@
 ::-webkit-scrollbar {
-    width: 10px;
-  }
-  
+  width: 10px;
+}
+
 ::-webkit-scrollbar-thumb {
     background-color: var(--bs-gray-400);
     border-radius: 5px;
 }
-  
+
 ::-webkit-scrollbar-thumb:hover {
     background: var(--bs-gray-500);
 }
@@ -752,6 +752,108 @@ body {
 .card .card-body.money-body,
 .card .card-footer.money-footer {
   padding: 1rem;
+}
+.card .fa-money {
+  line-height: 4rem;
+  font-size: 50px;
+  color: #51bf0e;
+  text-align: center;
+}
+.card .icon-bottom {
+  color: #51bf0e;
+  padding: 5px;
+  font-size: 20px;
+  margin-right: 5px;
+}
+.card .icon-bottom.minus {
+  color: red;
+}
+.modal-header .icon-bottom {
+  color: #51bf0e;
+  padding: 5px;
+  font-size: 20px;
+  margin-right: 5px;
+}
+.modal-header .icon-bottom.minus {
+  color: red;
+}
+.table thead th {
+  padding: 0.5rem;
+}
+div.dataTables_wrapper div.dataTables_length select {
+  padding: 5px 10px 2px 5px;
+  margin: 0 10px;
+  font-size: 1rem;
+}
+
+#table_payment_history_wrapper label {
+  font-size: 1rem;
+}
+.dataTables_filter .form-control {
+  border: 1px solid #d2d6da;
+  margin-left: 15px;
+}
+.page-item.previous .page-link,
+.page-item.next .page-link {
+  width: 100px;
+  border-radius: 1px !important;
+  margin: 0 7px;
+}
+.page-item .page-link {
+  margin: 0;
+}
+#data_table_wrapper .row:first-child {
+  margin-bottom: 6px;
+}
+table.dataTable > thead .sorting:before,
+table.dataTable > thead .sorting:after,
+table.dataTable > thead .sorting_asc:before,
+table.dataTable > thead .sorting_asc:after,
+table.dataTable > thead .sorting_desc:before,
+table.dataTable > thead .sorting_desc:after,
+table.dataTable > thead .sorting_asc_disabled:before,
+table.dataTable > thead .sorting_asc_disabled:after,
+table.dataTable > thead .sorting_desc_disabled:before,
+table.dataTable > thead .sorting_desc_disabled:after,
+table.dataTable > thead .sorting:before,
+table.dataTable > thead .sorting:after {
+  opacity: 0.5;
+}
+table.dataTable > thead .sorting:before,
+table.dataTable > thead .sorting:after,
+table.dataTable > thead .sorting_asc:before,
+table.dataTable > thead .sorting_asc:after,
+table.dataTable > thead .sorting_desc:before,
+table.dataTable > thead .sorting_desc:after,
+table.dataTable > thead .sorting_asc_disabled:before,
+table.dataTable > thead .sorting_asc_disabled:after,
+table.dataTable > thead .sorting_desc_disabled:before,
+table.dataTable > thead .sorting_desc_disabled:after {
+  opacity: 0.5;
+}
+table.dataTable > thead .sorting_asc:before,
+table.dataTable > thead .sorting_desc:after {
+  opacity: 1;
+}
+table.dataTable > thead .sorting:before,
+table.dataTable > thead .sorting_asc:before,
+table.dataTable > thead .sorting_desc:before,
+table.dataTable > thead .sorting_asc_disabled:before,
+table.dataTable > thead .sorting_desc_disabled:before,
+table.dataTable > thead .sorting:after,
+table.dataTable > thead .sorting_asc:after,
+table.dataTable > thead .sorting_desc:after,
+table.dataTable > thead .sorting_asc_disabled:after,
+table.dataTable > thead .sorting_desc_disabled:after {
+  font-size: 20px;
+}
+
+#depositModal .btn-success {
+  padding: 2px 10px;
+}
+
+.body-content {
+  border-radius: 0.75rem;
 }
 .card .fa-money {
   line-height: 4rem;

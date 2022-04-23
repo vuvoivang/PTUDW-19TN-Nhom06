@@ -15,5 +15,11 @@ nav {
 .brand {
     color: #05a833;
     font-weight: bold;
+}
+
+.search-icon {
+    background-color: white;
+    border-right: none;
+    color: #05a833;
     font-size: 1.2rem;
 }

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap Layout -->
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper for Bootstrap-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/5e369d8acd.js" crossorigin="anonymous"></script>
+
+    <!-- Google font  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Changa+One:ital@0;1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/login.css">
+    <title>Login</title>
+</head>
+
+<body>
+    <div class="main">
+        <div class="container">
+            <div class="login-container">
+                <div class="logo">
+                    <img src="https://i.ibb.co/6Nnf81X/logo-3.png" alt="app-logo">
+                    <span>SIGN IN</span>
+                </div>
+                <form action="" method="post">
+                    <label for="username">Username</label>
+                    <div class="input-field username">
+                        <div class="icon">
+                            <i class="fa-solid fa-circle-user"></i>
+                        </div>
+                        <input type="text" id="username" name="username" placeholder="Enter username">
+                    </div>
+                    <label for="password">Password</label>
+                    <div class="input-field password">
+                        <div class="icon">
+                            <i class="fa-solid fa-lock"></i>
+                        </div>
+                        <input type="password" id="password" name="password" placeholder="Enter password">
+                    </div>
+                    <div class="account-option">
+                        <input type="checkbox" id="user-login" , name="user-login" value="remember me">
+                        <label for="user-login">Remember me</label>
+                        <a href="#" id="lost-password">Lost password?</a>
+                    </div>
+                    <input type="submit" id="submit" value="Sign in">
+                </form>
+                <div class="additional-login">
+                    <span>or login with</span>
+                    <div class="other-login">
+                        <a href="#"><i class="fa-brands fa-facebook-square fa-lg"></i></a>
+                        <a href="#"><i class="fa-brands fa-google fa-lg"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram fa-lg"></i></a>
+                    </div>
+                </div>
+                <div class="create-account">
+                    <p>Not registered?</p>
+                    <a href="#" id="create-account">Create Account</a>
+                </div>
+
+
+            </div>
+            <a href="#" id="back-home">
+                <div class="direction">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>Back to homepage</span>
+                </div> 
+            </a>
+        </div>
+        <div class="no-bacground"></div>
+        <div class="background">
+            <img src="https://i.ibb.co/k0CBzMg/Blue-Illustration-Vaccination-Covid-19-Facebook-Post.png"
+                alt="Blue-Illustration-Vaccination-Covid-19-Facebook-Post" border="0">
+        </div>
+    </div>
+</body>
+
+</html>
