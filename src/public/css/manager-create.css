@@ -72,6 +72,10 @@ input:focus {
 
 }
 
+.btn-close {
+    background-color: lightslategray;
+}
+
 .modal-footer .btn.update {
     background-color: #719ECE;
     border-radius: 10px;
