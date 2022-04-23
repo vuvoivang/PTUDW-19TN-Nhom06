@@ -1,32 +1,45 @@
 ::-webkit-scrollbar {
-    width: 10px;
-  }
-  
+  width: 10px;
+}
+
 ::-webkit-scrollbar-thumb {
-    background-color: var(--bs-gray-300);
-    border-radius: 5px;
+  background-color: var(--bs-gray-300);
+  border-radius: 5px;
 }
-  
+
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--bs-gray-100);
+  background: var(--bs-gray-100);
 }
 
-#sidenav-main .brand-img{
-    max-height: 2.5rem!important;
+#sidenav-main .brand-img {
+  max-height: 2.5rem !important;
 }
-
-
+a:hover {
+  text-decoration: none;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  height: 100% !important;
+}
+.btn {
+  margin-bottom: 0;
+}
 .topbar {
-    height: 4.375rem;
+  height: 4.375rem;
 }
-.mb-4, .my-4 {
-    margin-bottom: 1.5rem!important;
+.mb-4,
+.my-4 {
+  margin-bottom: 1.5rem !important;
 }
 .shadow {
-    box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)!important;
+  box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15) !important;
 }
 .bg-white {
-    background-color: #fff!important;
+  background-color: #fff !important;
 }
 .nav {
   display: flex;
@@ -39,8 +52,9 @@
 .nav-link {
   display: block;
   padding: 0.5rem 1rem;
-  color: #e91e63;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+  color: #27b8e0;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -51,7 +65,7 @@
 
 .nav-link:hover,
 .nav-link:focus {
-  color: #e91e63;
+  color: #27b8e0;
 }
 
 .nav-link.disabled {
@@ -104,18 +118,18 @@
 }
 
 .nav-pills .nav-link.active,
-.nav-pills .show>.nav-link {
+.nav-pills .show > .nav-link {
   color: #344767;
   background-color: #fff;
 }
 
-.nav-fill>.nav-link,
+.nav-fill > .nav-link,
 .nav-fill .nav-item {
   flex: 1 1 auto;
   text-align: center;
 }
 
-.nav-justified>.nav-link,
+.nav-justified > .nav-link,
 .nav-justified .nav-item {
   flex-basis: 0;
   flex-grow: 1;
@@ -127,11 +141,11 @@
   width: 100%;
 }
 
-.tab-content>.tab-pane {
+.tab-content > .tab-pane {
   display: none;
 }
 
-.tab-content>.active {
+.tab-content > .active {
   display: block;
 }
 
@@ -147,13 +161,13 @@
   padding-left: 1rem;
 }
 
-.navbar>.container,
-.navbar>.container-fluid,
-.navbar>.container-sm,
-.navbar>.container-md,
-.navbar>.container-lg,
-.navbar>.container-xl,
-.navbar>.container-xxl {
+.navbar > .container,
+.navbar > .container-fluid,
+.navbar > .container-sm,
+.navbar > .container-md,
+.navbar > .container-lg,
+.navbar > .container-xl,
+.navbar > .container-xxl {
   display: flex;
   flex-wrap: inherit;
   align-items: center;
@@ -641,7 +655,7 @@
   color: rgba(52, 71, 103, 0.3);
 }
 
-.navbar-light .navbar-nav .show>.nav-link,
+.navbar-light .navbar-nav .show > .nav-link,
 .navbar-light .navbar-nav .nav-link.active {
   color: rgba(52, 71, 103, 0.9);
 }
@@ -687,7 +701,7 @@
   color: rgba(255, 255, 255, 0.25);
 }
 
-.navbar-dark .navbar-nav .show>.nav-link,
+.navbar-dark .navbar-nav .show > .nav-link,
 .navbar-dark .navbar-nav .nav-link.active {
   color: #fff;
 }
@@ -711,29 +725,128 @@
   color: #fff;
 }
 
-.sidenav.fixed-start+.main-content {
+.sidenav.fixed-start + .main-content {
   margin-left: 16.625rem;
   padding: 10px 30px;
 }
-#navbar .search-icon{
+#navbar .search-icon {
   margin-right: 7px;
 }
-#navbar .btn-search{
+#navbar .btn-search {
   position: relative;
-  top:-2px;
-  left: -5px;
-  margin:0;
+  margin: 0;
   padding: 10px;
 }
-#navbar .btn-search:hover{
+#navbar .btn-search {
   color: #fff;
-  background-color: #4CAF50;
+  background-color: #6fc072;
+  z-index: -1;
+  cursor: pointer;
+}
+#navbar .btn-search:hover {
+  color: #fff;
+  background-color: #4caf50;
 }
 
-.input-group.input-group-outline .form-label{
-  align-items: center;
-  justify-content: space-between;
+.card .card-body.money-body,
+.card .card-footer.money-footer {
+  padding: 1rem;
 }
-.input-group.input-group-outline .form-label:before{
-  width: 0;
+.card .fa-money {
+  line-height: 4rem;
+  font-size: 50px;
+  color: #51bf0e;
+  text-align: center;
+}
+.card .icon-bottom {
+  color: #51bf0e;
+  padding: 5px;
+  font-size: 20px;
+  margin-right: 5px;
+}
+.card .icon-bottom.minus {
+  color: red;
+}
+.modal-header .icon-bottom {
+  color: #51bf0e;
+  padding: 5px;
+  font-size: 20px;
+  margin-right: 5px;
+}
+.modal-header .icon-bottom.minus {
+  color: red;
+}
+.table thead th {
+  padding: 0.5rem;
+}
+div.dataTables_wrapper div.dataTables_length select {
+  padding: 5px 10px 2px 5px;
+  margin: 0 10px;
+  font-size: 1rem;
+}
+
+#table_payment_history_wrapper label {
+  font-size: 1rem;
+}
+.dataTables_filter .form-control {
+  border: 1px solid #d2d6da;
+  margin-left: 15px;
+}
+.page-item.previous .page-link,
+.page-item.next .page-link {
+  width: 100px;
+  border-radius: 1px !important;
+  margin: 0 7px;
+}
+.page-item .page-link {
+  margin: 0;
+}
+#data_table_wrapper .row:first-child {
+  margin-bottom: 6px;
+}
+table.dataTable > thead .sorting:before,
+table.dataTable > thead .sorting:after,
+table.dataTable > thead .sorting_asc:before,
+table.dataTable > thead .sorting_asc:after,
+table.dataTable > thead .sorting_desc:before,
+table.dataTable > thead .sorting_desc:after,
+table.dataTable > thead .sorting_asc_disabled:before,
+table.dataTable > thead .sorting_asc_disabled:after,
+table.dataTable > thead .sorting_desc_disabled:before,
+table.dataTable > thead .sorting_desc_disabled:after,
+table.dataTable > thead .sorting:before,
+table.dataTable > thead .sorting:after {
+  opacity: 0.5;
+}
+table.dataTable > thead .sorting:before,
+table.dataTable > thead .sorting:after,
+table.dataTable > thead .sorting_asc:before,
+table.dataTable > thead .sorting_asc:after,
+table.dataTable > thead .sorting_desc:before,
+table.dataTable > thead .sorting_desc:after,
+table.dataTable > thead .sorting_asc_disabled:before,
+table.dataTable > thead .sorting_asc_disabled:after,
+table.dataTable > thead .sorting_desc_disabled:before,
+table.dataTable > thead .sorting_desc_disabled:after {
+  opacity: 0.5;
+}
+table.dataTable > thead .sorting_asc:before,
+table.dataTable > thead .sorting_desc:after {
+  opacity: 1;
+}
+table.dataTable > thead .sorting:before,
+table.dataTable > thead .sorting_asc:before,
+table.dataTable > thead .sorting_desc:before,
+table.dataTable > thead .sorting_asc_disabled:before,
+table.dataTable > thead .sorting_desc_disabled:before,
+table.dataTable > thead .sorting:after,
+table.dataTable > thead .sorting_asc:after,
+table.dataTable > thead .sorting_desc:after,
+table.dataTable > thead .sorting_asc_disabled:after,
+table.dataTable > thead .sorting_desc_disabled:after {
+  font-size: 20px;
+}
+
+#depositModal .btn-success {
+  padding: 2px 10px;
 }
