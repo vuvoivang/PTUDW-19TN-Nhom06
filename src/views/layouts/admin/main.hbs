@@ -13,15 +13,10 @@
 </head>
 
 <body>
-    <div class="adminMain">
-        <div class="adminSidebar">
-            {{> adminSidebar}}
-        </div>
+    <div>
+        {{> adminSidebar}}
         <div class="main-content">
-            <div class="head-bar">
-                {{> adminNavbar}}
-            </div>
-
+            {{> adminNavbar}}
             <div class="form-container">
                 {{{body}}}
             </div>
@@ -31,6 +26,7 @@
     </div>
 
     {{> script}}
+    {{{_sections.script}}}
     <script>
         function accountValidate() {
             var username = document.getElementById('username');

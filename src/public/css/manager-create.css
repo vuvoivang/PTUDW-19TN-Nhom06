@@ -4,176 +4,9 @@ body {
     font-size: 12px;
 }
 
-.adminMain {
-    display: flex;
-}
-
-.adminSidebar {
-    flex-basis: 22%;
-    background-color: #19212C;
-    height: 100vh;
-    color: white;
-}
-
-a {
-    text-decoration: none;
-}
-
-.app-logo {
-    display: flex;
-    gap: 10px;
-    margin: 5% 5% 15% 5%;
-}
-
-.app-logo h4 {
-    flex-basis: 60%;
-    margin-top: 15px;
-    font-size: 24px;
-}
-
-.main-tab {
-    padding-bottom: 50px;
-    border-bottom: 1.5px solid #3b3b3c;
-}
-
-.item {
-    margin: 20px;
-    padding: 15px 20px;
-    color: #a4a6b3;
-    border-radius: 10px;
-}
-
-.item i {
-    margin-right: 6px;
-}
-
-
-.item:hover {
-    background-color: #374151;
-
-}
-
-.item.active {
-    background-color: #374151;
-    border-radius: 10px;
-    color: white;
-}
-
-
-
-.main-content {
-    flex-basis: 82%;
-    margin: 25px 30px;
-}
-
-.head-bar .search-bar {
-    float: left;
-    display: flex;
-    width: 500px;
-    border: 1.5px solid #B0BABF;
-    padding-left: 10px;
-    border-radius: 12px;
-    background-color: white;
-}
-
-.head-bar .search-bar button {
-    background-color: white;
-    border: 0;
-    border-radius: 12px;
-}
-
-.search-bar input {
-    border: 0;
-    padding: 8px 0 8px 10px;
-    width: 100%;
-    border-top-right-radius: 12px;
-    border-bottom-right-radius: 12px;
-    margin-left: 10px;
-    border-left: 1.5px solid #B0BABF;
-}
-
-.search-bar input:focus {
-    outline: none;
-}
-
-.head-bar .account-info {
-    float: right;
-    display: flex;
-    gap: 20px;
-    padding: 5px 5px;
-}
-
-.account-info i {
-    margin-right: 25px;
-    justify-content: center;
-    padding-right: 12px;
-    padding-top: 5px;
-    border-right: 1px solid black;
-}
-
-.account-info span {
-    margin-right: 10px;
-    margin-top: 2px;
-}
-
-/* Dropdown for account info */
-.dropbtn {
-    background-color: transparent;
-    border: none;
-    color: white;
-    display: block;
-    cursor: pointer;
-}
-
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.dropcheck {
-    display: none;
-}
-
-
-/* Dropdown Content (Hidden by Default) */
-.dropdown-content {
-    right: 0;
-    left: auto;
-    display: none;
-    position: absolute;
-    background-color: #f1f1f1;
-    min-width: 200px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-}
-
-/* Links inside the dropdown */
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-/* Change color of dropdown links on hover */
-.dropdown-content a:hover {
-    background-color: #ddd;
-}
-
-/* Show the dropdown menu on click */
-.dropcheck:checked~.dropdown-content {
-    display: block;
-}
-
-.dropcheck:checked+.dropbtn {
-    background-color: transparent;
-}
-
-/* -- */
-
 .form-container {
     clear: both;
-    margin: 10%;
+    margin: 3% 10%;
     background-color: white;
     border-radius: 20px;
     width: 500px;
@@ -201,9 +34,8 @@ a {
     display: flex;
     border: 2px solid #DFE0EB;
     border-radius: 12px;
-    height: 30px;
-    margin-top: 10px;
-    padding-right: 3px;
+    height: 35px;
+    padding-right: 1px;
     margin-bottom: 20px;
 }
 

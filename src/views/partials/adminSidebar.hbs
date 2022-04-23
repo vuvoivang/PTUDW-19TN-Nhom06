@@ -1,40 +1,103 @@
-<div class="app-logo">
-  <img src="https://i.ibb.co/6Nnf81X/logo-3.png" alt="app-logo">
-  <h4>PC-COVID19</h4>
-</div>
-<div class="tabs">
-  <div class="main-tab">
-    <a href="#">
-      <div class="item active">
-        <i class="fa-solid fa-user-plus"></i>
-        <span>Tạo tài khoản</span>
-      </div>
-    </a>
-    <a href="#">
-      <div class="item">
-        <i class="fa-solid fa-people-roof"></i>
-        <span>Quản lý tài khoản</span>
-      </div>
-    </a>
-    <a href="#">
-      <div class="item">
-        <i class="fa-solid fa-list-check fa-lg"></i>
-        <span>Quản lý cơ sở</span>
-      </div>
+<aside
+  class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 bg-gradient-dark"
+  id="sidenav-main"
+>
+  <div class="sidenav-header">
+    <i
+      class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
+      aria-hidden="true"
+      id="iconSidenav"
+    ></i>
+    <a class="navbar-brand m-0" href="/">
+      <img
+        src="/img/Proj_logo.png"
+        height="1000"
+        class="navbar-brand-img brand-img"
+        alt="main_logo"
+      />
+      <span class="ms-1 fs-6 font-weight-bold text-white">
+        COVID19 - MSYS
+      </span>
     </a>
   </div>
-  <div class="account-tab">
-    <a href="#">
-      <div class="item">
-        <i class="fa-solid fa-gear"></i>
-        <span>Setting</span>
-      </div>
-    </a>
-    <a href="#">
-      <div class="item">
-        <i class="fa-solid fa-hand-holding-medical"></i>
-        <span>Subscription</span>
-      </div>
-    </a>
+  <hr class="horizontal light mt-0 mb-2" />
+  <div
+    class="collapse navbar-collapse  w-auto  max-height-vh-100"
+    id="sidenav-collapse-main"
+  >
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link active text-white" href="#">
+          <div
+            class="text-white text-center me-2 d-flex align-items-center justify-content-center"
+          >
+            <i class="fa-solid fa-user-plus"></i>
+          </div>
+          <span class="nav-link-text ms-1">
+            Tạo tài khoản
+          </span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" href="#">
+          <div
+            class="text-white text-center me-2 d-flex align-items-center justify-content-center"
+          >
+            <i class="fa-solid fa-people-roof"></i>
+          </div>
+          <span class="nav-link-text ms-1">
+            Quản lý tài khoản
+          </span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link text-white"
+          href="#"
+        >
+          <div
+            class="text-white text-center me-2 d-flex align-items-center justify-content-center"
+          >
+            <i class="fa-solid fa-list-check fa-lg"></i>
+          </div>
+          <span class="nav-link-text ms-1">
+            Quản lý cơ sở
+          </span>
+        </a>
+      </li>
+    </ul>
   </div>
-</div>
+  <div class="sidenav-footer position-absolute w-100 bottom-0">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link text-white" href="#">
+          <div
+            class="text-white text-center me-2 d-flex align-items-center justify-content-center"
+          >
+            <i class="fa-solid fa-user-plus fa-lg"></i>
+          </div>
+          <span class="nav-link-text ms-1">
+            Đăng ký
+          </span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" href="#">
+          <div
+            class="text-white text-center me-2 d-flex align-items-center justify-content-center"
+          >
+            <i class="fa-solid fa-right-from-bracket fa-lg"></i>
+          </div>
+          <span class="nav-link-text ms-1">
+            Đăng xuất
+          </span>
+        </a>
+      </li>
+    </ul>
+    <div class="mx-3">
+      <a class="btn bg-gradient-success my-4 w-100" href="#" type="button">
+        Đội ngũ xây dựng
+      </a>
+    </div>
+  </div>
+</aside>
