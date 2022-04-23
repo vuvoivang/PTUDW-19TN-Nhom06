@@ -32,7 +32,7 @@
                 </div>
                 <div class="card-footer money-footer">
                  
-                    <div class="stats" style="cursor: pointer;" data-toggle="modal" data-target="#depositModal">
+                    <div class="stats" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#depositModal">
                         <i class="fa-solid fa-circle-plus icon-bottom"></i>
                         Nạp tiền vào tài khoản
                     </div>
@@ -44,23 +44,28 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="loginModalLabel">Liên kết tài khoản thanh toán</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
+                             <div class="stats" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#depositModal">
+                        <i class="fa-solid fa-circle-plus icon-bottom"></i>
+                        Nạp tiền vào tài khoản
+                        </div>
+                            <button type="button" class="close btn btn-success" data-bs-dismiss="modal" aria-label="Close">
+                                <span class="fs-5" aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
                             <form action="/user/{{id}}/deposit" method="post">
                                 <div class="form-group">
-                                    <label class="control-label">Số tiền <star class="text-danger">*</star></label>
-                                    <input class="form-control" name="amount" min="10" type="number" required="true">
-                                    <input class="form-control" name="send_id" value="{{id}}" hidden required="true">
+                                    <label class="control-label fs-6">Số tiền <star class="text-danger">*</star></label>
+                                    <input class="form-control border border-2 p-2" name="amount" min="10000" placeholder="Nhập số tiền (đơn vị: đồng)" type="number" required="true">
+                                   
                                 </div>
-                                <div class="category">
-                                    <star class="text-danger">*</star> Required fields
-                                </div>
-                                <button type="submit" class="btn btn-primary float-right">Nạp</button>
+                               
+                               
                             </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn bg-gradient-success" >Nạp</button>
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Huỷ</button>
                         </div>
                     </div>
                 </div>
