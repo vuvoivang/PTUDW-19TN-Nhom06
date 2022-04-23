@@ -9,8 +9,13 @@
         <div class="px-5">
             <h2 class="product-name pt-4">Gói thức ăn nhanh 1</h2>
             <div class="pt-3 form d-flex justify-content-between align-items-baseline">
-                <label for="soluong" class="form-label">Số lượng</label>
-                <input type="text" placeholder="1" class="form-control" id="soluong" value="1" />
+                <label for="soluong" class="form-label m-0">Số lượng</label>
+                <div>
+
+                    <i class="fa-solid fa-circle-plus text-success"></i>
+                    <input type="text" placeholder="1" class="form-control border-1" id="soluong" value="1" />
+                    <i class="fa-solid fa-circle-minus text-success"></i>
+                </div>
             </div>
             <div class="pb-3 d-flex justify-content-between align-items-baseline">
                 <div><strong>Tổng thanh toán: </strong></div>
@@ -28,8 +33,8 @@
     </div>
 
     <div class="product-detail">
-        <table id="example" class="table mt-5" style="width:100%">
-            <thead>
+        <table id="dataTable" class="table mt-5" style="width:100%">
+            <thead class="text-primary">
                 <tr>
                     <th>Ảnh sản phẩm</th>
                     <th>Tên sản phẩm</th>
@@ -42,7 +47,7 @@
             <tbody>
                 <tr>
                     <td><div class="product-img-detail">
-                            <img src="../img/home/detail-garan.jpg" alt=""  class="img-detail" />
+                            <img src="../img/home/detail-garan.jpg" alt="" class="img-detail" />
                         </div></td>
                     <td>Gà rán</td>
                     <td>cái</td>
@@ -52,7 +57,7 @@
                 </tr>
                 <tr>
                     <td><div class="product-img-detail">
-                            <img src="../img/home/detail-khoaitay.jpg" alt=""  class="img-detail" />
+                            <img src="../img/home/detail-khoaitay.jpg" alt="" class="img-detail" />
                         </div></td>
                     <td>Khoai tây chiên</td>
                     <td>phần</td>
@@ -62,7 +67,7 @@
                 </tr>
                 <tr>
                     <td><div class="product-img-detail">
-                            <img src="../img/home/detail-pizza.jpg" alt=""  class="img-detail" />
+                            <img src="../img/home/detail-pizza.jpg" alt="" class="img-detail" />
                         </div></td>
                     <td>Pizza</td>
                     <td>phần</td>
@@ -72,7 +77,7 @@
                 </tr>
                 <tr>
                     <td><div class="product-img-detail">
-                            <img src="../img/home/detail-com.webp" alt=""  class="img-detail" />
+                            <img src="../img/home/detail-com.webp" alt="" class="img-detail" />
                         </div></td>
                     <td>Cơm rang</td>
                     <td>phần</td>
@@ -82,7 +87,7 @@
                 </tr>
                 <tr>
                     <td><div class="product-img-detail">
-                            <img src="../img/home/detail-coca.png" alt=""  class="img-detail" />
+                            <img src="../img/home/detail-coca.png" alt="" class="img-detail" />
                         </div></td>
                     <td>Coca</td>
                     <td>ly</td>
@@ -92,22 +97,12 @@
                 </tr>
 
             </tbody>
-            {{! <tfoot>
-                <tr>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Office</th>
-                    <th>Age</th>
-                    <th>Start date</th>
-                    <th>Salary</th>
-                </tr>
-            </tfoot> }}
         </table>
     </div>
 </div>
 {{#section "script"}}
 
     <script>
-        $(document).ready(function() { $('#example').DataTable(); } );
+        $(document).ready(function() { $('#dataTable').DataTable(); } );
     </script>
 {{/section}}
