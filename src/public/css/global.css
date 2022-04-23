@@ -11,14 +11,6 @@
     background: var(--bs-gray-500);
 }
 
-::-webkit-scrollbar-thumb {
-  background-color: var(--bs-gray-300);
-  border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--bs-gray-100);
-}
 
 #sidenav-main .brand-img {
   max-height: 2.5rem !important;
