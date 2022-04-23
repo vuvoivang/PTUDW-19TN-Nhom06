@@ -22,8 +22,14 @@ module.exports = {
         })
     },
 
-    createProduct: (req, res) => {
-        res.render("layouts/manager/createProduct", {
+    addProduct: (req, res) => {
+        res.render("layouts/manager/addProduct", {
+            layout: "manager/main"
+        })
+    },
+
+    detailProduct: (req, res) => {
+        res.render("layouts/manager/detailProduct", {
             layout: "manager/main"
         })
     },

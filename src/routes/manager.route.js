@@ -13,7 +13,8 @@ router.get("/category-management", managerController.getCategoryManagement);
 
 // product management
 router.get("/product-management", managerController.getProductManagement);
-router.get("/product-management/new", managerController.createProduct);
+router.get("/product-management/new", managerController.addProduct);
+router.get("/product-management/:id", managerController.detailProduct);
 
 // package management
 router.get("/package-management", managerController.getPackageManagement);
