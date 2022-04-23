@@ -13,13 +13,14 @@
            
             <div class="main-content">
                 {{> managerNavbar}}
-                <div class="container bg-gray-200 p-4">
+                <div class="container body-content bg-gray-200 p-4">
                     {{{body}}}
                 </div>
-            </div>           
+            </div>      
+            {{>pluginShow}}  
         </div>
         
         {{> script}}
-    
+        {{{_sections.script}}}
 </body>
 </html>
