@@ -14,8 +14,20 @@
 #sidenav-main .brand-img{
     max-height: 2.5rem!important;
 }
-
-
+a:hover {
+  text-decoration: none;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  height: 100% !important;
+}
+.btn{
+  margin-bottom:0;
+}
 .topbar {
     height: 4.375rem;
 }
@@ -720,23 +732,22 @@
 }
 #navbar .btn-search{
   position: relative;
-  top:-2px;
-  left: -5px;
   margin:0;
   padding: 10px;
+}
+#navbar .btn-search{
+  color: #fff;
+  background-color: #6fc072;
+  z-index: -1;
+  cursor: pointer;
+
 }
 #navbar .btn-search:hover{
   color: #fff;
   background-color: #4CAF50;
 }
 
-.input-group.input-group-outline .form-label{
-  align-items: center;
-  justify-content: space-between;
-}
-.input-group.input-group-outline .form-label:before{
-  width: 0;
-}
+
 
 .card .card-body.money-body, .card .card-footer.money-footer{
   padding:1rem;
@@ -756,13 +767,24 @@
 .card .icon-bottom.minus{
   color: red;
 }
+.modal-header .icon-bottom{
+  color: #51bf0e;
+  padding:5px;
+  font-size:20px;
+  margin-right:5px;
+}
+.modal-header .icon-bottom.minus{
+  color: red;
+}
 .table thead th{
   padding:0.5rem;
 }
 div.dataTables_wrapper div.dataTables_length select{
   padding:5px 10px 2px 5px;
   margin:0 10px;
+  font-size: 1rem;
 }
+
 #table_payment_history_wrapper label{
   font-size:1rem;
 }
@@ -792,4 +814,10 @@ table.dataTable>thead .sorting:before, table.dataTable>thead .sorting:after, tab
 table.dataTable>thead .sorting_asc:before, table.dataTable>thead .sorting_desc:after {
   opacity: 1;
 }
+table.dataTable>thead .sorting:before, table.dataTable>thead .sorting_asc:before, table.dataTable>thead .sorting_desc:before, table.dataTable>thead .sorting_asc_disabled:before, table.dataTable>thead .sorting_desc_disabled:before, table.dataTable>thead .sorting:after, table.dataTable>thead .sorting_asc:after, table.dataTable>thead .sorting_desc:after, table.dataTable>thead .sorting_asc_disabled:after, table.dataTable>thead .sorting_desc_disabled:after{
+  font-size: 20px;
+}
 
+#depositModal .btn-success{
+  padding:2px 10px;
+}
