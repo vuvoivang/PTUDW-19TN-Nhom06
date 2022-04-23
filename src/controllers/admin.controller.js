@@ -5,8 +5,10 @@ module.exports = {
         });
     },
     createAccount: (req, res) => {
-        res.render("layouts/admin/managePatient", {
-            layout: "admin/managerCreate"
+        res.render("layouts/admin/managerCreate", {
+            layout: "admin/main",
+            adminSidebar: "partials/adminSidebar",
+            adminNavbar: "partials/adminNavbar"
         });
     }
 }
