@@ -1,23 +1,19 @@
-
 .form-select {
     width: auto;
 }
-
-.navbar {
-    box-shadow: 3px 3px #2cde00;
-    position: fixed;
-    width: 100%;
+nav {
+    position: -webkit-sticky; /* Safari */
+    position: sticky !important;
+    top: 0;
+    left: 0;
+    right: 0;
     background-color: white;
     z-index: 1;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
 }
 
 .brand {
     color: #05a833;
     font-weight: bold;
-}
-
-.search-icon {
-    background-color: white;
-    border-right: none;
-    color: #05a833;
+    font-size: 1.2rem;
 }
