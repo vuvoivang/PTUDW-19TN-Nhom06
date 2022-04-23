@@ -859,3 +859,7 @@ table.dataTable > thead .sorting_desc_disabled:after {
 #depositModal .btn-success {
   padding: 2px 10px;
 }
+
+.body-content {
+  border-radius: 0.75rem;
+}
