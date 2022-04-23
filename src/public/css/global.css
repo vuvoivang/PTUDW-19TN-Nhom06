@@ -863,3 +863,6 @@ table.dataTable > thead .sorting_desc_disabled:after {
 .body-content {
   border-radius: 0.75rem;
 }
+#dropdownMenuButton .dropdown-menu {
+  box-shadow: 0 -5px 5px -5px #333;
+}
