@@ -1,5 +1,14 @@
 ::-webkit-scrollbar {
-  width: 10px;
+    width: 10px;
+  }
+  
+::-webkit-scrollbar-thumb {
+    background-color: var(--bs-gray-400);
+    border-radius: 5px;
+}
+  
+::-webkit-scrollbar-thumb:hover {
+    background: var(--bs-gray-500);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -853,4 +862,7 @@ table.dataTable > thead .sorting_desc_disabled:after {
 
 .body-content {
   border-radius: 0.75rem;
+}
+#dropdownMenuButton .dropdown-menu {
+  box-shadow: 0 -5px 5px -5px #333;
 }
