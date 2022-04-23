@@ -1,5 +1,7 @@
 module.exports = {
     get: (req, res) => {
-        res.render("sites/product");
-    }
-}
+        res.render("layouts/sites/product", {
+            layout: "sites/main",
+        });
+    },
+};
