@@ -1,0 +1,181 @@
+.intro {
+}
+
+.intro-text {
+}
+.intro-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 30px 0;
+    color: #05a833;
+    line-height: 4rem;
+}
+
+.intro-description {
+    font-size: 1.2rem;
+    color: #838383;
+}
+.intro-image {
+}
+
+.intro-image img {
+    display: block;
+    width: 300px;
+}
+
+.list-product {
+    background-color: #dbfb96;
+}
+
+.product-item {
+    width: 100%;
+    height: 100px;
+    position: relative;
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    background-color: white;
+    box-shadow: 3px 3px #ccc;
+    border-radius: 20px;
+}
+
+.product-item-img img {
+    display: block;
+    width: 70%;
+    height: 90%;
+    max-width: 130px;
+    border-radius: 50%;
+    position: absolute;
+    top: -40%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    box-shadow: 1px 3px #ccc;
+    background-color: #eee;
+}
+
+.product-item-name {
+    position: absolute;
+    bottom: 20px;
+    font-weight: bold;
+    color: #252733;
+    text-align: center;
+    width: 100%;
+}
+
+.popular-product-title {
+    text-align: center;
+    color: #05a833;
+    font-weight: bold;
+}
+
+@media (max-width: 767px) {
+    .carousel-inner .carousel-item > div {
+        display: none;
+    }
+    .carousel-inner .carousel-item > div:first-child {
+        display: block;
+    }
+    .intro-img {
+        display: none;
+    }
+}
+
+.card {
+    border-radius: 15px;
+    border: #8d9790 solid 1px;
+}
+.card-img {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.carousel-inner .carousel-item.active,
+.carousel-inner .carousel-item-next,
+.carousel-inner .carousel-item-prev {
+    display: flex;
+}
+
+/* medium and up screens */
+@media (min-width: 768px) {
+    .carousel-inner .carousel-item-end.active,
+    .carousel-inner .carousel-item-next {
+        transform: translateX(25%);
+    }
+
+    .carousel-inner .carousel-item-start.active,
+    .carousel-inner .carousel-item-prev {
+        transform: translateX(-25%);
+    }
+}
+
+/* x-large and up screens */
+@media (min-width: 1200px) {
+    .intro-container {
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+    .list-product-container {
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+}
+.carousel-inner .carousel-item-end,
+.carousel-inner .carousel-item-start {
+    transform: translateX(0);
+}
+
+.card-title {
+    color: #05a833;
+}
+
+.price {
+    color: red;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.btn-detail {
+    background-color: #05a833;
+    color: white;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.btn-detail:hover {
+    color: white;
+    opacity: 0.8;
+}
+
+.carousel-control-prev-icon-custom,
+.carousel-control-next-icon-custom {
+    color: white;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    background-color: #05a833;
+    width: 30px;
+    height: 30px;
+    opacity: 1;
+    text-decoration: none;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+
+#recipeCarousel {
+    position: relative;
+}
+
+.carousel-control-prev {
+    left: 0;
+}
+.carousel-control-next {
+    right: 0;
+}
+
+
+.popular-product-img {
+    height: 150px;
+    width: 100%;
+    overflow: hidden;
+}
