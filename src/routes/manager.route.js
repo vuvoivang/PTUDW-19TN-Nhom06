@@ -4,7 +4,8 @@ const router = express.Router();
 const managerController = require('../controllers/manager.controller');
 
 // patient management
-router.get("/", managerController.get);
+// router.get("/", managerController.get); // default
+router.get("/", managerController.getProductManagement);    // temporary
 
 
 // category management

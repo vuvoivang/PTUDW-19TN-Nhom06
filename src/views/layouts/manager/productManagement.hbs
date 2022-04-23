@@ -4,238 +4,704 @@
   </title>
 {{/section}}
 {{#section "style"}}
-  {{! DataTables }}
-  <link rel="stylesheet" type="text/css" href="/DataTables/datatables.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
 {{/section}}
-<div class="col-md-12">
-  <div class="card">
-    <div class="card-header">
-      <h4 class="card-title">
-        Quản lý nhu yếu phẩm
-      </h4>
-    </div>
-    <div class="d-flex justify-content-between">
-      <a
-        href="/manager/product-management/create"
-        class="btn btn-info w-25 ml-4"
-      >
-        Thêm nhu yếu phẩm
-      </a>
-      <button class="btn btn-info w-25 mr-4 switch-view-btn">
-        Đổi dạng hiển thị
-      </button>
-    </div>
-    <div class="card-body">
-      <div class="table-responsive table-view p-3">
-        <table class="table table-hover" id="table_product_management">
-          <thead class="text-primary">
-            <tr>
-              <th>
-                Tên nhu yếu phẩm
-              </th>
-              <th>
-                Đơn vị
-              </th>
-              <th>
-                Đơn giá
-              </th>
-              <th>
-                Danh mục
-              </th>
-              <th class="text-right">
-                Thao tác
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {{#each data}}
+<div id="product-management">
+  <div class="col-md-12 p-0">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title px-3">
+          Danh sách nhu yếu phẩm
+        </h4>
+      </div>
+      <div class="card-body">
+        <div class="d-flex justify-content-between px-3">
+          <button class="btn btn-primary">
+            THÊM NHU YẾU PHẨM
+          </button>
+          <button class="btn btn-primary">
+            ĐỔI DẠNG HIỂN THỊ
+          </button>
+        </div>
+        <div class="table-responsive p-3">
+          <table class="table table-hover" id="data_table">
+            <thead class="text-primary">
+              <tr>
+                <th>
+                  ID
+                </th>
+                <th>
+                  TÊN NHU YẾU PHẨM
+                </th>
+                <th>
+                  ĐƠN VỊ
+                </th>
+                <th>
+                  ĐƠN GIÁ
+                </th>
+                <th>
+                  DANH MỤC
+                </th>
+                <th class="text-end">
+                  THAO TÁC
+                </th>
+              </tr>
+            </thead>
+            <tbody>
               <tr>
                 <td>
-                  {{this.name}}
+                  001
                 </td>
                 <td>
-                  {{this.unit}}
+                  Bánh mì
                 </td>
                 <td>
-                  {{this.price}}
+                  cái
                 </td>
                 <td>
-                  {{this.category_name}}
+                  5000
                 </td>
-                <td class="text-right">
-                  <a
-                    href="/manager/product-management/{{this.necessary_id}}"
-                    class="btn btn-success"
-                  >
-                    Chi tiết
-                  </a>
+                <td>
+                  Lương thực
+                </td>
+                <td class="text-end">
+                  <button class="btn btn-success">
+                    CHI TIẾT
+                  </button>
                   <button
                     class="btn btn-danger"
-                    data-id="{{this.necessary_id}}"
-                    data-toggle="modal"
-                    data-target="#delete-product-modal"
-                    onclick="handleProductModal(this, 'delete-product-form')"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
                   >
-                    Xóa
+                    XÓA
                   </button>
                 </td>
               </tr>
-            {{/each}}
-          </tbody>
-        </table>
-      </div>
-      <div class="table-responsive card-view p-3">
-        <div class="container">
-          <div class="row">
-            {{#each data}}
-              <div class="card col-12 col-md-4 col-lg-3">
-                <a href="/manager/product-management/{{this.necessary_id}}">
-                  <img src="{{get this.images 0}}" class="card-img-top" />
-                  <div class="card-body">
-                    <h5 class="card-title text-dark">
-                      {{this.name}}
-                    </h5>
-                    <p class="card-text text-dark">
-                      {{this.price}}
-                      đ /
-                      {{this.unit}}
-                    </p>
-                  </div>
-                </a>
+              <tr>
+                <td>
+                  002
+                </td>
+                <td>
+                  Bánh mì
+                </td>
+                <td>
+                  cái
+                </td>
+                <td>
+                  5000
+                </td>
+                <td>
+                  Lương thực
+                </td>
+                <td class="text-end">
+                  <button class="btn btn-success">
+                    CHI TIẾT
+                  </button>
+                  <button
+                    class="btn btn-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                  >
+                    XÓA
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  003
+                </td>
+                <td>
+                  Bánh mì
+                </td>
+                <td>
+                  cái
+                </td>
+                <td>
+                  5000
+                </td>
+                <td>
+                  Lương thực
+                </td>
+                <td class="text-end">
+                  <button class="btn btn-success">
+                    CHI TIẾT
+                  </button>
+                  <button
+                    class="btn btn-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                  >
+                    XÓA
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  004
+                </td>
+                <td>
+                  Bánh mì
+                </td>
+                <td>
+                  cái
+                </td>
+                <td>
+                  5000
+                </td>
+                <td>
+                  Lương thực
+                </td>
+                <td class="text-end">
+                  <button class="btn btn-success">
+                    CHI TIẾT
+                  </button>
+                  <button
+                    class="btn btn-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                  >
+                    XÓA
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  005
+                </td>
+                <td>
+                  Bánh mì
+                </td>
+                <td>
+                  cái
+                </td>
+                <td>
+                  5000
+                </td>
+                <td>
+                  Lương thực
+                </td>
+                <td class="text-end">
+                  <button class="btn btn-success">
+                    CHI TIẾT
+                  </button>
+                  <button
+                    class="btn btn-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                  >
+                    XÓA
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  006
+                </td>
+                <td>
+                  Bánh mì
+                </td>
+                <td>
+                  cái
+                </td>
+                <td>
+                  5000
+                </td>
+                <td>
+                  Lương thực
+                </td>
+                <td class="text-end">
+                  <button class="btn btn-success">
+                    CHI TIẾT
+                  </button>
+                  <button
+                    class="btn btn-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                  >
+                    XÓA
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  007
+                </td>
+                <td>
+                  Bánh mì
+                </td>
+                <td>
+                  cái
+                </td>
+                <td>
+                  5000
+                </td>
+                <td>
+                  Lương thực
+                </td>
+                <td class="text-end">
+                  <button class="btn btn-success">
+                    CHI TIẾT
+                  </button>
+                  <button
+                    class="btn btn-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                  >
+                    XÓA
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  008
+                </td>
+                <td>
+                  Bánh mì
+                </td>
+                <td>
+                  cái
+                </td>
+                <td>
+                  5000
+                </td>
+                <td>
+                  Lương thực
+                </td>
+                <td class="text-end">
+                  <button class="btn btn-success">
+                    CHI TIẾT
+                  </button>
+                  <button
+                    class="btn btn-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                  >
+                    XÓA
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  009
+                </td>
+                <td>
+                  Bánh mì
+                </td>
+                <td>
+                  cái
+                </td>
+                <td>
+                  5000
+                </td>
+                <td>
+                  Lương thực
+                </td>
+                <td class="text-end">
+                  <button class="btn btn-success">
+                    CHI TIẾT
+                  </button>
+                  <button
+                    class="btn btn-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                  >
+                    XÓA
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  010
+                </td>
+                <td>
+                  Bánh mì
+                </td>
+                <td>
+                  cái
+                </td>
+                <td>
+                  5000
+                </td>
+                <td>
+                  Lương thực
+                </td>
+                <td class="text-end">
+                  <button class="btn btn-success">
+                    CHI TIẾT
+                  </button>
+                  <button
+                    class="btn btn-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                  >
+                    XÓA
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  011
+                </td>
+                <td>
+                  Bánh mì
+                </td>
+                <td>
+                  cái
+                </td>
+                <td>
+                  5000
+                </td>
+                <td>
+                  Lương thực
+                </td>
+                <td class="text-end">
+                  <button class="btn btn-success">
+                    CHI TIẾT
+                  </button>
+                  <button
+                    class="btn btn-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                  >
+                    XÓA
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  012
+                </td>
+                <td>
+                  Bánh mì
+                </td>
+                <td>
+                  cái
+                </td>
+                <td>
+                  5000
+                </td>
+                <td>
+                  Lương thực
+                </td>
+                <td class="text-end">
+                  <button class="btn btn-success">
+                    CHI TIẾT
+                  </button>
+                  <button
+                    class="btn btn-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                  >
+                    XÓA
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  013
+                </td>
+                <td>
+                  Bánh mì
+                </td>
+                <td>
+                  cái
+                </td>
+                <td>
+                  5000
+                </td>
+                <td>
+                  Lương thực
+                </td>
+                <td class="text-end">
+                  <button class="btn btn-success">
+                    CHI TIẾT
+                  </button>
+                  <button
+                    class="btn btn-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                  >
+                    XÓA
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  014
+                </td>
+                <td>
+                  Bánh mì
+                </td>
+                <td>
+                  cái
+                </td>
+                <td>
+                  5000
+                </td>
+                <td>
+                  Lương thực
+                </td>
+                <td class="text-end">
+                  <button class="btn btn-success">
+                    CHI TIẾT
+                  </button>
+                  <button
+                    class="btn btn-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                  >
+                    XÓA
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  015
+                </td>
+                <td>
+                  Bánh mì
+                </td>
+                <td>
+                  cái
+                </td>
+                <td>
+                  5000
+                </td>
+                <td>
+                  Lương thực
+                </td>
+                <td class="text-end">
+                  <button class="btn btn-success">
+                    CHI TIẾT
+                  </button>
+                  <button
+                    class="btn btn-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                  >
+                    XÓA
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  016
+                </td>
+                <td>
+                  Bánh mì
+                </td>
+                <td>
+                  cái
+                </td>
+                <td>
+                  5000
+                </td>
+                <td>
+                  Lương thực
+                </td>
+                <td class="text-end">
+                  <button class="btn btn-success">
+                    CHI TIẾT
+                  </button>
+                  <button
+                    class="btn btn-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                  >
+                    XÓA
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  017
+                </td>
+                <td>
+                  Bánh mì
+                </td>
+                <td>
+                  cái
+                </td>
+                <td>
+                  5000
+                </td>
+                <td>
+                  Lương thực
+                </td>
+                <td class="text-end">
+                  <button class="btn btn-success">
+                    CHI TIẾT
+                  </button>
+                  <button
+                    class="btn btn-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                  >
+                    XÓA
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  018
+                </td>
+                <td>
+                  Bánh mì
+                </td>
+                <td>
+                  cái
+                </td>
+                <td>
+                  5000
+                </td>
+                <td>
+                  Lương thực
+                </td>
+                <td class="text-end">
+                  <button class="btn btn-success">
+                    CHI TIẾT
+                  </button>
+                  <button
+                    class="btn btn-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                  >
+                    XÓA
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  019
+                </td>
+                <td>
+                  Bánh mì
+                </td>
+                <td>
+                  cái
+                </td>
+                <td>
+                  5000
+                </td>
+                <td>
+                  Lương thực
+                </td>
+                <td class="text-end">
+                  <button class="btn btn-success">
+                    CHI TIẾT
+                  </button>
+                  <button
+                    class="btn btn-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                  >
+                    XÓA
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  020
+                </td>
+                <td>
+                  Bánh mì
+                </td>
+                <td>
+                  cái
+                </td>
+                <td>
+                  5000
+                </td>
+                <td>
+                  Lương thực
+                </td>
+                <td class="text-end">
+                  <button class="btn btn-success">
+                    CHI TIẾT
+                  </button>
+                  <button
+                    class="btn btn-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                  >
+                    XÓA
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- Modal -->
+        <div
+          class="modal fade"
+          id="exampleModal"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                  Xóa nhu yếu phẩm
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
               </div>
-            {{/each}}
+              <div class="modal-body">
+                Bạn chắc chắn muốn xóa nhu yếu phẩm này?
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Hủy
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  data-bs-dismiss="modal"
+                >
+                  Xóa bỏ
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="card">
-    <div class="card-header">
-      <h4 class="card-title">
-        Thống kê tiêu thụ Nhu yếu phẩm
-      </h4>
-    </div>
-    <div class="card-body">
-      <canvas id="productChart" style="padding: 0 50px;"></canvas>
-    </div>
-  </div>
-</div>
-{{! Confirm delete product modal }}
-<div
-  class="modal fade"
-  id="delete-product-modal"
-  tabindex="-1"
-  aria-hidden="true"
->
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">
-          Xóa nhu yếu phẩm?
-        </h5>
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-        >
-          <span aria-hidden="true">
-            ×
-          </span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>
-          Bạn chắc chắn muốn xóa nhu yếu phẩm này?
-        </p>
-        <form
-          name="delete-product-form"
-          id="delete-product-form"
-          method="POST"
-          action="/manager/product-management?_method=DELETE"
-        >
-          <input
-            type="text"
-            name="delete_product_id"
-            id="delete_product_id"
-            hidden
-          />
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="submit" form="delete-product-form" class="btn btn-danger">
-          Xóa bỏ
-        </button>
-        <button
-          type="button"
-          class="btn btn-secondary ml-1"
-          data-dismiss="modal"
-          aria-label="Close"
-        >
-          Hủy
-        </button>
-      </div>
-    </div>
-  </div>
 </div>
 {{#section "script"}}
-  {{! Datatables }}
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
   <script
     type="text/javascript"
-    charset="utf8"
-    src="/DataTables/datatables.js"
+    src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"
   ></script>
   <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"
+    type="text/javascript"
+    src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"
   ></script>
   <script>
     $(document).ready(function () {
-        $('#table_product_management').DataTable();
+        $('#data_table').DataTable();
     });
-    const productChartCanvas = document.getElementById('productChart');
-    const data = {
-        labels:
-    {{{chart_data.dates}}}
-    ,
-        datasets: [
-    {{#each chart_data.data}}
-      {
-                label:
-      {{{this.name}}}
-      ,
-                data:
-      {{this.data}}
-      ,
-                fill: false,
-                borderColor:
-      {{{this.color}}}
-      ,
-                tension: 0.1
-            },
-    {{/each}}
-    ]
-    }
-    const config = {
-        type: 'line',
-        data: data,
-        option: {
-            responsive: false,
-            maintainAspectRatio: true,
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            },
-            layout: {
-                padding: {
-                    x: 50
-                }
-            }
-        }
-    }
-    var productChart = new Chart(productChartCanvas, config)
   </script>
-  {{! Modal }}
-  <script src="/js/custom/modal.js"></script>
-  <script src="/js/custom/toggleTableCardView.js"></script>
 {{/section}}

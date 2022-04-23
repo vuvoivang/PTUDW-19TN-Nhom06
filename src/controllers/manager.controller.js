@@ -4,10 +4,14 @@ module.exports = {
     },
 
     getProductManagement: (req, res) => {
-        res.render("layouts/manager/productManagement")
+        res.render("layouts/manager/productManagement", {
+            layout: "manager/main"
+        })
     },
 
     createProduct: (req, res) => {
-        res.render("layouts/manager/createProduct")
+        res.render("layouts/manager/createProduct", {
+            layout: "manager/main"
+        })
     }
 }
