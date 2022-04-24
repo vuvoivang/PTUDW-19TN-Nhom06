@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "My Project in Web Development course",
   "main": "src/app.js",
-  "type": "module",
   "scripts": {
     "start": "nodemon --inspect src/app.js",
     "build": "node src/app.js",
