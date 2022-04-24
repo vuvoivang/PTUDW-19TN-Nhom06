@@ -5,7 +5,7 @@
   "main": "src/app.js",
   "scripts": {
     "start": "nodemon --inspect src/app.js",
-    "build":"node src/app.js",
+    "build": "netlify-lambda build express src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -30,6 +30,7 @@
     "express": "^4.17.3",
     "express-handlebars": "^6.0.2",
     "morgan": "^1.10.0",
+    "netlify-lambda": "^2.0.15",
     "nodemon": "^2.0.15"
   }
 }
