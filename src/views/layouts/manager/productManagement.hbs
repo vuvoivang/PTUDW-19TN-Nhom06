@@ -3,12 +3,12 @@
     Quản lý nhu yếu phẩm
   </title>
 {{/section}}
-<div class="product-list">
+<div id="product-management">
   <div class="card">
     <div class="card-header">
-      <h4 class="card-title">
+      <h2 class="card-title">
         Danh sách nhu yếu phẩm
-      </h4>
+      </h2>
     </div>
     <div class="card-body">
       <div class="d-flex justify-content-between">
@@ -18,11 +18,12 @@
             Thêm nhu yếu phẩm
           </button>
         </a>
-        <button class="btn btn-primary">
+        <button class="btn btn-primary btn-switch-view">
+          <i class="fa-solid fa-rotate"></i>
           Đổi dạng hiển thị
         </button>
       </div>
-      <div class="table-responsive py-3">
+      <div class="table-responsive py-3 table-view">
         <table class="table table-hover" id="data_table">
           <thead class="text-primary">
             <tr>
@@ -30,19 +31,19 @@
                 ID
               </th>
               <th>
-                TÊN NHU YẾU PHẨM
+                Tên nhu yếu phẩm
               </th>
               <th>
-                ĐƠN VỊ
+                Đơn vị
               </th>
               <th>
-                ĐƠN GIÁ
+                Đơn giá
               </th>
               <th>
-                DANH MỤC
+                Danh mục
               </th>
               <th class="text-end">
-                THAO TÁC
+                Thao tác
               </th>
             </tr>
           </thead>
@@ -670,15 +671,661 @@
           </tbody>
         </table>
       </div>
+      <div class="card-view py-3">
+        <div class="card-content row" style="display: none">
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="card-item mx-auto my-3">
+              <div class="card-image">
+                <img src="/img/necessaries/bread/pic1.png" alt="card" />
+              </div>
+              <div class="card-info">
+                <h4>
+                  Bánh mì
+                </h4>
+                <p class="text-danger">
+                  15,000 đ/ổ
+                </p>
+              </div>
+              <div class="card-action px-3 pb-3 text-end">
+                <button
+                  class="btn btn-danger"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                >
+                  Xóa
+                </button>
+                <a
+                  class="d-inline-block"
+                  href="/manager/product-management/001"
+                >
+                  <button class="btn btn-success">
+                    Chi tiết
+                  </button>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="card-item mx-auto my-3">
+              <div class="card-image">
+                <img src="/img/necessaries/bread/pic1.png" alt="card" />
+              </div>
+              <div class="card-info">
+                <h4>
+                  Bánh mì
+                </h4>
+                <p class="text-danger">
+                  15,000 đ/ổ
+                </p>
+              </div>
+              <div class="card-action px-3 pb-3 text-end">
+                <button
+                  class="btn btn-danger"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                >
+                  Xóa
+                </button>
+                <a
+                  class="d-inline-block"
+                  href="/manager/product-management/001"
+                >
+                  <button class="btn btn-success">
+                    Chi tiết
+                  </button>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="card-item mx-auto my-3">
+              <div class="card-image">
+                <img src="/img/necessaries/bread/pic1.png" alt="card" />
+              </div>
+              <div class="card-info">
+                <h4>
+                  Bánh mì
+                </h4>
+                <p class="text-danger">
+                  15,000 đ/ổ
+                </p>
+              </div>
+              <div class="card-action px-3 pb-3 text-end">
+                <button
+                  class="btn btn-danger"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                >
+                  Xóa
+                </button>
+                <a
+                  class="d-inline-block"
+                  href="/manager/product-management/001"
+                >
+                  <button class="btn btn-success">
+                    Chi tiết
+                  </button>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="card-item mx-auto my-3">
+              <div class="card-image">
+                <img src="/img/necessaries/bread/pic1.png" alt="card" />
+              </div>
+              <div class="card-info">
+                <h4>
+                  Bánh mì
+                </h4>
+                <p class="text-danger">
+                  15,000 đ/ổ
+                </p>
+              </div>
+              <div class="card-action px-3 pb-3 text-end">
+                <button
+                  class="btn btn-danger"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                >
+                  Xóa
+                </button>
+                <a
+                  class="d-inline-block"
+                  href="/manager/product-management/001"
+                >
+                  <button class="btn btn-success">
+                    Chi tiết
+                  </button>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="card-item mx-auto my-3">
+              <div class="card-image">
+                <img src="/img/necessaries/bread/pic1.png" alt="card" />
+              </div>
+              <div class="card-info">
+                <h4>
+                  Bánh mì
+                </h4>
+                <p class="text-danger">
+                  15,000 đ/ổ
+                </p>
+              </div>
+              <div class="card-action px-3 pb-3 text-end">
+                <button
+                  class="btn btn-danger"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                >
+                  Xóa
+                </button>
+                <a
+                  class="d-inline-block"
+                  href="/manager/product-management/001"
+                >
+                  <button class="btn btn-success">
+                    Chi tiết
+                  </button>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="card-item mx-auto my-3">
+              <div class="card-image">
+                <img src="/img/necessaries/bread/pic1.png" alt="card" />
+              </div>
+              <div class="card-info">
+                <h4>
+                  Bánh mì
+                </h4>
+                <p class="text-danger">
+                  15,000 đ/ổ
+                </p>
+              </div>
+              <div class="card-action px-3 pb-3 text-end">
+                <button
+                  class="btn btn-danger"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                >
+                  Xóa
+                </button>
+                <a
+                  class="d-inline-block"
+                  href="/manager/product-management/001"
+                >
+                  <button class="btn btn-success">
+                    Chi tiết
+                  </button>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="card-item mx-auto my-3">
+              <div class="card-image">
+                <img src="/img/necessaries/bread/pic1.png" alt="card" />
+              </div>
+              <div class="card-info">
+                <h4>
+                  Bánh mì
+                </h4>
+                <p class="text-danger">
+                  15,000 đ/ổ
+                </p>
+              </div>
+              <div class="card-action px-3 pb-3 text-end">
+                <button
+                  class="btn btn-danger"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                >
+                  Xóa
+                </button>
+                <a
+                  class="d-inline-block"
+                  href="/manager/product-management/001"
+                >
+                  <button class="btn btn-success">
+                    Chi tiết
+                  </button>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="card-item mx-auto my-3">
+              <div class="card-image">
+                <img src="/img/necessaries/bread/pic1.png" alt="card" />
+              </div>
+              <div class="card-info">
+                <h4>
+                  Bánh mì
+                </h4>
+                <p class="text-danger">
+                  15,000 đ/ổ
+                </p>
+              </div>
+              <div class="card-action px-3 pb-3 text-end">
+                <button
+                  class="btn btn-danger"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                >
+                  Xóa
+                </button>
+                <a
+                  class="d-inline-block"
+                  href="/manager/product-management/001"
+                >
+                  <button class="btn btn-success">
+                    Chi tiết
+                  </button>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="card-item mx-auto my-3">
+              <div class="card-image">
+                <img src="/img/necessaries/bread/pic1.png" alt="card" />
+              </div>
+              <div class="card-info">
+                <h4>
+                  Bánh mì
+                </h4>
+                <p class="text-danger">
+                  15,000 đ/ổ
+                </p>
+              </div>
+              <div class="card-action px-3 pb-3 text-end">
+                <button
+                  class="btn btn-danger"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                >
+                  Xóa
+                </button>
+                <a
+                  class="d-inline-block"
+                  href="/manager/product-management/001"
+                >
+                  <button class="btn btn-success">
+                    Chi tiết
+                  </button>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="card-item mx-auto my-3">
+              <div class="card-image">
+                <img src="/img/necessaries/bread/pic1.png" alt="card" />
+              </div>
+              <div class="card-info">
+                <h4>
+                  Bánh mì
+                </h4>
+                <p class="text-danger">
+                  15,000 đ/ổ
+                </p>
+              </div>
+              <div class="card-action px-3 pb-3 text-end">
+                <button
+                  class="btn btn-danger"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                >
+                  Xóa
+                </button>
+                <a
+                  class="d-inline-block"
+                  href="/manager/product-management/001"
+                >
+                  <button class="btn btn-success">
+                    Chi tiết
+                  </button>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="card-item mx-auto my-3">
+              <div class="card-image">
+                <img src="/img/necessaries/bread/pic1.png" alt="card" />
+              </div>
+              <div class="card-info">
+                <h4>
+                  Bánh mì
+                </h4>
+                <p class="text-danger">
+                  15,000 đ/ổ
+                </p>
+              </div>
+              <div class="card-action px-3 pb-3 text-end">
+                <button
+                  class="btn btn-danger"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                >
+                  Xóa
+                </button>
+                <a
+                  class="d-inline-block"
+                  href="/manager/product-management/001"
+                >
+                  <button class="btn btn-success">
+                    Chi tiết
+                  </button>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="card-item mx-auto my-3">
+              <div class="card-image">
+                <img src="/img/necessaries/bread/pic1.png" alt="card" />
+              </div>
+              <div class="card-info">
+                <h4>
+                  Bánh mì
+                </h4>
+                <p class="text-danger">
+                  15,000 đ/ổ
+                </p>
+              </div>
+              <div class="card-action px-3 pb-3 text-end">
+                <button
+                  class="btn btn-danger"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                >
+                  Xóa
+                </button>
+                <a
+                  class="d-inline-block"
+                  href="/manager/product-management/001"
+                >
+                  <button class="btn btn-success">
+                    Chi tiết
+                  </button>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="card-item mx-auto my-3">
+              <div class="card-image">
+                <img src="/img/necessaries/bread/pic1.png" alt="card" />
+              </div>
+              <div class="card-info">
+                <h4>
+                  Bánh mì
+                </h4>
+                <p class="text-danger">
+                  15,000 đ/ổ
+                </p>
+              </div>
+              <div class="card-action px-3 pb-3 text-end">
+                <button
+                  class="btn btn-danger"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                >
+                  Xóa
+                </button>
+                <a
+                  class="d-inline-block"
+                  href="/manager/product-management/001"
+                >
+                  <button class="btn btn-success">
+                    Chi tiết
+                  </button>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="card-item mx-auto my-3">
+              <div class="card-image">
+                <img src="/img/necessaries/bread/pic1.png" alt="card" />
+              </div>
+              <div class="card-info">
+                <h4>
+                  Bánh mì
+                </h4>
+                <p class="text-danger">
+                  15,000 đ/ổ
+                </p>
+              </div>
+              <div class="card-action px-3 pb-3 text-end">
+                <button
+                  class="btn btn-danger"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                >
+                  Xóa
+                </button>
+                <a
+                  class="d-inline-block"
+                  href="/manager/product-management/001"
+                >
+                  <button class="btn btn-success">
+                    Chi tiết
+                  </button>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="card-item mx-auto my-3">
+              <div class="card-image">
+                <img src="/img/necessaries/bread/pic1.png" alt="card" />
+              </div>
+              <div class="card-info">
+                <h4>
+                  Bánh mì
+                </h4>
+                <p class="text-danger">
+                  15,000 đ/ổ
+                </p>
+              </div>
+              <div class="card-action px-3 pb-3 text-end">
+                <button
+                  class="btn btn-danger"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                >
+                  Xóa
+                </button>
+                <a
+                  class="d-inline-block"
+                  href="/manager/product-management/001"
+                >
+                  <button class="btn btn-success">
+                    Chi tiết
+                  </button>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="card-item mx-auto my-3">
+              <div class="card-image">
+                <img src="/img/necessaries/bread/pic1.png" alt="card" />
+              </div>
+              <div class="card-info">
+                <h4>
+                  Bánh mì
+                </h4>
+                <p class="text-danger">
+                  15,000 đ/ổ
+                </p>
+              </div>
+              <div class="card-action px-3 pb-3 text-end">
+                <button
+                  class="btn btn-danger"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                >
+                  Xóa
+                </button>
+                <a
+                  class="d-inline-block"
+                  href="/manager/product-management/001"
+                >
+                  <button class="btn btn-success">
+                    Chi tiết
+                  </button>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="card-item mx-auto my-3">
+              <div class="card-image">
+                <img src="/img/necessaries/bread/pic1.png" alt="card" />
+              </div>
+              <div class="card-info">
+                <h4>
+                  Bánh mì
+                </h4>
+                <p class="text-danger">
+                  15,000 đ/ổ
+                </p>
+              </div>
+              <div class="card-action px-3 pb-3 text-end">
+                <button
+                  class="btn btn-danger"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                >
+                  Xóa
+                </button>
+                <a
+                  class="d-inline-block"
+                  href="/manager/product-management/001"
+                >
+                  <button class="btn btn-success">
+                    Chi tiết
+                  </button>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="card-item mx-auto my-3">
+              <div class="card-image">
+                <img src="/img/necessaries/bread/pic1.png" alt="card" />
+              </div>
+              <div class="card-info">
+                <h4>
+                  Bánh mì
+                </h4>
+                <p class="text-danger">
+                  15,000 đ/ổ
+                </p>
+              </div>
+              <div class="card-action px-3 pb-3 text-end">
+                <button
+                  class="btn btn-danger"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                >
+                  Xóa
+                </button>
+                <a
+                  class="d-inline-block"
+                  href="/manager/product-management/001"
+                >
+                  <button class="btn btn-success">
+                    Chi tiết
+                  </button>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="card-item mx-auto my-3">
+              <div class="card-image">
+                <img src="/img/necessaries/bread/pic1.png" alt="card" />
+              </div>
+              <div class="card-info">
+                <h4>
+                  Bánh mì
+                </h4>
+                <p class="text-danger">
+                  15,000 đ/ổ
+                </p>
+              </div>
+              <div class="card-action px-3 pb-3 text-end">
+                <button
+                  class="btn btn-danger"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                >
+                  Xóa
+                </button>
+                <a
+                  class="d-inline-block"
+                  href="/manager/product-management/001"
+                >
+                  <button class="btn btn-success">
+                    Chi tiết
+                  </button>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="card-item mx-auto my-3">
+              <div class="card-image">
+                <img src="/img/necessaries/bread/pic1.png" alt="card" />
+              </div>
+              <div class="card-info">
+                <h4>
+                  Bánh mì
+                </h4>
+                <p class="text-danger">
+                  15,000 đ/ổ
+                </p>
+              </div>
+              <div class="card-action px-3 pb-3 text-end">
+                <button
+                  class="btn btn-danger"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                >
+                  Xóa
+                </button>
+                <a
+                  class="d-inline-block"
+                  href="/manager/product-management/001"
+                >
+                  <button class="btn btn-success">
+                    Chi tiết
+                  </button>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-pagination"></div>
+      </div>
     </div>
   </div>
 </div>
+<div id="product-card"></div>
 <div class="product-statistics pt-4">
   <div class="card">
     <div class="card-header">
-      <h4 class="card-title">
+      <h2 class="card-title">
         Thống kê tiêu thụ nhu yếu phẩm
-      </h4>
+      </h2>
     </div>
     <div class="card-body">
       <canvas id="productStatistics"></canvas>
@@ -798,4 +1445,6 @@
     };
     var productChart = new Chart(ctx, config);
   </script>
+  <script src="/js/custom/toggleTableCardView.js"></script>
+  <script src="/js/custom/cardPagination.js"></script>
 {{/section}}

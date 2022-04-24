@@ -1,6 +1,6 @@
 module.exports = {
     get: (req, res) => {
-        res.render("layouts/sites/home", {
+        res.render("layouts/sites/productPayment", {
             layout: "sites/main",
         });
     },
