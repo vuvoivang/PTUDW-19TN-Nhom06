@@ -1,8 +1,3 @@
-.intro {
-}
-
-.intro-text {
-}
 .intro-title {
     font-size: 2.5rem;
     font-weight: bold;
@@ -14,8 +9,6 @@
 .intro-description {
     font-size: 1.2rem;
     color: #838383;
-}
-.intro-image {
 }
 
 .intro-image img {

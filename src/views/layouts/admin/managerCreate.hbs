@@ -1,0 +1,95 @@
+<h2>Thêm tài khoản quản lý</h2>
+<form action="" method="post" id="create-form">
+    <label for="username">Username</label>
+    <div class="input-field username">
+        <div class="icon">
+            <i class="fa-solid fa-circle-user"></i>
+        </div>
+        <input type="text" id="username" name="username" placeholder="Enter username" required>
+    </div>
+    <label for="password">Password</label>
+    <div class="input-field password">
+        <div class="icon">
+            <i class="fa-solid fa-lock"></i>
+        </div>
+        <input type="password" id="password" name="password" placeholder="Enter password" required>
+    </div>
+    <label for="confirm-password">Password</label>
+    <div class="input-field confirm-password">
+        <div class="icon">
+            <i class="fa-solid fa-lock"></i>
+        </div>
+        <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password"
+            required>
+    </div>
+    <button type="button" class="btn create-account" data-bs-toggle="modal" data-bs-target="#permission-popup"
+        id="create-account" disabled>Tạo tài khoản quản lý</button>
+</form>
+<!-- Modal -->
+<div class="modal fade rounded-pill p-3" id="permission-popup" tabindex="-1" aria-labelledby="permission-popupLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="permission-popupLabel">Cập nhật quyền cho
+                    tài khoản
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-toggle="modal"
+                    aria-label="Close" data-bs-target="#mess-failed"></button>
+            </div>
+            <div class="modal-body py-4">
+                <div class="title">
+                    <h4 class="text-center">Danh sách các quyền hạn của người quản lý</h4>
+                </div>
+                <div class="my-4 me-4" id="permission-content">
+                    <div class="form-check form-switch">
+                        <label class="form-check-label" for="p1">Quản lý danh sách
+                            người liên quan Covid-19</label>
+                        <input class="form-check-input float-end" type="checkbox" id="p1">
+                    </div>
+                    <div class="form-check form-switch">
+                        <label class="form-check-label" for="p2">Thêm người liên quan
+                            Covid-19 vào hệ thống</label>
+                        <input class="form-check-input float-end" type="checkbox" id="p2">
+                    </div>
+                    <div class="form-check form-switch">
+                        <label class="form-check-label" for="p3">Thay đổi trạng thái
+                            người liên quan Covid-19</label>
+                        <input class="form-check-input float-end" type="checkbox" id="p3">
+                    </div>
+                    <div class="form-check form-switch">
+                        <label class="form-check-label" for="p4">Quản lý các sản phẩm
+                            nhu yếu phẩm</label>
+                        <input class="form-check-input float-end" type="checkbox" id="p4">
+                    </div>
+                    <div class="form-check form-switch">
+                        <label class="form-check-label" for="p5">Quản lý các gói nhu yếu
+                            phẩm</label>
+                        <input class="form-check-input float-end" type="checkbox" id="p5">
+                    </div>
+                    <div class="form-check form-switch">
+                        <label class="form-check-label" for="p6">Thống kê thông tin
+                        </label>
+                        <input class="form-check-input float-end" type="checkbox" id="p6">
+                    </div>
+                    <div class="form-check form-switch">
+                        <label class="form-check-label" for="p7">Quản lý Thanh
+                            toán</label>
+                        <input class="form-check-input float-end" type="checkbox" id="p7">
+                    </div>
+                    <div class="form-check form-switch">
+                        <label class="form-check-label" for="p8"><b>Chọn tất
+                                cả</b></label>
+                        <input class="form-check-input float-end" type="checkbox" id="p8">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="submit" id="cancel" value="Cancel" class="btn cancel" data-bs-dismiss="modal">
+                <input type="submit" id="update" value="Update" class="btn update" data-bs-dismiss="modal">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="snackbar"></div>
