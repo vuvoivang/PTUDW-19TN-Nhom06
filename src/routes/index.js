@@ -9,7 +9,7 @@ const managerRoute = require('./manager.route');
 function route(app) {
 
     app.use('/category', categoryRoute);
-    app.use('/productPayment', productPaymentRoute);
+    app.use('/product-payment', productPaymentRoute);
     app.use('/product', productRoute);
     app.use('/admin', adminRoute);
     app.use('/manager', managerRoute);
