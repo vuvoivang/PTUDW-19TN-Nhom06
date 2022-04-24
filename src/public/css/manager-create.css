@@ -6,10 +6,10 @@ body {
 
 .form-container {
     clear: both;
-    margin: 3% 10%;
+    margin: 3% 15%;
     background-color: white;
     border-radius: 20px;
-    width: 500px;
+    width: 60%;
     padding: 30px 40px;
     padding-bottom: 20px;
     box-shadow: 0 0 20px #ccc;
