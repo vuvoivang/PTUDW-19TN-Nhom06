@@ -854,3 +854,102 @@ table.dataTable > thead .sorting_desc_disabled:after {
 .body-content {
   border-radius: 0.75rem;
 }
+
+.card-view {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.card-view .card-item {
+  position: relative;
+  background: #fff;
+  max-width: 300px;
+  box-shadow: 0 5px 25px rgb(1 1 1 / 20%);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.card-view .card-image {
+  height: 200px;
+}
+
+.card-view .card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-view .card-info {
+  position: relative;
+  color: #222;
+  padding: 10px 20px 20px;
+}
+
+.card-view .card-info h4 {
+  font-size: 1.8em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 5px;
+}
+
+.card-view .card-info p {
+  font-size: 1.3em;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.card-view .card-pagination {
+  text-align: center;
+  margin: 30px 30px 60px;
+  user-select: none;
+}
+
+.card-view .card-pagination li {
+  display: inline-block;
+  margin: 5px;
+  box-shadow: 0 5px 25px rgb(1 1 1 / 10%);
+}
+
+.card-view .card-pagination li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.2em;
+  line-height: 45px;
+}
+
+.card-view .previous-page,
+.card-view .next-page {
+  background: #0ab1ce;
+  width: 80px;
+  border-radius: 45px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.card-view .previous-page:hover {
+  transform: translateX(-5px);
+}
+
+.card-view .next-page:hover {
+  transform: translateX(5px);
+}
+
+.card-view .current-page,
+.card-view .dots {
+  background: #ccc;
+  width: 45px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.card-view .active {
+  background: #0ab1ce;
+}
+
+.card-view .disable {
+  background: #ccc;
+}
