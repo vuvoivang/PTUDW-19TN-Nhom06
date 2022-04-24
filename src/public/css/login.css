@@ -141,13 +141,14 @@ form .account-option {
     gap: 10px;
     margin-top: 15px;
     justify-content: center;
+    margin-bottom: 10px;
 }
 
 .direction {
     display: flex;
     justify-content: center;
     color: #252733;
-    margin: 15px 8% 0 20%;
+    margin: 15px 8% 0 0;
     font-size: 16px;
 }
 
