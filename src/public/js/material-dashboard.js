@@ -1,35 +1,35 @@
 "use strict";
-(function() {
-  var isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
+// (function() {
+//   var isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
 
-  if (isWindows) {
-    // if we are on windows OS we activate the perfectScrollbar function
-    if (document.getElementsByClassName('main-content')[0]) {
-      var mainpanel = document.querySelector('.main-content');
-      var ps = new PerfectScrollbar(mainpanel);
-    };
+//   if (isWindows) {
+//     // if we are on windows OS we activate the perfectScrollbar function
+//     if (document.getElementsByClassName('main-content')[0]) {
+//       var mainpanel = document.querySelector('.main-content');
+//       var ps = new PerfectScrollbar(mainpanel);
+//     };
 
-    if (document.getElementsByClassName('sidenav')[0]) {
-      var sidebar = document.querySelector('.sidenav');
-      var ps1 = new PerfectScrollbar(sidebar);
-    };
+//     if (document.getElementsByClassName('sidenav')[0]) {
+//       var sidebar = document.querySelector('.sidenav');
+//       var ps1 = new PerfectScrollbar(sidebar);
+//     };
 
-    if (document.getElementsByClassName('navbar-collapse')[0]) {
-      var fixedplugin = document.querySelector('.navbar:not(.navbar-expand-lg) .navbar-collapse');
-      var ps2 = new PerfectScrollbar(fixedplugin);
-    };
+//     if (document.getElementsByClassName('navbar-collapse')[0]) {
+//       var fixedplugin = document.querySelector('.navbar:not(.navbar-expand-lg) .navbar-collapse');
+//       var ps2 = new PerfectScrollbar(fixedplugin);
+//     };
 
-    if (document.getElementsByClassName('fixed-plugin')[0]) {
-      var fixedplugin = document.querySelector('.fixed-plugin');
-      var ps3 = new PerfectScrollbar(fixedplugin);
-    };
-  };
-})();
+//     if (document.getElementsByClassName('fixed-plugin')[0]) {
+//       var fixedplugin = document.querySelector('.fixed-plugin');
+//       var ps3 = new PerfectScrollbar(fixedplugin);
+//     };
+//   };
+// })();
 
 // Verify navbar blur on scroll
-if (document.getElementById('navbarBlur')) {
-  navbarBlurOnScroll('navbarBlur');
-}
+// if (document.getElementById('navbarBlur')) {
+//   navbarBlurOnScroll('navbarBlur');
+// }
 
 // initialization of Tooltips
 var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
@@ -263,84 +263,84 @@ function navbarMinimize(el) {
   }
 }
 
-// Navbar blur on scroll
-function navbarBlurOnScroll(id) {
-  const navbar = document.getElementById(id);
-  let navbarScrollActive = navbar ? navbar.getAttribute("data-scroll") : false;
-  let scrollDistance = 5;
-  let classes = ['blur', 'shadow-blur', 'left-auto'];
-  let toggleClasses = ['shadow-none'];
+// // Navbar blur on scroll
+// function navbarBlurOnScroll(id) {
+//   const navbar = document.getElementById(id);
+//   let navbarScrollActive = navbar ? navbar.getAttribute("data-scroll") : false;
+//   let scrollDistance = 5;
+//   let classes = ['blur', 'shadow-blur', 'left-auto'];
+//   let toggleClasses = ['shadow-none'];
 
-  if (navbarScrollActive == 'true') {
-    window.onscroll = debounce(function() {
-      if (window.scrollY > scrollDistance) {
-        blurNavbar();
-      } else {
-        transparentNavbar();
-      }
-    }, 10);
-  } else {
-    window.onscroll = debounce(function() {
-      transparentNavbar();
-    }, 10);
-  }
+//   if (navbarScrollActive == 'true') {
+//     window.onscroll = debounce(function() {
+//       if (window.scrollY > scrollDistance) {
+//         blurNavbar();
+//       } else {
+//         transparentNavbar();
+//       }
+//     }, 10);
+//   } else {
+//     window.onscroll = debounce(function() {
+//       transparentNavbar();
+//     }, 10);
+//   }
 
-  var isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
+//   var isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
 
-  if (isWindows) {
-    var content = document.querySelector('.main-content');
-    if (navbarScrollActive == 'true') {
-      content.addEventListener('ps-scroll-y', debounce(function() {
-        if (content.scrollTop > scrollDistance) {
-          blurNavbar();
-        } else {
-          transparentNavbar();
-        }
-      }, 10));
-    } else {
-      content.addEventListener('ps-scroll-y', debounce(function() {
-        transparentNavbar();
-      }, 10));
-    }
-  }
+//   if (isWindows) {
+//     var content = document.querySelector('.main-content');
+//     if (navbarScrollActive == 'true') {
+//       content.addEventListener('ps-scroll-y', debounce(function() {
+//         if (content.scrollTop > scrollDistance) {
+//           blurNavbar();
+//         } else {
+//           transparentNavbar();
+//         }
+//       }, 10));
+//     } else {
+//       content.addEventListener('ps-scroll-y', debounce(function() {
+//         transparentNavbar();
+//       }, 10));
+//     }
+//   }
 
-  function blurNavbar() {
-    navbar.classList.add(...classes)
-    navbar.classList.remove(...toggleClasses)
+//   function blurNavbar() {
+//     navbar.classList.add(...classes)
+//     navbar.classList.remove(...toggleClasses)
 
-    toggleNavLinksColor('blur');
-  }
+//     toggleNavLinksColor('blur');
+//   }
 
-  function transparentNavbar() {
-    navbar.classList.remove(...classes)
-    navbar.classList.add(...toggleClasses)
+//   function transparentNavbar() {
+//     navbar.classList.remove(...classes)
+//     navbar.classList.add(...toggleClasses)
 
-    toggleNavLinksColor('transparent');
-  }
+//     toggleNavLinksColor('transparent');
+//   }
 
-  function toggleNavLinksColor(type) {
-    let navLinks = document.querySelectorAll('.navbar-main .nav-link')
-    let navLinksToggler = document.querySelectorAll('.navbar-main .sidenav-toggler-line')
+//   function toggleNavLinksColor(type) {
+//     let navLinks = document.querySelectorAll('.navbar-main .nav-link')
+//     let navLinksToggler = document.querySelectorAll('.navbar-main .sidenav-toggler-line')
 
-    if (type === "blur") {
-      navLinks.forEach(element => {
-        element.classList.remove('text-body')
-      });
+//     if (type === "blur") {
+//       navLinks.forEach(element => {
+//         element.classList.remove('text-body')
+//       });
 
-      navLinksToggler.forEach(element => {
-        element.classList.add('bg-dark')
-      });
-    } else if (type === "transparent") {
-      navLinks.forEach(element => {
-        element.classList.add('text-body')
-      });
+//       navLinksToggler.forEach(element => {
+//         element.classList.add('bg-dark')
+//       });
+//     } else if (type === "transparent") {
+//       navLinks.forEach(element => {
+//         element.classList.add('text-body')
+//       });
 
-      navLinksToggler.forEach(element => {
-        element.classList.remove('bg-dark')
-      });
-    }
-  }
-}
+//       navLinksToggler.forEach(element => {
+//         element.classList.remove('bg-dark')
+//       });
+//     }
+//   }
+// }
 
 // Debounce Function
 // Returns a function, that, as long as it continues to be invoked, will not

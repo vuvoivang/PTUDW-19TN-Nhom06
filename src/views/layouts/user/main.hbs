@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Dashboard</title>
+    {{{_sections.title}}}
+    {{{_sections.style}}}
     {{>link}}
 </head>
 <body >
@@ -12,7 +13,7 @@
            {{> userSidebar}}
            
             <div class="main-content">
-                {{> navbar}}
+                {{> userNavbar}}
                 <div class="container body-content bg-gray-200 p-4">
                     {{{body}}}
                 </div>
@@ -22,6 +23,6 @@
         </div>
         
         {{> script}}
-    
+        {{{_sections.script}}}
 </body>
 </html>

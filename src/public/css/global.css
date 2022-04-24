@@ -3,6 +3,15 @@
 }
 
 ::-webkit-scrollbar-thumb {
+  background-color: var(--bs-gray-400);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--bs-gray-500);
+}
+
+::-webkit-scrollbar-thumb {
   background-color: var(--bs-gray-300);
   border-radius: 5px;
 }
@@ -952,4 +961,7 @@ table.dataTable > thead .sorting_desc_disabled:after {
 
 .card-view .disable {
   background: #ccc;
+}
+#dropdownMenuButton .dropdown-menu {
+  box-shadow: 0 -5px 5px -5px #333;
 }

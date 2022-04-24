@@ -1,0 +1,146 @@
+{{#section "style"}}
+    <link rel="stylesheet" href="/css/productPayment.css" />
+{{/section}}
+<div class="container py-5">
+    <h2 class="payment-title text-center pb-5">
+        Chi tiết đơn hàng
+    </h2>
+    <div class="product-detail clearfix">
+        <table id="dataTable" class="table mt-5" style="width:100%">
+            <thead class="text-primary">
+                <tr>
+                    <th>Ảnh sản phẩm</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Đơn vị định lượng</th>
+                    <th>Số lượng</th>
+                    <th>Đơn giá</th>
+                    <th>Thành tiền</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><div class="product-img-detail">
+                            <img src="../img/home/detail-garan.jpg" alt="" class="img-detail" />
+                        </div></td>
+                    <td>Gà rán</td>
+                    <td>cái</td>
+                    <td>x2</td>
+                    <td>35.000</td>
+                    <td>70.000</td>
+                </tr>
+                <tr>
+                    <td><div class="product-img-detail">
+                            <img src="../img/home/detail-khoaitay.jpg" alt="" class="img-detail" />
+                        </div></td>
+                    <td>Khoai tây chiên</td>
+                    <td>phần</td>
+                    <td>x1</td>
+                    <td>20.000</td>
+                    <td>20.000</td>
+                </tr>
+                <tr>
+                    <td><div class="product-img-detail">
+                            <img src="../img/home/detail-pizza.jpg" alt="" class="img-detail" />
+                        </div></td>
+                    <td>Pizza</td>
+                    <td>phần</td>
+                    <td>x1</td>
+                    <td>45.000</td>
+                    <td>45.000</td>
+                </tr>
+                <tr>
+                    <td><div class="product-img-detail">
+                            <img src="../img/home/detail-com.webp" alt="" class="img-detail" />
+                        </div></td>
+                    <td>Cơm rang</td>
+                    <td>phần</td>
+                    <td>x2</td>
+                    <td>15.000</td>
+                    <td>30.000</td>
+                </tr>
+                <tr>
+                    <td><div class="product-img-detail">
+                            <img src="../img/home/detail-coca.png" alt="" class="img-detail" />
+                        </div></td>
+                    <td>Coca</td>
+                    <td>ly</td>
+                    <td>x2</td>
+                    <td>15.000</td>
+                    <td>30.000</td>
+                </tr>
+
+            </tbody>
+        </table>
+        <div class="mt-5 form d-flex justify-content-between align-items-baseline">
+            <div class="form d-flex justify-content-start align-items-baseline">
+                <label for="soluong" class="form-label m-0 me-3">Số lượng</label>
+                <div>
+                    <i class="fa-solid fa-circle-plus text-success"></i>
+                    <input type="text" placeholder="1" class="form-control border-1" id="soluong" value="1" />
+                    <i class="fa-solid fa-circle-minus text-success"></i>
+                </div>
+            </div>
+            <div class="total-payment">
+                <span class="total-payment-title text-bold">
+                    Tổng tiền hàng:
+                </span>
+                <span class="total-price text-danger text-bold fs-5">
+                    195.000 đồng
+                </span>
+            </div>
+        </div>
+        <div class="my-3 form d-flex justify-content-between align-items-baseline gap-5">
+            <input type="text" placeholder="Địa chỉ nhận hàng *" class="form-control border-1 payment-address" />
+            <input type="text" placeholder="Số điện thoại *" class="form-control border-1 payment-phone" />
+        </div>
+
+        <div class="d-flex align-items-baseline">
+            <div class="payment-method">Phương thức thanh toán:</div>
+
+            <div class="d-flex align-items-center ms-3">
+                <span class="text-success text-bold">Thanh toán khi nhận hàng</span>
+                <i class="fa-solid fa-circle-chevron-right ms-2 text-success text-bold"></i>
+            </div>
+        </div>
+        <div class="btn btn-primary text-right float-end my-3"  style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#confirm">Xác nhận</div>
+        <div
+            class="modal fade text-left"
+            id="confirm"
+            tabindex="-1"
+            aria-labelledby="confirmLabel"
+            aria-hidden="true"
+        >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div
+                            class="stats text-bold text-success"
+                            style="cursor: pointer;"
+                            data-bs-toggle="modal"
+                            data-bs-target="#confirm"
+                        >
+                        <i class="fa-solid fa-circle-check me-1"></i>
+                            Đặt hàng thành công
+                        </div>
+                        <button type="button" class="close btn btn-success px-3 py-0" data-bs-dismiss="modal" aria-label="Close">
+                            <span class="fs-5" aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Đã xác nhận đơn đặt hàng, hãy theo dõi quá trình vận chuyển nhé!
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Đồng ý</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{#section "script"}}
+
+    <script>
+        $(document).ready(function() { $('#dataTable').DataTable(); } );
+    </script>
+{{/section}}
