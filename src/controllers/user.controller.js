@@ -1,5 +1,5 @@
 module.exports = {
-    get: (req, res) => {
+    getAccountPayment: (req, res) => {
         res.render("layouts/user/accountPayment", {
             layout: "user/main"
         });

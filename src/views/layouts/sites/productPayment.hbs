@@ -75,9 +75,9 @@
             <div class="form d-flex justify-content-start align-items-baseline">
                 <label for="soluong" class="form-label m-0 me-3">Số lượng</label>
                 <div>
-                    <i class="fa-solid fa-circle-plus text-success"></i>
-                    <input type="text" placeholder="1" class="form-control border-1" id="soluong" value="1" />
                     <i class="fa-solid fa-circle-minus text-success"></i>
+                    <input type="text" placeholder="1" class="form-control border-1" id="soluong" value="1" />
+                    <i class="fa-solid fa-circle-plus text-success"></i>
                 </div>
             </div>
             <div class="total-payment">
@@ -102,14 +102,13 @@
                 <i class="fa-solid fa-circle-chevron-right ms-2 text-success text-bold"></i>
             </div>
         </div>
-        <div class="btn btn-primary text-right float-end my-3"  style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#confirm">Xác nhận</div>
         <div
-            class="modal fade text-left"
-            id="confirm"
-            tabindex="-1"
-            aria-labelledby="confirmLabel"
-            aria-hidden="true"
-        >
+            class="btn btn-primary text-right float-end my-3"
+            style="cursor: pointer;"
+            data-bs-toggle="modal"
+            data-bs-target="#confirm"
+        >Xác nhận</div>
+        <div class="modal fade text-left" id="confirm" tabindex="-1" aria-labelledby="confirmLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -119,10 +118,15 @@
                             data-bs-toggle="modal"
                             data-bs-target="#confirm"
                         >
-                        <i class="fa-solid fa-circle-check me-1"></i>
+                            <i class="fa-solid fa-circle-check me-1"></i>
                             Đặt hàng thành công
                         </div>
-                        <button type="button" class="close btn btn-success px-3 py-0" data-bs-dismiss="modal" aria-label="Close">
+                        <button
+                            type="button"
+                            class="close btn btn-success px-3 py-0"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                        >
                             <span class="fs-5" aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -130,7 +134,7 @@
                         Đã xác nhận đơn đặt hàng, hãy theo dõi quá trình vận chuyển nhé!
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Đồng ý</button>
+                        <a href="/" class="btn btn-primary">Đồng ý</a>
                     </div>
                 </div>
             </div>

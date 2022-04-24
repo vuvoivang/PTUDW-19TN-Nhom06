@@ -1,0 +1,171 @@
+body {
+    background-color: #F8F8F8;
+    font-size: 12px;
+}
+
+.main {
+    display: flex;
+    width: 100%;
+    height: 80vh;
+    font-weight: 500;
+}
+
+a {
+    text-decoration: none;
+    color: #838383;
+}
+
+.container {
+    flex-basis: 60%;
+    padding: 15px 0 0 60px;
+    margin-left: 20px;
+}
+
+.background {
+    position: absolute;
+    bottom: 3%;
+    right: 0;
+}
+
+.signup-container {
+    background-color: white;
+    border-radius: 20px;
+    width: 520px;
+    padding: 10px 10% 5px 10%;
+    box-shadow: 0 0 20px #ccc;
+}
+
+.logo {
+    display: inline-block;
+    padding: 5px;
+    width: 100%;
+    text-align: center;
+    margin: 0 0 3% 0;
+}
+
+.logo img {
+    vertical-align: middle;
+}
+
+.logo span {
+    margin-left: 5px;
+    color: #05A833;
+    vertical-align: middle;
+    font-size: 24px;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+label:not(label[for="email"]) {
+    margin-top: 15px;
+}
+
+#username,
+#password,
+#email,
+#confirm-password {
+    border: 0;
+    width: 100%;
+    padding-left: 8px;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+.input-field {
+    display: flex;
+    border: 3px solid #DFE0EB;
+    border-radius: 12px;
+    height: 35px;
+}
+
+.input-field .icon {
+    border-right: 3px solid #DFE0EB;
+    width: 35px;
+    text-align: center;
+    height: 100%;
+    padding-top: 2px;
+}
+
+.icon i {
+    vertical-align: middle;
+}
+
+input:focus {
+    outline: none;
+    border-color: #719ECE;
+    box-shadow: 0 0 10px #719ECE;
+}
+
+form .account-option {
+    margin: 0 0 20px 3px;
+}
+
+.account-option a {
+    float: right;
+    margin-right: 10px;
+}
+
+.account-option label {
+    color: #838383;
+}
+
+#submit {
+    width: 100%;
+    border: 0;
+    background-color: #7DCD85;
+    color: white;
+    padding: 5px;
+    font-size: medium;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+#submit:hover {
+    background-color: #05A833;
+}
+
+.additional-login {
+    display: flex;
+    column-gap: 20px;
+    justify-content: center;
+}
+
+.other-login {
+    display: flex;
+    column-gap: 10px;
+    justify-content: center;
+}
+
+.account-login {
+    display: flex;
+    gap: 10px;
+    margin: 10px 0;
+    justify-content: center;
+}
+
+.direction {
+    display: flex;
+    justify-content: center;
+    color: #252733;
+    margin: 15px 0;
+    width: 520px;
+    font-size: 16px;
+}
+
+#back-home i {
+    margin-right: 5px;
+    align-self: center;
+}
+
+#back-home span{
+    margin-bottom: 1.5px;
+    margin-left: 5px;
+}
+
+@media only screen and (max-width: 960px) {
+    .background {
+        display: none;
+    }
+}

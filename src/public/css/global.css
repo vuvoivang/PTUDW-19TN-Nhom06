@@ -1,5 +1,14 @@
 ::-webkit-scrollbar {
-  width: 10px;
+    width: 10px;
+  }
+  
+::-webkit-scrollbar-thumb {
+  background-color: var(--bs-gray-400);
+  border-radius: 5px;
+}
+  
+::-webkit-scrollbar-thumb:hover {
+    background: var(--bs-gray-500);
 }
 
 ::-webkit-scrollbar-thumb {
