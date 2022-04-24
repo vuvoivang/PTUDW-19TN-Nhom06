@@ -1,8 +1,3 @@
-.intro {
-}
-
-.intro-text {
-}
 .intro-title {
     font-size: 2.5rem;
     font-weight: bold;
@@ -14,8 +9,6 @@
 .intro-description {
     font-size: 1.2rem;
     color: #838383;
-}
-.intro-image {
 }
 
 .intro-image img {
@@ -139,16 +132,6 @@
     overflow: hidden;
 }
 
-.btn-detail {
-    background-color: #05a833;
-    color: white;
-    white-space: nowrap;
-    overflow: hidden;
-}
-.btn-detail:hover {
-    color: white;
-    opacity: 0.8;
-}
 
 .carousel-control-prev-icon-custom,
 .carousel-control-next-icon-custom {
