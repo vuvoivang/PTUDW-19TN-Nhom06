@@ -1,86 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    {{>link}}
-    <link rel="stylesheet" href="/css/manager-create.css">
-    <title>COVID19-MSYS</title>
-
+    <title>Admin Dashboard</title>
+    {{> link}}
 </head>
-
 <body>
-    <div>
-        {{> adminSidebar}}
-        <div class="main-content">
-            {{> adminNavbar}}
-            <div class="form-container">
-                {{{body}}}
+      <div>
+           {{> adminSidebar}}
+            <div class="main-content">
+                {{> adminNavbar}}
+                <div class="container">
+                    {{{body}}}
+                </div>
             </div>
+            
+           
         </div>
-
-
-    </div>
-
-    {{> script}}
+        
+        {{> script}}
     {{{_sections.script}}}
-    <script>
-        function accountValidate() {
-            var username = document.getElementById('username');
-            var pass1 = document.getElementById('password');
-            var pass2 = document.getElementById('confirm-password');
-            var button = document.getElementById("create-account");
-
-            var form = document.getElementById("create-form");
-
-            form.addEventListener("change", () => {
-                if (username.value != "" && pass1.value != "" && pass1.value === pass2.value) {
-                    button.disabled = false;
-                }
-                else {
-                    button.disabled = true;
-                }
-            })
-
-            var checkAll = document.getElementById("p8");
-
-            checkAll.addEventListener("change", () => {
-                if (checkAll.checked == true) {
-                    let permissions = document.querySelectorAll(".form-check-input.float-end");
-                    permissions.forEach(element => {
-                        element.checked = true;
-                    });
-                }
-                else {
-                    let permissions = document.querySelectorAll(".form-check-input.float-end");
-                    permissions.forEach(element => {
-                        element.checked = false;
-                    });
-                }
-            });
-
-            function showToast() {
-                var x = document.getElementById("snackbar");
-                x.className = "show";
-                setTimeout(() => {
-                    x.className = x.className.replace("show", "");
-                }, 3000);
-            }
-
-            var update = document.getElementById("update");
-            var cancel = document.getElementById("cancel");
-
-            update.addEventListener("click", () => {
-                document.getElementById("snackbar").innerHTML = "Thêm tài khoản quản lý thành công";
-                document.getElementById("snackbar").style.color = "#008000";
-                showToast();
-            });
-        }
-        accountValidate();
-    </script>
 </body>
-
 </html>

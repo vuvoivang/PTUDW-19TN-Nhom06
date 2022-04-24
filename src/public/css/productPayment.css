@@ -1,3 +1,19 @@
+.product-detail{
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    padding: 40px 30px;
+}
+#dataTable{
+
+}
+
+/* x-large and up screens */
+@media (min-width: 1200px) {
+    .product-detail {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+}
 .product-info {
     margin-bottom: 60px;
 }
@@ -37,3 +53,6 @@
     border-radius: 50%;
 }
 
+.payment-phone{
+    width: 350px;
+}

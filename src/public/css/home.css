@@ -139,16 +139,6 @@
     overflow: hidden;
 }
 
-.btn-detail {
-    background-color: #05a833;
-    color: white;
-    white-space: nowrap;
-    overflow: hidden;
-}
-.btn-detail:hover {
-    color: white;
-    opacity: 0.8;
-}
 
 .carousel-control-prev-icon-custom,
 .carousel-control-next-icon-custom {
