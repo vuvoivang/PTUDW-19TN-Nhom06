@@ -5,14 +5,9 @@ const path = require('path'); //built-in nodejs
 const route = require('./routes');
 const app = express(); // đại diện cho ứng dụng nodejs
 require('dotenv').config(); // use env variables
-// env outside of the project
-const helper = {
-    section: function (name, options) {
-        if (!this._sections) this._sections = {};
-        this._sections[name] = options.fn(this);
-        return null;
-    }
-}
+
+const { helper } = require('./middlewares/handlebars.middleware');
+
 const handlebars = expHbs.create({ // tạo handlebars với những config
     extname: ".hbs",
     helpers: helper
@@ -29,7 +24,7 @@ app.engine('hbs', handlebars.engine); // engine definition with name is hbs
 app.set('view engine', 'hbs'); // set view engine là hbs vừa tạo
 app.set('views', path.join(__dirname, 'views')); // config đường dẫn đến thư mục view
 app.use(express.static(path.join(__dirname, '/public')));// config đường dẫn đến thư mục public => serve static files in server
-route(app); 
+route(app);
 // 127.0.0.1:3000
 
 const port = process.env.PORT || 3000;

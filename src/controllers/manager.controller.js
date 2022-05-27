@@ -4,12 +4,17 @@ const path = "layouts/manager";
 
 module.exports = {
     get: (req, res) => {
-        res.render(`${path}/main`);
+        res.render(`${path}/main`, {
+            main: true,
+            tag: "patient"
+        });
     },
+
     // patient
     getPatientManagement: (req, res) => {
         res.render(`${path}/patientManagement`, {
-            layout: "manager/main"
+            layout: "manager/main",
+            tag: "patient"
         });
     },
 
@@ -17,40 +22,47 @@ module.exports = {
     getCategoryManagement: (req, res) => {
         res.render(`${path}/categoryManagement`, {
             layout: "manager/main",
+            tag: "category",
             categories
         })
     },
+
     // product
     getProductManagement: (req, res) => {
         res.render(`${path}/productManagement`, {
             layout: "manager/main",
+            tag: "product",
             products
         })
     },
 
     addProduct: (req, res) => {
         res.render(`${path}/addProduct`, {
-            layout: "manager/main"
+            layout: "manager/main",
+            tag: "product"
         })
     },
 
     detailProduct: (req, res) => {
         res.render(`${path}/detailProduct`, {
-            layout: "manager/main"
+            layout: "manager/main",
+            tag: "product"
         })
     },
 
     // package
     getPackageManagement: (req, res) => {
         res.render(`${path}/packageManagement`, {
-            layout: "manager/main"
+            layout: "manager/main",
+            tag: "package"
         })
     },
 
     // payment
     getPaymentManagement: (req, res) => {
         res.render(`${path}/paymentManagement`, {
-            layout: "manager/main"
+            layout: "manager/main",
+            tag: "payment"
         })
     }
 }
