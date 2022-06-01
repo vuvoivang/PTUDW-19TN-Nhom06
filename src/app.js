@@ -4,8 +4,10 @@ const expHbs = require('express-handlebars');
 const path = require('path'); //built-in nodejs
 const route = require('./routes');
 const app = express(); // đại diện cho ứng dụng nodejs
+const mongodb = require('./config/mongodb');
 require('dotenv').config(); // use env variables
 
+mongodb.connect();
 const { helper } = require('./middlewares/handlebars.middleware');
 
 const handlebars = expHbs.create({ // tạo handlebars với những config
