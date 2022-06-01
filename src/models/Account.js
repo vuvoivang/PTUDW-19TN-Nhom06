@@ -40,12 +40,18 @@ const Account = new Schema({
         type: String,
         required: true
     },
+    isBlock: {
+        type: Boolean,
+        required: true
+    },
+    permission: {
+        type: String,
+        required: true
+    },
     quarantineLocation: [{
         type: ObjectId,
         ref: 'Quarantine_Location',
     }, ]
-
-
 }, {
     timestamps: true,
 });
