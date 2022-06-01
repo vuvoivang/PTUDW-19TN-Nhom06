@@ -1,0 +1,163 @@
+{{#section "title"}}
+<title>
+  Quản lý danh mục
+</title>
+{{/section}}
+
+<div id="category-management">
+  <div class="card">
+    <div class="card-header">
+      <h2 class="card-title">
+        Danh sách danh mục
+      </h2>
+    </div>
+    <div class="card-body">
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
+        <i class="fa-solid fa-plus"></i>
+        Thêm danh mục
+      </button>
+      <div class="table-responsive py-3">
+        <table class="table table-hover" id="data_table">
+          <thead class="text-primary">
+            <tr>
+              <th>
+                ID
+              </th>
+              <th>
+                Tên danh mục
+              </th>
+              <th class="text-end">
+                Thao tác
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each categories}}
+            <tr>
+              <td>
+                {{this.id}}
+              </td>
+              <td>
+                {{this.name}}
+              </td>
+              <td class="text-end">
+                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#updateCategoryModal">
+                  Sửa
+                </button>
+                <button class="btn btn-danger" data-id={{this.id}} data-bs-toggle="modal"
+                  data-bs-target="#deleteCategoryModal">
+                  Xóa
+                </button>
+              </td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{! Modal add category }}
+<div class="modal fade" id="addCategoryModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          Thêm danh mục
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label>
+              Tên danh mục
+            </label>
+            <span class="text-danger">
+              *
+            </span>
+            <input type="text" class="form-control" id="name" name="name" required />
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Hủy
+        </button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+          Thêm mới
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{! Modal update category }}
+<div class="modal fade" id="updateCategoryModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          Chỉnh sửa danh mục
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label>
+              Tên danh mục
+            </label>
+            <span class="text-danger">
+              *
+            </span>
+            <input type="text" class="form-control" id="name" name="name" required />
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Hủy
+        </button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+          Lưu thay đổi
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{! Modal delete category }}
+<div class="modal fade" id="deleteCategoryModal" tabindex="-1" aria-labelledby="deleteCategoryModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">
+          Xóa danh mục
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Bạn chắc chắn muốn xóa danh mục này?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Hủy
+        </button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+          Xóa bỏ
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{#section "script"}}
+<script>
+  $(document).ready(function () {
+    $('#data_table').DataTable();
+  });
+</script>
+{{/section}}
