@@ -18,6 +18,8 @@ router.get("/product-management/:id", managerController.detailProduct);
 
 // package management
 router.get("/package-management", managerController.getPackageManagement);
+router.get("/package-management/new", managerController.addPackage);
+router.get("/package-management/:id", managerController.detailPackage);
 
 // payment management
 router.get("/payment-management", managerController.getPaymentManagement);

@@ -58,6 +58,20 @@ module.exports = {
         })
     },
 
+    addPackage: (req, res) => {
+        res.render(`${path}/addPackage`, {
+            layout: "manager/main",
+            tag: "package"
+        })
+    },
+
+    detailPackage: (req, res) => {
+        res.render(`${path}/detailPackage`, {
+            layout: "manager/main",
+            tag: "package"
+        })
+    },
+
     // payment
     getPaymentManagement: (req, res) => {
         res.render(`${path}/paymentManagement`, {
