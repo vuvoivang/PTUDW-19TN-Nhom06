@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const { ObjectId } = mongoose.Schema.Types;
 
-const productMapSchema = new Schema({
+const productListSchema = new Schema({
     product: {
         type: ObjectId,
         ref: 'Product',
@@ -27,8 +27,8 @@ const packageSchema = new Schema({
         type: Number,
         required: true
     },
-    productMap: {
-        type: Array(productMapSchema),
+    productList: {
+        type: Array(productListSchema),
         required: true,
         minlength: 2,
     }
