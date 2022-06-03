@@ -2,10 +2,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const { ObjectId } = mongoose.Schema.Types;
 
-const Log_Manager = new Schema({
+const LogManager = new Schema({
     description: {
         type: String,
-        required: true
+        required: true,
+        maxLength: 255
     },
     action: {
         type: String,
@@ -15,11 +16,11 @@ const Log_Manager = new Schema({
         type: String,
         required: true
     },
-    manager: {
+    managerId: {
         type: ObjectId,
         ref: 'Account',
     },
 
 });
 
-module.exports = mongoose.model('Log_Manager', Log_Manager);
+module.exports = mongoose.model('LogManager', LogManager);

@@ -23,7 +23,7 @@ const Account = new Schema({
         required: true,
     },
     dateOfBirth: {
-        type: Date
+        type: Date,
     },
     avatarUrl: {
         type: String,
