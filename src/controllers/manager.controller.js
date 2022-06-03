@@ -1,4 +1,4 @@
-const { categories, products } = require('../models/manager.model');
+const { categories, products, packages } = require('../models/manager.model');
 const path = "layouts/manager";
 
 
@@ -54,7 +54,8 @@ module.exports = {
     getPackageManagement: (req, res) => {
         res.render(`${path}/packageManagement`, {
             layout: "manager/main",
-            tag: "package"
+            tag: "package",
+            packages
         })
     },
 
