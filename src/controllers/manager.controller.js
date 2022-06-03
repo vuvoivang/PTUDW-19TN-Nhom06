@@ -62,14 +62,16 @@ module.exports = {
     addPackage: (req, res) => {
         res.render(`${path}/addPackage`, {
             layout: "manager/main",
-            tag: "package"
+            tag: "package",
+            products
         })
     },
 
     detailPackage: (req, res) => {
         res.render(`${path}/detailPackage`, {
             layout: "manager/main",
-            tag: "package"
+            tag: "package",
+            products
         })
     },
 
