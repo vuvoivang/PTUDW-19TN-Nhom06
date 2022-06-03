@@ -40,7 +40,7 @@ const orderSchema = new Schema({
     },
     paymentAccount: {
         type: String,
-        ref: "Payment_Account",   
+        ref: "PaymentAccount",   
         required: true
     },
     paymentTime: {

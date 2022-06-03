@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const { ObjectId } = mongoose.Schema.Types;
 
-const LogQuarantine = new Schema({
+const logQuarantineSchema = new Schema({
     description: {
         type: String,
         required: true,
@@ -18,16 +18,16 @@ const LogQuarantine = new Schema({
     },
     state: {
         type: String,
-        required: true
+        enum: ['F0', 'F1','F2','F3']
     },
     quarantineLocation: [{
         type: ObjectId,
-        ref: 'Quarantine_Location',
-    }, ],
+        ref: 'QuarantineLocation',
+    }],
     time: {
         type: Date
     }
 
 });
 
-module.exports = mongoose.model('LogQuarantine', LogQuarantine);
+module.exports = mongoose.model('LogQuarantine', logQuarantineSchema);

@@ -2,17 +2,13 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const { ObjectId } = mongoose.Schema.Types;
 
-const LogManager = new Schema({
+const logManagerSchema = new Schema({
     description: {
         type: String,
         required: true,
         maxLength: 255
     },
     action: {
-        type: String,
-        required: true
-    },
-    tableName: {
         type: String,
         required: true
     },
@@ -23,4 +19,4 @@ const LogManager = new Schema({
 
 });
 
-module.exports = mongoose.model('LogManager', LogManager);
+module.exports = mongoose.model('LogManager', logManagerSchema);

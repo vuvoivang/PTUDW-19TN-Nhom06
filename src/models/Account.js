@@ -1,8 +1,14 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const { ObjectId } = mongoose.Schema.Types;
+const AutoIncrement = require('mongoose-sequence')(mongoose);
 
-const Account = new Schema({
+const accountSchema = new Schema({
+    _id: { 
+        type: Number, 
+        unique:true, 
+        required: true
+    },
     username: {
         type: String,
         required: true,
@@ -20,7 +26,6 @@ const Account = new Schema({
     },
     address: {
         type: String,
-        required: true,
     },
     dateOfBirth: {
         type: Date,
@@ -33,27 +38,27 @@ const Account = new Schema({
     },
     cardID:{
         type: String,
-        required: true,
         $regex: /^([0-9]{12})$/
     },
     state: {
         type: String,
-        required: true
+        enum: ['F0', 'F1','F2','F3']
     },
     isBlock: {
         type: Boolean,
-        required: true
     },
     permission: {
         type: String,
-        required: true
+        enum: ['ADMIN', 'ACTIVE_MANAGER','INACTIVE_MANAGER','USER']
     },
     quarantineLocation: [{
         type: ObjectId,
-        ref: 'Quarantine_Location',
-    }, ]
+        ref: 'QuarantineLocation',
+    }]
 }, {
+    id: false, // mongodb can't interfere this field
     timestamps: true,
 });
 
-module.exports = mongoose.model('Account', Account);
+accountSchema.plugin(AutoIncrement);
+module.exports = mongoose.model('Account', accountSchema);

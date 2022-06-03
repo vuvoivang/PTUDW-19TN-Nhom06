@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const { ObjectId } = mongoose.Schema.Types;
 
-const RelatedUser = new Schema({
+const relatedUserSchema = new Schema({
     userId: {
         type: ObjectId,
         ref: 'Account',
@@ -11,12 +11,11 @@ const RelatedUser = new Schema({
         type: ObjectId,
         ref: 'Account',
     },
-    state: {
+    stateRelatedUser: {
         type: String,
+        enum: ['F0', 'F1','F2','F3'],
         required: true
-    }
-
-
+    },
 });
 
-module.exports = mongoose.model('RelatedUser', RelatedUser);
+module.exports = mongoose.model('RelatedUser', relatedUserSchema);

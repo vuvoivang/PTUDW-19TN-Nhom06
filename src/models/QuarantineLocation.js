@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const QuarantineLocation = new Schema({
+const quarantineLocationSchema = new Schema({
     name: {
         type: String,
         required: true,
@@ -28,4 +28,4 @@ const QuarantineLocation = new Schema({
 
 });
 
-module.exports = mongoose.model('QuarantineLocation', QuarantineLocation);
+module.exports = mongoose.model('QuarantineLocation', quarantineLocationSchema);
