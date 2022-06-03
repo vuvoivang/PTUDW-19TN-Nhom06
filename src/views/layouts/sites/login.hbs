@@ -58,9 +58,8 @@
                 <div class="additional-login">
                     <span>or login with</span>
                     <div class="other-login">
-                        <a href="#"><i class="fa-brands fa-facebook-square fa-lg"></i></a>
-                        <a href="#"><i class="fa-brands fa-google fa-lg"></i></a>
-                        <a href="#"><i class="fa-brands fa-instagram fa-lg"></i></a>
+                        <button id="facebook"><i class="fa-brands fa-facebook-square fa-lg"></i></button>
+                        <button id="google"><i class="fa-brands fa-google fa-lg"></i></button>
                     </div>
                 </div>
                 <div class="create-account">
@@ -74,7 +73,7 @@
                 <div class="direction">
                     <i class="fa-solid fa-arrow-left"></i>
                     <span>Back to homepage</span>
-                </div> 
+                </div>
             </a>
         </div>
         <div class="no-bacground"></div>
@@ -83,6 +82,92 @@
                 alt="Blue-Illustration-Vaccination-Covid-19-Facebook-Post" border="0">
         </div>
     </div>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-app.js"
+        import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, FacebookAuthProvider } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-auth.js"
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyD9xiWK7FIWUte_ZSHtHSjgEBpjB6sCsVw",
+            authDomain: "ptudw-covid.firebaseapp.com",
+            projectId: "ptudw-covid",
+            storageBucket: "ptudw-covid.appspot.com",
+            messagingSenderId: "250090458609",
+            appId: "1:250090458609:web:d7448c4d1f1e14af458850"
+        };
+
+
+        const firebase = initializeApp(firebaseConfig);
+        const auth = getAuth(firebase)
+
+        // Google login
+        const ggProvider = new GoogleAuthProvider(firebase);
+
+        function googleLogin() {
+            signInWithPopup(auth, ggProvider)
+                .then((result) => {
+                    // This gives you a Google Access Token. You can use it to access the Google API.
+                    const credential = GoogleAuthProvider.credentialFromResult(result);
+                    const token = credential.accessToken;
+                    // The signed-in user info.
+                    const user = result.user;
+                    location.href = "/user"
+                    // ...
+                }).catch((error) => {
+                    // Handle Errors here.
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    // The email of the user's account used.
+                    const email = error.customData.email;
+                    // The AuthCredential type that was used.
+                    const credential = GoogleAuthProvider.credentialFromError(error);
+                    // ...
+                })
+        };
+
+        var google = document.getElementById('google')
+        if (google) {
+            google.addEventListener('click', (e) => {
+                googleLogin()
+            })
+        }
+
+        // Facebook login
+        const fProvider = new FacebookAuthProvider(firebase);
+
+        function facebookLogin() {
+            signInWithPopup(auth, fProvider)
+                .then((result) => {
+                    // The signed-in user info.
+                    const user = result.user;
+
+                    // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+                    const credential = FacebookAuthProvider.credentialFromResult(result);
+                    const accessToken = credential.accessToken;
+                    location.href = '/user'
+
+                    // ...
+                })
+                .catch((error) => {
+                    // Handle Errors here.
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    // The email of the user's account used.
+                    const email = error.customData.email;
+                    // The AuthCredential type that was used.
+                    const credential = FacebookAuthProvider.credentialFromError(error);
+
+                    // ...
+                });
+        }
+        var facebook = document.getElementById('facebook')
+        if (facebook) {
+            facebook.addEventListener('click', (e) => {
+                facebookLogin();
+            });
+        }
+
+    </script>
 </body>
 
 </html>

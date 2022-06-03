@@ -136,6 +136,12 @@ form .account-option {
     justify-content: center;
 }
 
+.other-login button {
+    border: 0;
+    background-color: transparent;
+    width: 20px;
+}
+
 .create-account {
     display: flex;
     gap: 10px;
