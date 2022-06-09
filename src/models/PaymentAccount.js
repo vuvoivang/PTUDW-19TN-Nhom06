@@ -19,7 +19,7 @@ const paymentAccountSchema = new Schema({
         type: String,
         required: true,
         unique: true, // main: 000000000000
-        $regex: /^([0-9])$/ // uncertain
+        $regex: /^([0-9]{12})$/ // uncertain
     },
     balance:{
         type: Number,

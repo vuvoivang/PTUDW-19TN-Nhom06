@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const { ObjectId } = mongoose.Schema.Types;
 const AutoIncrement = require('mongoose-sequence')(mongoose);
-
 const productSchema = new Schema({
     _id: { 
         type: Number, 

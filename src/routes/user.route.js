@@ -4,5 +4,6 @@ const router = express.Router();
 const userController = require('../controllers/user.controller');
 
 router.get('/', userController.getAccountPayment);
+router.get('/:userId/accountPayment', userController.getAccountPayment);
 
 module.exports = router;
