@@ -16,14 +16,14 @@ const hyperlinksSidebarUser = [
     },
     {
         label: "Tài khoản thanh toán",
-        href: "/user/accountPayment",
+        href: "/user/123/accountPayment",
         icon: "fa-solid fa-user-plus fa-lg"
     }
 ];
 const userBreadCrumb = {
     path: [
         {
-            label:"Người dùng",
+            label: "Người dùng",
             link: "/user"
         }
     ],

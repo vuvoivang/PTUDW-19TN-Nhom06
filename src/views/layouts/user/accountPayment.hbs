@@ -16,6 +16,10 @@
     crossorigin="anonymous"
     referrerpolicy="no-referrer"
   />
+  <link
+    rel="stylesheet"
+    href="/css/user/accountPayment.css"
+  />
 {{/section}}
 {{#if isHaveAccountPayment}}
   <div id="content-accountPayment">
@@ -740,7 +744,7 @@
     </div>
   </div>
 {{else}}
-  <div class="w-100 text-center" id="newPasswordBtn">
+  <div class="w-100 text-center" id="newPasswordAccountPayment">
     <button
       type="button"
       class="btn btn-primary"
@@ -771,11 +775,11 @@
             </h5>
             <button
               type="button"
-              class="btn-close"
+              class="btn btn-close"
               data-bs-dismiss="modal"
               aria-label="Close"
-              style="background: initial"
-            ></button>
+              style="background: red; color: white; padding: 5px 10px 10px"
+            >X</button>
           </div>
           <div class="modal-body">
             <div class="form-group">
@@ -819,7 +823,7 @@
             <button
               type="button"
               class="btn btn-primary float-right"
-              onclick=`() => handleBankingConnect(${userId})`
+              onclick="() => handleBankingConnect(${userId})"
             >
               Tạo
             </button>

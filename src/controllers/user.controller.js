@@ -2,6 +2,18 @@ const mongoose = require('mongoose');
 const Account = require('../models/Account')
 
 const { hyperlinksSidebarUser, userBreadCrumb } = require('../constants/index');
+const pushBreadCrumb = (label, link, isActive = true) => {
+    let thisBreadCrumb = {};
+    Object.assign(thisBreadCrumb, userBreadCrumb);
+    thisBreadCrumb.path = [...userBreadCrumb.path];
+    thisBreadCrumb.path.push({
+        label,
+        link,
+        isActive
+    })
+    thisBreadCrumb.mainLabel = label;
+    return thisBreadCrumb;
+}
 module.exports = {
     getAccount: async (req, res, next) => {
         try {
@@ -18,21 +30,24 @@ module.exports = {
         }
     },
     getAccountPayment: (req, res) => {
-        res.locals.hyperlinks = hyperlinksSidebarUser;
-        let thisBreadCrumb = {};
-        Object.assign(thisBreadCrumb, userBreadCrumb);
-        thisBreadCrumb.path = [...userBreadCrumb.path];
-        thisBreadCrumb.path.push({
-            label: "Tài khoản thanh toán",
-            link: "/user/accountPayment",
-            isActive: true
-        })
-        thisBreadCrumb.mainLabel = "Tài khoản thanh toán";
-        res.locals.breadCrumb = thisBreadCrumb;
-        res.locals.userId = Number(req.params.userId);
-        res.render("layouts/user/accountPayment", {
-            layout: "user/main",
-            isHaveAccountPayment: false
-        });
+        try {
+            res.locals.hyperlinks = hyperlinksSidebarUser;
+            // push breadcrumb for this page
+            let userId = Number(req.params.userId);
+            res.locals.userId = userId;
+            res.locals.breadCrumb = pushBreadCrumb("Tài khoản thanh toán", `/user/${userId}/accountPayment`);
+
+            res.render("layouts/user/accountPayment", {
+                layout: "user/main",
+                isHaveAccountPayment: false
+            });
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({
+                status: "Server Error",
+                message: 'Có lỗi xảy ra, vui lòng thử lại!!',
+                errorCode: "SERVER_ERROR"
+            });
+        }
     }
 }

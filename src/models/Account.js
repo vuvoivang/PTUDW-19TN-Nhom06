@@ -4,9 +4,9 @@ const { ObjectId } = mongoose.Schema.Types;
 const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 const accountSchema = new Schema({
-    _id: { 
+    _id: {
         type: Number,
-        unique: true, 
+        unique: true,
         required: true
     },
     username: {
@@ -36,27 +36,27 @@ const accountSchema = new Schema({
     ifHasAvatar: {
         type: Boolean,
     },
-    cardID:{
+    cardID: {
         type: String,
         $regex: /^([0-9]{12})$/
     },
     state: {
         type: String,
-        enum: ['F0', 'F1','F2','F3']
+        enum: ['F0', 'F1', 'F2', 'F3']
     },
     isBlock: {
         type: Boolean,
     },
     permission: {
         type: String,
-        enum: ['ADMIN', 'ACTIVE_MANAGER','INACTIVE_MANAGER','USER']
+        enum: ['ADMIN', 'ACTIVE_MANAGER', 'INACTIVE_MANAGER', 'USER']
     },
     quarantineLocation: [{
         type: ObjectId,
         ref: 'QuarantineLocation',
     }]
 }, {
-    id: false, // mongodb can't interfere this field
+    _id: false, // mongodb can't interfere this field
     timestamps: true,
 });
 
