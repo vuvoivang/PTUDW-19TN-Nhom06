@@ -13,9 +13,9 @@ const relatedUserSchema = new Schema({
     },
     stateRelatedUser: {
         type: String,
-        enum: ['F0', 'F1','F2','F3'],
+        enum: ['F0', 'F1', 'F2', 'F3'],
         required: true
     },
 });
 
-module.exports = mongoose.model('RelatedUser', relatedUserSchema);
+module.exports = mongoose.model('related_users', relatedUserSchema);

@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const { ObjectId } = mongoose.Schema.Types;
+const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 const paymentAccountSchema = new Schema({
-    // confuse: tài khoản chính
     paymentAccountId: {
         type: ObjectId,
         ref: 'Account',
@@ -15,24 +15,24 @@ const paymentAccountSchema = new Schema({
         required: true,
         select: false,
     },
-    accountNumber:{
-        type: String,
-        required: true,
-        unique: true, // main: 000000000000
-        $regex: /^([0-9])$/ // uncertain
+    accountNumber: {
+        type: Number,
+        unique: true, // main: 100000000000
     },
-    balance:{
+    balance: {
         type: Number,
         required: true,
-        min: 0
-    },
-    debt:{
-        type: Number,
-        required: true,
-        min: 0
+        default: 0
     }
+
 }, {
     timestamps: true,
 });
 
-module.exports = mongoose.model('PaymentAccount', paymentAccountSchema);
+paymentAccountSchema.plugin(AutoIncrement, {
+    id: "account_number_seq",
+    inc_field: 'accountNumber',
+    start_seq: 10000001,
+    collection_name: "account_number_counters"
+});
+module.exports = mongoose.model('payment_accounts', paymentAccountSchema);

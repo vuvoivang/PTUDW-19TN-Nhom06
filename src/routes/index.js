@@ -5,6 +5,8 @@ const productPaymentRoute = require('./sites/productPayment.route');
 const adminRoute = require('./admin.route');
 const userRoute = require('./user.route');
 const managerRoute = require('./manager.route');
+const bankingRoute = require('./banking.route');
+
 
 function route(app) {
 
@@ -14,6 +16,7 @@ function route(app) {
     app.use('/admin', adminRoute);
     app.use('/manager', managerRoute);
     app.use('/user', userRoute);
+    app.use('/banking', bankingRoute);
     app.use('/', homeRoute);
     app.use((req, res, next) => {
         res.render('error/404')

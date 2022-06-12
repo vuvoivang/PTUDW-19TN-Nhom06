@@ -23,9 +23,9 @@ const quarantineLocationSchema = new Schema({
         required: true,
         min: 0
     },
-    
+
 
 
 });
 
-module.exports = mongoose.model('QuarantineLocation', quarantineLocationSchema);
+module.exports = mongoose.model('quarantine_locations', quarantineLocationSchema);

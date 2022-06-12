@@ -34,4 +34,4 @@ const packageSchema = new Schema({
     }
 })
 
-module.exports = mongoose.model('Package', packageSchema);
+module.exports = mongoose.model('packages', packageSchema);

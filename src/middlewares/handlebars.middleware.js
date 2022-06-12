@@ -19,7 +19,7 @@ const helper = {
     get: function (Obj, prop) {
         return Obj[prop]
     },
-    ifCond: function (v1, operator, v2, options) {
+    ifCondition: function (v1, operator, v2, options) {
         switch (operator) {
             case "==":
                 return v1 == v2 ? options.fn(this) : options.inverse(this);
@@ -45,6 +45,9 @@ const helper = {
                 return options.inverse(this);
         }
     },
+    json: function (context) {
+        return JSON.stringify(context).replace(/"/g, '&quot;');
+    }
 }
 
 module.exports = { helper }

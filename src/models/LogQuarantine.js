@@ -18,7 +18,7 @@ const logQuarantineSchema = new Schema({
     },
     state: {
         type: String,
-        enum: ['F0', 'F1','F2','F3']
+        enum: ['F0', 'F1', 'F2', 'F3']
     },
     quarantineLocation: [{
         type: ObjectId,
@@ -30,4 +30,4 @@ const logQuarantineSchema = new Schema({
 
 });
 
-module.exports = mongoose.model('LogQuarantine', logQuarantineSchema);
+module.exports = mongoose.model('log_quarantines', logQuarantineSchema);
