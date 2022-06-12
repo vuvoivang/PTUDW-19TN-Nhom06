@@ -60,5 +60,8 @@ const accountSchema = new Schema({
     timestamps: true,
 });
 
-accountSchema.plugin(AutoIncrement);
-module.exports = mongoose.model('Account', accountSchema);
+accountSchema.plugin(AutoIncrement, {
+    id: "account_seq",
+    collection_name: "account_counters"
+});
+module.exports = mongoose.model('accounts', accountSchema);

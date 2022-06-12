@@ -40,7 +40,7 @@ const orderSchema = new Schema({
     },
     paymentAccount: {
         type: String,
-        ref: "PaymentAccount",   
+        ref: "PaymentAccount",
         required: true
     },
     paymentTime: {
@@ -58,4 +58,4 @@ const orderSchema = new Schema({
     }
 })
 
-module.exports = mongoose.model('Order', orderSchema);
+module.exports = mongoose.model('orders', orderSchema);

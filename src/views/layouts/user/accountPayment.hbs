@@ -21,6 +21,11 @@
     href="/css/user/accountPayment.css"
   />
 {{/section}}
+
+
+
+
+
 {{#if isHaveAccountPayment}}
   <div id="content-accountPayment">
     <div class="row w-100 py-4">
@@ -37,7 +42,7 @@
                     Số dư
                   </p>
                   <p class="card-title text-success">
-                    3.000.000.000 đồng
+                    {{#ifCondition (paymentAccount.balance) ">=" 0}} {{paymentAccount.balance}} {{else}} 0 {{/ifCondition}} đồng
                   </p>
                 </div>
               </div>
@@ -49,7 +54,9 @@
               style="cursor: pointer;"
               data-bs-toggle="modal"
               data-bs-target="#depositModal"
+              {{#if true}} style="cursor: none;  pointer-events:none;"{{/if}} 
             >
+            
               <i class="fa-solid fa-circle-plus icon-bottom"></i>
               Nạp tiền vào tài khoản
             </div>
@@ -101,12 +108,13 @@
                       placeholder="Nhập số tiền (đơn vị: đồng)"
                       type="number"
                       required="true"
+                      id = "amountInput"
                     />
                   </div>
                 </form>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn bg-gradient-success">
+                <button type="button" class="btn bg-gradient-success" id="depositButton" onclick="handleDeposit({{{json userId}}})">
                   Nạp
                 </button>
                 <button
@@ -134,7 +142,7 @@
                     Tiền nợ
                   </p>
                   <p class="card-title text-danger">
-                    5.000.000 đồng
+                    {{#ifCondition (paymentAccount.balance) "<" 0}} {{paymentAccount.balance}} {{else}} 0 {{/ifCondition}} đồng
                   </p>
                 </div>
               </div>
@@ -768,8 +776,8 @@
               Tạo mật khẩu mới
               <br />
               <small>
-                <small>
-                  Bạn chưa tạo mật khẩu cho tài khoản thanh toán
+                <small class="fs-6 fw-normal fst-italic">
+                 Đăng ký tài khoản thanh toán
                 </small>
               </small>
             </h5>
@@ -823,7 +831,7 @@
             <button
               type="button"
               class="btn btn-primary float-right"
-              onclick="() => handleBankingConnect(${userId})"
+              onclick="handleBankingConnect({{{json userId}}})"
             >
               Tạo
             </button>
@@ -833,6 +841,8 @@
     </div>
   </div>
 {{/if}}
+
+
 {{#section "script"}}
   <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
   <script
@@ -842,6 +852,10 @@
   <script
     type="text/javascript"
     src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"
+  ></script>
+  <script
+    type="text/javascript"
+    src="/js/user/banking.js"
   ></script>
   <script>
     $(document).ready(function () {

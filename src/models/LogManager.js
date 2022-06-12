@@ -19,4 +19,4 @@ const logManagerSchema = new Schema({
 
 });
 
-module.exports = mongoose.model('LogManager', logManagerSchema);
+module.exports = mongoose.model('log_managers', logManagerSchema);

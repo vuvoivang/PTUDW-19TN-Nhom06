@@ -1,87 +1,71 @@
-// local
-// const URL = "https://localhost:5000";
 
-// deployment
-const URL = "localhost:3001";
-
+const API_URL = "http://localhost:3000/banking"
 
 const handleBankingConnect = (id) => {
     const password = document.getElementById('registerPassword').value;
     const passwordConfirm = document.getElementById('registerPasswordConfirmation').value;
 
     if (password === "") {
-        alert("Vui lòng nhập mật khẩu");
+        alert("Please input the password field");
         return;
     }
-
     if (password !== passwordConfirm)
-        return document.getElementById('registerPasswordError').innerHTML = "Mật khẩu không khớp.";
+        return document.getElementById('registerPasswordError').innerHTML = "Passwords must match.";
     else document.getElementById('registerPasswordError').innerHTML = "";
 
-    fetch(`${URL}/auth/create-password`, {
+    fetch(`${API_URL}/v1/account-payment`, {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
         method: "POST",
-        body: JSON.stringify({ id: userID, newPassword: password })
-    }).then(res => res.json())
-        .then(data => {
-            const { status, msg } = data;
-            if (status != 200) {
-                alert(msg);
+        body: JSON.stringify({ id, newPassword: password })
+    }).then(resp => resp.json())
+        .then(result => {
+            const { status, message, data } = result;
+            if (status !== "success") {
+                alert(message);
                 location.reload();
                 return
             }
-            location.reload();
-        })
-        .catch(err => console.log(err))
-
-}
-
-const handleBankingLogin = async () => {
-    const password = document.getElementById('password').value;
-
-    let bankingToken = null;
-
-    await fetch(`${URL}/auth/login`, {
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        method: "POST",
-        body: JSON.stringify({ id: userID, password: password })
-    }).then(res => res.json())
-        .then(data => {
-            const { status, msg, token } = data;
-            console.log(token);
-
-            if (status != 200) {
-                alert(msg);
-                location.reload()
-                return null
+            else {
+                alert("Create new account payment successfully!!");
+                location.reload();
             }
-            else
-                return bankingToken = token;
+
         })
         .catch(err => console.log(err))
+}
 
-    console.log(bankingToken);
 
-    fetch(`/user/${userID}/set-token`, {
+const handleDeposit = (id) => {
+    const amount = document.getElementById('amountInput').value;
+
+    if (amount <= 1000) {
+        alert("The amount must be at least 1000 dong");
+        return;
+    }
+
+    fetch(`${API_URL}/v1/deposit`, {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
         method: "POST",
-        body: JSON.stringify({ token: bankingToken })
-    })
-        .then(dummy => {
-            location.reload();
-        })
-}
+        body: JSON.stringify({ id, amount })
+    }).then(resp => resp.json())
+        .then(result => {
+            const { status, message, data } = result;
+            if (status !== "success") {
+                alert(message);
+                location.reload();
+                return
+            }
+            else {
+                alert("Deposit successfully!!");
+                location.reload();
+            }
 
-const handleDeposit = (e) => {
-    e.preventDefault();
-    console.log(e);
-} 
+        })
+        .catch(err => console.log(err))
+}

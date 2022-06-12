@@ -2,11 +2,11 @@ const express = require('express');
 const morgan = require('morgan'); // HTTP request logger middleware for nodejs
 const expHbs = require('express-handlebars');
 const path = require('path'); //built-in nodejs
+const bodyParser = require('body-parser');
 const route = require('./routes');
 const app = express(); // đại diện cho ứng dụng nodejs
 const mongodb = require('./config/mongodb');
 require('dotenv').config(); // use env variables
-const bodyParser = require('body-parser');
 
 
 mongodb.connect();
@@ -28,10 +28,11 @@ app.engine('hbs', handlebars.engine); // engine definition with name is hbs
 app.set('view engine', 'hbs'); // set view engine là hbs vừa tạo
 app.set('views', path.join(__dirname, 'views')); // config đường dẫn đến thư mục view
 app.use(express.static(path.join(__dirname, '/public')));// config đường dẫn đến thư mục public => serve static files in server
-route(app);
-// 127.0.0.1:3000
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+route(app);
+// 127.0.0.1:3000
+
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {

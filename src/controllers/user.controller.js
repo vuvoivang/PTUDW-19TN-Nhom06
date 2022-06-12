@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Account = require('../models/Account')
+const PaymentAccount = require('../models/PaymentAccount')
 
 const { hyperlinksSidebarUser, userBreadCrumb } = require('../constants/index');
 const pushBreadCrumb = (label, link, isActive = true) => {
@@ -29,17 +30,20 @@ module.exports = {
             });
         }
     },
-    getAccountPayment: (req, res) => {
+    getAccountPayment: async (req, res) => {
         try {
             res.locals.hyperlinks = hyperlinksSidebarUser;
             // push breadcrumb for this page
-            let userId = Number(req.params.userId);
+            let userId = (req.params.userId);
             res.locals.userId = userId;
             res.locals.breadCrumb = pushBreadCrumb("Tài khoản thanh toán", `/user/${userId}/accountPayment`);
-
+            let paymentAccount = await PaymentAccount.findOne({
+                paymentAccountId: userId,
+            });
             res.render("layouts/user/accountPayment", {
                 layout: "user/main",
-                isHaveAccountPayment: false
+                isHaveAccountPayment: paymentAccount ? true : false,
+                paymentAccount
             });
         } catch (error) {
             console.log(error);

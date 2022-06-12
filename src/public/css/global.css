@@ -24,6 +24,9 @@
 #sidenav-main .brand-img {
   max-height: 2.5rem !important;
 }
+a{
+  text-decoration: none!important;
+}
 a:hover {
   text-decoration: none;
 }
