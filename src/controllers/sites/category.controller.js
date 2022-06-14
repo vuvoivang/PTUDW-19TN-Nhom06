@@ -17,19 +17,19 @@ module.exports = {
             });
         }
     },
-    get: async (req, res) => {
-        try {
-            const category = await Category.findById(req.params.id);
-            res.json({ status: 'success', data: category });
-        } catch (error) {
-            console.log(error);
-            res.status(500).json({
-                status: 'Server Error',
-                message: 'Có lỗi xảy ra, vui lòng thử lại!!',
-                errorCode: 'SERVER_ERROR',
-            });
-        }
-    },
+    // get: async (req, res) => {
+    //     try {
+    //         const category = await Category.findById(req.params.id);
+    //         res.json({ status: 'success', data: category });
+    //     } catch (error) {
+    //         console.log(error);
+    //         res.status(500).json({
+    //             status: 'Server Error',
+    //             message: 'Có lỗi xảy ra, vui lòng thử lại!!',
+    //             errorCode: 'SERVER_ERROR',
+    //         });
+    //     }
+    // },
     create: async (req, res) => {
         try {
             if (!req.file) {
