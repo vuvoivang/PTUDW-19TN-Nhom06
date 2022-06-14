@@ -1,7 +1,7 @@
 const { categories, products, packages } = require('../models/manager.model');
 const path = "layouts/manager";
 const Category = require('../models/category');
-const { mapObjectInArray } = require('../utils/function');
+const { mapObjectInArray } = require('../utils/functions');
 
 module.exports = {
     get: (req, res) => {
