@@ -3,12 +3,11 @@ const utils = require('../../utils/functions');
 module.exports = {
     getAll: async (req, res) => {
         try {
-            const categories = await Category.find();
+            const categories = await Category.find({});
+            categories = categories.map((category) => category.toObject());
+
             res.json({ status: 'success', data: categories });
-            console.log(categories);
-            res.render('layouts/sites/home', {
-                layout: 'sites/main',
-            });
+
         } catch (error) {
             console.log(error);
             res.status(500).json({
@@ -63,30 +62,30 @@ module.exports = {
             });
         }
     },
-    update: async (req, res) => {
-        try {
-            const category = await Category.findByIdAndUpdate(req.params.id, req.body, { new: true });
-            res.json({ status: 'success', data: category });
-        } catch (error) {
-            console.log(error);
-            res.status(500).json({
-                status: 'Server Error',
-                message: 'Có lỗi xảy ra, vui lòng thử lại!!',
-                errorCode: 'SERVER_ERROR',
-            });
-        }
-    },
-    delete: async (req, res) => {
-        try {
-            const category = await Category.findByIdAndDelete(req.params.id);
-            res.json({ status: 'success', data: category });
-        } catch (error) {
-            console.log(error);
-            res.status(500).json({
-                status: 'Server Error',
-                message: 'Có lỗi xảy ra, vui lòng thử lại!!',
-                errorCode: 'SERVER_ERROR',
-            });
-        }
-    },
+    // update: async (req, res) => {
+    //     try {
+    //         const category = await Category.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    //         res.json({ status: 'success', data: category });
+    //     } catch (error) {
+    //         console.log(error);
+    //         res.status(500).json({
+    //             status: 'Server Error',
+    //             message: 'Có lỗi xảy ra, vui lòng thử lại!!',
+    //             errorCode: 'SERVER_ERROR',
+    //         });
+    //     }
+    // },
+    // delete: async (req, res) => {
+    //     try {
+    //         const category = await Category.findByIdAndDelete(req.params.id);
+    //         res.json({ status: 'success', data: category });
+    //     } catch (error) {
+    //         console.log(error);
+    //         res.status(500).json({
+    //             status: 'Server Error',
+    //             message: 'Có lỗi xảy ra, vui lòng thử lại!!',
+    //             errorCode: 'SERVER_ERROR',
+    //         });
+    //     }
+    // },
 };
