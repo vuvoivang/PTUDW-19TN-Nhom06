@@ -1,6 +1,7 @@
 const { categories, products, packages } = require('../models/manager.model');
 const path = "layouts/manager";
-
+const Category = require('../models/category');
+const { mapObjectInArray } = require('../utils/function');
 
 module.exports = {
     get: (req, res) => {
@@ -19,12 +20,67 @@ module.exports = {
     },
 
     // category
-    getCategoryManagement: (req, res) => {
-        res.render(`${path}/categoryManagement`, {
-            layout: "manager/main",
-            tag: "category",
-            categories
-        })
+    getCategoryManagement: async (req, res) => {
+        // get All Categories
+        try {
+            let categories = await Category.find({});
+            categories = mapObjectInArray(categories);
+            res.render(`${path}/categoryManagement`, {
+                layout: "manager/main",
+                tag: "category",
+                categories
+            });
+        } catch (err) {
+            console.log(err.message);
+            res.status(500).json({
+                success: false,
+                message: 'Có lỗi xảy ra, vui lòng thử lại!!',
+                errorCode: "SERVER_ERROR"
+            })
+        }
+    },
+
+    addCategory: async (req, res) => {
+        const { name } = req.body
+        try {
+            if (!name) {
+                return res.status(400).json({
+                    success: false,
+                    message: 'Vui lòng nhập tên danh mục',
+                    errorCode: "INVALID_DATA"
+                })
+            }
+
+            let category = await Category.findOne({ name });
+            if (category) {
+                return res.status(400).json({
+                    success: false,
+                    message: 'Danh mục đã tồn tại',
+                    errorCode: "CATEGORY_EXIST"
+                })
+            }
+
+            let newCategory = await Category.create({ name });
+            res.status(201).json({
+                success: true,
+                message: 'Thêm danh mục thành công',
+                data: newCategory
+            })
+            return res.redirect('/manager/categoryManagement');
+        } catch (err) {
+            console.log(err.message);
+            res.status(500).json({
+                success: false,
+                message: 'Có lỗi xảy ra, vui lòng thử lại!!',
+                errorCode: "SERVER_ERROR"
+            })
+        }
+    },
+
+    updateCategory: async (req, res) => {
+    },
+
+    deleteCategory: async (req, res) => {
     },
 
     // product

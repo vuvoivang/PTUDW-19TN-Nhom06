@@ -47,6 +47,12 @@ const helper = {
     },
     json: function (context) {
         return JSON.stringify(context).replace(/"/g, '&quot;');
+    },
+    inc: function (value) {
+        return parseInt(value) + 1;
+    },
+    dec: function (value) {
+        return parseInt(value) - 1;
     }
 }
 

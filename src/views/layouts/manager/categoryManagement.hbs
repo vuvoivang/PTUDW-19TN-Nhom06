@@ -21,7 +21,7 @@
           <thead class="text-primary">
             <tr>
               <th>
-                ID
+                No.
               </th>
               <th>
                 Tên danh mục
@@ -35,7 +35,7 @@
             {{#each categories}}
             <tr>
               <td>
-                {{this.id}}
+                {{inc @index}}
               </td>
               <td>
                 {{this.name}}
@@ -44,7 +44,7 @@
                 <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#updateCategoryModal">
                   Sửa
                 </button>
-                <button class="btn btn-danger" data-id={{this.id}} data-bs-toggle="modal"
+                <button class="btn btn-danger" data-id={{@index}} data-bs-toggle="modal"
                   data-bs-target="#deleteCategoryModal">
                   Xóa
                 </button>
@@ -69,7 +69,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form id="form-category" method="POST" action="/manager/category-management">
           <div class="form-group">
             <label>
               Tên danh mục
@@ -79,15 +79,16 @@
             </span>
             <input type="text" class="form-control" id="name" name="name" required />
           </div>
+
+          <div class="modal-footer px-0">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              Hủy
+            </button>
+            <button type="submit" class="btn btn-primary">
+              Thêm mới
+            </button>
+          </div>
         </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Hủy
-        </button>
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
-          Thêm mới
-        </button>
       </div>
     </div>
   </div>
@@ -104,7 +105,8 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form id="form-category" method="PUT" action="/manager/category-management">
+          <input name="id" id="categoryId" hidden>
           <div class="form-group">
             <label>
               Tên danh mục
@@ -120,7 +122,7 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Hủy
         </button>
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+        <button type="submit" class="btn btn-primary">
           Lưu thay đổi
         </button>
       </div>
@@ -146,7 +148,7 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Hủy
         </button>
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+        <button type="submit" class="btn btn-danger">
           Xóa bỏ
         </button>
       </div>
