@@ -44,7 +44,7 @@ module.exports = {
             const type = req.file.originalname.split('.')[1];
             const filename = `${name}_${timestamp}.${type}`;
 
-            url = await utils.uploadFile(req, 'categories/' + filename);
+            url = await utils.uploadFile(req.file, 'categories/' + filename);
 
             const category = new Category({
                 name: req.body.name,

@@ -40,11 +40,12 @@
     </div>
     <div class='popular-product py-5'>
         <div class='container'>
-            <h1 class='popular-product-title mb-5'>Sản phẩm phổ biến</h1>
+            <h1 class='popular-product-title mb-5'>Gói sản phẩm phổ biến</h1>
             <div class='container my-3'>
                 <div class='row mx-auto my-auto justify-content-center'>
                     <div id='recipeCarousel' class='carousel slide' data-bs-ride='carousel'>
                         <div class='carousel-inner' role='listbox'>
+                            {{#each packages}}
                             <div class='carousel-item active'>
                                 <div class='col-lg-3 col-md-6 col-12'>
                                     <div class='card p-3 mx-4'>
@@ -52,22 +53,23 @@
                                             <img src='/img/home/package-thucannhanh.png' class='popular-product-img' />
                                         </div>
                                         <div class='card-body p-0'>
-                                            <h5 class='card-title py-3'>Gói thức ăn nhanh 1</h5>
+                                            <h5 class='card-title py-3'>{{this.name}}</h5>
                                             <div class='d-flex justify-content-between align-items-center'>
                                                 <div class='price'>
                                                     <span>
                                                         <strong>
-                                                            195.000
+                                                            {{this.defaultPrice}}
                                                             <i class='fa-solid fa-dong-sign'></i>
                                                         </strong>
                                                     </span>
                                                 </div>
-                                                <a href='product/1' class='btn btn-primary m-0'>Chi tiết</a>
+                                                <a href={{append '/package/' this._id}} class='btn btn-primary m-0'>Chi tiết</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            {{/each}}
                         </div>
                         <a
                             class='carousel-control-prev rounded-circle'

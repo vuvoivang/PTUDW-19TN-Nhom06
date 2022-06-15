@@ -1,3 +1,17 @@
+.package-detail{
+    padding: 40px 30px;
+}
+#dataTable{
+
+}
+
+/* x-large and up screens */
+@media (min-width: 1200px) {
+    .package-detail {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+}
 .product-info {
     margin-bottom: 60px;
 }
