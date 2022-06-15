@@ -6,56 +6,62 @@ const orderSchema = new Schema({
     user: {
         type: ObjectId,
         ref: 'Account',
-        required: true
+        required: true,
     },
     item: {
         type: ObjectId, // can be ref to Product or Package model base on type
-        refPath: "type",
+        refPath: 'type',
     },
     type: {
         type: String,
         enum: ['Product', 'Package'],
-        required: true
+        required: true,
     },
-    quantity: {
-        type: Number,
-        required: true
-    },
-    price: {
-        type: Number,
-        required: true
-    },
+    detail: [
+        {
+            product: {
+                type: Number,
+                ref: 'Product',
+            },
+            quantity: {
+                type: Number,
+            },
+            price: {
+                type: Number,
+            },
+        },
+    ],
     totalPrice: {
         type: Number,
-        required: true
+        required: true,
     },
     orderTime: {
         type: Date,
-        required: true
+        required: true,
     },
     paymentMethod: {
         type: String,
         enum: ['cash', 'credit-card'],
-        required: true
+        required: true,
     },
     paymentAccount: {
         type: String,
-        ref: "PaymentAccount",
-        required: true
+        ref: 'PaymentAccount',
+        required: true,
     },
     paymentTime: {
         type: Date,
-        required: true
+        required: true,
     },
     deliveryAddress: {
         type: String,
-        required: true
+        required: true,
     },
     status: {
         type: String,
         enum: ['pending', 'processing', 'delivering', 'delivered', 'cancelled'],
-        required: true
-    }
-})
+        required: true,
+    },
+});
 
 module.exports = mongoose.model('orders', orderSchema);

@@ -6,34 +6,39 @@ const productSchema = new Schema({
     _id: {
         type: Number,
         unique: true,
-        required: true
     },
     name: {
         type: String,
-        required: true
+        required: true,
     },
     price: {
         type: Number,
         required: true,
-        min: 0
+        min: 0,
     },
     unit: {
         type: String,
         required: true,
-        min: 0
+        min: 0,
     },
     category: {
         type: ObjectId,
         ref: 'Category',
-        required: true
+        required: true,
     },
-    images: {
-        type: Array,
-        required: true
-    }
-}, {
-    _id: false
-})
+    images: [
+        {
+            type: String,
+            required: true,
+        },
+    ],
+    imageNames: [
+        {
+            type: String,
+            required: true,
+        },
+    ],
+});
 
-productSchema.plugin(AutoIncrement, { id: "product_seq", startSequence: 1000, collection_name: "product_counters" });
+productSchema.plugin(AutoIncrement, { id: 'product_seq', start_seq: 1000, collection_name: 'product_counters' });
 module.exports = mongoose.model('products', productSchema);
