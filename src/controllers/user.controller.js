@@ -16,20 +16,6 @@ const pushBreadCrumb = (label, link, isActive = true) => {
     return thisBreadCrumb;
 }
 module.exports = {
-    getAccount: async (req, res, next) => {
-        try {
-            const account = await Account.findById(req.params.id);
-            account.then(account => res.json({ status: "success", data: account }))
-                .catch(next)
-        } catch (error) {
-            console.log(error);
-            res.status(500).json({
-                status: "Server Error",
-                message: 'Có lỗi xảy ra, vui lòng thử lại!!',
-                errorCode: "SERVER_ERROR"
-            });
-        }
-    },
     getAccountPayment: async (req, res) => {
         try {
             res.locals.hyperlinks = hyperlinksSidebarUser;
@@ -40,10 +26,10 @@ module.exports = {
             let paymentAccount = await PaymentAccount.findOne({
                 paymentAccountId: userId,
             });
+            res.locals.paymentAccount = paymentAccount.toObject();
             res.render("layouts/user/accountPayment", {
                 layout: "user/main",
                 isHaveAccountPayment: paymentAccount ? true : false,
-                paymentAccount
             });
         } catch (error) {
             console.log(error);

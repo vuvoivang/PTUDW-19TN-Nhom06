@@ -35,5 +35,5 @@ const productSchema = new Schema({
     _id: false
 })
 
-productSchema.plugin(AutoIncrement, { id: "product_seq", startSequence: 1000, collection_name: "product_counters" });
+productSchema.plugin(AutoIncrement, { id: "product_seq", start_seq: 1000, collection_name: "product_counters" });
 module.exports = mongoose.model('products', productSchema);

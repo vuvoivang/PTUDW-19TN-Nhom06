@@ -21,11 +21,20 @@ module.exports = {
     },
     deposit: async (req, res) => {
         try {
-            let updatedAccountPayment = await PaymentAccount.findOneAndUpdate({
+            let updatedAccountPayment = await PaymentAccount.findOne({
                 paymentAccountId: req.body.id,
-            }, {
-                balance: req.body.amount
             });
+
+            let systemAccountPayment = await PaymentAccount.findOne({
+                paymentAccountId: 10000000,
+            });
+
+            if (updatedAccountPayment && systemAccountPayment) {
+                updatedAccountPayment.balance = Number(updatedAccountPayment.balance) + Number(req.body.amount);
+                systemAccountPayment.balance = Number(systemAccountPayment.balance) + Number(req.body.amount);
+                await updatedAccountPayment.save()
+                await systemAccountPayment.save()
+            }
             res.json({ status: "success", data: updatedAccountPayment })
         } catch (error) {
             console.log(error);

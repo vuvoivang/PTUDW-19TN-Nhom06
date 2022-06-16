@@ -42,7 +42,9 @@
                     Số dư
                   </p>
                   <p class="card-title text-success">
-                    {{#ifCondition (paymentAccount.balance) ">=" 0}} {{paymentAccount.balance}} {{else}} 0 {{/ifCondition}} đồng
+                   {{!-- {{paymentAccount.balance}} đồng --}}
+
+                    {{#ifCondition paymentAccount.balance '>=' 0}} {{{paymentAccount.balance}}} {{else}} 0 {{/ifCondition}} đồng
                   </p>
                 </div>
               </div>
@@ -54,7 +56,7 @@
               style="cursor: pointer;"
               data-bs-toggle="modal"
               data-bs-target="#depositModal"
-              {{#if true}} style="cursor: none;  pointer-events:none;"{{/if}} 
+              {{!-- {{#if true}} style="cursor: none;  pointer-events:none;"{{/if}}  --}}
             >
             
               <i class="fa-solid fa-circle-plus icon-bottom"></i>
@@ -142,7 +144,7 @@
                     Tiền nợ
                   </p>
                   <p class="card-title text-danger">
-                    {{#ifCondition (paymentAccount.balance) "<" 0}} {{paymentAccount.balance}} {{else}} 0 {{/ifCondition}} đồng
+                    {{#ifCondition paymentAccount.balance "<" 0}} {{paymentAccount.balance}} {{else}} 0 {{/ifCondition}} đồng
                   </p>
                 </div>
               </div>
