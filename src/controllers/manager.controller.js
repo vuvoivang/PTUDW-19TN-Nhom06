@@ -1,6 +1,6 @@
-const { categories, products, packages } = require('../models/manager.model');
+const { products, packages } = require('../models/manager.model');
 const path = "layouts/manager";
-const Category = require('../models/category');
+const Category = require('../models/Category');
 const { mapObjectInArray } = require('../utils/functions');
 
 module.exports = {
@@ -32,21 +32,18 @@ module.exports = {
             });
         } catch (err) {
             console.log(err.message);
-            res.status(500).json({
-                success: false,
-                message: 'Có lỗi xảy ra, vui lòng thử lại!!',
-                errorCode: "SERVER_ERROR"
-            })
+            // render 500 with status and json 500
+            res.render("/error/500");
         }
     },
 
     addCategory: async (req, res) => {
-        const { name } = req.body
+        const { name, image } = req.body
         try {
-            if (!name) {
+            if (!name || !image) {
                 return res.status(400).json({
                     success: false,
-                    message: 'Vui lòng nhập tên danh mục',
+                    message: 'Vui lòng nhập đầy đủ thông tin',
                     errorCode: "INVALID_DATA"
                 })
             }
@@ -60,7 +57,7 @@ module.exports = {
                 })
             }
 
-            let newCategory = await Category.create({ name });
+            let newCategory = await Category.create({ name, image });
             res.status(201).json({
                 success: true,
                 message: 'Thêm danh mục thành công',
