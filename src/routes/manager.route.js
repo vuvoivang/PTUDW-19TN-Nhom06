@@ -10,6 +10,9 @@ router.get("/patient-management", managerController.getPatientManagement);
 
 // category management
 router.get("/category-management", managerController.getCategoryManagement);
+router.post("/category-management", managerController.addCategory);
+router.put("/category-management/:id", managerController.updateCategory);
+router.delete("/category-management/:id", managerController.deleteCategory);
 
 // product management
 router.get("/product-management", managerController.getProductManagement);

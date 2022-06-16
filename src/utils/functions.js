@@ -35,8 +35,12 @@ async function getFileURL(filename) {
     return url;
 }
 
+const mapObjectInArray = (arr) => {
+    return arr.map(item => item.toObject());
+}
+
 function extractFilenameFromURL(url) {
-    const filename = url.split('?')[0].replace('https://storage.googleapis.com/ptudw-covid.appspot.com/', '');  
+    const filename = url.split('?')[0].replace('https://storage.googleapis.com/ptudw-covid.appspot.com/', '');
     return filename;
 }
 
@@ -56,6 +60,7 @@ async function deleteFileFromURL(url) {
 module.exports = {
     uploadFile,
     getFileURL,
+    mapObjectInArray,
     deleteFile,
     extractFilenameFromURL,
     deleteFileFromURL

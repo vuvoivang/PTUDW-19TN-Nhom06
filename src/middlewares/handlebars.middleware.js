@@ -49,6 +49,12 @@ const helper = {
     ternary: function (test, value1, value2) {
         return test ? value1 : value2;
     },
+    inc: function (value) {
+        return parseInt(value) + 1;
+    },
+    dec: function (value) {
+        return parseInt(value) - 1;
+    },
     append: function (...args) {
         res = '';
         for (let i = 0; i < args.length - 1; i++) {
