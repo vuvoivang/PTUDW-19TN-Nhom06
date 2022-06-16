@@ -46,14 +46,20 @@ const helper = {
     json: function (context) {
         return JSON.stringify(context).replace(/"/g, '&quot;');
     },
+    inc: function (value) {
+        return parseInt(value) + 1;
+    },
+    dec: function (value) {
+        return parseInt(value) - 1;
+    },
     append: function (...args) {
         res = '';
         for (let i = 0; i < args.length - 1; i++) {
-                res += args[i];
+            res += args[i];
         }
         return res;
     },
-    sum : function(...args) {
+    sum: function (...args) {
         res = 0;
         for (let i = 0; i < args.length - 1; i++) {
             res += args[i];
