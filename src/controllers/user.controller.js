@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Account = require('../models/Account')
+const Transaction = require('../models/Transaction')
 const PaymentAccount = require('../models/PaymentAccount')
 
 const { hyperlinksSidebarUser, userBreadCrumb } = require('../constants/index');
@@ -26,7 +26,16 @@ module.exports = {
             let paymentAccount = await PaymentAccount.findOne({
                 paymentAccountId: userId,
             });
+            let transactions = await Transaction.find({
+                accountId: paymentAccount._id
+            })
             res.locals.paymentAccount = paymentAccount.toObject();
+            console.log(transactions)
+            res.locals.transactions = transactions.map(item => {
+                return {
+                    ...item.toObject(), localeDate: item.createdAt.toLocaleString()
+                }
+            });
             res.render("layouts/user/accountPayment", {
                 layout: "user/main",
                 isHaveAccountPayment: paymentAccount ? true : false,

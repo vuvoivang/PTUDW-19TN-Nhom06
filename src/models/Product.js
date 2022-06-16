@@ -6,7 +6,6 @@ const productSchema = new Schema({
     _id: {
         type: Number,
         unique: true,
-        required: true
     },
     name: {
         type: String,

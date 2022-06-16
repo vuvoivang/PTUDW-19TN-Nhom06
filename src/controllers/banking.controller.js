@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
+const { transactionType } = require('../constants');
 const PaymentAccount = require('../models/PaymentAccount')
+const Transaction = require('../models/Transaction')
 
 module.exports = {
     createAccountPayment: async (req, res) => {
@@ -26,7 +28,7 @@ module.exports = {
             });
 
             let systemAccountPayment = await PaymentAccount.findOne({
-                paymentAccountId: 10000000,
+                accountNumber: 10000000,
             });
 
             if (updatedAccountPayment && systemAccountPayment) {
@@ -34,7 +36,16 @@ module.exports = {
                 systemAccountPayment.balance = Number(systemAccountPayment.balance) + Number(req.body.amount);
                 await updatedAccountPayment.save()
                 await systemAccountPayment.save()
+
+                await Transaction.create({
+                    accountId: updatedAccountPayment._id,
+                    amount: req.body.amount,
+                    type: transactionType.deposit,
+                    description: "Nạp tiền vào tài khoản"
+
+                })
             }
+
             res.json({ status: "success", data: updatedAccountPayment })
         } catch (error) {
             console.log(error);
