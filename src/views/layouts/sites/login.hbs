@@ -33,7 +33,7 @@
                     <img src="https://i.ibb.co/6Nnf81X/logo-3.png" alt="app-logo">
                     <span>SIGN IN</span>
                 </div>
-                <form action="" method="post">
+                <form action="javascript:void(0)" method="post" id="form">
                     <label for="username">Username</label>
                     <div class="input-field username">
                         <div class="icon">
@@ -47,9 +47,10 @@
                             <i class="fa-solid fa-lock"></i>
                         </div>
                         <input type="password" id="password" name="password" placeholder="Enter password">
+
                     </div>
                     <div class="account-option">
-                        <input type="checkbox" id="user-login" , name="user-login" value="remember me">
+                        <input type="checkbox" id="rememberAccount" , name="rememberAccount" value="remember me">
                         <label for="user-login">Remember me</label>
                         <a href="#" id="lost-password">Lost password?</a>
                     </div>
@@ -64,7 +65,7 @@
                 </div>
                 <div class="create-account">
                     <span>Not registered?</span>
-                    <a href="#" id="create-account">Create Account</a>
+                    <a href="/signup" id="create-account">Create Account</a>
                 </div>
 
 
@@ -82,92 +83,8 @@
                 alt="Blue-Illustration-Vaccination-Covid-19-Facebook-Post" border="0">
         </div>
     </div>
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-app.js"
-        import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, FacebookAuthProvider } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-auth.js"
 
-        // Your web app's Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyD9xiWK7FIWUte_ZSHtHSjgEBpjB6sCsVw",
-            authDomain: "ptudw-covid.firebaseapp.com",
-            projectId: "ptudw-covid",
-            storageBucket: "ptudw-covid.appspot.com",
-            messagingSenderId: "250090458609",
-            appId: "1:250090458609:web:d7448c4d1f1e14af458850"
-        };
-
-
-        const firebase = initializeApp(firebaseConfig);
-        const auth = getAuth(firebase)
-
-        // Google login
-        const ggProvider = new GoogleAuthProvider(firebase);
-
-        function googleLogin() {
-            signInWithPopup(auth, ggProvider)
-                .then((result) => {
-                    // This gives you a Google Access Token. You can use it to access the Google API.
-                    const credential = GoogleAuthProvider.credentialFromResult(result);
-                    const token = credential.accessToken;
-                    // The signed-in user info.
-                    const user = result.user;
-                    location.href = "/user"
-                    // ...
-                }).catch((error) => {
-                    // Handle Errors here.
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    // The email of the user's account used.
-                    const email = error.customData.email;
-                    // The AuthCredential type that was used.
-                    const credential = GoogleAuthProvider.credentialFromError(error);
-                    // ...
-                })
-        };
-
-        var google = document.getElementById('google')
-        if (google) {
-            google.addEventListener('click', (e) => {
-                googleLogin()
-            })
-        }
-
-        // Facebook login
-        const fProvider = new FacebookAuthProvider(firebase);
-
-        function facebookLogin() {
-            signInWithPopup(auth, fProvider)
-                .then((result) => {
-                    // The signed-in user info.
-                    const user = result.user;
-
-                    // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-                    const credential = FacebookAuthProvider.credentialFromResult(result);
-                    const accessToken = credential.accessToken;
-                    location.href = '/user'
-
-                    // ...
-                })
-                .catch((error) => {
-                    // Handle Errors here.
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    // The email of the user's account used.
-                    const email = error.customData.email;
-                    // The AuthCredential type that was used.
-                    const credential = FacebookAuthProvider.credentialFromError(error);
-
-                    // ...
-                });
-        }
-        var facebook = document.getElementById('facebook')
-        if (facebook) {
-            facebook.addEventListener('click', (e) => {
-                facebookLogin();
-            });
-        }
-
-    </script>
+        <script type="module" src="/js/firebase/signin.js"></script>
 </body>
 
 </html>

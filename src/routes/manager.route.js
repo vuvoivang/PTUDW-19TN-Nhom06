@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 
 const managerController = require('../controllers/manager.controller');
+const authController = require('../controllers/sites/auth.controller')
+
+router.use(authController.isLoggedIn, authController.firewallUrlHandle)
 
 // patient management
 // router.get("/", managerController.get); // default

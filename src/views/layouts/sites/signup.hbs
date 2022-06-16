@@ -33,51 +33,51 @@
                     <img src="https://i.ibb.co/6Nnf81X/logo-3.png" alt="app-logo">
                     <span>SIGN UP</span>
                 </div>
-                <form action="" method="post">
+                <form method="post" action="javascript:void(0)">
                     <label for="email">Email</label>
                     <div class="input-field email">
                         <div class="icon">
                             <i class="fa-solid fa-envelope"></i>
                         </div>
-                        <input type="text" id="email" name="email" placeholder="Enter your email">
+                        <input type="text" id="email" name="email" placeholder="Enter your email" required>
                     </div>
                     <label for="username">Username</label>
                     <div class="input-field username">
                         <div class="icon">
                             <i class="fa-solid fa-circle-user"></i>
                         </div>
-                        <input type="text" id="username" name="username" placeholder="Enter username">
+                        <input type="text" id="username" name="username" placeholder="Enter username" required>
                     </div>
                     <label for="password">Password</label>
                     <div class="input-field password">
                         <div class="icon">
                             <i class="fa-solid fa-lock"></i>
                         </div>
-                        <input type="password" id="password" name="password" placeholder="Enter password">
+                        <input type="password" id="password" name="password" placeholder="Enter password" required>
                     </div>
-                    <label for="confirm-password">Password</label>
+                    <label for="confirm-password">Confirm Password</label>
                     <div class="input-field confirm-password">
                         <div class="icon">
                             <i class="fa-solid fa-lock"></i>
                         </div>
-                        <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password">
+                        <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required>
                     </div>
                     <div class="account-option">
-                        <input type="checkbox" id="terms-confirm" , name="terms-confirm">
+                        <input type="checkbox" id="terms-confirm" , name="terms-confirm" required>
                         <label for="terms-confirm">Tôi đồng ý với các điều khoản và điều kiện</label>
                     </div>
-                    <input type="submit" id="submit" value="Sign up">
+                    <input type="submit" id="submit" value="Sign up" disabled>
                 </form>
                 <div class="additional-login">
                     <span>or login with</span>
                     <div class="other-login">
-                        <a href="#"><i class="fa-brands fa-facebook-square fa-lg"></i></a>
-                        <a href="#"><i class="fa-brands fa-google fa-lg"></i></a>
+                        <button id="facebook"><i class="fa-brands fa-facebook-square fa-lg"></i></button>
+                        <button id="google"><i class="fa-brands fa-google fa-lg"></i></button>
                     </div>
                 </div>
                 <div class="account-login">
                     <span>Already have an account?</span>
-                    <a href="#" id="sign-in">Sign in here</a>
+                    <a href="/signin" id="sign-in">Sign in here</a>
                 </div>
 
 
@@ -94,6 +94,7 @@
                 alt="Blue-Illustration-Vaccination-Covid-19-Facebook-Post" border="0">
         </div>
     </div>
+    <script type="module" src="/js/firebase/signup.js"></script>
 </body>
 
 </html>
