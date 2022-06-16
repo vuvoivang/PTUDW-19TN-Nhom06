@@ -1,12 +1,12 @@
 const firebase = require('../config/firebase');
 
-// ex: filename = folder + req.file.originalname
-async function uploadFile(req, filename) {
+// ex: filename = folder + file.originalname
+async function uploadFile(file, filename) {
     const blob = firebase.bucket.file(filename);
 
     const blobWriter = blob.createWriteStream({
         metadata: {
-            contentType: req.file.mimetype,
+            contentType: file.mimetype,
         },
     });
 
@@ -17,7 +17,7 @@ async function uploadFile(req, filename) {
     blobWriter.on('finish', () => {
         console.log('File uploaded.');
     });
-    blobWriter.end(req.file.buffer);
+    blobWriter.end(file.buffer);
     const url = await firebase.bucket.file(filename).getSignedUrl({
         action: 'read',
         expires: '03-09-2491',
@@ -39,8 +39,16 @@ const mapObjectInArray = (arr) => {
     return arr.map(item => item.toObject());
 }
 
+async function deleteFile(filename) {
+    await firebase.bucket.deleteFiles({
+        prefix: filename,
+    });
+}
+
+
 module.exports = {
     uploadFile,
     getFilename,
-    mapObjectInArray
+    mapObjectInArray,
+    deleteFile
 }

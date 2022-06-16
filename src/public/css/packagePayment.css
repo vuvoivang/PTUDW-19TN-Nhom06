@@ -1,4 +1,4 @@
-.product-detail{
+.package-detail{
     border-radius: 20px;
     border: 1px solid #ccc;
     padding: 40px 30px;
@@ -9,7 +9,7 @@
 
 /* x-large and up screens */
 @media (min-width: 1200px) {
-    .product-detail {
+    .package-detail {
         margin-left: 10%;
         margin-right: 10%;
     }

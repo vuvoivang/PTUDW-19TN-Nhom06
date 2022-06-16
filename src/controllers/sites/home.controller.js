@@ -8,7 +8,7 @@ module.exports = {
             let categories = await Category.find({});
             categories = categories.map((category) => category.toObject());
 
-            // get all products ? TODO: popular packages
+            // get all package ? TODO: popular packages
             let packages = await Package.find({});
             packages = packages.map((package) => package.toObject());
             res.render('layouts/sites/home', {
