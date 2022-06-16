@@ -32,6 +32,9 @@ const accountSchema = new Schema({
     avatarUrl: {
         type: String,
     },
+    avatarName: {
+        type: String,
+    },
     ifHasAvatar: {
         type: Boolean,
     },
