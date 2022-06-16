@@ -26,7 +26,7 @@ async function uploadFile(file, filename) {
     return url;
 }
 
-async function getFilename(filename) {
+async function getFileURL(filename) {
     const url = await firebase.bucket.file(filename).getSignedUrl({
         action: 'read',
         expires: '03-09-2491',
@@ -35,7 +35,19 @@ async function getFilename(filename) {
     return url;
 }
 
+function extractFilenameFromURL(url) {
+    const filename = url.split('?')[0].replace('https://storage.googleapis.com/ptudw-covid.appspot.com/', '');  
+    return filename;
+}
+
 async function deleteFile(filename) {
+    await firebase.bucket.deleteFiles({
+        prefix: filename,
+    });
+}
+
+async function deleteFileFromURL(url) {
+    const filename = extractFilenameFromURL(url);
     await firebase.bucket.deleteFiles({
         prefix: filename,
     });
@@ -43,6 +55,8 @@ async function deleteFile(filename) {
 
 module.exports = {
     uploadFile,
-    getFilename,
+    getFileURL,
     deleteFile,
+    extractFilenameFromURL,
+    deleteFileFromURL
 };
