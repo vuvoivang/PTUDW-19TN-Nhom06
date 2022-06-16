@@ -46,6 +46,9 @@ const helper = {
     json: function (context) {
         return JSON.stringify(context).replace(/"/g, '&quot;');
     },
+    ternary: function (test, value1, value2) {
+        return test ? value1 : value2;
+    },
     inc: function (value) {
         return parseInt(value) + 1;
     },

@@ -22,7 +22,7 @@ const handleBankingConnect = (id) => {
         body: JSON.stringify({ id, newPassword: password })
     }).then(resp => resp.json())
         .then(result => {
-            const { status, message, data } = result;
+            const { status, message } = result;
             if (status !== "success") {
                 alert(message);
                 location.reload();
@@ -42,7 +42,7 @@ const handleDeposit = (id) => {
     const amount = document.getElementById('amountInput').value;
 
     if (amount <= 1000) {
-        alert("The amount must be at least 1000 dong");
+        alert("Số tiền nạp ít nhất là 5000 đồng!");
         return;
     }
 
@@ -62,8 +62,18 @@ const handleDeposit = (id) => {
                 return
             }
             else {
-                alert("Deposit successfully!!");
-                location.reload();
+                Toastify({
+                    text: "Nạp tiền thành công!",
+                    duration: 3000,
+                    gravity: "top", // `top` or `bottom`
+                    stopOnFocus: true, // Prevents dismissing of toast on hover
+                    position: "right",
+                    style: {
+                        background: "#00b09b",
+                    },
+                    callback: function () { location.reload(); }
+                }).showToast();
+
             }
 
         })

@@ -29,7 +29,13 @@ const userBreadCrumb = {
     ],
     mainLabel: "Người dùng"
 }
+const transactionType = {
+    deposit: "deposit",
+    withdraw: "withdraw",
+    payment: "payment"
+}
 module.exports = {
     hyperlinksSidebarUser,
-    userBreadCrumb
+    userBreadCrumb,
+    transactionType
 }
