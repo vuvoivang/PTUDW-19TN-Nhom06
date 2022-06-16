@@ -26,13 +26,10 @@ const productSchema = new Schema({
         ref: 'Category',
         required: true,
     },
+    description: {
+        type: String,
+    },
     images: [
-        {
-            type: String,
-            required: true,
-        },
-    ],
-    imageNames: [
         {
             type: String,
             required: true,

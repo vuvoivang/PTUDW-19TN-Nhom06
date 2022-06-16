@@ -95,7 +95,6 @@ module.exports = {
                 limitTime: req.body.limitTime,
                 productList,
                 image: url[0],
-                imageName: 'packages/' + filename,
                 defaultPrice: totalPrice,
             });
 
