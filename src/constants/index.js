@@ -1,22 +1,22 @@
-const hyperlinksSidebarUser = [
+const hyperlinksSidebarUser = (userId) => [
     {
         label: "Tài khoản của tôi",
-        href: "#",
+        href: `/user/${userId}/account`,
         icon: "fa-solid fa-circle-user fa-lg"
     },
     {
         label: "Lịch sử được quản lý",
-        href: "#",
+        href: `/user/${userId}/managementHistory`,
         icon: "fa-solid fa-clock-rotate-left fa-lg"
     },
     {
         label: "Lịch sử mua hàng",
-        href: "#",
+        href: `/user/${userId}/paymentHistory`,
         icon: "fa fa-cart-plus fa-lg"
     },
     {
         label: "Tài khoản thanh toán",
-        href: "/user/123/accountPayment",
+        href: `/user/${userId}/accountPayment`,
         icon: "fa-solid fa-user-plus fa-lg"
     }
 ];
@@ -34,8 +34,10 @@ const transactionType = {
     withdraw: "withdraw",
     payment: "payment"
 }
+const MIN_DEPOSIT = 1000;
 module.exports = {
     hyperlinksSidebarUser,
     userBreadCrumb,
-    transactionType
+    transactionType,
+    MIN_DEPOSIT
 }
