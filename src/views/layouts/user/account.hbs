@@ -1,1 +1,149 @@
-Tài khoản của tôi
+{{#section "title"}}
+  <title>
+    Tài khoản của tôi
+  </title>
+{{/section}}
+{{#section "style"}}
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+{{/section}}
+<div id="content-account pe-none">
+  <div class="col-md-12 p-0">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title p-3">
+          Tài khoản của tôi
+        </h4>
+      </div>
+      <div class="card-body">
+        <form>
+          <div class="row py-2">
+            <div class="col-md-8 pe-1">
+              <div class="form-group">
+                <label>
+                  Họ tên
+                </label>
+                <input
+                  type="text"
+                  readonly
+                  class="form-control bg-transparent"
+                  value="{{account.fullName}}"
+                />
+              </div>
+            </div>
+            <div class="col-md-4 ps-1">
+              <div class="form-group">
+                <label>
+                  Ngày sinh
+                </label>
+                <input
+                  type="text"
+                  readonly
+                  class="form-control bg-transparent"
+                  value="{{account.dateOfBirth}}"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row py-2">
+            <div class="col-md-6 pe-1">
+              <div class="form-group">
+                <label>
+                  Username
+                </label>
+                <input
+                  type="text"
+                  readonly
+                  class="form-control bg-transparent"
+                  value="{{account.username}}"
+                />
+              </div>
+            </div>
+            <div class="col-md-6 ps-1">
+              <div class="form-group">
+                <label for="exampleInputEmail1">
+                  Số CMND / Căn cước công dân
+                </label>
+                <input
+                  type="text"
+                  readonly
+                  class="form-control bg-transparent"
+                  value="{{account.cardId}}"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row py-2">
+            <div class="col-md-8 pe-1">
+              <div class="form-group">
+                <label>
+                  Nơi đang điều trị / cách ly
+                </label>
+                <input
+                  type="text"
+                  readonly
+                  class="form-control bg-transparent"
+                  value="{{profile.quarantineLocation.name}}"
+                />
+              </div>
+            </div>
+            <div class="col-md-4 ps-1">
+              <div class="form-group">
+                <label>
+                  Trạng thái hiện tại
+                </label>
+                {{#if account.state}}
+                  <input
+                    type="text"
+                    readonly
+                    class="form-control bg-transparent"
+                    value="F{{account.state}}"
+                  />
+                {{else}}
+                  <input
+                    type="text"
+                    readonly
+                    class="form-control bg-transparent"
+                    value="Khỏi bệnh"
+                  />
+                {{/if}}
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4 pe-1">
+              <div class="form-group">
+                <label>
+                  Email
+                </label>
+                <input
+                  type="text"
+                  readonly
+                  class="form-control bg-transparent"
+                  value="{{account.email}}"
+                />
+              </div>
+            </div>
+            <div class="col-md-8 pe-1">
+              <div class="form-group">
+                <label>
+                  Địa chỉ
+                </label>
+                <input
+                  type="text"
+                  readonly
+                  class="form-control bg-transparent"
+                  value="{{account.address}}"
+                />
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
