@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Transaction = require('../models/Transaction')
 const PaymentAccount = require('../models/PaymentAccount')
+const Account = require('../models/Account')
 
 const { hyperlinksSidebarUser, userBreadCrumb } = require('../constants/index');
 const pushBreadCrumb = (label, link, isActive = true) => {
@@ -63,10 +64,14 @@ module.exports = {
             res.locals.hyperlinks = hyperlinksSidebarUser(userId);
             res.locals.userId = userId;
             res.locals.breadCrumb = pushBreadCrumb("Tài khoản của tôi", `/user/${userId}/account`);
-
+            let correspondingAccount = await Account.findById(userId);
+            if (!correspondingAccount) {
+                res.redirect('layouts/error/404');
+            }
+            console.log(correspondingAccount);
             res.render("layouts/user/account", {
                 layout: "user/main",
-
+                account: correspondingAccount.toObject()
             });
         } catch (error) {
             res.status(500).json({

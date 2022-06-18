@@ -16,6 +16,9 @@ const logManagerSchema = new Schema({
         type: ObjectId,
         ref: 'Account',
     },
+    time: {
+        type: Date
+    }
 
 });
 
