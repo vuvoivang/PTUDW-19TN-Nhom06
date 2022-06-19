@@ -15,7 +15,7 @@ const packageSchema = new Schema({
         required: true,
     },
     limitTime: {
-        type: Date,
+        type: Number,
         required: true,
     },
     productList: [

@@ -58,7 +58,7 @@
                 Nhu yếu phẩm: ID - số lượng tối đa (Vui lòng chọn ít nhất 2 món trong
                 danh sách)
                 <span class="text-danger">
-                        *
+                    *
                 </span>
             </label>
             <input class="form-control" name="productList" id="productList" type="text" readonly />
@@ -83,7 +83,7 @@
                 <thead class="text-primary">
                     <tr>
                         <th>
-                            ID
+                            No.
                         </th>
                         <th>
                             Tên nhu yếu phẩm
@@ -106,7 +106,7 @@
                     {{#each products}}
                     <tr>
                         <td>
-                            {{this.id}}
+                            {{inc @index}}
                         </td>
                         <td>
                             {{this.name}}
@@ -115,15 +115,18 @@
                             {{this.unit}}
                         </td>
                         <td>
-                            {{this.price}}
+                            {{numberWithCommas this.price}}
                         </td>
                         <td>
-                            {{this.category}}
+                            {{get this.category "name"}}
                         </td>
                         <td class="text-end">
-                            <input class="form-inline me-3" style="width: 80px" type="number" min="1" name={{this.id}} id={{this.id}}>
-                            <i id="select-product" class="fa-solid fa-circle-plus fa-lg" style="cursor: pointer; color: #4CAF50"></i>
-                            {{!-- <i id="unselect-product" class="fa-solid fa-trash fa-lg" style="cursor: pointer; color: #dc3545"></i> --}}
+                            <input class="form-inline me-3" style="width: 80px" type="number" min="1" name={{this.id}}
+                                id={{this._id}}>
+                            <i id="select-product" class="fa-solid fa-circle-plus fa-lg"
+                                style="cursor: pointer; color: #4CAF50"></i>
+                            {{!-- <i id="unselect-product" class="fa-solid fa-trash fa-lg"
+                                style="cursor: pointer; color: #dc3545"></i> --}}
                         </td>
                     </tr>
                     {{/each}}
@@ -135,8 +138,8 @@
 
 {{#section "script"}}
 <script>
-    $(document).ready(function () { 
-        $('#data_table').DataTable(); 
+    $(document).ready(function () {
+        $('#data_table').DataTable();
     });
 </script>
 {{/section}}

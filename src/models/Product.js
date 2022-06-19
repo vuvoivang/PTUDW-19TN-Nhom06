@@ -23,7 +23,7 @@ const productSchema = new Schema({
     },
     category: {
         type: ObjectId,
-        ref: 'Category',
+        ref: 'categories',
         required: true,
     },
     description: {

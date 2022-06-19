@@ -27,6 +27,9 @@
               <th>
                 Tên danh mục
               </th>
+              <th class="text-center">
+                Hình ảnh
+              </th>
               <th class="text-end">
                 Thao tác
               </th>
@@ -40,6 +43,9 @@
               </td>
               <td>
                 {{this.name}}
+              </td>
+              <td class="text-center">
+                <img src={{this.image}} alt="category" style="width: 55px; height: 55px">
               </td>
               <td class="text-end">
                 <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#updateCategoryModal"

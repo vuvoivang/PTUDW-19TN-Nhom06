@@ -35,7 +35,7 @@ async function getFileURL(filename) {
     return url;
 }
 
-const mapObjectInArray = (arr) => {
+function mapObjectInArray(arr) {
     return arr.map(item => item.toObject());
 }
 
@@ -57,11 +57,21 @@ async function deleteFileFromURL(url) {
     });
 }
 
+async function createUrlFromImageName(image, storage) {
+    const timestamp = Date.now();
+    const name = image.originalname.split('.')[0];
+    const type = image.originalname.split('.')[1];
+    const filename = `${name}_${timestamp}.${type}`;
+    const url = await uploadFile(image, `${storage}/${filename}`);
+    return url[0];
+}
+
 module.exports = {
     uploadFile,
     getFileURL,
     mapObjectInArray,
     deleteFile,
     extractFilenameFromURL,
-    deleteFileFromURL
+    deleteFileFromURL,
+    createUrlFromImageName
 };
