@@ -1,14 +1,5 @@
 ::-webkit-scrollbar {
-    width: 10px;
-  }
-  
-::-webkit-scrollbar-thumb {
-  background-color: var(--bs-gray-400);
-  border-radius: 5px;
-}
-  
-::-webkit-scrollbar-thumb:hover {
-    background: var(--bs-gray-500);
+  width: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -20,12 +11,20 @@
   background: var(--bs-gray-500);
 }
 
+::-webkit-scrollbar-thumb {
+  background-color: var(--bs-gray-400);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--bs-gray-500);
+}
 
 #sidenav-main .brand-img {
   max-height: 2.5rem !important;
 }
-a{
-  text-decoration: none!important;
+a {
+  text-decoration: none !important;
 }
 a:hover {
   text-decoration: none;
@@ -916,7 +915,7 @@ table.dataTable > thead .sorting_desc_disabled:after {
 
 .card-view .card-info b {
   font-size: 1.3em;
-  font-weight: 600;
+  font-weight: 500;
   margin-right: 5px;
 }
 
@@ -974,50 +973,60 @@ table.dataTable > thead .sorting_desc_disabled:after {
 #dropdownMenuButton .dropdown-menu {
   box-shadow: 0 -5px 5px -5px #333;
 }
-#navbarBlur ul.navbar-nav{
+#navbarBlur ul.navbar-nav {
   width: 35%;
-  justify-content: flex-end!important;
+  justify-content: flex-end !important;
 }
 @media screen and (max-width: 1215px) {
-  .sidenav.fixed-start + .main-content{
+  .sidenav.fixed-start + .main-content {
     padding: 10px;
   }
-  #navbarBlur ul.navbar-nav li{
-    padding: 8px!important;
+  #navbarBlur ul.navbar-nav li {
+    padding: 8px !important;
   }
-  #navbarBlur > div:first-child{
-    padding: 4px 8px!important;
+  #navbarBlur > div:first-child {
+    padding: 4px 8px !important;
   }
-  #navbarBlur > div:first-child ol.breadcrumb{
-    margin-right: 15px!important;
+  #navbarBlur > div:first-child ol.breadcrumb {
+    margin-right: 15px !important;
   }
-  .main-content .body-content{
-    padding:10px!important;
+  .main-content .body-content {
+    padding: 10px !important;
   }
 }
 @media screen and (max-width: 750px) {
   .navbar-vertical.navbar-expand-xs {
-    max-width:12rem!important;
+    max-width: 12rem !important;
   }
-  .navbar-vertical.navbar-expand-xs .sidenav-footer .navbar-nav .nav-item .nav-link{
-    margin: 0 6px!important;
+  .navbar-vertical.navbar-expand-xs
+    .sidenav-footer
+    .navbar-nav
+    .nav-item
+    .nav-link {
+    margin: 0 6px !important;
   }
-  .sidenav .navbar-brand{padding:1rem 0.5rem ;}
-  .sidenav.fixed-start + .main-content{margin-left: 13rem;}
-  #content-accountPayment .card-remain{
+  .sidenav .navbar-brand {
+    padding: 1rem 0.5rem;
+  }
+  .sidenav.fixed-start + .main-content {
+    margin-left: 13rem;
+  }
+  #content-accountPayment .card-remain {
     margin-bottom: 10px;
   }
-  #content-accountPayment .card-owe{
+  #content-accountPayment .card-owe {
     margin-bottom: 10px;
   }
 }
 
-@media screen and (max-width: 500px){
-  #sidenav-main.navbar-vertical.navbar-expand-xs{
+@media screen and (max-width: 500px) {
+  #sidenav-main.navbar-vertical.navbar-expand-xs {
     display: none;
   }
-  .sidenav.fixed-start + .main-content{margin-left: 0;}
-  .main-content{
+  .sidenav.fixed-start + .main-content {
+    margin-left: 0;
+  }
+  .main-content {
     padding-bottom: 30px;
   }
 }

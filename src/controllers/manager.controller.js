@@ -1,7 +1,10 @@
 const { products, packages } = require('../models/manager.model');
 const path = "layouts/manager";
 const Category = require('../models/Category');
+const Product = require('../models/Product');
+const Package = require('../models/Package');
 const { mapObjectInArray } = require('../utils/functions');
+const utils = require('../utils/functions');
 
 module.exports = {
     get: (req, res) => {
@@ -32,34 +35,36 @@ module.exports = {
             });
         } catch (err) {
             console.log(err.message);
-            // render 500 with status and json 500
-            res.render("/error/500");
+            res.render("error/500");
         }
     },
 
     addCategory: async (req, res) => {
-        const { name, image } = req.body
         try {
-            if (!name || !image) {
+            if (!req.body.name || !req.body.image) {
                 return res.status(400).json({
-                    success: false,
+                    status: 'Bad Request',
                     message: 'Vui lòng nhập đầy đủ thông tin',
                     errorCode: "INVALID_DATA"
                 })
             }
 
-            let category = await Category.findOne({ name });
+            let category = await Category.findOne({ name: req.body.name });
             if (category) {
                 return res.status(400).json({
-                    success: false,
+                    status: 'Bad Request',
                     message: 'Danh mục đã tồn tại',
                     errorCode: "CATEGORY_EXIST"
                 })
             }
 
-            let newCategory = await Category.create({ name, image });
+            image = utils.createUrlFromImageName(req.body.image, "categories");
+            let newCategory = await Category.create({
+                name: req.body.name,
+                image: image
+            });
             res.status(201).json({
-                success: true,
+                status: 'success',
                 message: 'Thêm danh mục thành công',
                 data: newCategory
             })
@@ -67,7 +72,7 @@ module.exports = {
         } catch (err) {
             console.log(err.message);
             res.status(500).json({
-                success: false,
+                status: 'Server Error',
                 message: 'Có lỗi xảy ra, vui lòng thử lại!!',
                 errorCode: "SERVER_ERROR"
             })
@@ -75,18 +80,100 @@ module.exports = {
     },
 
     updateCategory: async (req, res) => {
+        try {
+            const id = req.params.id;
+            const category = await Category.findById(id);
+            if (!category) {
+                return res.status(400).json({
+                    status: 'Bad Request',
+                    message: 'Danh mục không tồn tại',
+                    errorCode: 'CATEGORY_NOT_FOUND'
+                });
+            }
+
+            if (!req.body.name) {
+                return res.status(400).json({
+                    status: 'Bad Request',
+                    message: 'Vui lòng nhập đầy đủ thông tin',
+                    errorCode: "INVALID_DATA"
+                })
+            }
+
+            let categoryExist = await Category.findOne({ name: req.body.name });
+            if (categoryExist && categoryExist._id != id) {
+                return res.status(400).json({
+                    status: 'Bad Request',
+                    message: 'Danh mục đã tồn tại',
+                    errorCode: "CATEGORY_EXIST"
+                })
+            }
+
+            category.name = req.body.name;
+            if (req.body.image) {
+                image = utils.createUrlFromImageName(req.body.image, "categories");
+                category.image = image;
+            }
+            await category.save();
+            res.status(200).json({
+                status: 'success',
+                message: 'Cập nhật danh mục thành công',
+                data: category
+            })
+
+        } catch (err) {
+            console.log(err.message);
+            res.status(500).json({
+                status: 'Server Error',
+                message: 'Có lỗi xảy ra, vui lòng thử lại!!',
+                errorCode: "SERVER_ERROR"
+            })
+        }
     },
 
     deleteCategory: async (req, res) => {
+        try {
+            const id = req.params.id;
+            const category = await Category.findById(id);
+            if (!category) {
+                return res.status(400).json({
+                    status: 'Bad Request',
+                    message: 'Danh mục không tồn tại',
+                    errorCode: 'CATEGORY_NOT_FOUND'
+                });
+            }
+
+            await utils.deleteFileFromURL(category.image);
+            await category.remove();
+            res.status(200).json({
+                status: 'success',
+                message: 'Xóa danh mục thành công',
+                data: category
+            })
+        } catch (err) {
+            console.log(err.message);
+            res.status(500).json({
+                status: 'Server Error',
+                message: 'Có lỗi xảy ra, vui lòng thử lại!!',
+                errorCode: "SERVER_ERROR"
+            })
+        }
     },
 
     // product
-    getProductManagement: (req, res) => {
-        res.render(`${path}/productManagement`, {
-            layout: "manager/main",
-            tag: "product",
-            products
-        })
+    getProductManagement: async (req, res) => {
+        // get All Products 
+        try {
+            let products = await Product.find({}).populate('category');
+            products = mapObjectInArray(products);
+            res.render(`${path}/productManagement`, {
+                layout: "manager/main",
+                tag: "product",
+                products
+            });
+        } catch (err) {
+            console.log(err.message);
+            res.render("error/500");
+        }
     },
 
     addProduct: (req, res) => {
@@ -104,28 +191,51 @@ module.exports = {
     },
 
     // package
-    getPackageManagement: (req, res) => {
-        res.render(`${path}/packageManagement`, {
-            layout: "manager/main",
-            tag: "package",
-            packages
-        })
+    getPackageManagement: async (req, res) => {
+        // get All Packages
+        try {
+            let packages = await Package.find({}).populate("productList")
+            console.log(packages);
+            packages = mapObjectInArray(packages);
+            res.render(`${path}/packageManagement`, {
+                layout: "manager/main",
+                tag: "package",
+                packages
+            });
+        } catch (err) {
+            console.log(err.message);
+            res.render("error/500");
+        }
     },
 
-    addPackage: (req, res) => {
-        res.render(`${path}/addPackage`, {
-            layout: "manager/main",
-            tag: "package",
-            products
-        })
+    addPackage: async (req, res) => {
+        try {
+            let products = await Product.find({}).populate('category');
+            products = mapObjectInArray(products);
+            res.render(`${path}/addPackage`, {
+                layout: "manager/main",
+                tag: "package",
+                products
+            });
+        } catch (err) {
+            console.log(err.message);
+            res.render("error/500");
+        }
     },
 
-    detailPackage: (req, res) => {
-        res.render(`${path}/detailPackage`, {
-            layout: "manager/main",
-            tag: "package",
-            products
-        })
+    detailPackage: async (req, res) => {
+        try {
+            let products = await Product.find({}).populate('category');
+            products = mapObjectInArray(products);
+            res.render(`${path}/detailPackage`, {
+                layout: "manager/main",
+                tag: "package",
+                products
+            });
+        } catch (err) {
+            console.log(err.message);
+            res.render("error/500");
+        }
     },
 
     // payment
