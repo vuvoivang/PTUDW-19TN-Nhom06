@@ -1,0 +1,56 @@
+{{#section "title"}}
+<title>
+  Xem danh sách quản lý
+</title>
+{{/section}}
+
+{{#section "style"}}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css"
+  crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css"
+  crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<link rel="stylesheet" href="/css/admin/managerView.css" />
+{{/section}}
+
+<div class="header">
+  <div class="title">Danh sách quản lý</div>
+  <button class="order">
+    <i class="fa-solid fa-arrow-down-wide-short fa-lg"></i>
+    <span>Sắp xếp theo</span>
+  </button>
+  <button class="filter">
+    <i class="fa-solid fa-filter fa-lg"></i>
+    <span>Lọc theo</span>
+  </button>
+  <div class="search-bar">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+    <input type="text" placeholder="Search.." class="search-input">
+  </div>
+</div>
+
+<div class="content">
+  <ul class="list">
+    {{#each managers}}
+    <li class="list-item">
+      <div class="display-name">
+        <i class="fa-solid fa-user-tie fa-lg"></i>
+        <span class="text">{{displayName}}</span>
+      </div>
+      <div class="username">
+        {{username}}
+      </div>
+      <button class="permission">
+        Quản lý quyền
+      </button>
+      <button class="state">
+        <i class="fa-solid fa-circle fa-lg"></i>
+        <span>{{state}}</span>
+      </button>
+      <button class="history">
+        History
+      </button>
+    </li>
+    {{/each}}
+  </ul>
+</div>

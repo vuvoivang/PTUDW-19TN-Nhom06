@@ -1,4 +1,4 @@
-const Account = require('./../../models/account.model')
+const Account = require('./../../models/Account')
 const jwt = require('jsonwebtoken')
 const AppError = require('../../utils/AppError')
 
@@ -11,26 +11,28 @@ const signToken = (id, role) => {
 }
 
 const createSendToken = (id, role, res, tokenName) => {
-    const token = signToken(id, role)
+    const token = signToken(id, role);
     const cookieOptions = {
         expires: new Date(Date.now() + process.env.cookie_expires_in * 60 * 1000),
         httpOnly: true
-    }
+    };
 
-    res.cookie(tokenName, token, cookieOptions)
+    res.cookie(tokenName, token, cookieOptions);
 }
 
 const signup = async (req, res, next) => {
     try {
-        const { email, username, password } = req.body
+        const { email, username, password } = req.body;
 
         if (!email || !username || !password) {
             return next(new AppError('Please provide a valid email and username and password', 400))
         }
         // Truong hop chua ton tai account
-        const newAccount = await Account.create({ email, username, password })
+        let newAccount = await Account.create({ email, username, password });
+        console.log('sign up new account\n', newAccount);
 
-        createSendToken(newAccount._id, newAccount.role, res, 'token')
+        createSendToken(newAccount._id.toString(), newAccount.role, res, 'token');
+
         res.status(200).json({
             status: "Sign up successfully",
             page: '/user'
@@ -114,23 +116,20 @@ const firebaseSigninHandle = async (req, res, next) => {
 }
 
 const signOut = async (req, res, next) => {
-    if (req.cookies.token) {
-        res.clearCookie('token')
-        res.status(200).json({
-            status: "Sign out successfully",
-            page: '/'
-        })
-        return next()
+    try {
+        if (req.cookies.token) {
+            res.clearCookie('token');
+            res.status(200).json({
+                status: "Signout successful",
+                page: '/'
+            });
+        }
+    } catch (error) {
+        res.status(400).json({
+            status: 'Sign out failed',
+            message: error
+        });
     }
-    else if (req.cookies.firebaseToken) {
-        res.clearCookie('firebaseToken')
-        res.status(200).json({
-            status: "Sign out successfully",
-            page: '/'
-        })
-        return next()
-    }
-    next()
 }
 
 const signIn = async (req, res, next) => {
@@ -139,8 +138,8 @@ const signIn = async (req, res, next) => {
         if (!username || !password) {
             return next(new AppError('Please provide a valid username and password', 400))
         }
-        const account = await Account.findOne({username}).select('+password');
-        console.log('Sign in normal check\n', account)
+        const account = await Account.findOne({ username }).select('+password');
+        console.log('Auth Controller: sign in normal check\n', account);
         if (account.correctPassword(password, account.password)) {
             createSendToken(account._id, account.role, res, 'token')
             res.status(200).json({
@@ -171,7 +170,7 @@ const firewallUrlHandle = async (req, res, next) => {
         }
         else {
             let url_target = req.originalUrl
-            if (url_target !== page) {
+            if (url_target.includes(page) == false) {
                 return next(new AppError('You do not have permission to access this page', 400))
             }
             return next();

@@ -1,0 +1,18 @@
+<nav aria-label="breadcrumb">
+      <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+       {{#each breadCrumb.path}}
+        <li
+          class="breadcrumb-item text-sm"
+          aria-current="page"
+        >
+            <a class="{{#if isActive}}text-dark active bold fw-bold{{else}} opacity-5 {{/if}} " href="{{link}}">
+                {{label}}
+            </a>
+        </li>
+       {{/each}}
+      </ol>
+      
+      <h5 class="font-weight-bolder mb-0">
+        {{breadCrumb.mainLabel}}
+      </h5>
+</nav>

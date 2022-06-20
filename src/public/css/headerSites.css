@@ -20,3 +20,10 @@ select.form-select-category {
     font-weight: bold;
     font-size: 1.2rem;
 }
+.navbar-home {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+    margin-bottom: 0;
+}

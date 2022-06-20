@@ -1,0 +1,254 @@
+{{#section "title"}}
+  <title>
+    Quản lý gói nhu yếu phẩm
+  </title>
+{{/section}}
+<div id="package-management">
+  <div class="card">
+    <div class="card-header">
+      <h2 class="card-title">
+        Danh sách gói nhu yếu phẩm
+      </h2>
+    </div>
+    <div class="card-body">
+      <div class="d-flex justify-content-between">
+        <a href="/manager/package-management/new">
+          <button class="btn btn-primary">
+            <i class="fa-solid fa-plus"></i>
+            Thêm gói nhu yếu phẩm
+          </button>
+        </a>
+        <button class="btn btn-primary btn-switch-view">
+          <i class="fa-solid fa-rotate"></i>
+          Đổi dạng hiển thị
+        </button>
+      </div>
+      <div class="table-responsive py-3 table-view">
+        <table class="table table-hover" id="data_table">
+          <thead class="text-primary">
+            <tr>
+              <th>
+                ID
+              </th>
+              <th>
+                Tên gói
+              </th>
+              <th>
+                Tối đa/người
+              </th>
+              <th>
+                Giới hạn (ngày)
+              </th>
+              <th class="text-end">
+                Thao tác
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each packages}}
+              <tr>
+                <td>
+                  {{this.id}}
+                </td>
+                <td>
+                  {{this.name}}
+                </td>
+                <td>
+                  {{this.limitPerPerson}}
+                </td>
+                <td>
+                  {{this.limitTime}}
+                </td>
+                <td class="text-end">
+                  <a href="/manager/package-management/{{this.id}}">
+                    <button class="btn btn-success">
+                      Chi tiết
+                    </button>
+                  </a>
+                  <button
+                    class="btn btn-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#deleteModal"
+                  >
+                    Xóa
+                  </button>
+                </td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+      <div class="card-view py-3">
+        <div class="card-content row" style="display: none">
+          {{#each packages}}
+            <div class="col-12 col-md-6 col-lg-4">
+              <div class="card-item mx-auto my-3">
+                <div class="card-image">
+                  <img src={{this.image}} alt="card" />
+                </div>
+                <div class="card-info">
+                  <h4>
+                    {{this.name}}
+                  </h4>
+                  <p>
+                    Tối đa: {{this.limitPerPerson}} gói/người
+                  </p>
+                  <p>
+                    Giới hạn: {{this.limitTime}} ngày
+                  </p>
+                </div>
+                <div class="card-action px-3 pb-3 text-end">
+                  <a
+                    class="d-inline-block"
+                    href="/manager/package-management/{{this.id}}"
+                  >
+                    <button class="btn btn-success">
+                      Chi tiết
+                    </button>
+                  </a>
+                  <button
+                    class="btn btn-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#deleteModal"
+                  >
+                    Xóa
+                  </button>
+                </div>
+              </div>
+            </div>
+          {{/each}}
+        </div>
+        <div class="card-pagination"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="package-card"></div>
+<div class="package-statistics pt-4">
+  <div class="card">
+    <div class="card-header">
+      <h2 class="card-title">
+        Thống kê tiêu thụ gói nhu yếu phẩm
+      </h2>
+    </div>
+    <div class="card-body">
+      <canvas id="packageStatistics"></canvas>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="deleteModal"
+  tabindex="-1"
+  aria-labelledby="deleteModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">
+          Xóa gói nhu yếu phẩm
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        Bạn chắc chắn muốn xóa gói nhu yếu phẩm này?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Hủy
+        </button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+          Xóa bỏ
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+{{#section "script"}}
+  <script>
+    $(document).ready(function () {
+    $('#data_table').DataTable();
+  });
+  </script>
+  <script>
+    const ctx = document.getElementById('packageStatistics').getContext('2d');
+    const data = {
+      labels: ["1/2022", "2/2022", "3/2022", "4/2022", "5/2022", "6/2022"],
+      datasets: [
+        {
+          label: 'Gói ăn vặt',
+          data: [12, 19, 3, 5, 2, 3],
+          backgroundColor: "rgba(255, 99, 132, 0.2)",
+          borderColor: "rgba(255, 99, 132, 1)",
+          borderWidth: 3,
+          fill: false,
+          tension: 0.1,
+        },
+        {
+          label: 'Gói chống virus',
+          data: [2, 3, 5, 2, 3, 12],
+          backgroundColor: "rgba(54, 162, 235, 0.2)",
+          borderColor: "rgba(54, 162, 235, 1)",
+          borderWidth: 3,
+          fill: false,
+          tension: 0.1,
+        },
+        {
+          label: 'Gói gia vị',
+          data: [3, 5, 2, 3, 12, 19],
+          backgroundColor: "rgba(255, 206, 86, 0.2)",
+          borderColor: "rgba(255, 206, 86, 1)",
+          borderWidth: 3,
+          fill: false,
+          tension: 0.1,
+        },
+        {
+          label: 'Gói đồ uống',
+          data: [5, 2, 3, 12, 19, 3],
+          backgroundColor: "rgba(75, 192, 192, 0.2)",
+          borderColor: "rgba(75, 192, 192, 1)",
+          borderWidth: 3,
+          fill: false,
+          tension: 0.1,
+        },
+      ]
+    }
+    const config = {
+      type: 'line',
+      data: data,
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        },
+        layout: {
+          padding: {
+              x: 50
+          }
+        },
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          title: {
+            display: true,
+            text: 'SỐ LIỆU THỐNG KÊ'
+          }
+        }
+      },
+    };
+    var packageChart = new Chart(ctx, config);
+  </script>
+  <script src="/js/custom/toggleTableCardView.js"></script>
+  <script src="/js/custom/cardPagination.js"></script>
+{{/section}}

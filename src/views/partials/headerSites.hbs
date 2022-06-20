@@ -19,12 +19,14 @@
                 <i class="sidenav-toggler-line"></i>
             </div>
         </button>
-        <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-            <ul class="navbar-nav me-auto mb-2">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/">Trang chủ</a>
-                </li>
-            </ul>
+        <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4 ms-2" id="navbar">
+            <div class="d-flex mb-2 me-auto">
+                <ul class="navbar-home">
+                    <li class="nav-item">
+                        <a class="nav-link active p-0" aria-current="page" href="/">Trang chủ</a>
+                    </li>
+                </ul>
+            </div>
             <select class="form-select me-3 mb-2 form-select-category">
                 <option selected value="">Tất cả</option>
                 <option value="5">Thuốc</option>
@@ -63,10 +65,10 @@
         x.style.display = 'block'; } else { x.style.display = 'none'; } }
         function redirect(value){
             if(value == 'signin'){
-                location.href = '/sign-in'
+                location.href = '/signin'
             }
             else {
-                location.href = '/sign-up'
+                location.href = '/signup'
             }
         }
     </script>

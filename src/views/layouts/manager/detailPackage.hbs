@@ -1,0 +1,142 @@
+{{#section "title"}}
+<title>
+    Thông tin gói nhu yếu phẩm
+</title>
+{{/section}}
+<form id="detail-package" class="card">
+    <div class="card-header">
+        <div class="card-title">
+            <h2>
+                Thông tin gói nhu yếu phẩm
+            </h2>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row mb-3">
+            <div class="col-12 col-sm-6 form-group">
+                <label class="control-label">
+                    Tên gói nhu yếu phẩm
+                    <span class="text-danger">
+                        *
+                    </span>
+                </label>
+                <input class="form-control" name="name" id="registerName" type="text" required />
+            </div>
+            <div class="col-12 col-sm-6 form-group">
+                <label class="control-label">
+                    Tối đa gói/người
+                    <span class="text-danger">
+                        *
+                    </span>
+                </label>
+                <input min="1000" class="form-control" name="limitPerPerson" id="registerLimitPerPerson" type="number"
+                    required />
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-12 col-sm-6 form-group">
+                <label class="control-label">
+                    Thêm hình ảnh
+                    <span class="text-danger">
+                        *
+                    </span>
+                </label>
+                <input class="form-control" name="images" accept="image/*" id="image" type="file" />
+            </div>
+            <div class="col-12 col-sm-6 form-group">
+                <label class="control-label">
+                    Giới hạn (ngày)
+                    <span class="text-danger">
+                        *
+                    </span>
+                </label>
+                <input class="form-control" name="limitTime" id="registerLimitTime" type="text" required />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label w-50">
+                Nhu yếu phẩm: ID - số lượng tối đa (Vui lòng chọn ít nhất 2 món trong
+                danh sách)
+                <span class="text-danger">
+                        *
+                </span>
+            </label>
+            <input class="form-control" name="productList" id="productList" type="text" readonly />
+        </div>
+    </div>
+    <div class="card-footer mx-auto">
+        <button type="submit" class="btn btn-primary">
+            Thêm mới
+        </button>
+    </div>
+</form>
+
+<div class="pt-4">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">
+                Danh sách nhu yếu phẩm
+            </h2>
+        </div>
+        <div class="card-body table-responsive py-3 table-view">
+            <table class="table table-hover" id="data_table">
+                <thead class="text-primary">
+                    <tr>
+                        <th>
+                            ID
+                        </th>
+                        <th>
+                            Tên nhu yếu phẩm
+                        </th>
+                        <th>
+                            Đơn vị
+                        </th>
+                        <th>
+                            Đơn giá
+                        </th>
+                        <th>
+                            Danh mục
+                        </th>
+                        <th class="text-end">
+                            Tối đa
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each products}}
+                    <tr>
+                        <td>
+                            {{this.id}}
+                        </td>
+                        <td>
+                            {{this.name}}
+                        </td>
+                        <td>
+                            {{this.unit}}
+                        </td>
+                        <td>
+                            {{this.price}}
+                        </td>
+                        <td>
+                            {{this.category}}
+                        </td>
+                        <td class="text-end">
+                            <input class="form-inline me-3" style="width: 80px" type="number" min="1" name={{this.id}} id={{this.id}}>
+                            <i id="select-product" class="fa-solid fa-circle-plus fa-lg" style="cursor: pointer; color: #4CAF50"></i>
+                            {{!-- <i id="unselect-product" class="fa-solid fa-trash fa-lg" style="cursor: pointer; color: #dc3545"></i> --}}
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{{#section "script"}}
+<script>
+    $(document).ready(function () { 
+        $('#data_table').DataTable(); 
+    });
+</script>
+{{/section}}

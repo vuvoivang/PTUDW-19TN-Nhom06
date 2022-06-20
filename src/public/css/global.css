@@ -24,6 +24,9 @@
 #sidenav-main .brand-img {
   max-height: 2.5rem !important;
 }
+a{
+  text-decoration: none!important;
+}
 a:hover {
   text-decoration: none;
 }
@@ -907,9 +910,14 @@ table.dataTable > thead .sorting_desc_disabled:after {
 }
 
 .card-view .card-info p {
+  font-size: 1.1em;
+  margin-bottom: 5px;
+}
+
+.card-view .card-info b {
   font-size: 1.3em;
   font-weight: 600;
-  margin-bottom: 5px;
+  margin-right: 5px;
 }
 
 .card-view .card-pagination {

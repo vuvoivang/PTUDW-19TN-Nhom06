@@ -28,7 +28,7 @@ const sendFormRequest = async (username, password) => {
             data: {
                 username, password
             }
-        })
+        });
         if (res.data.page) {
             window.location.href = res.data.page
         }

@@ -1,0 +1,67 @@
+{{#section 'style'}}
+    <link rel='stylesheet' href='/css/package.css' />
+{{/section}}
+<div class='container py-5'>
+    <div class='d-flex justify-content-center product-info'>
+        <div class='px-3'>
+            <img src={{package.image}} alt='' class='img-fluid product-img' />
+        </div>
+        <div class='px-5'>
+            <h2 class='product-name pt-4'>{{package.name}}</h2>
+            <div class='pt-3 form d-flex justify-content-between align-items-baseline'>
+                <label for='soluong' class='form-label m-0'>Số lượng</label>
+                <div>
+
+                    <i class='fa-solid fa-circle-minus text-success'></i>
+                    <input type='text' placeholder='1' class='form-control border-1' id='soluong' value='1' />
+                    <i class='fa-solid fa-circle-plus text-success'></i>
+                </div>
+            </div>
+            <div class='pb-3 d-flex justify-content-between align-items-baseline'>
+                <div><strong>Đơn giá: </strong></div>
+                <div class='product-price'>
+                    {{package.defaultPrice}}
+                    <i class='fa-solid fa-dong-sign'></i>
+                </div>
+            </div>
+            <div class='product-description pb-3'>
+                <span>{{package.description}} <br /> Giới hạn số lượng: {{package.limitPerPerson}}/người<br /> Thời hạn tới: {{package.limitTime}}</span>
+            </div>
+
+            <a href={{append "/package/payment/" package._id}} class='btn btn-danger'>Đặt hàng</a>
+        </div>
+    </div>
+
+    <div class='package-detail'>
+        <h3 class='pb-3'>Danh sách sản phẩm</h3>
+        <table id='dataTable' class='table mt-5' style='width:100%'>
+            <thead class='text-primary'>
+                <tr>
+                    <th>Ảnh sản phẩm</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Đơn vị định lượng</th>
+                    <th>Đơn giá</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each package.productList}}
+                <tr>
+                    <td><div class='product-img-detail'>
+                            <img src={{this.product.images.[0]}} alt='' class='img-detail' />
+                        </div></td>
+                    <td>{{this.product.name}}</td>
+                    <td>{{this.product.unit}}</td>
+                    <td>{{this.product.price}}</td>
+                </tr>
+                {{/each }}
+
+            </tbody>
+        </table>
+    </div>
+</div>
+{{#section 'script'}}
+
+    <script>
+        $(document).ready(function() { $('#dataTable').DataTable(); } );
+    </script>
+{{/section}}
