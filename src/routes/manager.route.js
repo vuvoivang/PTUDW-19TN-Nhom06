@@ -1,6 +1,6 @@
 const express = require('express');
+const { upload } = require('../config/firebase');
 const router = express.Router();
-
 const managerController = require('../controllers/manager.controller');
 
 router.get("/", managerController.get); // default
@@ -10,8 +10,8 @@ router.get("/patient-management", managerController.getPatientManagement);
 
 // category management
 router.get("/category-management", managerController.getCategoryManagement);
-router.post("/category-management", managerController.addCategory);
-router.put("/category-management/:id", managerController.updateCategory);
+router.post("/category-management", upload.single('image'), managerController.addCategory);
+router.put("/category-management/:id", upload.single('image'), managerController.updateCategory);
 router.delete("/category-management/:id", managerController.deleteCategory);
 
 // product management

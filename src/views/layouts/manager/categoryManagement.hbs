@@ -78,7 +78,8 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form id="form-add-category" method="POST" action="/manager/category-management">
+        <form id="form-add-category" onsubmit="event.preventDefault(); handleAddCategory();"
+          enctype="multipart/form-data">
           <div class="form-group">
             <label>
               Tên danh mục
@@ -96,7 +97,7 @@
             <span class="text-danger">
               *
             </span>
-            <input class="form-control" name="category-image" accept="image/*" id="images" type="file" required />
+            <input class="form-control" name="image" accept="image/*" id="category-image" type="file" required />
           </div>
 
           <div class="modal-footer px-0">
@@ -124,7 +125,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form id="form-update-category" method="PUT" action="/manager/category-management?_method=PUT">
+        <form id="form-update-category">
           <input name="id" id="category-id" hidden>
           <div class="form-group">
             <label>
@@ -133,17 +134,14 @@
             <span class="text-danger">
               *
             </span>
-            <input type="text" class="form-control" id="name" name="category-name" required />
+            <input type="text" class="form-control" id="category-name" name="name" required />
           </div>
 
           <div class="form-group">
             <label class="control-label">
               Hình ảnh
             </label>
-            <span class="text-danger">
-              *
-            </span>
-            <input class="form-control" name="category-image" accept="image/*" id="images" type="file" required />
+            <input class="form-control" name="image" accept="image/*" id="category-image" type="file" />
           </div>
 
           <div class="modal-footer px-0">
@@ -173,7 +171,7 @@
       </div>
       <div class="modal-body">
         <p>Bạn chắc chắn muốn xóa danh mục này?</p>
-        <form id="form-delete-category" method="POST" action="/manager/category-management?_method=DELETE">
+        <form id="form-delete-category">
           <input type="text" name="id" id="category-id" hidden>
         </form>
       </div>
@@ -195,5 +193,6 @@
     $('#data_table').DataTable();
   });
 </script>
-<script type="module" src="/js/custom/modal.js"></script>
+<script type="text/javascript" src="/js/custom/modal.js"></script>
+<script type="text/javascript" src="/js/handler/manager/category.js"></script>
 {{/section}}

@@ -1,4 +1,3 @@
-const { products, packages } = require('../models/manager.model');
 const path = "layouts/manager";
 const Category = require('../models/Category');
 const Product = require('../models/Product');
@@ -41,7 +40,9 @@ module.exports = {
 
     addCategory: async (req, res) => {
         try {
-            if (!req.body.name || !req.body.image) {
+            console.log("req.body", req.body)
+            console.log("req.file", req.file)
+            if (!req.body.name || !req.file) {
                 return res.status(400).json({
                     status: 'Bad Request',
                     message: 'Vui lòng nhập đầy đủ thông tin',
@@ -58,7 +59,7 @@ module.exports = {
                 })
             }
 
-            image = utils.createUrlFromImageName(req.body.image, "categories");
+            image = await utils.createUrlFromImageName(req.file, "categories");
             let newCategory = await Category.create({
                 name: req.body.name,
                 image: image
@@ -109,9 +110,9 @@ module.exports = {
             }
 
             category.name = req.body.name;
-            if (req.body.image) {
-                image = utils.createUrlFromImageName(req.body.image, "categories");
-                category.image = image;
+            if (req.file) {
+                await utils.deleteFileFromURL(category.image);
+                category.image = await utils.createUrlFromImageName(req.file, "categories");
             }
             await category.save();
             res.status(200).json({
