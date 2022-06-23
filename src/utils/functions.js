@@ -1,4 +1,5 @@
 const firebase = require('../config/firebase');
+const { PREFIX_STORAGE_FILE } = require('../constants');
 
 // ex: filename = folder + file.originalname
 async function uploadFile(file, filename) {
@@ -61,7 +62,8 @@ async function createUrlFromImageName(image, storage) {
     const timestamp = Date.now();
     const name = image.originalname.split('.')[0];
     const type = image.originalname.split('.')[1];
-    const filename = `${name}_${timestamp}.${type}`;
+    const prefix = PREFIX_STORAGE_FILE[storage];
+    const filename = `${prefix}-${name}_${timestamp}.${type}`;
     const url = await uploadFile(image, `${storage}/${filename}`);
     return url[0];
 }

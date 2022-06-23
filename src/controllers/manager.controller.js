@@ -1,4 +1,3 @@
-const { products, packages } = require('../models/manager.model');
 const path = "layouts/manager";
 const Category = require('../models/Category');
 const Product = require('../models/Product');
@@ -8,10 +7,7 @@ const utils = require('../utils/functions');
 
 module.exports = {
     get: (req, res) => {
-        res.render(`${path}/main`, {
-            main: true,
-            tag: "patient"
-        });
+        res.redirect('/manager/patient-management');
     },
 
     // patient
@@ -41,7 +37,7 @@ module.exports = {
 
     addCategory: async (req, res) => {
         try {
-            if (!req.body.name || !req.body.image) {
+            if (!req.body.name || !req.file) {
                 return res.status(400).json({
                     status: 'Bad Request',
                     message: 'Vui lòng nhập đầy đủ thông tin',
@@ -58,17 +54,18 @@ module.exports = {
                 })
             }
 
-            image = utils.createUrlFromImageName(req.body.image, "categories");
-            let newCategory = await Category.create({
+            let image = await utils.createUrlFromImageName(req.file, "categories");
+            const newCategory = new Category({
                 name: req.body.name,
-                image: image
+                image: image,
             });
-            res.status(201).json({
+            await newCategory.save();
+
+            return res.status(201).json({
                 status: 'success',
                 message: 'Thêm danh mục thành công',
                 data: newCategory
             })
-            return res.redirect('/manager/categoryManagement');
         } catch (err) {
             console.log(err.message);
             res.status(500).json({
@@ -109,9 +106,9 @@ module.exports = {
             }
 
             category.name = req.body.name;
-            if (req.body.image) {
-                image = utils.createUrlFromImageName(req.body.image, "categories");
-                category.image = image;
+            if (req.file) {
+                await utils.deleteFileFromURL(category.image);
+                category.image = await utils.createUrlFromImageName(req.file, "categories");
             }
             await category.save();
             res.status(200).json({
@@ -176,18 +173,30 @@ module.exports = {
         }
     },
 
-    addProduct: (req, res) => {
+    getAddProduct: (req, res) => {
         res.render(`${path}/addProduct`, {
             layout: "manager/main",
             tag: "product"
         })
     },
 
-    detailProduct: (req, res) => {
+    addProduct: async (req, res) => {
+
+    },
+
+    detailProduct: async (req, res) => {
         res.render(`${path}/detailProduct`, {
             layout: "manager/main",
             tag: "product"
         })
+    },
+
+    updateProduct: async (req, res) => {
+
+    },
+
+    deleteProduct: async (req, res) => {
+
     },
 
     // package
