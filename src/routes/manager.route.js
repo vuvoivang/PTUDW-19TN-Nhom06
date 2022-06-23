@@ -16,8 +16,11 @@ router.delete("/category-management/:id", managerController.deleteCategory);
 
 // product management
 router.get("/product-management", managerController.getProductManagement);
-router.get("/product-management/new", managerController.addProduct);
+router.get("/product-management/new", managerController.getAddProduct);
+router.post("/product-management", upload.array("images"), managerController.addProduct);
 router.get("/product-management/:id", managerController.detailProduct);
+router.put("/product-management/:id", upload.array('images'), managerController.updateProduct);
+router.delete("/product-management/:id", managerController.deleteProduct);
 
 // package management
 router.get("/package-management", managerController.getPackageManagement);

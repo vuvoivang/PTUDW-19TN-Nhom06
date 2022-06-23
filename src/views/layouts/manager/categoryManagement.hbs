@@ -45,7 +45,7 @@
                 {{this.name}}
               </td>
               <td class="text-center">
-                <img src={{this.image}} alt="category" style="width: 55px; height: 55px">
+                <img src={{this.image}} alt="category" style="width: 55px; height: 55px; border-radius: 10px;">
               </td>
               <td class="text-end">
                 <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#updateCategoryModal"
@@ -78,8 +78,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form id="form-add-category" onsubmit="event.preventDefault(); handleAddCategory();"
-          enctype="multipart/form-data">
+        <form id="form-add-category" onsubmit="event.preventDefault(); handleAddCategory();">
           <div class="form-group">
             <label>
               Tên danh mục
@@ -125,7 +124,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form id="form-update-category">
+        <form id="form-update-category" onsubmit="event.preventDefault(); handleUpdateCategory();">
           <input name="id" id="category-id" hidden>
           <div class="form-group">
             <label>
@@ -171,17 +170,17 @@
       </div>
       <div class="modal-body">
         <p>Bạn chắc chắn muốn xóa danh mục này?</p>
-        <form id="form-delete-category">
+        <form id="form-delete-category" onsubmit="event.preventDefault(); handleDeleteCategory();">
           <input type="text" name="id" id="category-id" hidden>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              Hủy
+            </button>
+            <button type="submit" class="btn btn-danger">
+              Xóa bỏ
+            </button>
+          </div>
         </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Hủy
-        </button>
-        <button type="submit" class="btn btn-danger">
-          Xóa bỏ
-        </button>
       </div>
     </div>
   </div>

@@ -35,9 +35,17 @@ const transactionType = {
     payment: "payment"
 }
 const MIN_DEPOSIT = 1000;
+
+const PREFIX_STORAGE_FILE = {
+    "categories": "category",
+    "products": "product",
+    "packages": "package"
+}
+
 module.exports = {
     hyperlinksSidebarUser,
     userBreadCrumb,
     transactionType,
-    MIN_DEPOSIT
+    MIN_DEPOSIT,
+    PREFIX_STORAGE_FILE
 }
