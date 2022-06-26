@@ -1,14 +1,16 @@
-const toastMessage = (message, success = true, isReload = false) => {
+const toastMessage = (message, type = "success", isReload = false) => {
     Toastify({
         text: message,
-        duration: 2500,
-        gravity: "top", // `top` or `bottom`
-        stopOnFocus: true, // Prevents dismissing of toast on hover
+        duration: 1000,
+        gravity: "top",
+        stopOnFocus: true,
         position: "right",
         style: {
-            background: success ? "#4CAF50" : "#F44335",
+            background: type === "success" ? "#4CAF50" : "#F44335",
         },
-        callback: function () { if (isReload) location.reload(); }
+        callback: function () {
+            isReload && window.location.reload();
+        }
     }).showToast();
 }
 

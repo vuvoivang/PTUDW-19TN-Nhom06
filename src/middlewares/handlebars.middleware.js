@@ -78,7 +78,12 @@ const helper = {
     },
     numberWithCommas: function (number) {
         return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    }
+    },
+    select: function (selected, options) {
+        return options.fn(this).replace(
+            new RegExp('value=\"' + selected + '\"'),
+            '$& selected="selected"');
+    },
 };
 
 module.exports = { helper };

@@ -1,9 +1,9 @@
 {{#section "title"}}
-  <title>
-    Thêm nhu yếu phẩm
-  </title>
+<title>
+  Thêm nhu yếu phẩm
+</title>
 {{/section}}
-<form id="add-product" class="card">
+<form id="form-add-product" class="card">
   <div class="card-header">
     <div class="card-title">
       <h2>
@@ -14,111 +14,70 @@
   <div class="card-body">
     <div class="row mb-3">
       <div class="col-12 col-sm-6 form-group">
-        <label class="control-label">
+        <label class="control-label" for="registerName">
           Tên nhu yếu phẩm
           <span class="text-danger">
             *
           </span>
         </label>
-        <input
-          class="form-control"
-          name="name"
-          id="registerName"
-          type="text"
-          required
-        />
+        <input class="form-control" name="name" id="registerName" type="text" required />
       </div>
       <div class="col-12 col-sm-6 form-group">
-        <label class="control-label">
+        <label class="control-label" for="registerPrice">
           Đơn giá
           <span class="text-danger">
             *
           </span>
         </label>
-        <input
-          min="1000"
-          class="form-control"
-          name="price"
-          id="registerPrice"
-          type="number"
-          required
-        />
+        <input min="1000" class="form-control" name="price" id="registerPrice" type="number" required />
       </div>
     </div>
     <div class="row mb-3">
       <div class="col-12 col-sm-6 form-group">
-        <label class="control-label">
+        <label class="control-label" for="registerUnit">
           Đơn vị
           <span class="text-danger">
             *
           </span>
         </label>
-        <input
-          class="form-control"
-          name="unit"
-          id="registerUnit"
-          type="text"
-          required
-        />
+        <input class="form-control" name="unit" id="registerUnit" type="text" required />
       </div>
       <div class="col-12 col-sm-6 form-group">
-        <label class="control-label">
+        <label class="control-label" for="registerCategory">
           Danh mục
           <span class="text-danger">
             *
           </span>
         </label>
-        <select
-          class="form-select"
-          name="category_id"
-          id="registerCategoryId"
-          required
-        >
+        <select class="form-select" name="category" id="registerCategory" required>
           <option value="" selected disabled hidden>
             Chọn danh mục
           </option>
-          <option value="fresh_food">
-            Thực phẩm tươi sống
+          {{#each categories}}
+          <option value="{{this._id}}">
+            {{this.name}}
           </option>
-          <option value="drink">
-            Đồ uống
-          </option>
-          <option value="fast_food">
-            Đồ ăn nhanh
-          </option>
-          <option value="dessert">
-            Món tráng miệng
-          </option>
-          <option value="dry_food">
-            Thực phẩm khô
-          </option>
-          <option value="personal_living_items">
-            Đồ dùng sinh hoạt cá nhân
-          </option>
-          <option value="spice">
-            Gia vị
-          </option>
-          <option value="other">
-            Khác
-          </option>
+          {{/each}}
         </select>
       </div>
     </div>
-    <div class="form-group">
-      <label class="control-label w-50">
-        Thêm hình ảnh (có thể chọn nhiều hình)
-        <span class="text-danger">
+    <div class="row mb-3">
+      <div class="form-group">
+        <label class="control-label w-50" for="registerImages">
+          Thêm hình ảnh (có thể chọn nhiều hình)
+          <span class="text-danger">
             *
           </span>
-      </label>
-      <input
-        class="form-control"
-        name="images"
-        accept="image/*"
-        id="images"
-        type="file"
-        multiple
-      />
+        </label>
+        <input class="form-control" name="images" id="registerImages" accept="image/*" id="images" type="file"
+          multiple />
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="form-group">
+        <label class="control-label" for="registerDescription">Mô tả</label>
+        <textarea class="form-control" id="registerDescription" rows="3"></textarea>
+      </div>
     </div>
   </div>
   <div class="card-footer mx-auto">
@@ -127,3 +86,7 @@
     </button>
   </div>
 </form>
+
+{{#section "script"}}
+<script type="text/javascript" src="/js/handler/manager/product.js"></script>
+{{/section}}
