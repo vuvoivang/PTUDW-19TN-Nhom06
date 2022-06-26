@@ -71,7 +71,7 @@
                     Sửa
                   </button>
                 </a>
-                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteProductModal"
                   onclick="handleDeleteProductModal({{{json this}}})">
                   Xóa
                 </button>
@@ -237,7 +237,8 @@
   };
   var productChart = new Chart(ctx, config);
 </script>
+<script src="/js/custom/modal.js"></script>
+<script src="/js/handler/manager/product.js"></script>
 <script src="/js/custom/toggleTableCardView.js"></script>
 <script src="/js/custom/cardPagination.js"></script>
-<script src="js/custom/modal.js"></script>
 {{/section}}

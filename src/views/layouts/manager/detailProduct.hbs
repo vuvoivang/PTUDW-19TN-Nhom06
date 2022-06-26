@@ -4,7 +4,7 @@
 </title>
 {{/section}}
 
-<form id="form-update-product" class="card mb-4">
+<form id="form-update-product" class="card mb-4" onsubmit="event.preventDefault(); handleUpdateProduct();">
   <div class="card-header">
     <div class="card-title">
       <h2>
@@ -13,7 +13,7 @@
     </div>
   </div>
   <div class="card-body">
-    <input type="text" value="{{product._id}}" id="registerId" hidden>
+    <input type="text" value="{{product._id}}" name="id" id="registerId" hidden>
     <div class="row mb-3">
       <div class="col-12 col-sm-6 form-group">
         <label class="control-label" for="registerName">
@@ -75,7 +75,7 @@
     <div class="row mb-3">
       <div class="form-group">
         <label class="control-label" for="registerDescription">Mô tả</label>
-        <textarea class="form-control" id="registerDescription" rows="3"></textarea>
+        <textarea class="form-control" id="registerDescription" rows="3">{{product.description}}</textarea>
       </div>
     </div>
   </div>
@@ -101,3 +101,7 @@
     {{/each}}
   </div>
 </div>
+
+{{#section "script"}}
+<script type="text/javascript" src="/js/handler/manager/product.js"></script>
+{{/section}}

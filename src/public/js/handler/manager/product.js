@@ -1,7 +1,7 @@
 const ROOT_API = "http://localhost:3000/manager";
 
 const handleAddProduct = async () => {
-    const formData = getFormInput();
+    const formData = getFormInput("add");
     const res = await fetch(`${ROOT_API}/product-management`, {
         method: "POST",
         body: formData
@@ -16,7 +16,7 @@ const handleAddProduct = async () => {
 
 const handleUpdateProduct = async () => {
     const id = document.querySelector("#form-update-product #registerId").value;
-    const formData = getFormInput();
+    const formData = getFormInput("update");
 
     const res = await fetch(`${ROOT_API}/product-management/${id}`, {
         method: "PUT",
@@ -43,13 +43,13 @@ const handleDeleteProduct = async () => {
     }
 }
 
-const getFormInput = () => {
-    const name = document.querySelector("#form-add-product #registerName").value;
-    const price = document.querySelector("#form-add-product #registerPrice").value;
-    const unit = document.querySelector("#form-add-product #registerUnit").value;
-    const category = document.querySelector("#form-add-product #registerCategory").value;
-    const images = document.querySelector("#form-add-product #registerImages").files;
-    const description = document.querySelector("#form-add-product #registerDescription").value;
+const getFormInput = (type) => {
+    const name = document.querySelector(`#form-${type}-product #registerName`).value;
+    const price = document.querySelector(`#form-${type}-product #registerPrice`).value;
+    const unit = document.querySelector(`#form-${type}-product #registerUnit`).value;
+    const category = document.querySelector(`#form-${type}-product #registerCategory`).value;
+    const images = document.querySelector(`#form-${type}-product #registerImages`).files;
+    const description = document.querySelector(`#form-${type}-product #registerDescription`).value;
 
     const formData = new FormData();
     formData.append("name", name);
