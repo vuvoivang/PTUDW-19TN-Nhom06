@@ -1,6 +1,7 @@
 const path = "layouts/manager";
 const Category = require('../../models/Category');
 const Product = require('../../models/Product');
+const Package = require('../../models/Package');
 const utils = require('../../utils/functions');
 
 module.exports = {
@@ -164,7 +165,7 @@ module.exports = {
     deleteProduct: async (req, res) => {
         try {
             const id = req.params.id;
-            let product = await Product.findById(id);
+            const product = await Product.findById(id);
             if (!product) {
                 return res.status(400).json({
                     status: 'Bad Request',
@@ -172,6 +173,16 @@ module.exports = {
                     errorCode: 'PRODUCT_NOT_FOUND'
                 });
             }
+
+            const package = await Package.findOne({ productList: { $elemMatch: { product: id } } });
+            if (package) {
+                return res.status(400).json({
+                    status: 'Bad Request',
+                    message: 'Sản phẩm đang được sử dụng trong gói',
+                    errorCode: 'PRODUCT_USED_IN_PACKAGE'
+                });
+            }
+
             await product.remove();
             res.status(200).json({
                 status: 'success',

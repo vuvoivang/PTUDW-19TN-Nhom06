@@ -1,5 +1,6 @@
 const path = "layouts/manager";
 const Category = require('../../models/Category');
+const Product = require('../../models/Product');
 const utils = require('../../utils/functions');
 
 module.exports = {
@@ -120,6 +121,16 @@ module.exports = {
                     status: 'Bad Request',
                     message: 'Danh mục không tồn tại',
                     errorCode: 'CATEGORY_NOT_FOUND'
+                });
+            }
+
+            // check if category is use in product model
+            const product = await Product.findOne({ category: id });
+            if (product) {
+                return res.status(400).json({
+                    status: 'Bad Request',
+                    message: 'Danh mục đang được sử dụng',
+                    errorCode: 'CATEGORY_USED'
                 });
             }
 

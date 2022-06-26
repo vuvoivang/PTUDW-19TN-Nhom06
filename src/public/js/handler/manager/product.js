@@ -78,7 +78,10 @@ const toastMessage = (message, type = "success", isRedirect = false) => {
             background: type === "success" ? "#4CAF50" : "#F44335",
         },
         callback: function () {
-            type == "success" && isRedirect ? window.location.href = "/manager/product-management" : window.location.reload();
+            if (type == "success") {
+                isRedirect ? window.location.href = "/manager/product-management" : window.location.reload();
+            }
+
         }
     }).showToast();
 }
