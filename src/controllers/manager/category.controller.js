@@ -1,29 +1,13 @@
 const path = "layouts/manager";
-const Category = require('../models/Category');
-const Product = require('../models/Product');
-const Package = require('../models/Package');
-const { mapObjectInArray } = require('../utils/functions');
-const utils = require('../utils/functions');
+const Category = require('../../models/Category');
+const utils = require('../../utils/functions');
 
 module.exports = {
-    get: (req, res) => {
-        res.redirect('/manager/patient-management');
-    },
-
-    // patient
-    getPatientManagement: (req, res) => {
-        res.render(`${path}/patientManagement`, {
-            layout: "manager/main",
-            tag: "patient"
-        });
-    },
-
-    // category
     getCategoryManagement: async (req, res) => {
         // get All Categories
         try {
             let categories = await Category.find({});
-            categories = mapObjectInArray(categories);
+            categories = utils.mapObjectInArray(categories);
             res.render(`${path}/categoryManagement`, {
                 layout: "manager/main",
                 tag: "category",
@@ -156,102 +140,4 @@ module.exports = {
         }
     },
 
-    // product
-    getProductManagement: async (req, res) => {
-        // get All Products 
-        try {
-            let products = await Product.find({}).populate('category');
-            products = mapObjectInArray(products);
-            res.render(`${path}/productManagement`, {
-                layout: "manager/main",
-                tag: "product",
-                products
-            });
-        } catch (err) {
-            console.log(err.message);
-            res.render("error/500");
-        }
-    },
-
-    getAddProduct: (req, res) => {
-        res.render(`${path}/addProduct`, {
-            layout: "manager/main",
-            tag: "product"
-        })
-    },
-
-    addProduct: async (req, res) => {
-
-    },
-
-    detailProduct: async (req, res) => {
-        res.render(`${path}/detailProduct`, {
-            layout: "manager/main",
-            tag: "product"
-        })
-    },
-
-    updateProduct: async (req, res) => {
-
-    },
-
-    deleteProduct: async (req, res) => {
-
-    },
-
-    // package
-    getPackageManagement: async (req, res) => {
-        // get All Packages
-        try {
-            let packages = await Package.find({}).populate("productList")
-            console.log(packages);
-            packages = mapObjectInArray(packages);
-            res.render(`${path}/packageManagement`, {
-                layout: "manager/main",
-                tag: "package",
-                packages
-            });
-        } catch (err) {
-            console.log(err.message);
-            res.render("error/500");
-        }
-    },
-
-    addPackage: async (req, res) => {
-        try {
-            let products = await Product.find({}).populate('category');
-            products = mapObjectInArray(products);
-            res.render(`${path}/addPackage`, {
-                layout: "manager/main",
-                tag: "package",
-                products
-            });
-        } catch (err) {
-            console.log(err.message);
-            res.render("error/500");
-        }
-    },
-
-    detailPackage: async (req, res) => {
-        try {
-            let products = await Product.find({}).populate('category');
-            products = mapObjectInArray(products);
-            res.render(`${path}/detailPackage`, {
-                layout: "manager/main",
-                tag: "package",
-                products
-            });
-        } catch (err) {
-            console.log(err.message);
-            res.render("error/500");
-        }
-    },
-
-    // payment
-    getPaymentManagement: (req, res) => {
-        res.render(`${path}/paymentManagement`, {
-            layout: "manager/main",
-            tag: "payment"
-        })
-    }
 }

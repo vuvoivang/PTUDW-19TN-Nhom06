@@ -71,7 +71,8 @@
                     Sửa
                   </button>
                 </a>
-                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteProductModal"
+                  onclick="handleDeleteProductModal({{{json this}}})">
                   Xóa
                 </button>
               </td>
@@ -128,30 +129,36 @@
     </div>
   </div>
 </div>
-<!-- Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+
+{{! Modal delete product }}
+<div class="modal fade" id="deleteProductModal" tabindex="-1" aria-labelledby="deleteProductModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="deleteModalLabel">
-          Xóa nhu yếu phẩm
+          Xóa danh mục
         </h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Bạn chắc chắn muốn xóa nhu yếu phẩm này?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Hủy
-        </button>
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
-          Xóa bỏ
-        </button>
+        <p>Bạn chắc chắn muốn xóa nhu yếu phẩm này?</p>
+        <form id="form-delete-product" onsubmit="event.preventDefault(); handleDeleteProduct();">
+          <input type="text" name="id" id="product-id" hidden>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              Hủy
+            </button>
+            <button type="submit" class="btn btn-danger">
+              Xóa bỏ
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
 </div>
+
 {{#section "script"}}
 <script>
   $(document).ready(function () {
@@ -230,6 +237,8 @@
   };
   var productChart = new Chart(ctx, config);
 </script>
+<script src="/js/custom/modal.js"></script>
+<script src="/js/handler/manager/product.js"></script>
 <script src="/js/custom/toggleTableCardView.js"></script>
 <script src="/js/custom/cardPagination.js"></script>
 {{/section}}
