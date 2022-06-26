@@ -9,3 +9,7 @@ function handleCategoryModal(data, type) {
         document.querySelector("#form-delete-category #category-id").value = data._id
     }
 }
+
+function handleDeleteProductModal(data) {
+    document.querySelector("#form-delete-product #product-id").value = data._id
+}

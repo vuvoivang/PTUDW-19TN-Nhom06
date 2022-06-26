@@ -54,7 +54,7 @@ module.exports = {
                 })
             }
 
-            let image = await utils.createUrlFromImageName(req.file, "categories");
+            let image = utils.createUrlFromImageName(req.file, "categories");
             const newCategory = new Category({
                 name: req.body.name,
                 image: image,
@@ -107,8 +107,8 @@ module.exports = {
 
             category.name = req.body.name;
             if (req.file) {
-                await utils.deleteFileFromURL(category.image);
-                category.image = await utils.createUrlFromImageName(req.file, "categories");
+                utils.deleteFileFromURL(category.image);
+                category.image = utils.createUrlFromImageName(req.file, "categories");
             }
             await category.save();
             res.status(200).json({
@@ -139,7 +139,7 @@ module.exports = {
                 });
             }
 
-            await utils.deleteFileFromURL(category.image);
+            utils.deleteFileFromURL(category.image);
             await category.remove();
             res.status(200).json({
                 status: 'success',
@@ -173,30 +173,168 @@ module.exports = {
         }
     },
 
-    getAddProduct: (req, res) => {
-        res.render(`${path}/addProduct`, {
-            layout: "manager/main",
-            tag: "product"
-        })
+    getAddProduct: async (req, res) => {
+        try {
+            let categories = await Category.find({});
+            categories = mapObjectInArray(categories);
+            res.render(`${path}/addProduct`, {
+                layout: "manager/main",
+                tag: "product",
+                categories
+            });
+        } catch (err) {
+            console.log(err.message);
+            res.render("error/500");
+        }
     },
 
     addProduct: async (req, res) => {
+        try {
+            if (!req.body.name || !req.body.price || !req.body.category || !req.body.unit || !req.files) {
+                return res.status(400).json({
+                    status: 'Bad Request',
+                    message: 'Vui lòng nhập đầy đủ thông tin',
+                    errorCode: "INVALID_DATA"
+                })
+            }
 
+            let product = await Product.findOne({ name: req.body.name });
+            if (product) {
+                return res.status(400).json({
+                    status: 'Bad Request',
+                    message: 'Sản phẩm đã tồn tại',
+                    errorCode: "PRODUCT_EXIST"
+                })
+            }
+
+            let images = await Promise.all(req.files.map((file) => utils.createUrlFromImageName(file, "products")));
+            const newProduct = new Product({
+                name: req.body.name,
+                price: req.body.price,
+                category: req.body.category,
+                unit: req.body.unit,
+                images: images,
+                description: req.body.description || ""
+            });
+            await newProduct.save();
+
+            return res.status(201).json({
+                status: 'success',
+                message: 'Thêm sản phẩm thành công',
+                data: newProduct
+            })
+        } catch (err) {
+            console.log(err.message);
+            res.status(500).json({
+                status: 'Server Error',
+                message: 'Có lỗi xảy ra, vui lòng thử lại!!',
+                errorCode: "SERVER_ERROR"
+            })
+        }
     },
 
     detailProduct: async (req, res) => {
-        res.render(`${path}/detailProduct`, {
-            layout: "manager/main",
-            tag: "product"
-        })
+        try {
+            const id = req.params.id;
+            let product = await Product.findById(id);
+            product = product.toObject();
+            if (!product) {
+                return res.render("error/404");
+            }
+            let categories = await Category.find({});
+            categories = mapObjectInArray(categories);
+
+            res.render(`${path}/detailProduct`, {
+                layout: "manager/main",
+                tag: "product",
+                product,
+                categories
+            });
+        } catch (err) {
+            console.log(err.message);
+            res.render("error/500");
+        }
     },
 
     updateProduct: async (req, res) => {
+        try {
+            const id = req.params.id;
+            let product = await Product.findById(id);
+            if (!product) {
+                return res.status(400).json({
+                    status: 'Bad Request',
+                    message: 'Sản phẩm không tồn tại',
+                    errorCode: 'PRODUCT_NOT_FOUND'
+                });
+            }
 
+            if (!req.body.name || !req.body.price || !req.body.category || !req.body.unit) {
+                return res.status(400).json({
+                    status: 'Bad Request',
+                    message: 'Vui lòng nhập đầy đủ thông tin',
+                    errorCode: "INVALID_DATA"
+                })
+            }
+
+            let productExist = await Product.findOne({ name: req.body.name });
+            if (productExist && productExist._id != id) {
+                return res.status(400).json({
+                    status: 'Bad Request',
+                    message: 'Sản phẩm đã tồn tại',
+                    errorCode: "PRODUCT_EXIST"
+                })
+            }
+
+            product.name = req.body.name;
+            product.price = req.body.price;
+            product.category = req.body.category;
+            product.unit = req.body.unit;
+            product.description = req.body.description || "";
+            if (req.files) {
+                let images = Promise.all(req.files.map((file) => utils.createUrlFromImageName(file, "products")));
+                product.images.concat(images);
+            }
+            await product.save();
+            res.status(200).json({
+                status: 'success',
+                message: 'Cập nhật sản phẩm thành công',
+                data: product
+            })
+        } catch (err) {
+            console.log(err.message);
+            res.status(500).json({
+                status: 'Server Error',
+                message: 'Có lỗi xảy ra, vui lòng thử lại!!',
+                errorCode: "SERVER_ERROR"
+            })
+        }
     },
 
     deleteProduct: async (req, res) => {
-
+        try {
+            const id = req.params.id;
+            let product = await Product.findById(id);
+            if (!product) {
+                return res.status(400).json({
+                    status: 'Bad Request',
+                    message: 'Sản phẩm không tồn tại',
+                    errorCode: 'PRODUCT_NOT_FOUND'
+                });
+            }
+            await product.remove();
+            res.status(200).json({
+                status: 'success',
+                message: 'Xóa sản phẩm thành công',
+                data: product
+            })
+        } catch (err) {
+            console.log(err.message);
+            res.status(500).json({
+                status: 'Server Error',
+                message: 'Có lỗi xảy ra, vui lòng thử lại!!',
+                errorCode: "SERVER_ERROR"
+            })
+        }
     },
 
     // package

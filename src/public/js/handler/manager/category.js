@@ -63,10 +63,6 @@ const handleUpdateCategory = async () => {
 const handleDeleteCategory = async () => {
     const id = document.querySelector("#form-delete-category #category-id").value;
     const res = await fetch(`${ROOT_API}/category-management/${id}`, {
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
         method: "DELETE"
     });
     const data = await res.json();
