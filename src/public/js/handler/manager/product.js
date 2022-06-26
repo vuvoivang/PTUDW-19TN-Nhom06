@@ -24,7 +24,7 @@ const handleUpdateProduct = async () => {
     });
     const data = await res.json();
     if (data.status === "success") {
-        toastMessage(data.message, "success", true);
+        toastMessage(data.message, "success");
     } else {
         toastMessage(data.message || "Có lỗi xảy ra, vui lòng thử lại", "error");
     }
@@ -37,7 +37,7 @@ const handleDeleteProduct = async () => {
     });
     const data = await res.json();
     if (data.status === "success") {
-        toastMessage(data.message, "success", true);
+        toastMessage(data.message, "success");
     } else {
         toastMessage(data.message || "Có lỗi xảy ra, vui lòng thử lại", "error");
     }
@@ -67,7 +67,7 @@ const getFormInput = (type) => {
 }
 
 // utils
-const toastMessage = (message, type = "success", isReload = false) => {
+const toastMessage = (message, type = "success", isRedirect = false) => {
     Toastify({
         text: message,
         duration: 1000,
@@ -78,7 +78,7 @@ const toastMessage = (message, type = "success", isReload = false) => {
             background: type === "success" ? "#4CAF50" : "#F44335",
         },
         callback: function () {
-            isReload && window.location.reload();
+            type == "success" && isRedirect ? window.location.href = "/manager/product-management" : window.location.reload();
         }
     }).showToast();
 }
