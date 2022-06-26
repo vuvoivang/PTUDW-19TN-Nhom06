@@ -45,7 +45,8 @@
                 {{this.name}}
               </td>
               <td class="text-center">
-                <img src={{this.image}} alt="category" style="width: 55px; height: 55px; border-radius: 10px;">
+                <img src={{or this.image "/img/default.png" }} alt="category" class="rounded"
+                  style="width: 55px; height: 55px">
               </td>
               <td class="text-end">
                 <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#updateCategoryModal"

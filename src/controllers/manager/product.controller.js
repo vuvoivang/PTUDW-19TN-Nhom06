@@ -9,10 +9,14 @@ module.exports = {
         try {
             let products = await Product.find({}).populate('category');
             products = utils.mapObjectInArray(products);
+            let view = req.query.view || "table"
+            let switchView = view === "table" ? "card" : "table";
             res.render(`${path}/productManagement`, {
                 layout: "manager/main",
                 tag: "product",
-                products
+                products,
+                view,
+                switchView
             });
         } catch (err) {
             console.log(err.message);
@@ -84,10 +88,10 @@ module.exports = {
         try {
             const id = req.params.id;
             let product = await Product.findById(id);
-            product = product.toObject();
             if (!product) {
                 return res.render("error/404");
             }
+            product = product.toObject();
             let categories = await Category.find({});
             categories = utils.mapObjectInArray(categories);
 

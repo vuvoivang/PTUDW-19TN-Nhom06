@@ -96,7 +96,7 @@
   <div class="card-body row">
     {{#each product.images}}
     <div class="col-12 col-sm-6 py-3 d-flex justify-content-center align-items-center" style="height: 300px">
-      <img class="img-contain" src="{{this}}" alt="necessary" />
+      <img class="img-contain img-thumbnail rounded" src={{or this "/img/default.png" }} alt="necessary" />
     </div>
     {{/each}}
   </div>
