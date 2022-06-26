@@ -75,5 +75,5 @@ module.exports = {
     deleteFile,
     extractFilenameFromURL,
     deleteFileFromURL,
-    createUrlFromImageName
+    createUrlFromImageName,
 };

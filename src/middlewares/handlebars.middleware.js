@@ -84,6 +84,9 @@ const helper = {
             new RegExp('value=\"' + selected + '\"'),
             '$& selected="selected"');
     },
+    or: function (value, defaultValue) {
+        return value || defaultValue;
+    },
 };
 
 module.exports = { helper };

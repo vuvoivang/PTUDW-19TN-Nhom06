@@ -1,18 +1,22 @@
 const path = "layouts/manager";
 const Product = require('../../models/Product');
 const Package = require('../../models/Package');
+const utils = require('../../utils/functions');
 
 module.exports = {
     getPackageManagement: async (req, res) => {
         // get All Packages
         try {
             let packages = await Package.find({}).populate("productList")
-            console.log(packages);
             packages = utils.mapObjectInArray(packages);
+            let view = req.query.view || "table"
+            let switchView = view === "table" ? "card" : "table";
             res.render(`${path}/packageManagement`, {
                 layout: "manager/main",
                 tag: "package",
-                packages
+                packages,
+                view,
+                switchView
             });
         } catch (err) {
             console.log(err.message);

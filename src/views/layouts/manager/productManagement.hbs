@@ -18,12 +18,15 @@
             Thêm nhu yếu phẩm
           </button>
         </a>
-        <button class="btn btn-primary btn-switch-view">
-          <i class="fa-solid fa-rotate"></i>
-          Đổi dạng hiển thị
-        </button>
+        <a href="/manager/product-management?view={{switchView}}">
+          <button class="btn btn-primary">
+            <i class="fa-solid fa-rotate"></i>
+            Đổi dạng hiển thị
+          </button>
+        </a>
       </div>
-      <div class="table-responsive py-3 table-view">
+      <div class="table-responsive py-3 table-view"
+        style="display: {{#ifCondition view "==" 'table'}}block{{else}}none{{/ifCondition}}">
         <table class="table table-hover" id="data_table">
           <thead class="text-primary">
             <tr>
@@ -81,13 +84,13 @@
           </tbody>
         </table>
       </div>
-      <div class="card-view py-3">
-        <div class="card-content row" style="display: none">
+      <div class="card-view py-3" style="display: {{#ifCondition view '==' 'card'}}block{{else}}none{{/ifCondition}}">
+        <div class=" card-content row" style="display: none">
           {{#each products}}
           <div class="col-12 col-md-6 col-lg-4">
             <div class="card-item mx-auto my-3">
               <div class="card-image">
-                <img src={{this.images.[0]}} alt="card" />
+                <img src={{or this.images.[0] "/img/default.png" }} alt="card" />
               </div>
               <div class="card-info">
                 <h4>
@@ -103,7 +106,7 @@
                     Sửa
                   </button>
                 </a>
-                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteProductModal">
                   Xóa
                 </button>
               </div>
