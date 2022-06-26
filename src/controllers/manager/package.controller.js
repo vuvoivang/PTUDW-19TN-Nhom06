@@ -24,7 +24,7 @@ module.exports = {
         }
     },
 
-    addPackage: async (req, res) => {
+    getAddPackage: async (req, res) => {
         try {
             let products = await Product.find({}).populate('category');
             products = utils.mapObjectInArray(products);
@@ -39,13 +39,30 @@ module.exports = {
         }
     },
 
+    addPackage: async (req, res) => {
+    },
+
     detailPackage: async (req, res) => {
         try {
+            const id = req.params.id;
+            let package = await Package.findById(id);
+            if (!package) {
+                return res.render("error/404");
+            }
+            package = package.toObject();
+            let productData = "";
+            package.productList.forEach((product) => {
+                productData += product.product + "-" + product.limitPerPackage + ", ";
+            })
+            productData = productData.slice(0, -2);
+            package.productData = productData;
+
             let products = await Product.find({}).populate('category');
             products = utils.mapObjectInArray(products);
             res.render(`${path}/detailPackage`, {
                 layout: "manager/main",
                 tag: "package",
+                package,
                 products
             });
         } catch (err) {
@@ -53,4 +70,12 @@ module.exports = {
             res.render("error/500");
         }
     },
+
+    updatePackage: async (req, res) => {
+
+    },
+
+    deletePackage: async (req, res) => {
+
+    }
 }

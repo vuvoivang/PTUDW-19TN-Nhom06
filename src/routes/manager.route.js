@@ -24,8 +24,11 @@ router.delete("/product-management/:id", managerController.product.deleteProduct
 
 // package management
 router.get("/package-management", managerController.package.getPackageManagement);
-router.get("/package-management/new", managerController.package.addPackage);
+router.get("/package-management/new", managerController.package.getAddPackage);
+router.post("/package-management", upload.single("image"), managerController.package.addPackage);
 router.get("/package-management/:id", managerController.package.detailPackage);
+router.put("/package-management/:id", upload.single("image"), managerController.package.updatePackage);
+router.delete("/package-management/:id", managerController.package.deletePackage);
 
 // payment management
 router.get("/payment-management", managerController.payment.getPaymentManagement);

@@ -63,20 +63,20 @@
     </div>
     <div class="row mb-3">
       <div class="form-group">
-        <label class="control-label w-50" for="registerImages">
-          Thêm hình ảnh (có thể chọn nhiều hình)
-          <span class="text-danger">
-            *
-          </span>
-        </label>
-        <input class="form-control" name="images" id="registerImages" accept="image/*" id="images" type="file"
-          multiple />
+        <label class="control-label" for="registerDescription">Mô tả</label>
+        <textarea class="form-control" id="registerDescription" rows="3"></textarea>
       </div>
     </div>
     <div class="row mb-3">
       <div class="form-group">
-        <label class="control-label" for="registerDescription">Mô tả</label>
-        <textarea class="form-control" id="registerDescription" rows="3"></textarea>
+        <label class="control-label" for="registerImages">
+          Hình ảnh (có thể chọn nhiều hình)
+          <span class="text-danger">
+            *
+          </span>
+        </label>
+        <input class="form-control" name="images" id="registerImages" accept="image/*" id="images" type="file" multiple
+          required />
       </div>
     </div>
   </div>
