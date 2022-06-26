@@ -65,17 +65,25 @@
     </div>
     <div class="row mb-3">
       <div class="form-group">
-        <label class="control-label w-50" for="registerImages">
-          Thêm hình ảnh (Thêm vào danh sách hình ảnh sẵn có)
-        </label>
-        <input class="form-control" name="images" id="registerImages" accept="image/*" id="images" type="file"
-          multiple />
+        <label class="control-label" for="registerDescription">Mô tả</label>
+        <textarea class="form-control" id="registerDescription" rows="3">{{product.description}}</textarea>
       </div>
     </div>
     <div class="row mb-3">
       <div class="form-group">
-        <label class="control-label" for="registerDescription">Mô tả</label>
-        <textarea class="form-control" id="registerDescription" rows="3">{{product.description}}</textarea>
+        <label class="control-label" for="registerImages">
+          Hình ảnh (Thêm vào danh sách hình ảnh sẵn có)
+        </label>
+        <input class="form-control" name="images" id="registerImages" accept="image/*" id="images" type="file"
+          multiple />
+      </div>
+
+      <div class="d-flex flex-row mt-3 flex-wrap">
+        {{#each product.images}}
+        <div class="pe-2 pb-2" style="height: 150px">
+          <img class="rounded img-contain " src={{or this "/img/default.png" }} alt="necessary" />
+        </div>
+        {{/each}}
       </div>
     </div>
   </div>
@@ -85,22 +93,6 @@
     </button>
   </div>
 </form>
-<div class="images-product card">
-  <div class="card-header">
-    <div class="card-title">
-      <h2>
-        Danh sách hình ảnh
-      </h2>
-    </div>
-  </div>
-  <div class="card-body row">
-    {{#each product.images}}
-    <div class="col-12 col-sm-6 py-3 d-flex justify-content-center align-items-center" style="height: 300px">
-      <img class="img-contain img-thumbnail rounded" src={{or this "/img/default.png" }} alt="necessary" />
-    </div>
-    {{/each}}
-  </div>
-</div>
 
 {{#section "script"}}
 <script type="text/javascript" src="/js/handler/manager/product.js"></script>

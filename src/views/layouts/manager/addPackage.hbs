@@ -3,7 +3,7 @@
     Thêm gói nhu yếu phẩm
 </title>
 {{/section}}
-<form id="add-package" class="card">
+<form id="form-add-package" class="card">
     <div class="card-header">
         <div class="card-title">
             <h2>
@@ -14,7 +14,7 @@
     <div class="card-body">
         <div class="row mb-3">
             <div class="col-12 col-sm-6 form-group">
-                <label class="control-label">
+                <label class="control-label" for="registerName">
                     Tên gói nhu yếu phẩm
                     <span class="text-danger">
                         *
@@ -23,28 +23,28 @@
                 <input class="form-control" name="name" id="registerName" type="text" required />
             </div>
             <div class="col-12 col-sm-6 form-group">
-                <label class="control-label">
+                <label class="control-label" for="registerLimitPerPerson">
                     Tối đa gói/người
                     <span class="text-danger">
                         *
                     </span>
                 </label>
-                <input min="1000" class="form-control" name="limitPerPerson" id="registerLimitPerPerson" type="number"
+                <input min="1" class="form-control" name="limitPerPerson" id="registerLimitPerPerson" type="number"
                     required />
             </div>
         </div>
         <div class="row mb-3">
             <div class="col-12 col-sm-6 form-group">
-                <label class="control-label">
-                    Thêm hình ảnh
+                <label class="control-label" for="registerImage">
+                    Hình ảnh
                     <span class="text-danger">
                         *
                     </span>
                 </label>
-                <input class="form-control" name="images" accept="image/*" id="image" type="file" />
+                <input class="form-control" name="images" accept="image/*" id="registerImage" type="file" required />
             </div>
             <div class="col-12 col-sm-6 form-group">
-                <label class="control-label">
+                <label class="control-label" for="registerLimitTime">
                     Giới hạn (ngày)
                     <span class="text-danger">
                         *
@@ -53,15 +53,25 @@
                 <input class="form-control" name="limitTime" id="registerLimitTime" type="text" required />
             </div>
         </div>
-        <div class="form-group">
-            <label class="control-label w-50">
-                Nhu yếu phẩm: ID - số lượng tối đa (Vui lòng chọn ít nhất 2 món trong
-                danh sách)
-                <span class="text-danger">
-                    *
-                </span>
-            </label>
-            <input class="form-control" name="productList" id="productList" type="text" readonly />
+        <div class="row mb-3">
+            <div class="form-group">
+                <label class="control-label" for="registerDescription">Mô tả</label>
+                <textarea class="form-control" id="registerDescription" rows="3"></textarea>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="form-group">
+                <label class="control-label" for="registerProductList">
+                    Nhu yếu phẩm: ID - số lượng tối đa (Vui lòng chọn ít nhất 2 món trong
+                    danh sách)
+                    <span class="text-danger">
+                        *
+                    </span>
+                </label>
+                <input class="form-control" name="productList" id="registerProductList" type="text"
+                    onkeydown="return false;" style="caret-color: transparent !important;    background-color: #f0f2f5;
+    opacity: 1;" required />
+            </div>
         </div>
     </div>
     <div class="card-footer mx-auto">

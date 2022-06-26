@@ -142,8 +142,8 @@ module.exports = {
             product.unit = req.body.unit;
             product.description = req.body.description || "";
             if (req.files) {
-                let images = Promise.all(req.files.map(async (file) => await utils.createUrlFromImageName(file, "products")));
-                product.images.concat(images);
+                let images = await Promise.all(req.files.map(async (file) => await utils.createUrlFromImageName(file, "products")));
+                product.images = product.images.concat(images);
             }
             await product.save();
             res.status(200).json({
