@@ -114,11 +114,13 @@
         type="text"
         placeholder="Địa chỉ nhận hàng *"
         class="form-control border-1 payment-address"
+        id="address-order"
       />
       <input
         type="text"
         placeholder="Số điện thoại *"
         class="form-control border-1 payment-phone"
+        id="phone-number-order"
       />
     </div>
     <div class="d-flex align-items-baseline">
@@ -140,6 +142,7 @@
       id = "buttonOrder"
       data-bs-toggle="modal"
       data-bs-target="#confirm"
+      onclick="submitOrder({{{json package}}})"
     >
       Xác nhận
     </button>

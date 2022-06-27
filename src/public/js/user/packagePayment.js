@@ -1,5 +1,34 @@
-
 const userInputs = Array.from(document.getElementsByClassName('amount-input-product'));
+function submitOrder(package) {
+    let formData = package;
+    let address = document.getElementById('address-order').value;
+    let phone = document.getElementById('phone-number-order').value;
+    let inputPackageNum = document.getElementById(`package-number`).value;
+    inputPackageNum = Number(inputPackageNum);
+    if(inputPackageNum < 1){
+        toastMessage("Số lượng package phải lớn hơn 0", "failed");
+        return;
+    }
+    for (let i = 0; i < package.productList.length; i++){
+        let productId = package.productList[i].product._id;
+        let productNumber = document.getElementById(`product-${productId}`).value;
+        productNumber = Number(productNumber);
+        let maxNumThisProduct = package.productList[i].limitPerPackage * inputPackageNum;
+        if(productNumber > maxNumThisProduct) {
+            toastMessage(`Số lượng sản phẩm của ${package.productList[i].product.name} không được vượt quá ${maxNumThisProduct} theo quy định`, "failed");
+            return;
+        }
+        formData.productList[i].quantity = productNumber;
+        formData.productList[i].totalAmount = Number(document.getElementById(`total-price-product-${productId}`).innerText);
+    }
+    formData.address = address;
+    formData.phone = phone;
+    formData.packageQuantity = inputPackageNum;
+    formData.totalAmount = Number(document.getElementById("package-total-price").innerText);
+    console.log(formData);
+    // fetch api here
+
+}
 function checkEveryNumberValid(){
     let isValid = true;
     userInputs.forEach(
