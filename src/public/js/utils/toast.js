@@ -1,7 +1,7 @@
 const toastMessage = (message, type = "success", isReload = false) => {
     Toastify({
         text: message,
-        duration: 1000,
+        duration: 2000,
         gravity: "top",
         stopOnFocus: true,
         position: "right",
