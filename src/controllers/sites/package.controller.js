@@ -18,10 +18,6 @@ module.exports = {
             });
         }
         package = package.toObject();
-<<<<<<< HEAD
-
-=======
->>>>>>> main
         package._id = package._id.toString();
 
         res.render('layouts/sites/packagePayment', {
