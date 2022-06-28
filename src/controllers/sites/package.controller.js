@@ -1,7 +1,6 @@
 const utils = require('../../utils/functions');
 const Package = require('../../models/Package');
 const Product = require('../../models/Product');
-const date = require('date-and-time')
 module.exports = {
     getPayment: async (req, res) => {
         const id = req.params.id;
@@ -19,6 +18,10 @@ module.exports = {
             });
         }
         package = package.toObject();
+<<<<<<< HEAD
+
+=======
+>>>>>>> main
         package._id = package._id.toString();
 
         res.render('layouts/sites/packagePayment', {
