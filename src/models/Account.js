@@ -7,7 +7,6 @@ const accountSchema = new Schema({
     _id: {
         type: Number,
         unique: true,
-        required: true
     },
     username: {
         type: String,

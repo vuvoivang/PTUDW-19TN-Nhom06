@@ -1,22 +1,22 @@
-const hyperlinksSidebarUser = [
+const hyperlinksSidebarUser = (userId) => [
     {
         label: "Tài khoản của tôi",
-        href: "#",
+        href: `/user/${userId}/account`,
         icon: "fa-solid fa-circle-user fa-lg"
     },
     {
         label: "Lịch sử được quản lý",
-        href: "#",
+        href: `/user/${userId}/managementHistory`,
         icon: "fa-solid fa-clock-rotate-left fa-lg"
     },
     {
         label: "Lịch sử mua hàng",
-        href: "#",
+        href: `/user/${userId}/paymentHistory`,
         icon: "fa fa-cart-plus fa-lg"
     },
     {
         label: "Tài khoản thanh toán",
-        href: "/user/123/accountPayment",
+        href: `/user/${userId}/accountPayment`,
         icon: "fa-solid fa-user-plus fa-lg"
     }
 ];
@@ -29,7 +29,23 @@ const userBreadCrumb = {
     ],
     mainLabel: "Người dùng"
 }
+const transactionType = {
+    deposit: "deposit",
+    withdraw: "withdraw",
+    payment: "payment"
+}
+const MIN_DEPOSIT = 1000;
+
+const PREFIX_STORAGE_FILE = {
+    "categories": "category",
+    "products": "product",
+    "packages": "package"
+}
+
 module.exports = {
     hyperlinksSidebarUser,
-    userBreadCrumb
+    userBreadCrumb,
+    transactionType,
+    MIN_DEPOSIT,
+    PREFIX_STORAGE_FILE
 }

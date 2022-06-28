@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
-const Account = require('../models/Account')
+const Transaction = require('../models/Transaction')
 const PaymentAccount = require('../models/PaymentAccount')
+const Account = require('../models/Account')
 
 const { hyperlinksSidebarUser, userBreadCrumb } = require('../constants/index');
 const pushBreadCrumb = (label, link, isActive = true) => {
@@ -16,34 +17,94 @@ const pushBreadCrumb = (label, link, isActive = true) => {
     return thisBreadCrumb;
 }
 module.exports = {
-    getAccount: async (req, res, next) => {
+    getManagementHistory: async (req, res) => {
         try {
-            const account = await Account.findById(req.params.id);
-            account.then(account => res.json({ status: "success", data: account }))
-                .catch(next)
+            // push breadcrumb for this page
+            let userId = (req.params.userId);
+            res.locals.hyperlinks = hyperlinksSidebarUser(userId);
+            res.locals.userId = userId;
+            res.locals.breadCrumb = pushBreadCrumb("Lịch sử được quản lý", `/user/${userId}/myManagementHistory`);
+
+            res.render("layouts/user/managementHistory", {
+                layout: "user/main",
+
+            });
         } catch (error) {
-            console.log(error);
             res.status(500).json({
                 status: "Server Error",
-                message: 'Có lỗi xảy ra, vui lòng thử lại!!',
+                message: error?.message || 'Có lỗi xảy ra, vui lòng thử lại!!',
+                errorCode: "SERVER_ERROR"
+            });
+        }
+    },
+    getPaymentHistory: async (req, res) => {
+        try {
+            // push breadcrumb for this page
+            let userId = (req.params.userId);
+            res.locals.hyperlinks = hyperlinksSidebarUser(userId);
+            res.locals.userId = userId;
+            res.locals.breadCrumb = pushBreadCrumb("Lịch sử mua hàng", `/user/${userId}/myPaymentHistory`);
+
+            res.render("layouts/user/paymentHistory", {
+                layout: "user/main",
+
+            });
+        } catch (error) {
+            res.status(500).json({
+                status: "Server Error",
+                message: error?.message || 'Có lỗi xảy ra, vui lòng thử lại!!',
+                errorCode: "SERVER_ERROR"
+            });
+        }
+    },
+    getAccountInfo: async (req, res) => {
+        try {
+            // push breadcrumb for this page
+            let userId = (req.params.userId);
+            res.locals.hyperlinks = hyperlinksSidebarUser(userId);
+            res.locals.userId = userId;
+            res.locals.breadCrumb = pushBreadCrumb("Tài khoản của tôi", `/user/${userId}/account`);
+            let correspondingAccount = await Account.findById(userId);
+            if (!correspondingAccount) {
+                res.redirect('layouts/error/404');
+            }
+            console.log(correspondingAccount);
+            res.render("layouts/user/account", {
+                layout: "user/main",
+                account: correspondingAccount.toObject()
+            });
+        } catch (error) {
+            res.status(500).json({
+                status: "Server Error",
+                message: error?.message || 'Có lỗi xảy ra, vui lòng thử lại!!',
                 errorCode: "SERVER_ERROR"
             });
         }
     },
     getAccountPayment: async (req, res) => {
         try {
-            res.locals.hyperlinks = hyperlinksSidebarUser;
             // push breadcrumb for this page
             let userId = (req.params.userId);
+            res.locals.hyperlinks = hyperlinksSidebarUser(userId);
             res.locals.userId = userId;
             res.locals.breadCrumb = pushBreadCrumb("Tài khoản thanh toán", `/user/${userId}/accountPayment`);
             let paymentAccount = await PaymentAccount.findOne({
                 paymentAccountId: userId,
             });
+            if (paymentAccount) {
+                let transactions = await Transaction.find({
+                    accountId: paymentAccount._id
+                })
+                res.locals.paymentAccount = paymentAccount.toObject();
+                res.locals.transactions = transactions.map(item => {
+                    return {
+                        ...item.toObject(), localeDate: item.createdAt.toLocaleString()
+                    }
+                });
+            }
             res.render("layouts/user/accountPayment", {
                 layout: "user/main",
                 isHaveAccountPayment: paymentAccount ? true : false,
-                paymentAccount
             });
         } catch (error) {
             console.log(error);

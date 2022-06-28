@@ -1,0 +1,78 @@
+{{#section "title"}}
+  <title>
+    Lịch sử được quản lý
+  </title>
+{{/section}}
+{{#section "style"}}
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+{{/section}}
+<div id="content-managementHistory">
+  <div class="col-md-12 p-0">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title p-3">
+          Lịch sử được quản lý
+        </h4>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive p-2">
+          <table class="table table-hover" id="data_table">
+            <thead class="text-primary">
+              <tr>
+                <th class="text-left">
+                  Hành động
+                </th>
+                <th class="text-center">
+                  Ngày
+                </th>
+                <th class="text-center">
+                  Mô tả
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-left">
+                  Nhập viện
+                </td>
+                <td class="text-center">
+                  22/10/2022
+                </td>
+                <td class="text-center">
+                  Ăn nhiều quá bể bụng
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{#section "script"}}
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script
+    type="text/javascript"
+    src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"
+  ></script>
+  <script
+    type="text/javascript"
+    src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"
+  ></script>
+  <script>
+    $(document).ready(function () {
+        $('#data_table').DataTable();
+    });
+  </script>
+{{/section}}

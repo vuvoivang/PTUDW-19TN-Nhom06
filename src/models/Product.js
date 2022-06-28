@@ -23,7 +23,7 @@ const productSchema = new Schema({
     },
     category: {
         type: ObjectId,
-        ref: 'Category',
+        ref: 'categories',
         required: true,
     },
     description: {
@@ -37,5 +37,5 @@ const productSchema = new Schema({
     ],
 });
 
-productSchema.plugin(AutoIncrement, { id: 'product_seq', start_seq: 1000, collection_name: 'product_counters' });
+productSchema.plugin(AutoIncrement, { id: 'product_seq', collection_name: 'product_counters' });
 module.exports = mongoose.model('products', productSchema);

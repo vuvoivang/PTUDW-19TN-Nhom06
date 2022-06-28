@@ -1,9 +1,14 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const { ObjectId } = mongoose.Schema.Types;
+const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 const transactionSchema = new Schema({
-    userId: {
+    _id: {
+        type: Number,
+        unique: true,
+    },
+    accountId: {
         type: ObjectId,
         ref: 'PaymentAccount',
         required: true
@@ -28,7 +33,9 @@ const transactionSchema = new Schema({
         required: true,
         maxLength: 255
     }
+}, {
+    _id: false
 });
 
-
+transactionSchema.plugin(AutoIncrement, { id: "transaction_seq", start_seq: 10000, collection_name: "transaction_counters" });
 module.exports = mongoose.model('transactions', transactionSchema);

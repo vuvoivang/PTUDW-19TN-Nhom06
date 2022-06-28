@@ -1,11 +1,10 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const { ObjectId } = mongoose.Schema.Types;
 const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 const paymentAccountSchema = new Schema({
     paymentAccountId: {
-        type: ObjectId,
+        type: Number,
         ref: 'Account',
         unique: true,
         required: true,

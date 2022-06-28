@@ -3,7 +3,7 @@
     Thông tin gói nhu yếu phẩm
 </title>
 {{/section}}
-<form id="detail-package" class="card">
+<form id="form-update-package" class="card">
     <div class="card-header">
         <div class="card-title">
             <h2>
@@ -11,62 +11,84 @@
             </h2>
         </div>
     </div>
-    <div class="card-body">
-        <div class="row mb-3">
-            <div class="col-12 col-sm-6 form-group">
-                <label class="control-label">
-                    Tên gói nhu yếu phẩm
-                    <span class="text-danger">
-                        *
-                    </span>
-                </label>
-                <input class="form-control" name="name" id="registerName" type="text" required />
-            </div>
-            <div class="col-12 col-sm-6 form-group">
-                <label class="control-label">
-                    Tối đa gói/người
-                    <span class="text-danger">
-                        *
-                    </span>
-                </label>
-                <input min="1000" class="form-control" name="limitPerPerson" id="registerLimitPerPerson" type="number"
-                    required />
+    <div class="row card-body">
+        <div class="col-12 col-md-9">
+            <div>
+                <input type="text" value="{{package._id}}" name="id" id="registerId" hidden>
+                <div class="row mb-3">
+                    <div class="col-12 col-sm-6 form-group">
+                        <label class="control-label" for="registerName">
+                            Tên gói nhu yếu phẩm
+                            <span class="text-danger">
+                                *
+                            </span>
+                        </label>
+                        <input class="form-control" name="name" id="registerName" type="text" value="{{package.name}}"
+                            required />
+                    </div>
+                    <div class="col-12 col-sm-6 form-group">
+                        <label class="control-label" for="registerLimitPerPerson">
+                            Tối đa gói/người
+                            <span class="text-danger">
+                                *
+                            </span>
+                        </label>
+                        <input min="1" class="form-control" name="limitPerPerson" id="registerLimitPerPerson"
+                            type="number" value="{{package.limitPerPerson}}" required />
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-12 col-sm-6 form-group">
+                        <label class="control-label" for="registerImage">
+                            Hình ảnh
+                        </label>
+                        <input class="form-control" name="image" accept="image/*" id="registerImage" type="file" />
+                    </div>
+                    <div class="col-12 col-sm-6 form-group">
+                        <label class="control-label" for="registerLimitTime">
+                            Giới hạn (ngày)
+                            <span class="text-danger">
+                                *
+                            </span>
+                        </label>
+                        <input class="form-control" name="limitTime" id="registerLimitTime" type="text"
+                            value="{{package.limitTime}}" required />
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="form-group">
+                        <label class="control-label" for="registerDescription">Mô tả</label>
+                        <textarea class="form-control" id="registerDescription"
+                            rows="3">{{package.description}}</textarea>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="form-group">
+                        <label class="control-label" for="registerProductList">
+                            Nhu yếu phẩm: ID - số lượng tối đa (Vui lòng chọn ít nhất 2 món trong
+                            danh sách)
+                            <span class="text-danger">
+                                *
+                            </span>
+                        </label>
+                        <input class="form-control" name="productList" id="registerProductList" type="text"
+                            onkeydown="return false;"
+                            style="caret-color: transparent !important; background-color:#f0f2f5;opacity: 1;" required
+                            value="{{package.productData}}" />
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="row mb-3">
-            <div class="col-12 col-sm-6 form-group">
-                <label class="control-label">
-                    Thêm hình ảnh
-                    <span class="text-danger">
-                        *
-                    </span>
-                </label>
-                <input class="form-control" name="images" accept="image/*" id="image" type="file" />
+        <div class="col-12 col-md-3">
+            <div class="pe-3 d-flex flex-column justify-content-center" style="height: 100%">
+                <img class="rounded img-contain" src={{or package.image "/img/default.png" }} alt="necessary"
+                    style="max-width: 100%; max-height: 100%" />
             </div>
-            <div class="col-12 col-sm-6 form-group">
-                <label class="control-label">
-                    Giới hạn (ngày)
-                    <span class="text-danger">
-                        *
-                    </span>
-                </label>
-                <input class="form-control" name="limitTime" id="registerLimitTime" type="text" required />
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label w-50">
-                Nhu yếu phẩm: ID - số lượng tối đa (Vui lòng chọn ít nhất 2 món trong
-                danh sách)
-                <span class="text-danger">
-                        *
-                </span>
-            </label>
-            <input class="form-control" name="productList" id="productList" type="text" readonly />
         </div>
     </div>
     <div class="card-footer mx-auto">
         <button type="submit" class="btn btn-primary">
-            Thêm mới
+            Cập nhật
         </button>
     </div>
 </form>
@@ -83,7 +105,7 @@
                 <thead class="text-primary">
                     <tr>
                         <th>
-                            ID
+                            No.
                         </th>
                         <th>
                             Tên nhu yếu phẩm
@@ -106,7 +128,7 @@
                     {{#each products}}
                     <tr>
                         <td>
-                            {{this.id}}
+                            {{inc @index}}
                         </td>
                         <td>
                             {{this.name}}
@@ -115,15 +137,18 @@
                             {{this.unit}}
                         </td>
                         <td>
-                            {{this.price}}
+                            {{numberWithCommas this.price}}
                         </td>
                         <td>
-                            {{this.category}}
+                            {{get this.category "name"}}
                         </td>
                         <td class="text-end">
-                            <input class="form-inline me-3" style="width: 80px" type="number" min="1" name={{this.id}} id={{this.id}}>
-                            <i id="select-product" class="fa-solid fa-circle-plus fa-lg" style="cursor: pointer; color: #4CAF50"></i>
-                            {{!-- <i id="unselect-product" class="fa-solid fa-trash fa-lg" style="cursor: pointer; color: #dc3545"></i> --}}
+                            <input class="form-inline me-3" style="width: 80px" type="number" min="1" name={{this.id}}
+                                id={{this._id}}>
+                            <i id="select-product" class="fa-solid fa-circle-plus fa-lg"
+                                style="cursor: pointer; color: #4CAF50"></i>
+                            {{!-- <i id="unselect-product" class="fa-solid fa-trash fa-lg"
+                                style="cursor: pointer; color: #dc3545"></i> --}}
                         </td>
                     </tr>
                     {{/each}}
@@ -135,8 +160,8 @@
 
 {{#section "script"}}
 <script>
-    $(document).ready(function () { 
-        $('#data_table').DataTable(); 
+    $(document).ready(function () {
+        $('#data_table').DataTable();
     });
 </script>
 {{/section}}

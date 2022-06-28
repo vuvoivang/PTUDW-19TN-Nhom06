@@ -1,7 +1,7 @@
 {{#section "title"}}
-  <title>
-    Quản lý nhu yếu phẩm
-  </title>
+<title>
+  Quản lý nhu yếu phẩm
+</title>
 {{/section}}
 <div id="product-management">
   <div class="card">
@@ -18,17 +18,20 @@
             Thêm nhu yếu phẩm
           </button>
         </a>
-        <button class="btn btn-primary btn-switch-view">
-          <i class="fa-solid fa-rotate"></i>
-          Đổi dạng hiển thị
-        </button>
+        <a href="/manager/product-management?view={{switchView}}">
+          <button class="btn btn-primary">
+            <i class="fa-solid fa-rotate"></i>
+            Đổi dạng hiển thị
+          </button>
+        </a>
       </div>
-      <div class="table-responsive py-3 table-view">
+      <div class="table-responsive py-3 table-view"
+        style="display: {{#ifCondition view "==" 'table'}}block{{else}}none{{/ifCondition}}">
         <table class="table table-hover" id="data_table">
           <thead class="text-primary">
             <tr>
               <th>
-                ID
+                No.
               </th>
               <th>
                 Tên nhu yếu phẩm
@@ -49,78 +52,66 @@
           </thead>
           <tbody>
             {{#each products}}
-              <tr>
-                <td>
-                  {{this.id}}
-                </td>
-                <td>
-                  {{this.name}}
-                </td>
-                <td>
-                  {{this.unit}}
-                </td>
-                <td>
-                  {{this.price}}
-                </td>
-                <td>
-                  {{this.category}}
-                </td>
-                <td class="text-end">
-                  <a href="/manager/product-management/{{this.id}}">
-                    <button class="btn btn-success">
-                      Chi tiết
-                    </button>
-                  </a>
-                  <button
-                    class="btn btn-danger"
-                    data-bs-toggle="modal"
-                    data-bs-target="#deleteModal"
-                  >
-                    Xóa
+            <tr>
+              <td>
+                {{inc @index}}
+              </td>
+              <td>
+                {{this.name}}
+              </td>
+              <td>
+                {{this.unit}}
+              </td>
+              <td>
+                {{numberWithCommas this.price}} đ
+              </td>
+              <td>
+                {{get this.category "name"}}
+              </td>
+              <td class="text-end">
+                <a href="/manager/product-management/{{this._id}}">
+                  <button class="btn btn-success">
+                    Sửa
                   </button>
-                </td>
-              </tr>
+                </a>
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteProductModal"
+                  onclick="handleDeleteProductModal({{{json this}}})">
+                  Xóa
+                </button>
+              </td>
+            </tr>
             {{/each}}
           </tbody>
         </table>
       </div>
-      <div class="card-view py-3">
-        <div class="card-content row" style="display: none">
+      <div class="card-view py-3" style="display: {{#ifCondition view '==' 'card'}}block{{else}}none{{/ifCondition}}">
+        <div class=" card-content row" style="display: none">
           {{#each products}}
-            <div class="col-12 col-md-6 col-lg-4">
-              <div class="card-item mx-auto my-3">
-                <div class="card-image">
-                  <img src={{this.images.[0]}} alt="card" />
-                </div>
-                <div class="card-info">
-                  <h4>
-                    {{this.name}}
-                  </h4>
-                  <b class="text-danger">
-                    {{this.price}}
-                    đ/
-                    {{this.unit}}
-                  </b>
-                </div>
-                <div class="card-action px-3 pb-3 text-end">
-                  <a
-                    class="d-inline-block"
-                    href="/manager/product-management/{{this.id}}"
-                  >
-                    <button class="btn btn-success">
-                      Chi tiết
-                    </button>
-                  </a>
-                  <button
-                    class="btn btn-danger"
-                    data-bs-toggle="modal"
-                    data-bs-target="#deleteModal"
-                  >
-                    Xóa
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="card-item mx-auto my-3">
+              <div class="card-image">
+                <img src={{or this.images.[0] "/img/default.png" }} alt="card" />
+              </div>
+              <div class="card-info">
+                <h4>
+                  {{this.name}}
+                </h4>
+                <b class="text-danger">
+                  {{numberWithCommas this.price}} đ/{{this.unit}}
+                </b>
+              </div>
+              <div class="card-action px-3 pb-3 text-end">
+                <a class="d-inline-block" href="/manager/product-management/{{this._id}}">
+                  <button class="btn btn-success">
+                    Sửa
                   </button>
-                </div>
+                </a>
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteProductModal">
+                  Xóa
+                </button>
               </div>
             </div>
+          </div>
           {{/each}}
         </div>
         <div class="card-pagination"></div>
@@ -141,119 +132,116 @@
     </div>
   </div>
 </div>
-<!-- Modal -->
-<div
-  class="modal fade"
-  id="deleteModal"
-  tabindex="-1"
-  aria-labelledby="deleteModalLabel"
-  aria-hidden="true"
->
+
+{{! Modal delete product }}
+<div class="modal fade" id="deleteProductModal" tabindex="-1" aria-labelledby="deleteProductModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="deleteModalLabel">
-          Xóa nhu yếu phẩm
+          Xóa danh mục
         </h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Bạn chắc chắn muốn xóa nhu yếu phẩm này?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Hủy
-        </button>
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
-          Xóa bỏ
-        </button>
+        <p>Bạn chắc chắn muốn xóa nhu yếu phẩm này?</p>
+        <form id="form-delete-product" onsubmit="event.preventDefault(); handleDeleteProduct();">
+          <input type="text" name="id" id="product-id" hidden>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              Hủy
+            </button>
+            <button type="submit" class="btn btn-danger">
+              Xóa bỏ
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
 </div>
+
 {{#section "script"}}
-  <script>
-    $(document).ready(function () {
+<script>
+  $(document).ready(function () {
     $('#data_table').DataTable();
   });
-  </script>
-  <script>
-    const ctx = document.getElementById('productStatistics').getContext('2d');
-    const data = {
-      labels: ["1/2022", "2/2022", "3/2022", "4/2022", "5/2022", "6/2022"],
-      datasets: [
-        {
-          label: 'Bánh mì',
-          data: [12, 19, 3, 5, 2, 3],
-          backgroundColor: "rgba(255, 99, 132, 0.2)",
-          borderColor: "rgba(255, 99, 132, 1)",
-          borderWidth: 3,
-          fill: false,
-          tension: 0.1,
-        },
-        {
-          label: 'Gạo',
-          data: [2, 3, 5, 2, 3, 12],
-          backgroundColor: "rgba(54, 162, 235, 0.2)",
-          borderColor: "rgba(54, 162, 235, 1)",
-          borderWidth: 3,
-          fill: false,
-          tension: 0.1,
-        },
-        {
-          label: 'Sữa',
-          data: [3, 5, 2, 3, 12, 19],
-          backgroundColor: "rgba(255, 206, 86, 0.2)",
-          borderColor: "rgba(255, 206, 86, 1)",
-          borderWidth: 3,
-          fill: false,
-          tension: 0.1,
-        },
-        {
-          label: 'Trứng',
-          data: [5, 2, 3, 12, 19, 3],
-          backgroundColor: "rgba(75, 192, 192, 0.2)",
-          borderColor: "rgba(75, 192, 192, 1)",
-          borderWidth: 3,
-          fill: false,
-          tension: 0.1,
-        },
-      ]
-    }
-    const config = {
-      type: 'line',
-      data: data,
-      options: {
-        responsive: true,
-        maintainAspectRatio: true,
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        },
-        layout: {
-          padding: {
-              x: 50
-          }
-        },
-        plugins: {
-          legend: {
-            position: 'top',
-          },
-          title: {
-            display: true,
-            text: 'SỐ LIỆU THỐNG KÊ'
-          }
+</script>
+<script>
+  const ctx = document.getElementById('productStatistics').getContext('2d');
+  const data = {
+    labels: ["1/2022", "2/2022", "3/2022", "4/2022", "5/2022", "6/2022"],
+    datasets: [
+      {
+        label: 'Bánh mì',
+        data: [12, 19, 3, 5, 2, 3],
+        backgroundColor: "rgba(255, 99, 132, 0.2)",
+        borderColor: "rgba(255, 99, 132, 1)",
+        borderWidth: 3,
+        fill: false,
+        tension: 0.1,
+      },
+      {
+        label: 'Gạo',
+        data: [2, 3, 5, 2, 3, 12],
+        backgroundColor: "rgba(54, 162, 235, 0.2)",
+        borderColor: "rgba(54, 162, 235, 1)",
+        borderWidth: 3,
+        fill: false,
+        tension: 0.1,
+      },
+      {
+        label: 'Sữa',
+        data: [3, 5, 2, 3, 12, 19],
+        backgroundColor: "rgba(255, 206, 86, 0.2)",
+        borderColor: "rgba(255, 206, 86, 1)",
+        borderWidth: 3,
+        fill: false,
+        tension: 0.1,
+      },
+      {
+        label: 'Trứng',
+        data: [5, 2, 3, 12, 19, 3],
+        backgroundColor: "rgba(75, 192, 192, 0.2)",
+        borderColor: "rgba(75, 192, 192, 1)",
+        borderWidth: 3,
+        fill: false,
+        tension: 0.1,
+      },
+    ]
+  }
+  const config = {
+    type: 'line',
+    data: data,
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      scales: {
+        y: {
+          beginAtZero: true
         }
       },
-    };
-    var productChart = new Chart(ctx, config);
-  </script>
-  <script src="/js/custom/toggleTableCardView.js"></script>
-  <script src="/js/custom/cardPagination.js"></script>
+      layout: {
+        padding: {
+          x: 50
+        }
+      },
+      plugins: {
+        legend: {
+          position: 'top',
+        },
+        title: {
+          display: true,
+          text: 'SỐ LIỆU THỐNG KÊ'
+        }
+      }
+    },
+  };
+  var productChart = new Chart(ctx, config);
+</script>
+<script src="/js/custom/modal.js"></script>
+<script src="/js/handler/manager/product.js"></script>
+<script src="/js/custom/toggleTableCardView.js"></script>
+<script src="/js/custom/cardPagination.js"></script>
 {{/section}}
