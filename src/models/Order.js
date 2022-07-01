@@ -9,7 +9,7 @@ const orderSchema = new Schema({
         required: true,
     },
     item: {
-        type: ObjectId, // can be ref to Product or Package model base on type
+        type: Number, // can be ref to Product or Package model base on type
         refPath: 'type',
     },
     type: {
@@ -31,6 +31,10 @@ const orderSchema = new Schema({
             },
         },
     ],
+    quantity: {
+        type: Number,
+        required: true,
+    },
     totalPrice: {
         type: Number,
         required: true,
@@ -42,16 +46,16 @@ const orderSchema = new Schema({
     paymentMethod: {
         type: String,
         enum: ['cash', 'credit-card'],
-        required: true,
+        // required: true,
     },
     paymentAccount: {
         type: String,
         ref: 'PaymentAccount',
-        required: true,
+        // required: true,
     },
     paymentTime: {
         type: Date,
-        required: true,
+        // required: true,
     },
     deliveryAddress: {
         type: String,
@@ -60,6 +64,10 @@ const orderSchema = new Schema({
     status: {
         type: String,
         enum: ['pending', 'processing', 'delivering', 'delivered', 'cancelled'],
+        required: true,
+    },
+    phone: {
+        type: String,
         required: true,
     },
 });
