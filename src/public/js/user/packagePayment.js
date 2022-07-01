@@ -5,6 +5,20 @@ const submitOrder = async (package) => {
     let formData = package;
     let address = document.getElementById('address-order').value;
     let phone = document.getElementById('phone-number-order').value;
+    if (address === "") {
+        toastMessage(
+            `Địa chỉ không được để trống`,
+            'failed'
+        );
+        return;
+    }
+    if (phone === "") {
+        toastMessage(
+            `Số điện thoại không được để trống`,
+            'failed'
+        );
+        return;
+    }
     let inputPackageNum = document.getElementById(`package-number`).value;
     inputPackageNum = Number(inputPackageNum);
     if (inputPackageNum < 1) {
@@ -15,7 +29,7 @@ const submitOrder = async (package) => {
         let productId = package.productList[i].product._id;
         let productNumber = document.getElementById(`product-${productId}`).value;
         productNumber = Number(productNumber);
-        let maxNumThisProduct = package.productList[i].limitPerPackage * inputPackageNum;
+        let maxNumThisProduct = package.productList[i].limitPerPackage;
         if (productNumber > maxNumThisProduct) {
             toastMessage(
                 `Số lượng sản phẩm của ${package.productList[i].product.name} không được vượt quá ${maxNumThisProduct} theo quy định`,
@@ -31,7 +45,8 @@ const submitOrder = async (package) => {
     formData.address = address;
     formData.phone = phone;
     formData.packageQuantity = inputPackageNum;
-    formData.totalAmount = Number(document.getElementById('package-total-price').innerText);
+    formData.totalAmount = Number(document.getElementById('package-total-price').innerText) * inputPackageNum;
+    formData.paymentMethod = document.getElementById('paymentMethodSelect').value;
     console.log(formData);
 
     // fetch api here
