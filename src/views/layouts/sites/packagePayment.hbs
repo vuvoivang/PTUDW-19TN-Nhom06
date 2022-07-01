@@ -99,7 +99,7 @@
       </div>
       <div class="total-payment">
         <span class="total-payment-title text-bold">
-          Tổng tiền hàng:
+          Tổng tiền 1 gói:
         </span>
         <span id="package-total-price" class="total-price text-danger text-bold fs-5">
           {{package.defaultPrice}}
@@ -115,33 +115,34 @@
         placeholder="Địa chỉ nhận hàng *"
         class="form-control border-1 payment-address"
         id="address-order"
+        required
       />
       <input
         type="text"
         placeholder="Số điện thoại *"
         class="form-control border-1 payment-phone"
         id="phone-number-order"
+        required
       />
     </div>
     <div class="d-flex align-items-baseline">
       <div class="payment-method">
         Phương thức thanh toán:
       </div>
-      <div class="d-flex align-items-center ms-3">
-        <span class="text-success text-bold">
-          Thanh toán khi nhận hàng
-        </span>
-        <i
-          class="fa-solid fa-circle-chevron-right ms-2 text-success text-bold"
-        ></i>
+      <div class="d-flex align-items-center ms-3 ">
+        <label>
+          <select class="form-select selectdiv">
+            <option selected value="cash" >Thanh toán bằng tiền mặt</option>
+            <option value="credit-card">Thanh toán bằng thẻ</option>
+          </select>
+        </label>
+
       </div>
     </div>
     <button
       class="btn btn-primary text-right float-end my-3"
       style="cursor: pointer;"
       id = "buttonOrder"
-      data-bs-toggle="modal"
-      data-bs-target="#confirm"
       onclick="submitOrder({{{json package}}})"
     >
       Xác nhận
