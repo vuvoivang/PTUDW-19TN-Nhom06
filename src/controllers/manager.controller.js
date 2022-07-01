@@ -2,33 +2,41 @@ const { categories, products, packages } = require('../models/manager.model');
 const path = "layouts/manager";
 const Account = require('../models/Account');
 const Permission = require('../models/Permission');
+const LogManager = require('../models/LogManager');
 
-const createPermissions = async (managerId, permissions) => {
+const createPermission = async (managerUsername, permissions) => {
     try {
-        let newPermiss = await Permission.create({ managerId, permissions });
+        let newPermiss = await Permission.create({ managerUsername, permissions });
         return true;
     } catch (error) {
         return false;
     }
 };
 
-const updatePermission = async (managerId, permissions) => {
-    let permiss = await Permission.findOne({ managerId });
-    if (permiss) {
-        let update = await Permission.findByIdAndUpdate(permiss._id, {
-            permissions
+const updatePermission = async (req, res) => {
+    try {
+        let { managerUsername, permissions } = req.body;
+        let permiss = await Permission.findOne({ managerUsername });
+        if (permiss) {
+            await Permission.findByIdAndUpdate(permiss._id, { permissions });
+            res.status(200).json({
+                status: 'Update permission successfully',
+            });
+        }
+    } catch (error) {
+        res.status(400).json({
+            status: 'error',
+            message: error
         });
-        return true;
     }
-    return false;
 };
 
-const viewPermission = async (req, res, next) => {
+const getPermission = async (req, res) => {
     try {
-        let managerId = req.body.id;
-        let view = await Permission.findOne({ managerId });
+        let managerUsername = req.body.managerUsername;
+        let view = await Permission.findOne({ managerUsername }).lean();
         res.status(200).json({
-            status: 'success',
+            status: 'Get permission successfully',
             permissions: view.permissions
         });
     } catch (error) {
@@ -137,12 +145,11 @@ module.exports = {
             }
 
             const newAccount = await Account.create(data);
-            console.log('newAccount\n', newAccount);
-            const newPermiss = await createPermissions(newAccount._id, permissions);
-            console.log('new permission\n', newPermiss);
+            const newPermiss = await createPermission(newAccount._id, permissions);
 
             res.status(200).json({
-                status: "Create manager successfully"
+                status: "Create manager successfully",
+                newPermiss
             });
         } catch (error) {
             res.status(400).json({
@@ -178,5 +185,29 @@ module.exports = {
             });
         }
     },
-    viewPermission
+    getPermission,
+    updatePermission,
+    getLog: async (req, res) => {
+        try {
+            let { managerUsername } = req.body;
+            let log = await LogManager.findOne({ managerUsername }).lean();
+            if (log) {
+                res.status(200).json({
+                    status: "Get manager log successfully",
+                    log
+                });
+            }
+            else {
+                res.status(400).json({
+                    status: "Get manager log failed",
+                    message: "There is no history with this username"
+                });
+            }
+        } catch (error) {
+            res.status(400).json({
+                status: "Get manager log failed",
+                message: error
+            });
+        }
+    }
 }

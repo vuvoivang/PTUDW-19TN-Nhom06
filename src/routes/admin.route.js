@@ -6,10 +6,10 @@ const authController = require('../controllers/sites/auth.controller')
 
 router.use(authController.isLoggedIn, authController.firewallUrlHandle);
 
-router.get('/create', adminController.createmanager);
-router.get('/view', adminController.viewManager);
-router.get('/place', adminController.viewPlace);
-router.get('/', adminController.createmanager);
+router.route('/create').get(adminController.createManager);
+router.route('/view').get(adminController.viewManager);
+router.route('/place').get(adminController.viewPlace);
+router.route('/').get(adminController.viewManager);
 
 
 module.exports = router;

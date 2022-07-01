@@ -56,7 +56,9 @@ const isLoggedIn = async (req, res, next) => {
         // console.log('is logged in check:\n', user)
         return next()
     }
-    next(new AppError('There is no token for accessing page', 400));
+    else {
+        return res.redirect('/signin');
+    }
 }
 
 const firebaseSignupHandle = async (req, res, next) => {

@@ -32,6 +32,8 @@ checkAll.addEventListener("change", () => {
 });
 
 function showToast() {
+    document.getElementById("snackbar").innerHTML = "Thêm tài khoản quản lý thành công";
+    document.getElementById("snackbar").style.color = "#008000";
     var x = document.getElementById("snackbar");
     x.className = "show";
     setTimeout(() => {
@@ -43,8 +45,6 @@ function showToast() {
 
 update.addEventListener("click", () => {
     sendCreateForm();
-    document.getElementById("snackbar").innerHTML = "Thêm tài khoản quản lý thành công";
-    document.getElementById("snackbar").style.color = "#008000";
     showToast();
 });
 

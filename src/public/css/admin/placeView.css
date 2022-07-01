@@ -23,11 +23,10 @@ body {
 
 .header {
     display: inline-flex;
-    margin: 10px;
+    margin: 20px auto;
     width: 100%;
     flex-wrap: wrap;
     justify-content: space-between;
-    margin-bottom: 30px;
 }
 
 .header div {
@@ -37,36 +36,31 @@ body {
 
 .content {
     width: 100%;
-    margin: 0;
+    margin: auto;
 }
 
-.list {
-    list-style-type: none;
-    margin-right: 20px;
+.function {
+    margin-left: 10px;
+    margin-bottom: 20px;
 }
 
+.add-place {
+    border: 0;
+    background-color: #00A3FF;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 15px 20px;
+    border-radius: 12px;
+}
 
-.list .list-item {
+.label {
+    width: 95%;
+    margin: 25px 20px;
     display: inline-flex;
     flex-wrap: wrap;
-    justify-content:space-around;
-    width: 100%;
-    padding: 10px 10px 15px 0;
-    border-bottom: 2px solid lightgray;
-}
-
-.display-name, .username {
-    margin-top: 8px;
-}
-
-button {
-    background-color: transparent;
-    border: 0;
-}
-
-
-.content button {
-    border: 1px solid lightgray;
-    border-radius: 5px;
-    padding: 6px 10px;
+    justify-content: space-between;
+    color: #00A3FF;
+    font-size: 16px;
+    font-weight: bold;
 }

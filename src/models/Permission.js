@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const permissionSchema = mongoose.Schema({
-    managerId: {
+    managerUsername: {
         type: String,
         required: true,
     },

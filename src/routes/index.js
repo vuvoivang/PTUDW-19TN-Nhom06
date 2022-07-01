@@ -8,6 +8,7 @@ const managerRoute = require('./manager.route');
 const authRoute = require('./sites/auth.route');
 const dbRoute = require('./sites/db.route');
 const bankingRoute = require('./banking.route');
+const locationRoute = require('./sites/location.route');
 
 function route(app) {
     app.use('/category', categoryRoute);
@@ -18,6 +19,7 @@ function route(app) {
     app.use('/user', userRoute);
     app.use('/api/v1/authentication', authRoute);
     app.use('/api/v1/manager', dbRoute);
+    app.use('/api/v1/location', locationRoute);
     app.use('/banking', bankingRoute);
     app.use('/', homeRoute);
     app.use((req, res, next) => {
