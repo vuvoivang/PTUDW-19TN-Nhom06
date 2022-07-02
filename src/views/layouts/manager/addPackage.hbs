@@ -73,6 +73,14 @@
     opacity: 1;" required />
             </div>
         </div>
+        <div class="row mb-3">
+            <h4>Tổng tiền:
+                <div class="d-inline-block" style="color: red; font-size:1.5em">
+                    <span id="registerPrice">0</span>
+                    <span>đ</span>
+                </div>
+            </h4>
+        </div>
     </div>
     <div class="card-footer mx-auto">
         <button type="button" class="btn btn-secondary mx-2" onclick="goBack()">
@@ -81,6 +89,7 @@
         <button type="submit" class="btn btn-primary mx-2">
             Thêm mới
         </button>
+    </div>
     </div>
 </form>
 
@@ -128,7 +137,7 @@
                             {{this.unit}}
                         </td>
                         <td>
-                            {{numberWithCommas this.price}} đ
+                            <span id="product-{{this._id}}-price"> {{numberWithCommas this.price}}</span> đ
                         </td>
                         <td>
                             {{get this.category "name"}}

@@ -77,6 +77,19 @@ function getDate() {
     });
 }
 
+function sortProductByPackage(products, productPackage) {
+    const [productsInPackage, productsNotInPackage] = products.reduce((acc, product) => {
+        const productPackageItem = productPackage.find(item => item.product === product._id)
+        if (productPackageItem) {
+            acc[0].push(product)
+        } else {
+            acc[1].push(product)
+        }
+        return acc
+    }, [[], []])
+    return [...productsInPackage, ...productsNotInPackage]
+}
+
 module.exports = {
     uploadFile,
     getFileURL,
@@ -86,4 +99,5 @@ module.exports = {
     deleteFileFromURL,
     createUrlFromImageName,
     getDate,
+    sortProductByPackage,
 };

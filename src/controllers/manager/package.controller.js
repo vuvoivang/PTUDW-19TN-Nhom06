@@ -1,6 +1,7 @@
 const path = "layouts/manager";
 const Product = require('../../models/Product');
 const Package = require('../../models/Package');
+const Order = require('../../models/Order');
 const utils = require('../../utils/functions');
 
 module.exports = {
@@ -74,20 +75,14 @@ module.exports = {
                 })
             }
 
-            let totalPrice = 0;
-            for (let product of productList) {
-                const productItem = await Product.findById(product.product);
-                totalPrice += productItem.price * product.limitPerPackage;
-            }
-
             const image = await utils.createUrlFromImageName(req.file, "packages");
             const newPackage = new Package({
                 name: req.body.name,
                 limitPerPerson: req.body.limitPerPerson,
                 limitTime: req.body.limitTime,
+                defaultPrice: req.body.defaultPrice,
                 image,
                 productList,
-                defaultPrice: totalPrice,
                 description: req.body.description || "",
             });
             await newPackage.save();
@@ -124,20 +119,9 @@ module.exports = {
 
             let products = await Product.find({}).populate('category');
             products = utils.mapObjectInArray(products);
-            console.log("product ne", products);
-            console.log("productData", package.productList);
+
             // sort products with all product has id in package.productList first
-            // products = products.sort((a, b) => {
-            //     let aIndex = package.productList.findIndex(item => item.product === a._id);
-            //     let bIndex = package.productList.findIndex(item => item.product === b._id);
-            //     if (aIndex === -1) {
-            //         return 1;
-            //     } else if (bIndex === -1) {
-            //         return -1;
-            //     } else {
-            //         return aIndex - bIndex;
-            //     }
-            // });
+            products = utils.sortProductByPackage(products, package.productList);
 
             res.render(`${path}/detailPackage`, {
                 layout: "manager/main",
@@ -196,18 +180,12 @@ module.exports = {
                 })
             }
 
-            let totalPrice = 0;
-            for (let product of productList) {
-                const productItem = await Product.findById(product.product);
-                totalPrice += productItem.price * product.limitPerPackage;
-            }
-
             package.name = req.body.name;
             package.limitPerPerson = req.body.limitPerPerson;
             package.limitTime = req.body.limitTime;
+            package.defaultPrice = req.body.defaultPrice;
             package.description = req.body.description || "";
             package.productList = productList;
-            package.defaultPrice = totalPrice;
             if (req.file) {
                 package.image = await utils.createUrlFromImageName(req.file, "packages");
             }
@@ -238,6 +216,16 @@ module.exports = {
                     errorCode: "PACKAGE_NOT_FOUND"
                 })
             }
+
+            const order = await Order.findOne({ item: id, type: "Package" });
+            if (order) {
+                return res.status(400).json({
+                    status: 'Bad Request',
+                    message: 'Gói nhu yếu phẩm đang được sử dụng',
+                    errorCode: "PACKAGE_USED"
+                })
+            }
+
             await package.remove();
             res.status(200).json({
                 status: 'success',
