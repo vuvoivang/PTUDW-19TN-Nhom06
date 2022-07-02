@@ -108,7 +108,7 @@
                 <thead class="text-primary">
                     <tr>
                         <th>
-                            No.
+                            ID
                         </th>
                         <th>
                             Tên nhu yếu phẩm
@@ -131,7 +131,7 @@
                     {{#each products}}
                     <tr>
                         <td>
-                            {{inc @index}}
+                            {{this._id}}
                         </td>
                         <td>
                             {{this.name}}

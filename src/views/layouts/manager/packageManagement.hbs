@@ -31,7 +31,7 @@
           <thead class="text-primary">
             <tr>
               <th>
-                No.
+                ID
               </th>
               <th>
                 Tên gói
@@ -51,7 +51,7 @@
             {{#each packages}}
             <tr>
               <td>
-                {{inc @index}}
+                {{this._id}}
               </td>
               <td>
                 {{this.name}}
