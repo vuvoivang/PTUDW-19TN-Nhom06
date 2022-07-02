@@ -77,6 +77,14 @@
                             value="{{package.productData}}" />
                     </div>
                 </div>
+                <div class="row mb-3">
+                    <h4>Tổng tiền:
+                        <div class="d-inline-block" style="color: red; font-size:1.5em">
+                            <span id="registerPrice">{{numberWithCommas package.defaultPrice}}</span>
+                            <span>đ</span>
+                        </div>
+                    </h4>
+                </div>
             </div>
         </div>
         <div class="col-12 col-md-3">
@@ -140,7 +148,7 @@
                             {{this.unit}}
                         </td>
                         <td>
-                            {{numberWithCommas this.price}} đ
+                            <span id="product-{{this._id}}-price"> {{numberWithCommas this.price}}</span> đ
                         </td>
                         <td>
                             {{get this.category "name"}}
@@ -180,7 +188,9 @@
 {{#section "script"}}
 <script>
     $(document).ready(function () {
-        $('#data_table').DataTable();
+        $('#data_table').DataTable({
+            "aaSorting": [],
+        });
     });
 </script>
 <script src="/js/custom/packageProduct.js"></script>

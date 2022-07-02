@@ -50,6 +50,8 @@ const getFormInput = (type) => {
     const productList = document.querySelector(`#form-${type}-package #registerProductList`).value;
     const description = document.querySelector(`#form-${type}-package #registerDescription`).value;
     const imageInput = document.querySelector(`#form-${type}-package #registerImage`);
+    let defaultPrice = document.querySelector(`#form-${type}-package #registerPrice`).innerHTML || 0;
+    defaultPrice = parseNumber(defaultPrice);
     const image = imageInput.files.length > 0 ? imageInput.files[0] : null;
 
     const formData = new FormData();
@@ -57,6 +59,7 @@ const getFormInput = (type) => {
     formData.append("limitPerPerson", limitPerPerson);
     formData.append("limitTime", limitTime);
     formData.append("productList", productList);
+    formData.append("defaultPrice", defaultPrice);
     if (image) {
         formData.append("image", image);
     }
