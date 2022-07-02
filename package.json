@@ -4,9 +4,11 @@
   "description": "My Project in Web Development course",
   "main": "src/app.js",
   "scripts": {
+    "build": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "webbuild": "webpack",
     "start": "node src/app.js",
-    "dev": "nodemon src/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon src/app.js"
   },
   "repository": {
     "type": "git",
@@ -19,6 +21,7 @@
     "nodejs",
     "package"
   ],
+  "type": "commonjs",
   "author": "",
   "license": "ISC",
   "bugs": {
@@ -26,11 +29,19 @@
   },
   "homepage": "https://github.com/vuvoivang/PTUDW-19TN-Nhom06#readme",
   "dependencies": {
+    "axios": "^0.27.2",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
     "body-parser": "^1.20.0",
     "date-and-time": "^2.3.1",
     "dotenv": "^16.0.0",
     "express": "^4.18.1",
     "express-handlebars": "^6.0.2",
+    "firebase": "^9.8.2",
+    "jsonwebtoken": "^8.5.1",
+    "validator": "^13.7.0",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0",
     "firebase-admin": "^10.3.0",
     "mongodb": "^4.6.0",
     "mongoose": "^6.3.5",
