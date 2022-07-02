@@ -58,7 +58,7 @@ module.exports = {
                 })
             }
 
-            const productList = req.body.productList.split(",").map(item => {
+            const productList = req.body.productList.split(", ").map(item => {
                 let [product, limitPerPackage] = item.split("-");
                 return {
                     product: parseInt(product),
@@ -116,14 +116,29 @@ module.exports = {
             }
             package = package.toObject();
             let productData = "";
-            package.productList.forEach((product) => {
-                productData += product.product + "-" + product.limitPerPackage + ", ";
+            package.productList.forEach((item) => {
+                productData += item.product + "-" + item.limitPerPackage + ", ";
             })
             productData = productData.slice(0, -2);
             package.productData = productData;
 
             let products = await Product.find({}).populate('category');
             products = utils.mapObjectInArray(products);
+            console.log("product ne", products);
+            console.log("productData", package.productList);
+            // sort products with all product has id in package.productList first
+            // products = products.sort((a, b) => {
+            //     let aIndex = package.productList.findIndex(item => item.product === a._id);
+            //     let bIndex = package.productList.findIndex(item => item.product === b._id);
+            //     if (aIndex === -1) {
+            //         return 1;
+            //     } else if (bIndex === -1) {
+            //         return -1;
+            //     } else {
+            //         return aIndex - bIndex;
+            //     }
+            // });
+
             res.render(`${path}/detailPackage`, {
                 layout: "manager/main",
                 tag: "package",
@@ -165,7 +180,7 @@ module.exports = {
                 })
             }
 
-            const productList = req.body.productList.split(",").map(item => {
+            const productList = req.body.productList.split(", ").map(item => {
                 let [product, limitPerPackage] = item.split("-");
                 return {
                     product: parseInt(product),
@@ -181,10 +196,11 @@ module.exports = {
                 })
             }
 
-            const totalPrice = await productList.reduce(async (total, item) => {
-                let product = await Product.findById(item.product);
-                return total + product.price * item.limitPerPackage;
-            }, 0);
+            let totalPrice = 0;
+            for (let product of productList) {
+                const productItem = await Product.findById(product.product);
+                totalPrice += productItem.price * product.limitPerPackage;
+            }
 
             package.name = req.body.name;
             package.limitPerPerson = req.body.limitPerPerson;

@@ -80,7 +80,7 @@ const toastMessage = (message, type = "success", isRedirect = false) => {
         },
         callback: function () {
             if (type == "success") {
-                isRedirect ? window.location.href = "/manager/product-management" : window.location.reload();
+                isRedirect ? window.location.href = "/manager/package-management" : window.location.reload();
             }
 
         }
