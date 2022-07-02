@@ -1,5 +1,5 @@
 {{#section "style"}}
-  <link rel="stylesheet" href="/css/packagePayment.css" />
+<link rel="stylesheet" href="/css/packagePayment.css" />
 {{/section}}
 <div class="container py-5">
   <h2 class="payment-title text-center pb-5">
@@ -31,46 +31,41 @@
       </thead>
       <tbody>
         {{#each package.productList}}
-          <tr>
-            <td>
-              <div class="product-img-detail">
-                <img src={{this.product.images.[0]}} alt="" class="img-detail" />
-              </div>
-            </td>
-            <td>
-              {{this.product.name}}
-            </td>
-            <td class="text-center">
-              {{this.product.unit}}
-            </td>
-            <td>
-              <div>
-                <span style="cursor: pointer" onclick="decreaseNumber({{this.product._id}})">
-                    <i class="fa-solid fa-circle-minus text-success">
-                    </i>
-                </span>
-                <input
-                  type="text"
-                  placeholder="1"
-                  class="amount-input-product form-control border-1 soluong"
-                  value="1"
-                  id="product-{{this.product._id}}"
-                />
-                <span style="cursor: pointer" onclick="increaseNumber({{this.product._id}})">
-                    <i class="fa-solid fa-circle-plus text-success"></i>
-                </span>
-                
-              </div>
-              <p class="text-left text-danger pt-1 mb-0 text-bold font-weight-bold"
-                style="display: none" id="number-validate-product-{{this.product._id}}"> Số lượng phải >=1 </p>
-            </td>
-            <td class="text-center" id="price-product-{{this.product._id}}">
-              {{this.product.price}}
-            </td>
-            <td id="total-price-product-{{this.product._id}}" class="product-total-price text-center">
-              {{product this.product.price 1}}
-            </td>
-          </tr>
+        <tr>
+          <td>
+            <div class="product-img-detail">
+              <img src={{this.product.images.[0]}} alt="" class="img-detail" />
+            </div>
+          </td>
+          <td>
+            {{this.product.name}}
+          </td>
+          <td class="text-center">
+            {{this.product.unit}}
+          </td>
+          <td>
+            <div>
+              <span style="cursor: pointer" onclick="decreaseNumber({{this.product._id}})">
+                <i class="fa-solid fa-circle-minus text-success">
+                </i>
+              </span>
+              <input type="text" placeholder="1" class="amount-input-product form-control border-1 soluong" value="1"
+                id="product-{{this.product._id}}" />
+              <span style="cursor: pointer" onclick="increaseNumber({{this.product._id}})">
+                <i class="fa-solid fa-circle-plus text-success"></i>
+              </span>
+
+            </div>
+            <p class="text-left text-danger pt-1 mb-0 text-bold font-weight-bold" style="display: none"
+              id="number-validate-product-{{this.product._id}}"> Số lượng phải >=1 </p>
+          </td>
+          <td class="text-center" id="price-product-{{this.product._id}}">
+            {{this.product.price}}
+          </td>
+          <td id="total-price-product-{{this.product._id}}" class="product-total-price text-center">
+            {{product this.product.price 1}}
+          </td>
+        </tr>
         {{/each}}
       </tbody>
     </table>
@@ -80,21 +75,15 @@
           Số lượng
         </label>
         <div>
-            <span style="cursor: pointer" onclick="decreaseNumberPackage()">
-                    <i class="fa-solid fa-circle-minus text-success">
-                    </i>
-            </span>
-          <input
-            type="text"
-            placeholder="1"
-            class="form-control border-1 soluong"
-            id="package-number"
-            value="1"
-          />
-           <span style="cursor: pointer" onclick="increaseNumberPackage()">
-                <i class="fa-solid fa-circle-plus text-success"></i>
-            </span>
-         
+          <span style="cursor: pointer" onclick="decreaseNumberPackage()">
+            <i class="fa-solid fa-circle-minus text-success">
+            </i>
+          </span>
+          <input type="text" placeholder="1" class="form-control border-1 soluong" id="package-number" value="1" />
+          <span style="cursor: pointer" onclick="increaseNumberPackage()">
+            <i class="fa-solid fa-circle-plus text-success"></i>
+          </span>
+
         </div>
       </div>
       <div class="total-payment">
@@ -107,23 +96,11 @@
         </span>
       </div>
     </div>
-    <div
-      class="my-3 form d-flex justify-content-between align-items-baseline gap-5"
-    >
-      <input
-        type="text"
-        placeholder="Địa chỉ nhận hàng *"
-        class="form-control border-1 payment-address"
-        id="address-order"
-        required
-      />
-      <input
-        type="text"
-        placeholder="Số điện thoại *"
-        class="form-control border-1 payment-phone"
-        id="phone-number-order"
-        required
-      />
+    <div class="my-3 form d-flex justify-content-between align-items-baseline gap-5">
+      <input type="text" placeholder="Địa chỉ nhận hàng *" class="form-control border-1 payment-address"
+        id="address-order" required />
+      <input type="text" placeholder="Số điện thoại *" class="form-control border-1 payment-phone"
+        id="phone-number-order" required />
     </div>
     <div class="d-flex align-items-baseline">
       <div class="payment-method">
@@ -132,46 +109,27 @@
       <div class="d-flex align-items-center ms-3 ">
         <label>
           <select id="paymentMethodSelect" class="form-select selectdiv">
-            <option selected value="cash" >Thanh toán bằng tiền mặt</option>
+            <option selected value="cash">Thanh toán bằng tiền mặt</option>
             <option value="credit-card">Thanh toán bằng thẻ</option>
           </select>
         </label>
 
       </div>
     </div>
-    <button
-      class="btn btn-primary text-right float-end my-3"
-      style="cursor: pointer;"
-      id = "buttonOrder"
-      onclick="submitOrder({{{json package}}})"
-    >
+    <button class="btn btn-primary text-right float-end my-3" style="cursor: pointer;" id="buttonOrder"
+      onclick="submitOrder({{{json package}}})">
       Xác nhận
     </button>
-    <div
-      class="modal fade text-left"
-      id="confirm"
-      tabindex="-1"
-      aria-labelledby="confirmLabel"
-      aria-hidden="true"
-    >
+    <div class="modal fade text-left" id="confirm" tabindex="-1" aria-labelledby="confirmLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <div
-              class="stats text-bold text-success"
-              style="cursor: pointer;"
-              data-bs-toggle="modal"
-              data-bs-target="#confirm"
-            >
+            <div class="stats text-bold text-success" style="cursor: pointer;" data-bs-toggle="modal"
+              data-bs-target="#confirm">
               <i class="fa-solid fa-circle-check me-1"></i>
               Đặt hàng thành công
             </div>
-            <button
-              type="button"
-              class="close btn btn-success px-3 py-0"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            >
+            <button type="button" class="close btn btn-success px-3 py-0" data-bs-dismiss="modal" aria-label="Close">
               <span class="fs-5" aria-hidden="true">
                 ×
               </span>
@@ -191,9 +149,9 @@
   </div>
 </div>
 {{#section "script"}}
-  <script>
-    $(document).ready(function() { $('#dataTable').DataTable(); } );
-  </script>
-  <script type="text/javascript" src="/js/utils/toast.js"></script>
-  <script type="text/javascript" src="/js/user/packagePayment.js"></script>
+<script>
+  $(document).ready(function () { $('#dataTable').DataTable(); });
+</script>
+<script type="text/javascript" src="/js/utils/toast.js"></script>
+<script type="text/javascript" src="/js/user/packagePayment.js"></script>
 {{/section}}
