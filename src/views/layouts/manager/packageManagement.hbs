@@ -68,7 +68,7 @@
                     Sửa
                   </button>
                 </a>
-                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deletePackageModal">
                   Xóa
                 </button>
               </td>
@@ -102,7 +102,7 @@
                     Sửa
                   </button>
                 </a>
-                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deletePackageModal">
                   Xóa
                 </button>
               </div>
@@ -128,8 +128,10 @@
     </div>
   </div>
 </div>
-<!-- Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+
+<!-- Modal delete package -->
+<div class="modal fade" id="deletePackageModal" tabindex="-1" aria-labelledby="deletePackageModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -138,17 +140,20 @@
         </h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        Bạn chắc chắn muốn xóa gói nhu yếu phẩm này?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Hủy
-        </button>
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
-          Xóa bỏ
-        </button>
-      </div>
+      <form id="form-delete-package" onsubmit="event.preventDefault()">
+        <input type="text" name="id" id="package-id" hidden>
+        <div class="modal-body">
+          Bạn chắc chắn muốn xóa gói nhu yếu phẩm này?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Hủy
+          </button>
+          <button type="submit" class="btn btn-danger">
+            Xóa bỏ
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
@@ -230,6 +235,5 @@
   };
   var packageChart = new Chart(ctx, config);
 </script>
-<script src="/js/custom/toggleTableCardView.js"></script>
 <script src="/js/custom/cardPagination.js"></script>
 {{/section}}
