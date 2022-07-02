@@ -13,6 +13,10 @@ const productStatisticsSchema = new Schema({
         required: true,
         default: 0,
     },
+    date: {
+        type: String,
+        required: true,
+    },
 });
 
 module.exports = mongoose.model('product_statistics', productStatisticsSchema);
