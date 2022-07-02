@@ -1,7 +1,6 @@
 const utils = require('../../utils/functions');
 const Package = require('../../models/Package');
 const Product = require('../../models/Product');
-const date = require('date-and-time')
 module.exports = {
     getPayment: async (req, res) => {
         const id = req.params.id;
@@ -19,11 +18,8 @@ module.exports = {
             });
         }
         package = package.toObject();
-
-        package.limitTime = date.format(package.limitTime,'DD/MM/YYYY');
         package._id = package._id.toString();
-        
-        console.log(package);
+
         res.render('layouts/sites/packagePayment', {
             layout: 'sites/main',
             package,
@@ -47,10 +43,6 @@ module.exports = {
             });
         }
         package = package.toObject();
-
-        package.limitTime = date.format(package.limitTime,'DD/MM/YYYY');
-
-        // console.log(package);
         res.render('layouts/sites/package', {
             layout: 'sites/main',
             package,
@@ -78,7 +70,7 @@ module.exports = {
             });
             // calc total price
             let totalPrice = 0;
-            for (let product of productList){
+            for (let product of productList) {
                 const productItem = await Product.findById(product.product);
                 if (!productItem) {
                     return res.status(404).json({

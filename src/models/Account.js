@@ -78,15 +78,15 @@ accountSchema.plugin(AutoIncrement, {
     collection_name: "account_counters"
 });
 
-accountSchema.pre('save', async function(next) {
-    if(!this.displayName) this.displayName = this.username;
-    if(!this.isModified('password')) return next();
+accountSchema.pre('save', async function (next) {
+    if (!this.displayName) this.displayName = this.username;
+    if (!this.isModified('password')) return next();
 
     this.password = await bcrypt.hash(this.password, 12);
     next();
 });
 
-accountSchema.methods.correctPassword = async function(candidate, password) {
+accountSchema.methods.correctPassword = async function (candidate, password) {
     return await bcrypt.compare(candidate, password);
 };
 

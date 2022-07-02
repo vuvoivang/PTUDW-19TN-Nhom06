@@ -44,17 +44,25 @@ const helper = {
         }
     },
     json: function (context) {
-        if(!context) return null;
-        return JSON.stringify(context).replace(/"/g, '&quot;');
+        return JSON.stringify(context)?.replace(/"/g, '&quot;');
+    },
+    ternary: function (test, value1, value2) {
+        return test ? value1 : value2;
+    },
+    inc: function (value) {
+        return parseInt(value) + 1;
+    },
+    dec: function (value) {
+        return parseInt(value) - 1;
     },
     append: function (...args) {
         res = '';
         for (let i = 0; i < args.length - 1; i++) {
-                res += args[i];
+            res += args[i];
         }
         return res;
     },
-    sum : function(...args) {
+    sum: function (...args) {
         res = 0;
         for (let i = 0; i < args.length - 1; i++) {
             res += args[i];
@@ -67,7 +75,18 @@ const helper = {
             res *= args[i];
         }
         return res;
-    }
+    },
+    numberWithCommas: function (number) {
+        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    },
+    select: function (selected, options) {
+        return options.fn(this).replace(
+            new RegExp('value=\"' + selected + '\"'),
+            '$& selected="selected"');
+    },
+    or: function (value, defaultValue) {
+        return value || defaultValue;
+    },
 };
 
 module.exports = { helper };

@@ -3,7 +3,7 @@
     Thêm gói nhu yếu phẩm
 </title>
 {{/section}}
-<form id="add-package" class="card">
+<form id="form-add-package" class="card">
     <div class="card-header">
         <div class="card-title">
             <h2>
@@ -14,7 +14,7 @@
     <div class="card-body">
         <div class="row mb-3">
             <div class="col-12 col-sm-6 form-group">
-                <label class="control-label">
+                <label class="control-label" for="registerName">
                     Tên gói nhu yếu phẩm
                     <span class="text-danger">
                         *
@@ -23,49 +23,62 @@
                 <input class="form-control" name="name" id="registerName" type="text" required />
             </div>
             <div class="col-12 col-sm-6 form-group">
-                <label class="control-label">
+                <label class="control-label" for="registerLimitPerPerson">
                     Tối đa gói/người
                     <span class="text-danger">
                         *
                     </span>
                 </label>
-                <input min="1000" class="form-control" name="limitPerPerson" id="registerLimitPerPerson" type="number"
-                    required />
+                <input min="1" class="form-control" name="limitPerPerson" id="registerLimitPerPerson" type="number"
+                    min="1" required />
             </div>
         </div>
         <div class="row mb-3">
             <div class="col-12 col-sm-6 form-group">
-                <label class="control-label">
-                    Thêm hình ảnh
+                <label class="control-label" for="registerImage">
+                    Hình ảnh
                     <span class="text-danger">
                         *
                     </span>
                 </label>
-                <input class="form-control" name="images" accept="image/*" id="image" type="file" />
+                <input class="form-control" name="images" accept="image/*" id="registerImage" type="file" required />
             </div>
             <div class="col-12 col-sm-6 form-group">
-                <label class="control-label">
+                <label class="control-label" for="registerLimitTime">
                     Giới hạn (ngày)
                     <span class="text-danger">
                         *
                     </span>
                 </label>
-                <input class="form-control" name="limitTime" id="registerLimitTime" type="text" required />
+                <input class="form-control" name="limitTime" id="registerLimitTime" type="number" min="1" required />
             </div>
         </div>
-        <div class="form-group">
-            <label class="control-label w-50">
-                Nhu yếu phẩm: ID - số lượng tối đa (Vui lòng chọn ít nhất 2 món trong
-                danh sách)
-                <span class="text-danger">
+        <div class="row mb-3">
+            <div class="form-group">
+                <label class="control-label" for="registerDescription">Mô tả</label>
+                <textarea class="form-control" id="registerDescription" rows="3"></textarea>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="form-group">
+                <label class="control-label" for="registerProductList">
+                    Nhu yếu phẩm: ID - số lượng tối đa (Vui lòng chọn ít nhất 2 món trong
+                    danh sách)
+                    <span class="text-danger">
                         *
-                </span>
-            </label>
-            <input class="form-control" name="productList" id="productList" type="text" readonly />
+                    </span>
+                </label>
+                <input class="form-control" name="productList" id="registerProductList" type="text"
+                    onkeydown="return false;" style="caret-color: transparent !important;    background-color: #f0f2f5;
+    opacity: 1;" required />
+            </div>
         </div>
     </div>
     <div class="card-footer mx-auto">
-        <button type="submit" class="btn btn-primary">
+        <button type="button" class="btn btn-secondary mx-2" onclick="goBack()">
+            Quay về
+        </button>
+        <button type="submit" class="btn btn-primary mx-2">
             Thêm mới
         </button>
     </div>
@@ -83,7 +96,7 @@
                 <thead class="text-primary">
                     <tr>
                         <th>
-                            ID
+                            No.
                         </th>
                         <th>
                             Tên nhu yếu phẩm
@@ -97,35 +110,55 @@
                         <th>
                             Danh mục
                         </th>
-                        <th class="text-end">
+                        <th>
                             Tối đa
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     {{#each products}}
-                    <tr>
-                        <td>
-                            {{this.id}}
-                        </td>
-                        <td>
-                            {{this.name}}
-                        </td>
-                        <td>
-                            {{this.unit}}
-                        </td>
-                        <td>
-                            {{this.price}}
-                        </td>
-                        <td>
-                            {{this.category}}
-                        </td>
-                        <td class="text-end">
-                            <input class="form-inline me-3" style="width: 80px" type="number" min="1" name={{this.id}} id={{this.id}}>
-                            <i id="select-product" class="fa-solid fa-circle-plus fa-lg" style="cursor: pointer; color: #4CAF50"></i>
-                            {{!-- <i id="unselect-product" class="fa-solid fa-trash fa-lg" style="cursor: pointer; color: #dc3545"></i> --}}
-                        </td>
-                    </tr>
+                    <form>
+                        <tr id="package-product-{{this._id}}">
+                            <td>
+                                {{inc @index}}
+                            </td>
+                            <td>
+                                {{this.name}}
+                            </td>
+                            <td>
+                                {{this.unit}}
+                            </td>
+                            <td>
+                                {{numberWithCommas this.price}} đ
+                            </td>
+                            <td>
+                                {{get this.category "name"}}
+                            </td>
+                            <td class="text-end d-flex flex-row justify-content-between">
+                                <input class="form-inline me-3" style="width: 80px" type="number" min="1"
+                                    name="product-{{this._id}}" id="product-{{this._id}}">
+                                <div>
+                                    <div id="select-product" style="display: block">
+                                        <button class="button-no-style" onclick="handleAddProduct({{this._id}})">
+                                            <i id="add-product" class="fa-solid fa-circle-plus fa-lg"
+                                                style="color: #4CAF50"></i>
+                                        </button>
+                                    </div>
+                                    <div id="unselect-product" style="display: none">
+                                        <button class="button-no-style me-3"
+                                            onclick="handleUpdateProduct({{this._id}})">
+                                            <i id="update-product" class="fa-solid fa-square-pen fa-lg"
+                                                style="color: #e3e717"></i>
+                                        </button>
+                                        <button class="button-no-style" onclick="handleDeleteProduct({{this._id}})">
+                                            <i id="delete-product" class="fa-solid fa-trash fa-lg"
+                                                style="color: #dc3545"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </form>
                     {{/each}}
                 </tbody>
             </table>
@@ -135,8 +168,14 @@
 
 {{#section "script"}}
 <script>
-    $(document).ready(function () { 
-        $('#data_table').DataTable(); 
+    $(document).ready(function () {
+        $('#data_table').DataTable();
     });
+</script>
+<script type="text/javascript" src="/js/custom/packageProduct.js"></script>
+<script>
+    function goBack() {
+        window.history.back();
+    }
 </script>
 {{/section}}

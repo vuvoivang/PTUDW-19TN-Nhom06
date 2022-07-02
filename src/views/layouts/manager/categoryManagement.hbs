@@ -12,7 +12,8 @@
       </h2>
     </div>
     <div class="card-body">
-      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCategoryModal"
+        onclick="handleCategoryModal(null, 'add-category')">
         <i class="fa-solid fa-plus"></i>
         Thêm danh mục
       </button>
@@ -21,10 +22,13 @@
           <thead class="text-primary">
             <tr>
               <th>
-                ID
+                No.
               </th>
               <th>
                 Tên danh mục
+              </th>
+              <th class="text-center">
+                Hình ảnh
               </th>
               <th class="text-end">
                 Thao tác
@@ -35,17 +39,23 @@
             {{#each categories}}
             <tr>
               <td>
-                {{this.id}}
+                {{inc @index}}
               </td>
               <td>
                 {{this.name}}
               </td>
+              <td class="text-center">
+                <img src={{or this.image "/img/default.png" }} alt="category" class="rounded"
+                  style="width: 55px; height: 55px">
+              </td>
               <td class="text-end">
-                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#updateCategoryModal">
+                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#updateCategoryModal"
+                  onclick="handleCategoryModal({{{json this}}}, 'update-category')">
                   Sửa
                 </button>
-                <button class="btn btn-danger" data-id={{this.id}} data-bs-toggle="modal"
-                  data-bs-target="#deleteCategoryModal">
+                <button class="btn btn-danger" data-id="{{@index}}" data-bs-toggle="modal"
+                  data-bs-target="#deleteCategoryModal"
+                  onclick="handleCategoryModal({{{json this}}}, 'delete-category')">
                   Xóa
                 </button>
               </td>
@@ -69,7 +79,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form id="form-add-category" onsubmit="event.preventDefault(); handleAddCategory();">
           <div class="form-group">
             <label>
               Tên danh mục
@@ -77,17 +87,28 @@
             <span class="text-danger">
               *
             </span>
-            <input type="text" class="form-control" id="name" name="name" required />
+            <input type="text" class="form-control" id="category-name" name="name" required />
+          </div>
+
+          <div class="form-group mt-2">
+            <label class="control-label">
+              Hình ảnh
+            </label>
+            <span class="text-danger">
+              *
+            </span>
+            <input class="form-control" name="image" accept="image/*" id="category-image" type="file" required />
+          </div>
+
+          <div class="modal-footer px-0 border-0">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              Hủy
+            </button>
+            <button type="submit" class="btn btn-primary">
+              Thêm mới
+            </button>
           </div>
         </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Hủy
-        </button>
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
-          Thêm mới
-        </button>
       </div>
     </div>
   </div>
@@ -104,7 +125,8 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form id="form-update-category" onsubmit="event.preventDefault(); handleUpdateCategory();">
+          <input name="id" id="category-id" hidden>
           <div class="form-group">
             <label>
               Tên danh mục
@@ -112,17 +134,25 @@
             <span class="text-danger">
               *
             </span>
-            <input type="text" class="form-control" id="name" name="name" required />
+            <input type="text" class="form-control" id="category-name" name="name" required />
+          </div>
+
+          <div class="form-group mt-2">
+            <label class="control-label">
+              Hình ảnh
+            </label>
+            <input class="form-control" name="image" accept="image/*" id="category-image" type="file" />
+          </div>
+
+          <div class="modal-footer px-0 border-0">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              Hủy
+            </button>
+            <button type="submit" class="btn btn-primary">
+              Lưu thay đổi
+            </button>
           </div>
         </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Hủy
-        </button>
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
-          Lưu thay đổi
-        </button>
       </div>
     </div>
   </div>
@@ -139,17 +169,20 @@
         </h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        Bạn chắc chắn muốn xóa danh mục này?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Hủy
-        </button>
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
-          Xóa bỏ
-        </button>
-      </div>
+      <form id="form-delete-category" onsubmit="event.preventDefault(); handleDeleteCategory();">
+        <input type="text" name="id" id="category-id" hidden>
+        <div class="modal-body">
+          Bạn chắc chắn muốn xóa danh mục này?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Hủy
+          </button>
+          <button type="submit" class="btn btn-danger">
+            Xóa bỏ
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
@@ -160,4 +193,6 @@
     $('#data_table').DataTable();
   });
 </script>
+<script type="text/javascript" src="/js/custom/modal.js"></script>
+<script type="text/javascript" src="/js/handler/manager/category.js"></script>
 {{/section}}
