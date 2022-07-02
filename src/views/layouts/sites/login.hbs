@@ -33,7 +33,7 @@
                     <img src="https://i.ibb.co/6Nnf81X/logo-3.png" alt="app-logo">
                     <span>SIGN IN</span>
                 </div>
-                <form action="" method="post">
+                <form action="javascript:void(0)" method="post" id="form">
                     <label for="username">Username</label>
                     <div class="input-field username">
                         <div class="icon">
@@ -47,9 +47,10 @@
                             <i class="fa-solid fa-lock"></i>
                         </div>
                         <input type="password" id="password" name="password" placeholder="Enter password">
+
                     </div>
                     <div class="account-option">
-                        <input type="checkbox" id="user-login" , name="user-login" value="remember me">
+                        <input type="checkbox" id="rememberAccount" , name="rememberAccount" value="remember me">
                         <label for="user-login">Remember me</label>
                         <a href="#" id="lost-password">Lost password?</a>
                     </div>
@@ -58,14 +59,13 @@
                 <div class="additional-login">
                     <span>or login with</span>
                     <div class="other-login">
-                        <a href="#"><i class="fa-brands fa-facebook-square fa-lg"></i></a>
-                        <a href="#"><i class="fa-brands fa-google fa-lg"></i></a>
-                        <a href="#"><i class="fa-brands fa-instagram fa-lg"></i></a>
+                        <button id="facebook"><i class="fa-brands fa-facebook-square fa-lg"></i></button>
+                        <button id="google"><i class="fa-brands fa-google fa-lg"></i></button>
                     </div>
                 </div>
                 <div class="create-account">
                     <span>Not registered?</span>
-                    <a href="#" id="create-account">Create Account</a>
+                    <a href="/signup" id="create-account">Create Account</a>
                 </div>
 
 
@@ -74,7 +74,7 @@
                 <div class="direction">
                     <i class="fa-solid fa-arrow-left"></i>
                     <span>Back to homepage</span>
-                </div> 
+                </div>
             </a>
         </div>
         <div class="no-bacground"></div>
@@ -83,6 +83,8 @@
                 alt="Blue-Illustration-Vaccination-Covid-19-Facebook-Post" border="0">
         </div>
     </div>
+
+        <script type="module" src="/js/authentication/signin.js"></script>
 </body>
 
 </html>

@@ -42,10 +42,43 @@ const PREFIX_STORAGE_FILE = {
     "packages": "package"
 }
 
+const hyperlinksSidebarAdmin = [
+    {
+        label: "Quản lý tài khoản",
+        href: "/admin/view",
+        icon: "fa-solid fa-people-roof fa-lg",
+        style: ''
+    },
+    {
+        label: "Tạo tài khoản",
+        href: "/admin/create",
+        icon: "fa-solid fa-user-plus fa-lg",
+        style: ''
+    },
+    {
+        label: "Quản lý cơ sở",
+        href: "/admin/place",
+        icon: "fa-solid fa-list-check fa-lg",
+        style: ''
+    }
+];
+
+const adminBreadCrumb = {
+    path: [
+        {
+            label: "Quản trị viên",
+            link: "/admin"
+        }
+    ],
+    mainLabel: "Quản trị viên"
+}
+
 module.exports = {
     hyperlinksSidebarUser,
     userBreadCrumb,
     transactionType,
     MIN_DEPOSIT,
-    PREFIX_STORAGE_FILE
+    PREFIX_STORAGE_FILE,
+    hyperlinksSidebarAdmin,
+    adminBreadCrumb
 }
