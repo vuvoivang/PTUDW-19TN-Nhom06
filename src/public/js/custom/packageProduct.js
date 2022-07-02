@@ -24,7 +24,7 @@ const showDivAction = (id, isAdd = true) => {
     }
 }
 
-const handleAddProduct = (productID) => {
+const handleAddProduct = (productID, type) => {
     const value = document.querySelector(`#package-product-${productID} #product-${productID}`).value || null;
     if (!value) {
         return toastErrorMessage("Vui lòng nhập số lượng tối đa của sản phẩm");
@@ -32,7 +32,7 @@ const handleAddProduct = (productID) => {
         return toastErrorMessage('Số lượng tối đa của sản phảm phải lớn hơn 0');
     }
 
-    const productListInput = document.querySelector("#form-add-package #registerProductList");
+    const productListInput = document.querySelector(`#form-${type}-package #registerProductList`);
     const productList = productListInput.value || null;
     if (!productList) {
         productListInput.value = `${productID}-${value}`;
@@ -43,7 +43,22 @@ const handleAddProduct = (productID) => {
     showDivAction(productID);
 }
 
-const handleUpdateProduct = (productID) => {
+const handleDetailProduct = (productData) => {
+    const productList = productData.split(", ").map(item => {
+        let [product, limitPerPackage] = item.split("-");
+        return {
+            product: parseInt(product),
+            limitPerPackage: parseInt(limitPerPackage)
+        }
+    });
+
+    productList.forEach(item => {
+        showDivAction(item.product);
+        document.querySelector(`#package-product-${item.product} #product-${item.product}`).value = item.limitPerPackage;
+    })
+}
+
+const handleUpdateProduct = (productID, type) => {
     const value = document.querySelector(`#package-product-${productID} #product-${productID}`).value || null;
     if (!value) {
         return toastErrorMessage("Vui lòng nhập số lượng tối đa của sản phẩm");
@@ -51,7 +66,7 @@ const handleUpdateProduct = (productID) => {
         return toastErrorMessage('Số lượng tối đa của sản phảm phải lớn hơn 0');
     }
 
-    const productListInput = document.querySelector("#form-add-package #registerProductList");
+    const productListInput = document.querySelector(`#form-${type}-package #registerProductList`);
     const productList = productListInput.value || null;
     if (!productList) {
         return toastErrorMessage("Không có sản phẩm nào được chọn");
@@ -69,8 +84,8 @@ const handleUpdateProduct = (productID) => {
 
 }
 
-const handleDeleteProduct = (productID) => {
-    const productListInput = document.querySelector("#form-add-package #registerProductList");
+const handleDeleteProduct = (productID, type) => {
+    const productListInput = document.querySelector(`#form-${type}-package #registerProductList`);
     const productList = productListInput.value || null;
     if (!productList) {
         return toastErrorMessage("Không có sản phẩm nào được chọn");
