@@ -29,7 +29,7 @@ function addLocation() {
             }
         });
         showToast('Thêm cơ sở điều / cách ly thành công');
-        location.href = '/admin/place';
+        location.reload();
     }
 }
 
@@ -47,5 +47,5 @@ function editLocation(_id) {
         }
     });
     showToast('Thay đổi thông tin cơ sở điều trị / cách ly thành công');
-
+    location.reload();
 }
