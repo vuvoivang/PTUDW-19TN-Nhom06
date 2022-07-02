@@ -52,6 +52,8 @@ const isLoggedIn = async (req, res, next) => {
         if (!user) {
             return next(new AppError('Invalid token', 400));
         }
+        req.userId = user._id;
+        req.userRole = user.role;
         return next()
     }
     else {
