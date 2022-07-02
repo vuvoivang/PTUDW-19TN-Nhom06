@@ -22,6 +22,7 @@ module.exports = {
         const decoded = await jwt.decode(req.cookies.token, { complete: true });
         const id = decoded.payload.id;
         const user = await Account.findById(id).lean();
+        res.locals.breadCrumb = pushBreadCrumb("Quản lý tài khoản", `/admin/view`);
         let managers = await Account.find({
             $or: [
                 { 'role': 'active_manager' },
@@ -40,12 +41,6 @@ module.exports = {
                 managers
             });
         }
-        // hyperlinksSidebarAdmin[0].style = 'background-color: #374151;';
-
-        // push breadcrumb for this page
-        // let userId = (req.params.userId);
-        // res.locals.userId = userId;
-        // res.locals.breadCrumb = pushBreadCrumb("Tài khoản thanh toán", `/user/${userId}/accountPayment`);
     },
 
     viewPlace: async (req, res) => {
@@ -53,7 +48,7 @@ module.exports = {
         const decoded = await jwt.decode(req.cookies.token, { complete: true });
         const id = decoded.payload.id;
         const user = await Account.findById(id).lean();
-        // console.log('Admin view check\n', user);
+        res.locals.breadCrumb = pushBreadCrumb("Quản lý cơ sở", `/admin/place`);
         if (user) {
             const locations = await QuarantineLocation.find().lean();
             res.render('layouts/admin/placeView', {
@@ -68,18 +63,13 @@ module.exports = {
         const decoded = await jwt.decode(req.cookies.token, { complete: true });
         const id = decoded.payload.id;
         const user = await Account.findById(id).lean();
+        res.locals.breadCrumb = pushBreadCrumb("Tạo tài khoản", `/admin/create`);
         if (user) {
             res.render('layouts/admin/managerCreate', {
                 layout: 'admin/main',
                 user
             });
         }
-        // hyperlinksSidebarAdmin[1].style = 'background-color: #374151;';
-
-        // push breadcrumb for this page
-        // let userId = (req.params.userId);
-        // res.locals.userId = userId;
-        // res.locals.breadCrumb = pushBreadCrumb("Tài khoản thanh toán", `/user/${userId}/accountPayment`);
     },
     getQuarantineLocation: async (req, res) => {
         try {

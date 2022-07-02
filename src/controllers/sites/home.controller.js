@@ -1,6 +1,8 @@
 const Category = require('../../models/Category');
 const Package = require('../../models/Package');
 const jwt = require('jsonwebtoken');
+const Account = require('../../models/Account');
+const { hyperlinksSidebarAdmin } = require('../../constants/index');
 
 module.exports = {
     get: async (req, res) => {
@@ -8,9 +10,14 @@ module.exports = {
             // get all categories
             if(req.cookies.token) {
                 let decoded = await jwt.decode(req.cookies.token, {complete: true});
-                let page = decoded.payload.role;
-                res.redirect(`/${page}`);
-                return
+                let id = decoded.payload.id;
+                let role = decoded.payload.role;
+                let user = await Account.findById(id).lean();
+                res.locals.user = user;
+                res.locals.isLoggedIn = true;
+                if (role == 'admin') {
+                    res.locals.hyperlinks = hyperlinksSidebarAdmin;
+                }
             }
             let categories = await Category.find({});
             categories = categories.map((category) => category.toObject());
@@ -33,9 +40,12 @@ module.exports = {
         }
     },
     signIn: (req, res) => {
-        res.render('layouts/sites/login');
+        res.render('layouts/sites/signin');
     },
     signUp: (req, res) => {
         res.render('layouts/sites/signup');
     },
+    authorize: (req, res) => {
+        res.render('layouts/sites/authorize');
+    }
 };

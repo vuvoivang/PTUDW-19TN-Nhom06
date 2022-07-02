@@ -139,7 +139,6 @@ module.exports = {
             let data = {
                 username,
                 password,
-                email: `${username}@gmail.com`,
                 role: 'active_manager',
                 auth: 'normal'
             }

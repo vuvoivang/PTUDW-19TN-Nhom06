@@ -434,13 +434,13 @@ eval("const { initializeApp } = __webpack_require__(/*! firebase/app */ \"./node
 
 /***/ }),
 
-/***/ "./src/public/js/view/signup.js":
-/*!**************************************!*\
-  !*** ./src/public/js/view/signup.js ***!
-  \**************************************/
+/***/ "./src/public/js/view/authorize.js":
+/*!*****************************************!*\
+  !*** ./src/public/js/view/authorize.js ***!
+  \*****************************************/
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const axios = __webpack_require__(/*! axios */ \"./node_modules/axios/index.js\");\nconst { ggSignin, faceSignin } = __webpack_require__(/*! ../../../config/firebase.config */ \"./src/config/firebase.config.js\");\n\nvar usernameInput = document.getElementById('username');\nvar ggBtn = document.getElementById('google');\nvar fBtn = document.getElementById('facebook');\n\nfunction showToast(message) {\n    document.getElementById(\"alertMessage\").innerHTML = message;\n    document.getElementById(\"alertMessage\").style.color = \"red\";\n    var x = document.getElementById(\"alertMessage\");\n    x.className = \"show\";\n    setTimeout(() => {\n        x.className = x.className.replace(\"show\", \"\");\n    }, 3000);\n};\n\nconst signUpRequest = async (username, password) => {\n    const res = await axios({\n        method: 'POST',\n        url: 'http://localhost:3000/api/v1/authentication/signup',\n        data: {\n            username, password, role: \"admin\"\n        }\n    })\n    if (res.data.page) {\n        window.location.href = res.data.page\n    }\n    else {\n        showToast(\"There is an error during creating admin!!!\");\n    }\n};\n\nfunction signup() {\n    let username = usernameInput.value;\n    let pass1 = document.getElementById('password').value;\n    let pass2 = document.getElementById('confirm-password').value;\n\n    if (pass1 == '' || pass2 == '' || username == '') {\n        showToast(\"Username of password or confirm password is missing!!!\");\n    }\n    else if (pass1 != pass2) {\n        showToast(\"Password and confirm password is not the same!!!\");\n    }\n    else {\n        signUpRequest(username, pass1);\n    }\n};\n\nggBtn.addEventListener('click', (e) => {\n    ggSignin()\n});\n\nfBtn.addEventListener('click', e => {\n    faceSignin()\n});\n\nlet form = document.getElementById('form');\n\nform.addEventListener('submit', (e) => {\n    e.preventDefault();\n    signup();\n});\n\n//# sourceURL=webpack://covid-msys/./src/public/js/view/signup.js?");
+eval("const { ggSignin, faceSignin } = __webpack_require__(/*! ../../../config/firebase.config */ \"./src/config/firebase.config.js\");\nconst axios = __webpack_require__(/*! axios */ \"./node_modules/axios/index.js\");\n\nvar usernameInput = document.getElementById('username');\nvar ggBtn = document.getElementById('google');\nvar fBtn = document.getElementById('facebook');\n\nfunction showToast(message) {\n    document.getElementById(\"alertMessage\").innerHTML = message;\n    document.getElementById(\"alertMessage\").style.color = \"red\";\n    var x = document.getElementById(\"alertMessage\");\n    x.className = \"show\";\n    setTimeout(() => {\n        x.className = x.className.replace(\"show\", \"\");\n    }, 3000);\n};\n\nconst sendAuthorizeRequest = async (username) => {\n    const res = await axios({\n        method: \"POST\",\n        url: \"http://localhost:3000/api/v1/authentication/authorize\",\n        data: {\n            username\n        }\n    });\n\n    if (res.data.page) {\n        localStorage.username = username;\n        location.href = res.data.page;\n    }\n\n\n};\n\nfunction authorizeAccount() {\n    let username = usernameInput.value;\n    if (username == \"\") {\n        showToast(\"Please fill the username\");\n    }\n    else {\n        sendAuthorizeRequest(username);\n    }\n};\n\nggBtn.addEventListener('click', (e) => {\n    ggSignin()\n});\n\nfBtn.addEventListener('click', e => {\n    faceSignin()\n});\n\nlet form = document.getElementById('form');\n\nform.addEventListener('submit', (e) => {\n    e.preventDefault();\n    authorizeAccount();\n});\n\n\n\n//# sourceURL=webpack://covid-msys/./src/public/js/view/authorize.js?");
 
 /***/ }),
 
@@ -571,7 +571,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module can't be inlined because the eval devtool is used.
-/******/ 	var __webpack_exports__ = __webpack_require__("./src/public/js/view/signup.js");
+/******/ 	var __webpack_exports__ = __webpack_require__("./src/public/js/view/authorize.js");
 /******/ 	
 /******/ })()
 ;

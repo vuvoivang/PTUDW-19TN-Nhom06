@@ -1,5 +1,5 @@
-const axios = require('axios');
 const { ggSignin, faceSignin } = require('../../../config/firebase.config');
+const axios = require('axios');
 
 var usernameInput = document.getElementById('username');
 var ggBtn = document.getElementById('google');
@@ -15,35 +15,30 @@ function showToast(message) {
     }, 3000);
 };
 
-const signUpRequest = async (username, password) => {
+const sendAuthorizeRequest = async (username) => {
     const res = await axios({
-        method: 'POST',
-        url: 'http://localhost:3000/api/v1/authentication/signup',
+        method: "POST",
+        url: "http://localhost:3000/api/v1/authentication/authorize",
         data: {
-            username, password, role: "admin"
+            username
         }
-    })
+    });
+
     if (res.data.page) {
-        window.location.href = res.data.page
+        localStorage.username = username;
+        location.href = res.data.page;
     }
-    else {
-        showToast("There is an error during creating admin!!!");
-    }
+
+
 };
 
-function signup() {
+function authorizeAccount() {
     let username = usernameInput.value;
-    let pass1 = document.getElementById('password').value;
-    let pass2 = document.getElementById('confirm-password').value;
-
-    if (pass1 == '' || pass2 == '' || username == '') {
-        showToast("Username of password or confirm password is missing!!!");
-    }
-    else if (pass1 != pass2) {
-        showToast("Password and confirm password is not the same!!!");
+    if (username == "") {
+        showToast("Please fill the username");
     }
     else {
-        signUpRequest(username, pass1);
+        sendAuthorizeRequest(username);
     }
 };
 
@@ -59,5 +54,6 @@ let form = document.getElementById('form');
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
-    signup();
+    authorizeAccount();
 });
+

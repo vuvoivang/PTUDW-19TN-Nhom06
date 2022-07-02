@@ -1,12 +1,9 @@
 <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl py-2" id="navbarBlur"
   navbar-scroll="true">
   <div class="container-fluid py-1 px-3">
-    
+
     {{>breadcrumb}}
-    <div
-      class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4"
-      id="navbar"
-    >
+    <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
       <div class="me-md-auto pe-md-3 d-flex align-items-center">
         <div class="input-group input-group-outline">
           <label class="form-label">
@@ -121,16 +118,29 @@
             <i class="fa-solid fa-gear fixed-plugin-button-nav cursor-pointer fa-xl"></i>
           </a>
         </li>
-        <li class="nav-item d-flex align-items-center">
-          <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
-            <i class="fa fa-lg fa-user me-sm-1"></i>
+        <li class="nav-item dropdown dropdown-slide">
+          <a class="nav-link dropdown-toggle btn" href="#" aria-haspopup="true" role="button" id="dropdownMenuLink"
+            data-bs-toggle="dropdown" aria-expanded="false">
             <span class="d-sm-inline d-none">
-              {{user.displayName}}
+              Hi, {{user.displayName}}
             </span>
+            <img src="https://www.w3schools.com/howto/img_avatar.png" alt="avatar" class="avatar">
           </a>
+          <!-- Dropdown list -->
+          <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton1">
+            {{#each hyperlinks}}
+            <li><a class="dropdown-item" href="{{href}}">{{label}}</a></li>
+            {{/each}}
+            <li><button class="dropdown-item" onclick="signout()">Đăng xuất</button></li>
+          </ul>
         </li>
         </li>
       </ul>
     </div>
   </div>
 </nav>
+
+  {{#section "script2"}}
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script type="text/javascript" src="/js/view/logout.js"></script>
+  {{/section}}

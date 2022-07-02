@@ -25,10 +25,12 @@ module.exports = {
             res.locals.hyperlinks = hyperlinksSidebarUser(userId);
             res.locals.userId = userId;
             res.locals.breadCrumb = pushBreadCrumb("Lịch sử được quản lý", `/user/${userId}/myManagementHistory`);
-
+            const decoded = await jwt.decode(req.cookies.token, { complete: true });
+            const id = decoded.payload.id;
+            const user = await Account.findById(id).lean();
             res.render("layouts/user/managementHistory", {
                 layout: "user/main",
-
+                user
             });
         } catch (error) {
             res.status(500).json({
@@ -45,10 +47,12 @@ module.exports = {
             res.locals.hyperlinks = hyperlinksSidebarUser(userId);
             res.locals.userId = userId;
             res.locals.breadCrumb = pushBreadCrumb("Lịch sử mua hàng", `/user/${userId}/myPaymentHistory`);
-
+            const decoded = await jwt.decode(req.cookies.token, { complete: true });
+            const id = decoded.payload.id;
+            const user = await Account.findById(id).lean();
             res.render("layouts/user/paymentHistory", {
                 layout: "user/main",
-
+                user
             });
         } catch (error) {
             res.status(500).json({
@@ -66,13 +70,17 @@ module.exports = {
             res.locals.userId = userId;
             res.locals.breadCrumb = pushBreadCrumb("Tài khoản của tôi", `/user/${userId}/account`);
             let correspondingAccount = await Account.findById(userId);
+            const decoded = await jwt.decode(req.cookies.token, { complete: true });
+        const id = decoded.payload.id;
+        const user = await Account.findById(id).lean();
             if (!correspondingAccount) {
                 res.redirect('layouts/error/404');
             }
             console.log(correspondingAccount);
             res.render("layouts/user/account", {
                 layout: "user/main",
-                account: correspondingAccount.toObject()
+                account: correspondingAccount.toObject(),
+                user
             });
         } catch (error) {
             res.status(500).json({
@@ -103,10 +111,14 @@ module.exports = {
                     }
                 });
             }
+            const decoded = await jwt.decode(req.cookies.token, { complete: true });
+        const id = decoded.payload.id;
+        const user = await Account.findById(id).lean();
             res.render("layouts/user/accountPayment", {
                 layout: "user/main",
                 isHaveAccountPayment: paymentAccount ? true : false,
                 paymentAccount,
+                user
             });
         } catch (error) {
             console.log(error);

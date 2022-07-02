@@ -15,36 +15,31 @@ function showToast(message) {
     }, 3000);
 };
 
-const signUpRequest = async (username, password) => {
-    const res = await axios({
-        method: 'POST',
-        url: 'http://localhost:3000/api/v1/authentication/signup',
-        data: {
-            username, password, role: "admin"
+
+const signInRequest = async (username, password) => {
+    try {
+        const res = await axios({
+            method: 'POST',
+            url: 'http://localhost:3000/api/v1/authentication/signin',
+            data: {
+                username, password
+            }
+        });
+        if (res.data.page) {
+            location.href = res.data.page
         }
-    })
-    if (res.data.page) {
-        window.location.href = res.data.page
-    }
-    else {
-        showToast("There is an error during creating admin!!!");
+        else if (res.data.result == 'failed') {
+            showToast("Username or password is incorrect!!!");
+        }
+    } catch (error) {
+        alert(error)
     }
 };
 
-function signup() {
+function signin() {
     let username = usernameInput.value;
-    let pass1 = document.getElementById('password').value;
-    let pass2 = document.getElementById('confirm-password').value;
-
-    if (pass1 == '' || pass2 == '' || username == '') {
-        showToast("Username of password or confirm password is missing!!!");
-    }
-    else if (pass1 != pass2) {
-        showToast("Password and confirm password is not the same!!!");
-    }
-    else {
-        signUpRequest(username, pass1);
-    }
+    let password = document.getElementById('password').value;
+    signInRequest(username, password);
 };
 
 ggBtn.addEventListener('click', (e) => {
@@ -59,5 +54,5 @@ let form = document.getElementById('form');
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
-    signup();
+    signin();
 });
