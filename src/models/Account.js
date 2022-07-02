@@ -50,7 +50,7 @@ const accountSchema = new Schema({
     },
     state: {
         type: String,
-        enum: ['F0', 'F1', 'F2', 'F3']
+        enum: ["Khỏi bệnh", 'F0', 'F1', 'F2', 'F3']
     },
     auth: {
         type: String,
