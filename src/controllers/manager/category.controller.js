@@ -22,10 +22,10 @@ module.exports = {
 
     addCategory: async (req, res) => {
         try {
-            if (!req.body.name || !req.file) {
+            if (!req.file) {
                 return res.status(400).json({
                     status: 'Bad Request',
-                    message: 'Vui lòng nhập đầy đủ thông tin',
+                    message: 'Chưa có ảnh nào được tải lên',
                     errorCode: "INVALID_DATA"
                 })
             }
@@ -73,16 +73,8 @@ module.exports = {
                 });
             }
 
-            if (!req.body.name) {
-                return res.status(400).json({
-                    status: 'Bad Request',
-                    message: 'Vui lòng nhập đầy đủ thông tin',
-                    errorCode: "INVALID_DATA"
-                })
-            }
-
-            let categoryExist = await Category.findOne({ name: req.body.name });
-            if (categoryExist && categoryExist._id != id) {
+            let categoryExist = await Category.findOne({ name: req.body.name, _id: { $ne: id } });
+            if (categoryExist) {
                 return res.status(400).json({
                     status: 'Bad Request',
                     message: 'Danh mục đã tồn tại',

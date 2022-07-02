@@ -3,7 +3,7 @@
     Thêm gói nhu yếu phẩm
 </title>
 {{/section}}
-<form id="form-add-package" class="card">
+<form id="form-add-package" class="card" onsubmit="event.preventDefault(); handleAddPackage();">
     <div class="card-header">
         <div class="card-title">
             <h2>
@@ -172,7 +172,8 @@
         $('#data_table').DataTable();
     });
 </script>
-<script type="text/javascript" src="/js/custom/packageProduct.js"></script>
+<script src="/js/custom/packageProduct.js"></script>
+<script src="/js/handler/manager/package.js"></script>
 <script>
     function goBack() {
         window.history.back();
