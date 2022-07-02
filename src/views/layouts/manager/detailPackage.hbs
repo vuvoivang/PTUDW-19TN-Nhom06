@@ -81,13 +81,16 @@
         </div>
         <div class="col-12 col-md-3">
             <div class="pe-3 d-flex flex-column justify-content-center" style="height: 100%">
-                <img class="rounded img-contain" src={{or package.image "/img/default.png" }} alt="necessary"
-                    style="max-width: 100%; max-height: 100%" />
+                <img class="rounded img-contain img-thumbnail" src={{or package.image "/img/default.png" }}
+                    alt="necessary" style="max-width: 100%; max-height: 100%" />
             </div>
         </div>
     </div>
     <div class="card-footer mx-auto">
-        <button type="submit" class="btn btn-primary">
+        <button type="button" class="btn btn-secondary mx-2" onclick="goBack()">
+            Quay về
+        </button>
+        <button type="submit" class="btn btn-primary mx-2">
             Cập nhật
         </button>
     </div>
@@ -137,7 +140,7 @@
                             {{this.unit}}
                         </td>
                         <td>
-                            {{numberWithCommas this.price}}
+                            {{numberWithCommas this.price}} đ
                         </td>
                         <td>
                             {{get this.category "name"}}

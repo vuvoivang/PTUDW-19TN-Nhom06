@@ -140,24 +140,24 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="deleteModalLabel">
-          Xóa danh mục
+          Xóa nhu yếu phẩm
         </h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        <p>Bạn chắc chắn muốn xóa nhu yếu phẩm này?</p>
-        <form id="form-delete-product" onsubmit="event.preventDefault(); handleDeleteProduct();">
-          <input type="text" name="id" id="product-id" hidden>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-              Hủy
-            </button>
-            <button type="submit" class="btn btn-danger">
-              Xóa bỏ
-            </button>
-          </div>
-        </form>
-      </div>
+      <form id="form-delete-product" onsubmit="event.preventDefault(); handleDeleteProduct();">
+        <input type="text" name="id" id="product-id" hidden>
+        <div class="modal-body">
+          Bạn chắc chắn muốn xóa nhu yếu phẩm này?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Hủy
+          </button>
+          <button type="submit" class="btn btn-danger">
+            Xóa bỏ
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
@@ -242,6 +242,5 @@
 </script>
 <script src="/js/custom/modal.js"></script>
 <script src="/js/handler/manager/product.js"></script>
-<script src="/js/custom/toggleTableCardView.js"></script>
 <script src="/js/custom/cardPagination.js"></script>
 {{/section}}
