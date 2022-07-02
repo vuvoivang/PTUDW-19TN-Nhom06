@@ -47,5 +47,7 @@ module.exports = {
     userBreadCrumb,
     transactionType,
     MIN_DEPOSIT,
-    PREFIX_STORAGE_FILE
+    PREFIX_STORAGE_FILE,
+    hyperlinksSidebarAdmin,
+    adminBreadCrumb
 }

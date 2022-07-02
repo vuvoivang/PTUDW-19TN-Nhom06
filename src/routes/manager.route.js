@@ -1,7 +1,13 @@
 const express = require('express');
 const { upload } = require('../config/firebase');
 const router = express.Router();
-const managerController = require('../controllers/manager/main');
+
+const managerController = require('../controllers/manager.controller');
+const authController = require('../controllers/sites/auth.controller');
+
+router.use(authController.isLoggedIn, authController.firewallUrlHandle)
+
+router.get("/", managerController.get); // default
 
 router.get("/", managerController.get); // default
 

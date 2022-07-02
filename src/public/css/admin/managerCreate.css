@@ -4,7 +4,7 @@ body {
     font-size: 12px;
 }
 
-.form-container {
+.container {
     clear: both;
     margin: 3% 15%;
     background-color: white;
@@ -15,7 +15,7 @@ body {
     box-shadow: 0 0 20px #ccc;
 }
 
-.form-container h2 {
+.container h2 {
     text-align: center;
     margin-bottom: 30px;
     font-size: 24px;
