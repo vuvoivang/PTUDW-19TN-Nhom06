@@ -51,8 +51,8 @@
                     </div>
                 </div>
             </form>
-            <div class="btn btn-dark mb-2">Đăng nhập</div>
-            <div class="btn btn-success ms-3 mb-2">Đăng ký</div>
+            <div class="btn btn-dark mb-2" onclick="redirect('signin')">Đăng nhập</div>
+            <div class="btn btn-success ms-3 mb-2" onclick="redirect('signup')">Đăng ký</div>
 
         </div>
     </div>
@@ -63,5 +63,13 @@
 
         function toggleNavbar() { var x = document.getElementById('navbar'); if (x.style.display == 'none') {
         x.style.display = 'block'; } else { x.style.display = 'none'; } }
+        function redirect(value){
+            if(value == 'signin'){
+                location.href = '/signin'
+            }
+            else {
+                location.href = '/signup'
+            }
+        }
     </script>
 {{/section}}

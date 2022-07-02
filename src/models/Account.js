@@ -1,12 +1,25 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
+
 const Schema = mongoose.Schema;
 const { ObjectId } = mongoose.Schema.Types;
 const AutoIncrement = require('mongoose-sequence')(mongoose);
+
+const addressSchema = new Schema({
+    province: String,
+    district: String,
+    ward: String,
+})
 
 const accountSchema = new Schema({
     _id: {
         type: Number,
         unique: true,
+    },
+    email: {
+        type: String,
+        unique: true,
+        trim: true
     },
     username: {
         type: String,
@@ -19,12 +32,11 @@ const accountSchema = new Schema({
         required: true,
         select: false,
     },
-    fullName: {
+    displayName: {
         type: String,
-        required: true,
     },
     address: {
-        type: String,
+        type: addressSchema,
     },
     dateOfBirth: {
         type: Date,
@@ -44,14 +56,19 @@ const accountSchema = new Schema({
     },
     state: {
         type: String,
-        enum: ['F0', 'F1', 'F2', 'F3']
+        enum: ["Khỏi bệnh", 'F0', 'F1', 'F2', 'F3', 'F4']
+    },
+    auth: {
+        type: String,
+        default: 'normal'
     },
     isBlock: {
         type: Boolean,
     },
-    permission: {
+    role: {
         type: String,
-        enum: ['ADMIN', 'ACTIVE_MANAGER', 'INACTIVE_MANAGER', 'USER']
+        enum: ['admin', 'active_manager', 'inactive_manager', 'user'],
+        default: 'user'
     },
     quarantineLocation: [{
         type: ObjectId,
@@ -66,4 +83,18 @@ accountSchema.plugin(AutoIncrement, {
     id: "account_seq",
     collection_name: "account_counters"
 });
+
+accountSchema.pre('save', async function (next) {
+    if (!this.displayName) this.displayName = this.username;
+    if (!this.isModified('password')) return next();
+
+    this.password = await bcrypt.hash(this.password, 12);
+    next();
+});
+
+accountSchema.methods.correctPassword = async function (candidate, password) {
+    return await bcrypt.compare(candidate, password);
+};
+
+
 module.exports = mongoose.model('accounts', accountSchema);

@@ -4,6 +4,8 @@ const expHbs = require('express-handlebars');
 const path = require('path'); //built-in nodejs
 const bodyParser = require('body-parser');
 const route = require('./routes');
+const cookieParser = require('cookie-parser')
+
 const app = express(); // đại diện cho ứng dụng nodejs
 const mongodb = require('./config/mongodb');
 require('dotenv').config(); // use env variables
@@ -23,6 +25,8 @@ const handlebars = expHbs.create({ // tạo handlebars với những config
 
 // HTTP logger
 app.use(morgan('combined'));
+app.use(express.json())
+app.use(cookieParser())
 //Template engine
 app.engine('hbs', handlebars.engine); // engine definition with name is hbs
 app.set('view engine', 'hbs'); // set view engine là hbs vừa tạo

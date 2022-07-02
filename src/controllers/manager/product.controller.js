@@ -42,10 +42,10 @@ module.exports = {
 
     addProduct: async (req, res) => {
         try {
-            if (!req.body.name || !req.body.price || !req.body.category || !req.body.unit || !req.files) {
+            if (!req.files) {
                 return res.status(400).json({
                     status: 'Bad Request',
-                    message: 'Vui lòng nhập đầy đủ thông tin',
+                    message: 'Chưa có ảnh nào được tải lên',
                     errorCode: "INVALID_DATA"
                 })
             }
@@ -54,7 +54,7 @@ module.exports = {
             if (product) {
                 return res.status(400).json({
                     status: 'Bad Request',
-                    message: 'Sản phẩm đã tồn tại',
+                    message: 'Nhu yếu phẩm đã tồn tại',
                     errorCode: "PRODUCT_EXIST"
                 })
             }
@@ -72,7 +72,7 @@ module.exports = {
 
             return res.status(201).json({
                 status: 'success',
-                message: 'Thêm sản phẩm thành công',
+                message: 'Thêm nhu yếu phẩm thành công',
                 data: newProduct
             })
         } catch (err) {
@@ -115,24 +115,16 @@ module.exports = {
             if (!product) {
                 return res.status(400).json({
                     status: 'Bad Request',
-                    message: 'Sản phẩm không tồn tại',
+                    message: 'Nhu yếu phẩm không tồn tại',
                     errorCode: 'PRODUCT_NOT_FOUND'
                 });
             }
 
-            if (!req.body.name || !req.body.price || !req.body.category || !req.body.unit) {
+            let productExist = await Product.findOne({ name: req.body.name, _id: { $ne: id } });
+            if (productExist) {
                 return res.status(400).json({
                     status: 'Bad Request',
-                    message: 'Vui lòng nhập đầy đủ thông tin',
-                    errorCode: "INVALID_DATA"
-                })
-            }
-
-            let productExist = await Product.findOne({ name: req.body.name });
-            if (productExist && productExist._id != id) {
-                return res.status(400).json({
-                    status: 'Bad Request',
-                    message: 'Sản phẩm đã tồn tại',
+                    message: 'Nhu yếu phẩm đã tồn tại',
                     errorCode: "PRODUCT_EXIST"
                 })
             }
@@ -149,7 +141,7 @@ module.exports = {
             await product.save();
             res.status(200).json({
                 status: 'success',
-                message: 'Cập nhật sản phẩm thành công',
+                message: 'Cập nhật nhu yếu phẩm thành công',
                 data: product
             })
         } catch (err) {
@@ -169,7 +161,7 @@ module.exports = {
             if (!product) {
                 return res.status(400).json({
                     status: 'Bad Request',
-                    message: 'Sản phẩm không tồn tại',
+                    message: 'Nhu yếu phẩm không tồn tại',
                     errorCode: 'PRODUCT_NOT_FOUND'
                 });
             }
@@ -178,7 +170,7 @@ module.exports = {
             if (package) {
                 return res.status(400).json({
                     status: 'Bad Request',
-                    message: 'Sản phẩm đang được sử dụng trong gói',
+                    message: 'Nhu yếu phẩm đang được sử dụng trong gói',
                     errorCode: 'PRODUCT_USED_IN_PACKAGE'
                 });
             }
@@ -186,7 +178,7 @@ module.exports = {
             await product.remove();
             res.status(200).json({
                 status: 'success',
-                message: 'Xóa sản phẩm thành công',
+                message: 'Xóa nhu yếu phẩm thành công',
                 data: product
             })
         } catch (err) {

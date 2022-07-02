@@ -7,6 +7,12 @@ router.get("/", managerController.get); // default
 
 // patient management
 router.get("/patient-management", managerController.patient.getPatientManagement);
+router.get("/patient-management/new", managerController.patient.getAddPatient);
+router.post("/patient-management", managerController.patient.addPatient);
+router.get("/patient-management/:id", managerController.patient.detailPatient);
+router.get("/patient-management/:id/history", managerController.patient.historyPatient);
+router.put("/patient-management/:id", managerController.patient.updatePatient);
+router.delete("/patient-management/:id", managerController.patient.deletePatient);
 
 // category management
 router.get("/category-management", managerController.category.getCategoryManagement);

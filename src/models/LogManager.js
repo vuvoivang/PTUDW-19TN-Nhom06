@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const { ObjectId } = mongoose.Schema.Types;
 
 const logManagerSchema = new Schema({
     description: {
@@ -12,8 +11,12 @@ const logManagerSchema = new Schema({
         type: String,
         required: true
     },
-    managerId: {
-        type: ObjectId,
+    managerUsername: {
+        type: String,
+        ref: 'Account',
+    },
+    userId: {
+        type: Number,
         ref: 'Account',
     },
     time: {
