@@ -47,5 +47,5 @@ function editLocation(_id) {
         }
     });
     showToast('Thay đổi thông tin cơ sở điều trị / cách ly thành công');
-
+    location.href = '/admin/place';
 }
