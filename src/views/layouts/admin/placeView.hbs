@@ -37,20 +37,21 @@
                         <div class="title">
                             <h4 class="text-center">Thêm thông tin cơ sở điều trị / cách ly</h4>
                         </div>
-                        <div class="input-content">
+                        <div class="input">
                             <div class="input-name">
-                                <label for="name">Tên cơ sở điều trị / cách ly</label>
-                                <input type="text" id="name" placeholder="...">
+                                <p>Tên cơ sở điều trị / cách ly</p>
+                                <input type="text" id="add-name" placeholder="...">
                             </div>
                             <div class="input-capacity">
-                                <label for="capacity">Sức chứa</label>
-                                <input type="text" id="capacity" placeholder="...">
+                                <p>Sức chứa</p>
+                                <input type="text" id="add-capacity" placeholder="...">
                             </div>
                         </div>
                     </div>
                     <div class="form-footer">
-                        <input type="submit" id="cancel" value="Hủy" class="btn cancel" data-bs-dismiss="modal">
-                        <input type="submit" id="update" value="Cập nhật" class="btn update" data-bs-dismiss="modal">
+                        <input type="submit" id="add-cancel" value="Hủy" class="btn cancel" data-bs-dismiss="modal">
+                        <input type="submit" id="add-update" value="Cập nhật" class="btn update" onclick="addLocation()"
+                            data-bs-dismiss="modal">
                     </div>
                 </div>
             </div>
@@ -66,10 +67,10 @@
     <ul class="list">
         {{#each locations}}
         <li class="list-item">
-            <div>{{_id}}</div>
-            <div>{{name}}</div>
-            <div>{{capacity}}</div>
-            <div>{{patientsNumber}}</div>
+            <div class="create_index">{{@index}}</div>
+            <div class="name">{{name}}</div>
+            <div class="capacity">{{capacity}}</div>
+            <div class="patientsNumber">{{patientsNumber}}</div>
             <button class="edit" data-bs-toggle="modal" data-bs-target="#edit-popup-{{_id}}">Edit</button>
             <!-- Modal -->
             <div class="modal fade rounded-pill p-2" id="edit-popup-{{_id}}" tabindex="-1"
@@ -84,20 +85,21 @@
                             <div class="title">
                                 <h4 class="text-center">Thay đổi thông tin cơ sở điều trị / cách ly</h4>
                             </div>
-                            <div class="input-content">
+                            <div class="input">
                                 <div class="input-name">
-                                    <label for="name">Tên cơ sở điều trị / cách ly</label>
-                                    <input type="text" id="name" placeholder="...">
+                                    <p>Tên cơ sở điều trị / cách ly</p>
+                                    <input type="text" id="edit-name-{{_id}}" placeholder="..." value="{{name}}">
                                 </div>
                                 <div class="input-capacity">
-                                    <label for="capacity">Sức chứa</label>
-                                    <input type="text" id="capacity" placeholder="...">
+                                    <p>Sức chứa</p>
+                                    <input type="text" id="edit-capacity-{{_id}}" placeholder="..." value="{{capacity}}">
                                 </div>
                             </div>
                         </div>
                         <div class="form-footer">
-                            <input type="submit" id="cancel" value="Hủy" class="btn cancel" data-bs-dismiss="modal">
-                            <input type="submit" id="update" value="Cập nhật" class="btn update"
+                            <input type="submit" id="edit-cancel" value="Hủy" class="btn cancel"
+                                data-bs-dismiss="modal">
+                            <input type="submit" id="edit-update-{{_id}}" value="Cập nhật" class="btn update"
                                 data-bs-dismiss="modal">
                         </div>
                     </div>
@@ -107,6 +109,15 @@
         {{/each}}
     </ul>
 </div>
+
+<div id="snackbar"></div>
+
+<script>
+    var divs = document.querySelectorAll('.create_index');
+    for (var i = 0; i < divs.length; ++i) {
+        divs[i].innerHTML = i + 1;
+    }
+</script>
 
 {{#section "script1"}}
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>

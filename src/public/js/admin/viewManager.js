@@ -8,7 +8,7 @@ var updateBtn = document.getElementById('update');
 
 
 function showToast() {
-    document.getElementById("snackbar").innerHTML = "Thêm tài khoản quản lý thành công";
+    document.getElementById("snackbar").innerHTML = "Cập nhật quyền thành công";
     document.getElementById("snackbar").style.color = "#008000";
     var x = document.getElementById("snackbar");
     x.className = "show";

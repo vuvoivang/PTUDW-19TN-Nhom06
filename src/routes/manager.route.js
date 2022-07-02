@@ -8,6 +8,8 @@ router.use(authController.isLoggedIn, authController.firewallUrlHandle)
 
 router.get("/", managerController.get); // default
 
+router.get("/", managerController.get); // default
+
 // patient management
 router.get("/patient-management", managerController.getPatientManagement);
 

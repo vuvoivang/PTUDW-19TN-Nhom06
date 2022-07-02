@@ -6,11 +6,11 @@ body {
 
 .container {
     clear: both;
-    margin: 3% 15%;
+    margin: 3% 10%;
     background-color: white;
     border-radius: 20px;
-    width: 70%;
-    padding: 30px 40px;
+    width: 80%;
+    padding: 40px 60px;
     padding-bottom: 20px;
     box-shadow: 0 0 20px #ccc;
 }
@@ -63,4 +63,88 @@ body {
     color: #00A3FF;
     font-size: 16px;
     font-weight: bold;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.list-item {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+    margin-left: -10px;
+    margin-bottom: 20px;
+}
+
+li .create_index {
+    margin-top: 7px;
+    width: 20px;
+}
+
+li .name {
+    margin-top: 7px;
+    width: 150px;
+    margin-left: 70px;
+}
+
+li .capacity {
+    margin-top: 7px;
+    width: 40px;
+    margin-left: 35px;
+}
+
+li .patientsNumber {
+    margin-top: 7px;
+    width: 40px;
+    margin-left: 220px;
+}
+
+button.edit {
+    margin-left: 200px;
+    padding: 6px 14px;
+    background-color: #7ed987;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+    border: 0;
+    font-size: 14px;
+    height: 40px;
+}
+
+.text-center {
+    margin-bottom: 40px;
+}
+
+.input {
+    margin-left: 20px;
+}
+
+.input input {
+    padding: 5px 10px;
+    margin: 8px auto;
+    border: 1px solid lightgray;
+    border-radius: 6px;
+}
+
+.form-footer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.form-footer input {
+    padding: 10px 15px;
+    margin: 15px 20px;
+    border-radius: 10px;
+
+}
+
+.btn.cancel {
+    background-color: #C1C1C1;
+}
+
+.btn.update {
+    background-color: #40CEE1;
 }

@@ -49,14 +49,17 @@ module.exports = {
     },
 
     viewPlace: async (req, res) => {
+        res.locals.hyperlinks = hyperlinksSidebarAdmin;
         const decoded = await jwt.decode(req.cookies.token, { complete: true });
         const id = decoded.payload.id;
         const user = await Account.findById(id).lean();
         // console.log('Admin view check\n', user);
         if (user) {
+            const locations = await QuarantineLocation.find().lean();
             res.render('layouts/admin/placeView', {
                 layout: 'admin/main',
-                user
+                user,
+                locations
             })
         }
     },
@@ -103,10 +106,13 @@ module.exports = {
     },
     editQuarantineLocation: async (req, res) => {
         try {
-            let { name } = req.body;
-            let location = await QuarantineLocation.findOne({ name }).lean();
+            let { id } = req.body;
+            let location = await QuarantineLocation.findById(id).lean();
             if (location) {
-                await QuarantineLocation.findOneAndUpdate({ name }, req.body).lean();
+                await QuarantineLocation.findByIdAndUpdate(id, {
+                    name: req.body.name,
+                    capacity: req.body.capacity
+                }).lean();
                 res.status(200).json({
                     status: "Edit quarantine location successfully"
                 });

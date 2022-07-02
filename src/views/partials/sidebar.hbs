@@ -16,7 +16,7 @@
     <ul class="navbar-nav">
       {{#each hyperlinks}}
       <li class="nav-item">
-        <a class="nav-link text-white" href="{{href}}" style="{{style}}">
+        <a class="nav-link text-white" href="{{href}}">
           <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
             <i class="{{icon}}"></i>
           </div>
@@ -47,9 +47,8 @@
       </a>
     </div>
   </div>
+  {{#section "script2"}}
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script type="text/javascript" src="/js/view/logout.js"></script>
+  {{/section}}
 </aside>
-
-{{#section "script2"}}
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script type="text/javascript" src="/js/view/logout.js"></script>
-{{/section}}
