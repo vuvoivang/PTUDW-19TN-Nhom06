@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const AutoIncrement = require('mongoose-sequence')(mongoose);
+const bcrypt = require('bcryptjs');
 
 const paymentAccountSchema = new Schema({
     paymentAccountId: {
@@ -34,4 +35,13 @@ paymentAccountSchema.plugin(AutoIncrement, {
     start_seq: 10000001,
     collection_name: "account_number_counters"
 });
+paymentAccountSchema.pre('save', async function (next) {
+    this.password = await bcrypt.hash(this.password, 12);
+    next();
+});
+
+paymentAccountSchema.methods.correctPassword = async function (candidate, password) {
+    return await bcrypt.compare(candidate, password);
+};
+
 module.exports = mongoose.model('payment_accounts', paymentAccountSchema);

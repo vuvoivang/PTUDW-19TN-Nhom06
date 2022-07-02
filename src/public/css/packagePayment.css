@@ -66,3 +66,6 @@
        display: none;
   }
   
+#form-password-account-payment label{
+    color:red;
+}
