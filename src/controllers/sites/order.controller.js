@@ -80,7 +80,6 @@ module.exports = {
                     }
                 });
             }
-            //============
             let packageStatistics = await PackageStatistics.find({});
 
             let packages = new Set(packageStatistics.map((statistics) => statistics.package));
