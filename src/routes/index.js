@@ -16,6 +16,7 @@ function route(app) {
     app.use('/product', productRoute);
     app.use('/package', packageRoute);
     app.use('/order', orderRoute);
+    
     app.use('/admin', adminRoute);
     app.use('/manager', managerRoute);
     app.use('/user', userRoute);
