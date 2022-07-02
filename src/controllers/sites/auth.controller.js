@@ -29,7 +29,6 @@ const signup = async (req, res, next) => {
         }
         // Truong hop chua ton tai account
         let newAccount = await Account.create({ email, username, password });
-        console.log('sign up new account\n', newAccount);
 
         createSendToken(newAccount._id.toString(), newAccount.role, res, 'token');
 
@@ -53,7 +52,6 @@ const isLoggedIn = async (req, res, next) => {
         if (!user) {
             return next(new AppError('Invalid token', 400));
         }
-        // console.log('is logged in check:\n', user)
         return next()
     }
     else {
@@ -103,7 +101,6 @@ const firebaseSigninHandle = async (req, res, next) => {
             username: user.uid,
             auth: 'firebase'
         })
-        // console.log('firebaseSigninHandle check:\n', currentUser)
         createSendToken(currentUser._id, currentUser.role, res, 'token')
         res.status(200).json({
             status: "Redirect to firebase successfully",
@@ -141,7 +138,6 @@ const signIn = async (req, res, next) => {
             return next(new AppError('Please provide a valid username and password', 400))
         }
         const account = await Account.findOne({ username }).select('+password');
-        console.log('Auth Controller: sign in normal check\n', account);
         if (account.correctPassword(password, account.password)) {
             createSendToken(account._id, account.role, res, 'token')
             res.status(200).json({
@@ -172,7 +168,10 @@ const firewallUrlHandle = async (req, res, next) => {
         }
         else {
             let url_target = req.originalUrl
-            if (url_target.includes(page) == false) {
+            if (url_target == '/') {
+                return next();
+            }
+            else if (url_target.includes(page) == false) {
                 return next(new AppError('You do not have permission to access this page', 400))
             }
             return next();

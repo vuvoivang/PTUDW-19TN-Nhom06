@@ -20,8 +20,8 @@ const quarantineLocationSchema = new Schema({
     },
     patientsNumber: {
         type: Number,
-        required: true,
-        min: 0
+        min: 0,
+        default: 0
     }
 });
 

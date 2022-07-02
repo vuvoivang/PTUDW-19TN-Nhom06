@@ -35,7 +35,7 @@
 .product-description {
 }
 
-#soluong {
+.soluong {
     display: inline-block;
     width: 40px;
     height: 30px;
@@ -56,3 +56,13 @@
 .payment-phone{
     width: 350px;
 }
+
+.selectdiv {
+    min-width: 200px;
+  }
+  
+  /*To remove button from IE11, thank you Matt */
+  select::-ms-expand {
+       display: none;
+  }
+  
