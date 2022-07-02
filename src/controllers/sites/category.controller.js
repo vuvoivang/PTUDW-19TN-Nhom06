@@ -1,4 +1,6 @@
 const Category = require('../../models/Category');
+const Package = require('../../models/Package');
+const Product = require('../../models/Product');
 const utils = require('../../utils/functions');
 module.exports = {
     getAll: async (req, res) => {
@@ -7,7 +9,6 @@ module.exports = {
             categories = categories.map((category) => category.toObject());
 
             res.json({ status: 'success', data: categories });
-
         } catch (error) {
             console.log(error);
             res.status(500).json({
@@ -17,6 +18,53 @@ module.exports = {
             });
         }
     },
+
+    getPackageByCategory: async (req, res) => {
+        try {
+            let categories = await Category.find({}).lean();
+
+            console.log(categories);
+            // find category by id
+
+            if (req.params.id == '0') {
+                // tất cả
+                // return all packages
+                let packages = await Package.find({}).lean();
+
+                res.render('layouts/sites/category', {
+                    layout: 'sites/main',
+                    categories,
+                    packages,
+                });
+                return;
+            }
+            // find all product in category
+            let products = await Product.find({ category: req.params.id }).lean();
+            // find all packages have at least a product in category with _id = req.params.id
+            let packages = await Package.find({
+                productList: {
+                    $elemMatch: {
+                        product: {
+                            $in: products.map((product) => product._id),
+                        },
+                    },
+                },
+            }).lean();
+            res.render('layouts/sites/category', {
+                layout: 'sites/main',
+                categories,
+                packages,
+            });
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({
+                status: 'Server Error',
+                message: 'Có lỗi xảy ra, vui lòng thử lại!!',
+                errorCode: 'SERVER_ERROR',
+            });
+        }
+    },
+
     // get: async (req, res) => {
     //     try {
     //         const category = await Category.findById(req.params.id);

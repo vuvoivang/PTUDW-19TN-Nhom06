@@ -3,6 +3,7 @@ const router = express.Router();
 const firebase = require('../../config/firebase');
 const categoryController = require('../../controllers/sites/category.controller');
 
+router.get('/:id', categoryController.getPackageByCategory);
 router.get('/', categoryController.getAll);
 // router.get('/:id', categoryController.get);
 router.post('/',firebase.upload.single('image'), categoryController.create);
