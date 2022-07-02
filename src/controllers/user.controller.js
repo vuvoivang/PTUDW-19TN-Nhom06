@@ -30,7 +30,7 @@ module.exports = {
             res.locals.hyperlinks = hyperlinksSidebarUser(userId);
             res.locals.userId = userId;
             res.locals.breadCrumb = pushBreadCrumb("Lịch sử được quản lý", `/user/${userId}/myManagementHistory`);
-            const managementHistory = await LogManager.find({
+            let managementHistory = await LogManager.find({
                 userId: Number(userId)
             }).lean();
             if(managementHistory.length === 0) {

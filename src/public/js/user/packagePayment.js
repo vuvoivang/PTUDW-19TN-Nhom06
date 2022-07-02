@@ -47,7 +47,17 @@ const submitOrder = async (package) => {
     formData.packageQuantity = inputPackageNum;
     formData.totalAmount = Number(document.getElementById('package-total-price').innerText) * inputPackageNum;
     formData.paymentMethod = document.getElementById('paymentMethodSelect').value;
-    console.log(formData);
+
+    if(formData.paymentMethod === "credit-card"){
+        const password = document.getElementById(`pass-account-payment`).value;
+        if(!password){
+            toastMessage(
+                `Mật khẩu tài khoản thanh toán không được để trống`,
+                'failed'
+            );
+            return;
+        } else formData.passwordAccountPayment = password;
+    }
 
     // fetch api here
     res = await fetch(`${API_URL}/order`, {
@@ -59,10 +69,6 @@ const submitOrder = async (package) => {
         body: JSON.stringify(formData),
     });
     const data = await res.json();
-    // if (data.success) {
-    //     toastMessage('Đặt hàng thành công', 'success');
-    //     window.location.href = '/user/order';
-    // }
     if (data.status == 'success') {
         toastMessage('Đặt hàng thành công', 'success');
         setTimeout(() => {
@@ -139,3 +145,11 @@ function decreaseNumberPackage() {
         toastMessage('Không thể giảm số lượng package hơn nữa', 'failed');
     }
 }
+
+document.getElementById("paymentMethodSelect").addEventListener("change", function () {
+    if(this.value === "credit-card"){
+        document.getElementById(`form-password-account-payment`).style.visibility = 'visible';
+    } else{
+        document.getElementById(`form-password-account-payment`).style.visibility = 'hidden';
+    }
+})
