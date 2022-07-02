@@ -7,7 +7,9 @@ const Package = require('../models/Package')
 const Product = require('../models/Product')
 const LogManager = require('../models/LogManager')
 
+const jwt = require('jsonwebtoken')
 const { hyperlinksSidebarUser, userBreadCrumb } = require('../constants/index');
+
 const pushBreadCrumb = (label, link, isActive = true) => {
     let thisBreadCrumb = {};
     Object.assign(thisBreadCrumb, userBreadCrumb);
@@ -148,6 +150,7 @@ module.exports = {
             res.render("layouts/user/accountPayment", {
                 layout: "user/main",
                 isHaveAccountPayment: paymentAccount ? true : false,
+                paymentAccount,
             });
         } catch (error) {
             console.log(error);

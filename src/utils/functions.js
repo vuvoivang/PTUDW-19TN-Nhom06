@@ -37,7 +37,7 @@ async function getFileURL(filename) {
 }
 
 function mapObjectInArray(arr) {
-    return arr.map(item => item.toObject());
+    return arr.map((item) => item.toObject());
 }
 
 function extractFilenameFromURL(url) {
@@ -68,6 +68,15 @@ async function createUrlFromImageName(image, storage) {
     return url[0];
 }
 
+function getDate() {
+    let date = new Date();
+    return date.toLocaleDateString('en-GB', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+    });
+}
+
 module.exports = {
     uploadFile,
     getFileURL,
@@ -76,4 +85,5 @@ module.exports = {
     extractFilenameFromURL,
     deleteFileFromURL,
     createUrlFromImageName,
+    getDate,
 };

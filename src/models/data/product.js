@@ -6,4 +6,5 @@ const products = [
         unit: "ổ",
         category: "Lương thực",
         images: ["/img/necessaries/bread/pic1.png"]
+    }
 ]

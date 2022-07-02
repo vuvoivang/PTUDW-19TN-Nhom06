@@ -3,7 +3,7 @@
     Thêm gói nhu yếu phẩm
 </title>
 {{/section}}
-<form id="form-add-package" class="card">
+<form id="form-add-package" class="card" onsubmit="event.preventDefault(); handleAddPackage();">
     <div class="card-header">
         <div class="card-title">
             <h2>
@@ -30,7 +30,7 @@
                     </span>
                 </label>
                 <input min="1" class="form-control" name="limitPerPerson" id="registerLimitPerPerson" type="number"
-                    required />
+                    min="1" required />
             </div>
         </div>
         <div class="row mb-3">
@@ -50,7 +50,7 @@
                         *
                     </span>
                 </label>
-                <input class="form-control" name="limitTime" id="registerLimitTime" type="text" required />
+                <input class="form-control" name="limitTime" id="registerLimitTime" type="number" min="1" required />
             </div>
         </div>
         <div class="row mb-3">
@@ -75,7 +75,10 @@
         </div>
     </div>
     <div class="card-footer mx-auto">
-        <button type="submit" class="btn btn-primary">
+        <button type="button" class="btn btn-secondary mx-2" onclick="goBack()">
+            Quay về
+        </button>
+        <button type="submit" class="btn btn-primary mx-2">
             Thêm mới
         </button>
     </div>
@@ -107,38 +110,55 @@
                         <th>
                             Danh mục
                         </th>
-                        <th class="text-end">
+                        <th>
                             Tối đa
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     {{#each products}}
-                    <tr>
-                        <td>
-                            {{inc @index}}
-                        </td>
-                        <td>
-                            {{this.name}}
-                        </td>
-                        <td>
-                            {{this.unit}}
-                        </td>
-                        <td>
-                            {{numberWithCommas this.price}}
-                        </td>
-                        <td>
-                            {{get this.category "name"}}
-                        </td>
-                        <td class="text-end">
-                            <input class="form-inline me-3" style="width: 80px" type="number" min="1" name={{this.id}}
-                                id={{this._id}}>
-                            <i id="select-product" class="fa-solid fa-circle-plus fa-lg"
-                                style="cursor: pointer; color: #4CAF50"></i>
-                            {{!-- <i id="unselect-product" class="fa-solid fa-trash fa-lg"
-                                style="cursor: pointer; color: #dc3545"></i> --}}
-                        </td>
-                    </tr>
+                    <form>
+                        <tr id="package-product-{{this._id}}">
+                            <td>
+                                {{inc @index}}
+                            </td>
+                            <td>
+                                {{this.name}}
+                            </td>
+                            <td>
+                                {{this.unit}}
+                            </td>
+                            <td>
+                                {{numberWithCommas this.price}} đ
+                            </td>
+                            <td>
+                                {{get this.category "name"}}
+                            </td>
+                            <td class="text-end d-flex flex-row justify-content-between">
+                                <input class="form-inline me-3" style="width: 80px" type="number" min="1"
+                                    name="product-{{this._id}}" id="product-{{this._id}}">
+                                <div>
+                                    <div id="select-product" style="display: block">
+                                        <button class="button-no-style" onclick="handleAddProduct({{this._id}})">
+                                            <i id="add-product" class="fa-solid fa-circle-plus fa-lg"
+                                                style="color: #4CAF50"></i>
+                                        </button>
+                                    </div>
+                                    <div id="unselect-product" style="display: none">
+                                        <button class="button-no-style me-3"
+                                            onclick="handleUpdateProduct({{this._id}})">
+                                            <i id="update-product" class="fa-solid fa-square-pen fa-lg"
+                                                style="color: #e3e717"></i>
+                                        </button>
+                                        <button class="button-no-style" onclick="handleDeleteProduct({{this._id}})">
+                                            <i id="delete-product" class="fa-solid fa-trash fa-lg"
+                                                style="color: #dc3545"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </form>
                     {{/each}}
                 </tbody>
             </table>
@@ -151,5 +171,12 @@
     $(document).ready(function () {
         $('#data_table').DataTable();
     });
+</script>
+<script src="/js/custom/packageProduct.js"></script>
+<script src="/js/handler/manager/package.js"></script>
+<script>
+    function goBack() {
+        window.history.back();
+    }
 </script>
 {{/section}}

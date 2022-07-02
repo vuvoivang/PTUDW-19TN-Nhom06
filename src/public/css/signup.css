@@ -138,6 +138,12 @@ form .account-option {
     justify-content: center;
 }
 
+.other-login button {
+    border: 0;
+    background-color: transparent;
+    width: 20px;
+}
+
 .account-login {
     display: flex;
     gap: 10px;

@@ -11,8 +11,8 @@ const logManagerSchema = new Schema({
         type: String,
         required: true
     },
-    managerId: {
-        type: Number,
+    managerUsername: {
+        type: String,
         ref: 'Account',
     },
     userId: {
