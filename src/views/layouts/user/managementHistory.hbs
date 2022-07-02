@@ -42,17 +42,19 @@
               </tr>
             </thead>
             <tbody>
+              {{#each managementHistory}}
               <tr>
                 <td class="text-left">
-                  Nhập viện
+                  {{this.action}}
                 </td>
                 <td class="text-center">
-                  22/10/2022
+                 {{date this.time}}
                 </td>
                 <td class="text-center">
-                  Ăn nhiều quá bể bụng
+                  {{this.description}}
                 </td>
               </tr>
+              {{/each}}
             </tbody>
           </table>
         </div>
