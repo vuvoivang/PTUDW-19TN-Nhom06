@@ -1,0 +1,40 @@
+p {
+    margin: 0%;
+}
+
+#btnAllCategories {
+    border-radius: 5px;
+    border: none;
+}
+a.fas {
+    position: relative;
+    font-size: 20px;
+    text-decoration: none;
+    color: black;
+}
+
+.price {
+    color: red;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.card-title {
+    color: #05a833;
+}
+
+.popular-product-title {
+    text-align: center;
+    color: #05a833;
+    font-weight: bold;
+}
+
+.popular-product-img {
+    height: 150px;
+    width: 100%;
+    object-fit: contain;
+    overflow: hidden;
+}
+
+.packages {
+    background-color: #fafafa;
+}

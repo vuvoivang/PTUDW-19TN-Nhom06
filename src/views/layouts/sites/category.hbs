@@ -1,0 +1,61 @@
+{{#section 'style'}}
+    <link rel='stylesheet' href='/css/category.css' />
+{{/section}}
+
+<div class='content container mt-4'>
+    <div class='row'>
+        <div class='col-lg-3 mb-lg-0 mb-2'>
+            <p>
+                <a
+                    id='btnAllCategories'
+                    class='btn btn-primary w-100 d-flex align-items-center justify-content-between'
+                    data-bs-toggle='collapse'
+                    href='#collapseCategory'
+                    role='button'
+                    aria-expanded='true'
+                    aria-controls='collapseCategory'
+                >
+                    <span class='fas fa-bars'><span class='ps-3'>All Categories</span></span>
+                    <span class='fas fa-chevron-down'></span>
+                </a>
+            </p>
+            <div class='collapse show border' id='collapseCategory'>
+                <ul class='list-unstyled'>
+                    <li><a class='dropdown-item' href='/category/0'>Tất cả</a></li>
+                    {{#each categories}}
+                        <li><a class='dropdown-item' href='/category/{{this._id}}'>{{this.name}}</a></li>
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+        <div class='col-lg-9 packages pt-3 pb-3'>
+            <div class='d-lg-flex flex-lg-row d-flex flex-column-reverse'>
+                {{#each packages}}
+                    <div class='col-lg-4 col-md-6 col-12'>
+                        <div class='card p-3 mx-4'>
+                            <div class='card-img'>
+                                <img src={{this.image}} class='popular-product-img' />
+                            </div>
+                            <div class='card-body p-0'>
+                                <h5 class='card-title py-3'>{{this.name}}</h5>
+                                <div class='d-flex justify-content-between align-items-center'>
+                                    <div class='price'>
+                                        <span>
+                                            <strong>
+                                                {{this.defaultPrice}}
+                                                <i class='fa-solid fa-dong-sign'></i>
+                                            </strong>
+                                        </span>
+                                    </div>
+                                    <a href={{append '/package/' this._id}} class='btn btn-primary m-0'>Chi tiết</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>
+
+{{#section 'script'}}{{/section}}
