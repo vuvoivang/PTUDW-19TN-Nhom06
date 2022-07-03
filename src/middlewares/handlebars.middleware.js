@@ -26,8 +26,11 @@ const helper = {
         return options.fn(this).replace(new RegExp('value="' + selected + '"'), '$& selected="selected"');
     },
     get: function (Obj, prop) {
-        if (Obj.hasOwnProperty(prop)) {
-            return Obj[prop];
+        if (Obj && typeof Obj === 'object') {
+            if (Obj.hasOwnProperty(prop)) {
+                return Obj[prop];
+            }
+            return ''
         }
         return '';
     },
@@ -104,8 +107,8 @@ const helper = {
     date: function (date) {
         return formatDate(new Date(date));
     },
-    formatVietnameseCurrency: function (money){
-        return money.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})
+    formatVietnameseCurrency: function (money) {
+        return money.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })
     }
 };
 

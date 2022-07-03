@@ -90,6 +90,19 @@ function sortProductByPackage(products, productPackage) {
     return [...productsInPackage, ...productsNotInPackage]
 }
 
+function sortRelatesPatient(relates, relatedPatient) {
+    const [relatesPatient, relatesNotPatient] = relates.reduce((acc, relate) => {
+        const relatePatient = relatedPatient.find(item => item.relatedUserId === relate._id)
+        if (relatePatient) {
+            acc[0].push(relate)
+        } else {
+            acc[1].push(relate)
+        }
+        return acc
+    }, [[], []])
+    return [...relatesPatient, ...relatesNotPatient]
+}
+
 function getNextStateRelated(state) {
     switch (state) {
         case 'F0':
@@ -127,6 +140,7 @@ module.exports = {
     createUrlFromImageName,
     getDate,
     sortProductByPackage,
+    sortRelatesPatient,
     getNextStateRelated,
     compareState,
     formatDate,

@@ -142,19 +142,26 @@ module.exports = {
             }
             patient = patient.toObject();
             patient.dateOfBirth = utils.formatDate(patient.dateOfBirth);
-            let relates = await RelatedUser.find({ userId: id });
-            relates = utils.mapObjectInArray(relates);
-            patient.relates = relates.map(item => item.relatedUserId).join(', ');
+            let relatedUsers = await RelatedUser.find({ userId: id });
+            relatedUsers = utils.mapObjectInArray(relatedUsers);
+            patient.relateData = relatedUsers.map(item => item.relatedUserId).join(', ');
 
-            let quarantineLocation = await QuarantineLocation.findById(patient.quarantineLocation);
-            quarantineLocation = quarantineLocation.toObject();
+            let quarantineLocations = await QuarantineLocation.find({});
+            quarantineLocations = utils.mapObjectInArray(quarantineLocations);
+
+            // find all account with role user except account with id = id
+            let relates = await Account.find({ role: 'user', _id: { $ne: id } });
+            relates = utils.mapObjectInArray(relates);
+
+            // sort relates with all relate has id in relatedUsers first
+            relates = utils.sortRelatesPatient(relates, relatedUsers);
 
             res.render(`${path}/detailPatient`, {
                 layout: "manager/main",
                 tag: "patient",
                 patient,
-                relates,
-                quarantineLocation
+                quarantineLocations,
+                relates
             });
         } catch (err) {
             console.log(err.message);
