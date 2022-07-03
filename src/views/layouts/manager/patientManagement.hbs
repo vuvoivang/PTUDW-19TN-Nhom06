@@ -35,7 +35,7 @@
                             <th>
                                 Địa chỉ
                             </th>
-                            <th>
+                            <th class="text-center">
                                 Trạng thái
                             </th>
                             <th class="text-end">
@@ -56,9 +56,9 @@
                                 {{this.displayName}}
                             </td>
                             <td>
-                                {{this.address}}
+                                {{ get this.address 'province'}}
                             </td>
-                            <td>
+                            <td class="text-center">
                                 {{this.state}}
                             </td>
                             <td class="text-end">
@@ -179,7 +179,7 @@
                 borderWidth: 3,
                 fill: false,
                 tension: 0.1,
-            },
+            }
         ]
     }
     const config = {

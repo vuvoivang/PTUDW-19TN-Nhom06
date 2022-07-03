@@ -49,7 +49,8 @@
                         *
                     </span>
                 </label>
-                <input class="form-control" name="cardID" id="registerCardID" pattern="/^([0-9]{12})$/" required />
+                <input class="form-control" name="cardID" id="registerCardID" type="text" pattern="[0-9]{9,12}"
+                    required />
             </div>
         </div>
         <div class="row mb-3">
@@ -74,7 +75,6 @@
                     <option value="F1">F1</option>
                     <option value="F2">F2</option>
                     <option value="F3">F3</option>
-                    <option value="F4">F4</option>
                 </select>
             </div>
         </div>
@@ -137,7 +137,7 @@
                 </label>
                 <input class="form-control" name="relates" id="registerRelates" type="text" onkeydown="return false;"
                     style="caret-color: transparent !important;    background-color: #f0f2f5;
-    opacity: 1;" required />
+    opacity: 1;" />
             </div>
         </div>
     </div>
@@ -174,7 +174,7 @@
                         <th>
                             Địa chỉ
                         </th>
-                        <th>
+                        <th class="text-center">
                             Trạng thái
                         </th>
                         <th class="text-center">
@@ -196,13 +196,14 @@
                                 {{this.displayName}}
                             </td>
                             <td>
-                                {{this.address}}
+                                {{ get this.address 'province'}}
                             </td>
-                            <td>
+                            <td class="text-center">
                                 {{this.state}}
                             </td>
                             <td class="text-center">
-                                <input type="checkbox" name="relate" value="{{this._id}}" />
+                                <input id="check-relate-{{this._id}}" type="checkbox" name="relate" value="{{this._id}}"
+                                    onclick="handleRelate({{{json this._id}}}, 'add')" />
                             </td>
                         </tr>
                     </form>
@@ -220,6 +221,7 @@
     });
 </script>
 <script src="/js/custom/addressAPI.js"></script>
+<script src="/js/custom/relatePatient.js"></script>
 <script>
     fetchAPI()
 </script>
