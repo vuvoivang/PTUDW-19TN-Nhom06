@@ -148,9 +148,6 @@
     for (var i = 0; i < divs.length; ++i) {
         divs[i].innerHTML = i + 1;
     }
-    $(document).ready(function () {
-        $('#data_table').DataTable();
-    });
 </script>
 
 {{#section "script1"}}
@@ -159,4 +156,9 @@
 <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="/js/admin/viewPlace.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#data_table').DataTable();
+    });
+</script>
 {{/section}}

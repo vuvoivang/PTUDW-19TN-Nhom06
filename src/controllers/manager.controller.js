@@ -72,7 +72,7 @@ module.exports = {
 
     // patient
     getPatientManagement: async (req, res) => {
-        res.locals.hyperlinks = hyperlinksSidebarManager;
+        res.locals.hyperlinks = hyperlinksSidebarManager('patient-management');
         res.locals.breadCrumb = pushBreadCrumb("Quản lý bệnh nhân", '/manager/patient-management');
         const decoded = await jwt.decode(req.cookies.token, { complete: true });
         const id = decoded.payload.id;
@@ -86,7 +86,7 @@ module.exports = {
 
     // category
     getCategoryManagement: async (req, res) => {
-        res.locals.hyperlinks = hyperlinksSidebarManager;
+        res.locals.hyperlinks = hyperlinksSidebarManager('category-management');
         res.locals.breadCrumb = pushBreadCrumb("Quản lý danh mục", '/manager/category-management');
         const decoded = await jwt.decode(req.cookies.token, { complete: true });
         const id = decoded.payload.id;
@@ -101,7 +101,7 @@ module.exports = {
 
     // product
     getProductManagement: async (req, res) => {
-        res.locals.hyperlinks = hyperlinksSidebarManager;
+        res.locals.hyperlinks = hyperlinksSidebarManager('product-management');
         res.locals.breadCrumb = pushBreadCrumb("Quản lý nhu yếu phẩm", '/manager/product-management');
         const decoded = await jwt.decode(req.cookies.token, { complete: true });
         const id = decoded.payload.id;
@@ -130,7 +130,7 @@ module.exports = {
 
     // package
     getPackageManagement: async (req, res) => {
-        res.locals.hyperlinks = hyperlinksSidebarManager;
+        res.locals.hyperlinks = hyperlinksSidebarManager('package-management');
         res.locals.breadCrumb = pushBreadCrumb("Quản lý gói", '/manager/package-management');
         const decoded = await jwt.decode(req.cookies.token, { complete: true });
         const id = decoded.payload.id;
@@ -161,7 +161,7 @@ module.exports = {
 
     // payment
     getPaymentManagement: async (req, res) => {
-        res.locals.hyperlinks = hyperlinksSidebarManager;
+        res.locals.hyperlinks = hyperlinksSidebarManager('payment-management');
         res.locals.breadCrumb = pushBreadCrumb("Quản lý thanh toán", '/manager/payment-management');
         const decoded = await jwt.decode(req.cookies.token, { complete: true });
         const id = decoded.payload.id;

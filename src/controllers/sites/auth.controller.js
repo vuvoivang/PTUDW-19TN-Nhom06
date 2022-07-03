@@ -29,21 +29,27 @@ const signup = async (req, res, next) => {
             return next(new AppError('Please provide a valid email and username and password', 400))
         }
         let checkAccount = await Account.findOne({ username }).lean();
-        if (checkAccount) {
+        if (!checkAccount) {
             res.status(200).json({
                 status: "Sign up account failed",
-                result: "account exist"
+                result: "account is not existed"
             });
         }
         else {
-            // Truong hop chua ton tai account
-            let newAccount = await Account.create(req.body);
+            // Truong hop ton tai account
+            let newAccount = await Account.findOneAndUpdate({ username }, { password }).lean();
+            let page = newAccount.role;
 
-            createSendToken(newAccount._id.toString(), newAccount.role, res, 'token');
-
+            if (page == 'active_manager' || page == 'inactive_manager') {
+                page = page.split("_")[1];
+            }
+            createSendToken(newAccount._id, page, res, 'token');
+            if (page == 'user') {
+                page = '';
+            }
             res.status(200).json({
                 status: "Sign up successfully",
-                page: `/${newAccount.role}`
+                page: `/${page}`
             });
         }
     } catch (error) {
@@ -150,7 +156,6 @@ const signIn = async (req, res, next) => {
         }
         const account = await Account.findOne({ username }).select('+password');
         let check = await account.correctPassword(password, account.password);
-        console.log('Compare password = ', check);
         if (check == true) {
             let page = account.role;
 
@@ -223,7 +228,6 @@ const authorizeAccount = async (req, res) => {
             if (emptyCheck.length == 0) {
                 res.status(200).json({
                     status: "Database is empty",
-                    username,
                     page: "/signup"
                 });
             }
@@ -236,12 +240,18 @@ const authorizeAccount = async (req, res) => {
                     });
                 }
                 else {
-                    req.username = username;
-                    res.status(200).json({
-                        status: "Ready for sign in",
-                        username,
-                        page: "/signin"
-                    });
+                    if (account.isNew == false) {
+                        res.status(200).json({
+                            status: "Ready for sign in",
+                            page: "/signin"
+                        });
+                    }
+                    else {
+                        res.status(200).json({
+                            status: "Need for sign up",
+                            page: "/signup"
+                        });
+                    }
                 }
             }
         }

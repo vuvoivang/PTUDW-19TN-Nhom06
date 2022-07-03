@@ -36,7 +36,7 @@ module.exports = {
                 let announces = await Announce.find({
                     userId,
                     isDelete: false
-                });
+                }).lean();
                 if (!announces) {
                     return null
                 }

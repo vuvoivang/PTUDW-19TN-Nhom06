@@ -18,8 +18,6 @@ const accountSchema = new Schema({
     },
     email: {
         type: String,
-        unique: true,
-        trim: true
     },
     username: {
         type: String,
@@ -70,10 +68,10 @@ const accountSchema = new Schema({
         enum: ['admin', 'active_manager', 'inactive_manager', 'user'],
         default: 'user'
     },
-    quarantineLocation: [{
+    quarantineLocation: {
         type: ObjectId,
         ref: 'QuarantineLocation',
-    }]
+    }
 }, {
     _id: false, // mongodb can't interfere this field
     timestamps: true,
@@ -93,11 +91,6 @@ accountSchema.pre('save', async function (next) {
 });
 
 accountSchema.methods.correctPassword = async function (candidate, password) {
-//     await bcrypt.compare(candidate, password, (err, isMatch) => {
-//         if (err) throw err;
-//         console.log('isMatch in correctPassword = ', isMatch);
-//         return isMatch;
-//   });
     return await bcrypt.compare(candidate, password);
 };
 

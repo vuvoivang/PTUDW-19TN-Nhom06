@@ -33,7 +33,7 @@ module.exports = {
             let userId = decoded.payload.id;
             const user = await Account.findById(userId).lean();
 
-            res.locals.hyperlinks = hyperlinksSidebarUser(userId);
+            res.locals.hyperlinks = hyperlinksSidebarUser(userId, 'myManagementHistory');
             res.locals.userId = userId;
             res.locals.breadCrumb = pushBreadCrumb("Lịch sử được quản lý", `/user/${userId}/myManagementHistory`);
 
@@ -71,7 +71,7 @@ module.exports = {
             let userId = decoded.payload.id;
             const user = await Account.findById(userId).lean();
 
-            res.locals.hyperlinks = hyperlinksSidebarUser(userId);
+            res.locals.hyperlinks = hyperlinksSidebarUser(userId, 'myPaymentHistory');
             res.locals.userId = userId;
             res.locals.breadCrumb = pushBreadCrumb("Lịch sử mua hàng", `/user/${userId}/myPaymentHistory`);
             let announces = await announceController.getAnnounceById(userId);
@@ -109,7 +109,7 @@ module.exports = {
             const user = await Account.findById(userId).lean();
 
             let orderId = (req.params.orderId);
-            res.locals.hyperlinks = hyperlinksSidebarUser(userId);
+            res.locals.hyperlinks = hyperlinksSidebarUser(userId,  "myPaymentHistory");
             res.locals.userId = userId;
             res.locals.breadCrumb = pushBreadCrumb("Lịch sử mua hàng", `/user/${userId}/myPaymentHistory`);
             let announces = await announceController.getAnnounceById(userId);
@@ -144,7 +144,7 @@ module.exports = {
             let userId = decoded.payload.id;
             const user = await Account.findById(userId).lean();
 
-            res.locals.hyperlinks = hyperlinksSidebarUser(userId);
+            res.locals.hyperlinks = hyperlinksSidebarUser(userId, 'account');
             res.locals.userId = userId;
             res.locals.breadCrumb = pushBreadCrumb("Tài khoản của tôi", `/user/${userId}/account`);
             let announces = await announceController.getAnnounceById(userId);
@@ -178,7 +178,7 @@ module.exports = {
             let userId = decoded.payload.id;
             const user = await Account.findById(userId).lean();
             
-            res.locals.hyperlinks = hyperlinksSidebarUser(userId);
+            res.locals.hyperlinks = hyperlinksSidebarUser(userId, 'accountPayment');
             res.locals.userId = userId;
             res.locals.breadCrumb = pushBreadCrumb("Tài khoản thanh toán", `/user/${userId}/accountPayment`);
             let announces = await announceController.getAnnounceById(userId);

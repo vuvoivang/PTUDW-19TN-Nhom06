@@ -16,13 +16,13 @@ module.exports = {
                 res.locals.user = user;
                 res.locals.isLoggedIn = true;
                 if (role == 'admin') {
-                    res.locals.hyperlinks = hyperlinksSidebarAdmin;
+                    res.locals.hyperlinks = hyperlinksSidebarAdmin('view');
                 }
                 else if (role == 'user') {
-                    res.locals.hyperlinks = hyperlinksSidebarUser(id);
+                    res.locals.hyperlinks = hyperlinksSidebarUser(id, 'account');
                 }
                 else {
-                    res.locals.hyperlinks = hyperlinksSidebarManager;
+                    res.locals.hyperlinks = hyperlinksSidebarManager('patient-management');
                 }
             }
             let categories = await Category.find({});
