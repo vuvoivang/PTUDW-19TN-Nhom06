@@ -1,10 +1,16 @@
+const MinimumTransfer = require("../../models/MinimumTransfer");
+
 const path = "layouts/manager";
 
 module.exports = {
-    getPaymentManagement: (req, res) => {
+    getPaymentManagement: async (req, res) => {
+        let data = await MinimumTransfer.findOne({
+            type: "main",
+        });
         res.render(`${path}/paymentManagement`, {
             layout: "manager/main",
-            tag: "payment"
+            tag: "payment",
+            value: data.value,
         })
     }
 }
