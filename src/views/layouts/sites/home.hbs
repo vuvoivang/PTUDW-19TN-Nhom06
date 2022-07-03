@@ -21,26 +21,28 @@
             </div>
         </div>
     </div>
-    <div class='list-product py-5'>
-        <div class='container list-product-container'>
+    <div class='list-category py-5'>
+        <div class='container list-category-container'>
             <h1 class='text-center fw-bold mb-5'>Tất cả danh mục</h1>
             <div class='row row-cols-lg-4 row-cols-md-3 row-cols-2 gx-5'>
                 {{#each categories}}
+                    <a href="/category/{{this._id}}">
                     <div class='col'>
-                        <div class='product-item'>
-                            <div class='product-item-img'>
+                        <div class='category-item'>
+                            <div class='category-item-img'>
                                 <img src={{this.image}} alt='' class='img-fluid' />
                             </div>
-                            <div class='product-item-name'>{{this.name}}</div>
+                            <div class='category-item-name'>{{this.name}}</div>
                         </div>
                     </div>
+                    </a>
                 {{/each}}
             </div>
         </div>
     </div>
-    <div class='popular-product py-5'>
+    <div class='popular-package py-5'>
         <div class='container'>
-            <h1 class='popular-product-title mb-5'>Gói sản phẩm phổ biến</h1>
+            <h1 class='popular-package-title mb-5'>Gói sản phẩm phổ biến</h1>
             <div class='container my-3'>
                 <div class='row mx-auto my-auto justify-content-center'>
                     <div id='recipeCarousel' class='carousel slide' data-bs-ride='carousel'>
@@ -50,7 +52,7 @@
                                 <div class='col-lg-3 col-md-6 col-12'>
                                     <div class='card p-3 mx-4'>
                                         <div class='card-img'>
-                                            <img src={{this.image}} class='popular-product-img' />
+                                            <img src={{this.image}} class='popular-package-img' />
                                         </div>
                                         <div class='card-body p-0'>
                                             <h5 class='card-title py-3'>{{this.name}}</h5>

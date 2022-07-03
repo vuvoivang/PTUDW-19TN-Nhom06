@@ -3,6 +3,7 @@ const PackageStatistics = require('../../models/PackageStatistics');
 const Product = require('../../models/Product');
 const ProductStatistics = require('../../models/ProductStatistics');
 const Package = require('../../models/Package');
+const PaymentAccount = require('../../models/PaymentAccount');
 const utils = require('../../utils/functions');
 module.exports = {
     findByUserId: async (req, res) => {
@@ -21,6 +22,26 @@ module.exports = {
     },
     create: async (req, res) => {
         try {
+            if (req.body.paymentMethod == 'credit-card') {
+                paymentAccount = await PaymentAccount.findOne({paymentAccountId: req.userId});
+                if (!paymentAccount) {
+                    return res.status(400).json({
+                        status: 'Payment account not found',
+                        message: 'Vui lòng tạo tài khoản thanh toán trước khi đặt hàng',
+                        errorCode: 'PAYMENT_ACCOUNT_NOT_FOUND',
+                    });
+                }
+                if (paymentAccount.password != req.body.passwordAccountPayment) {
+                    return res.status(400).json({
+                        status: 'Wrong password',
+                        message: 'Mật khẩu tài khoản không đúng',
+                        errorCode: 'WRONG_PASSWORD',
+                    });
+                }
+
+            }
+
+
             let detail = req.body.productList.map((product) => {
                 return {
                     product: product.product._id,

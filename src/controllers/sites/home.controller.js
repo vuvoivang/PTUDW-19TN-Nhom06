@@ -6,12 +6,14 @@ module.exports = {
     get: async (req, res) => {
         try {
             // get all categories
-            // if(req.cookies.token) {
-            //     let decoded = await jwt.decode(req.cookies.token, {complete: true});
-            //     let page = decoded.payload.role;
-            //     res.redirect(`/${page}`);
-            //     return
-            // }
+            if (req.cookies.token) {
+                let decoded = await jwt.decode(req.cookies.token, { complete: true });
+                let page = decoded.payload.role;
+                if (page != 'user') {
+                    res.redirect(`/${page}`);
+                    return;
+                }
+            }
             let categories = await Category.find({});
             categories = categories.map((category) => category.toObject());
 
@@ -32,7 +34,7 @@ module.exports = {
             });
         }
     },
-    
+
     signIn: (req, res) => {
         res.render('layouts/sites/login');
     },
