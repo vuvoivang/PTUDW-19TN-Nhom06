@@ -3,6 +3,7 @@ const { transactionType } = require('../constants');
 const PaymentAccount = require('../models/PaymentAccount')
 const Transaction = require('../models/Transaction')
 const Account = require('../models/Account')
+const MinimumTransfer = require('../models/MinimumTransfer')
 
 module.exports = {
     createAccountPayment: async (req, res) => {
@@ -30,7 +31,7 @@ module.exports = {
             });
         }
     },
-    deposit: async (req, res) => {
+    exchange: async (req, res) => {
         try {
             let updatedAccountPayment = await PaymentAccount.findOne({
                 paymentAccountId: req.body.id,
@@ -39,6 +40,12 @@ module.exports = {
                 res.status(400).json({
                     status: "failed",
                     message: "Account payment không tồn tại!"
+                })
+                return
+            } else if (req.body.pay && updatedAccountPayment.balance > 0) {
+                res.status(400).json({
+                    status: "failed",
+                    message: "Bạn không có nợ để thanh toán!"
                 })
                 return
             }
@@ -52,21 +59,33 @@ module.exports = {
                 })
                 return
             }
+            let minimumTransfer = await MinimumTransfer.findOne({
+                type: "main",
+            });
+            if (req.body.amount < minimumTransfer.value) {
+                res.status(400).json({
+                    status: "failed",
+                    message: `Hạn mức giao dịch tối thiếu là ${minimumTransfer.value}!`
+                })
+                return
+            }
             if (updatedAccountPayment && systemAccountPayment) {
-                updatedAccountPayment.balance = Number(updatedAccountPayment.balance) + Number(req.body.amount);
-                systemAccountPayment.balance = Number(systemAccountPayment.balance) + Number(req.body.amount);
-                await updatedAccountPayment.save()
-                await systemAccountPayment.save()
+                const updatedAccountPaymentBalance = Number(updatedAccountPayment.balance) + Number(req.body.amount);
+                const systemAccountPaymentBalance = Number(systemAccountPayment.balance) + Number(req.body.amount);
+               
+                await updatedAccountPayment.updateOne({balance: updatedAccountPaymentBalance})
+                await systemAccountPayment.updateOne({balance: systemAccountPaymentBalance})
 
                 await Transaction.create({
                     accountId: updatedAccountPayment._id,
                     amount: req.body.amount,
                     type: transactionType.deposit,
-                    description: "Nạp tiền vào tài khoản"
+                    description: req.body.pay? "Thanh toán nợ":"Nạp tiền vào tài khoản"
 
                 })
+                
             }
-            res.json({ status: "success", data: updatedAccountPayment, message: "Liên kết tài khoản thanh toán thành công!" })
+            res.json({ status: "success", data: updatedAccountPayment, message: req.body.pay?"Thanh toán nợ thành công":"Nạp tiền vào tài khoản thanh toán thành công!" })
         } catch (error) {
             console.log(error);
             res.status(500).json({
@@ -75,5 +94,29 @@ module.exports = {
                 errorCode: "SERVER_ERROR"
             });
         }
-    }
+    },
+    updateMinimumTransfer: async (req, res) => {
+        try {
+            let updatedObject = await MinimumTransfer.findOne({
+                type: "main",
+            });
+            if (!updatedObject) {
+                MinimumTransfer.create({
+                    value: req.body.amount,
+                    type: "main",
+                })
+            }
+            else {
+                await updatedObject.updateOne({value: req.body.amount})
+            }
+            res.json({ status: "success", data: updatedObject, message: "Cập nhật hạn mức tối thiểu thành công!" })
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({
+                status: "Server Error",
+                message: 'Có lỗi xảy ra, vui lòng thử lại!!',
+                errorCode: "SERVER_ERROR"
+            });
+        }
+    },
 }
