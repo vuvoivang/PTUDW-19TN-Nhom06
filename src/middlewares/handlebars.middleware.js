@@ -103,6 +103,9 @@ const helper = {
     },
     date: function (date) {
         return formatDate(new Date(date));
+    },
+    formatVietnameseCurrency: function (money){
+        return money.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})
     }
 };
 
