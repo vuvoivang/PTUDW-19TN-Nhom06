@@ -93,7 +93,7 @@ accountSchema.pre('save', async function (next) {
 });
 
 accountSchema.methods.correctPassword = async function (candidate, password) {
-    return bcrypt.compare(candidate, password);
+    return await bcrypt.compare(candidate, password);
 };
 
 

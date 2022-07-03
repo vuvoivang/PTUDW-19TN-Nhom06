@@ -22,7 +22,8 @@ const pushBreadCrumb = (label, link, isActive = true) => {
     })
     thisBreadCrumb.mainLabel = label;
     return thisBreadCrumb;
-}
+};
+
 module.exports = {
     getManagementHistory: async (req, res) => {
         try {
@@ -111,14 +112,17 @@ module.exports = {
             res.locals.userId = userId;
             res.locals.breadCrumb = pushBreadCrumb("Tài khoản của tôi", `/user/${userId}/account`);
             let correspondingAccount = await Account.findById(userId);
+            const decoded = await jwt.decode(req.cookies.token, { complete: true });
+        const id = decoded.payload.id;
+        const user = await Account.findById(id).lean();
             if (!correspondingAccount) {
                 res.redirect('layouts/error/404');
             }
             console.log(correspondingAccount);
             res.render("layouts/user/account", {
                 layout: "user/main",
-                account: correspondingAccount.toObject()
-              
+                account: correspondingAccount.toObject(),
+                user
             });
         } catch (error) {
             res.status(500).json({
@@ -149,10 +153,14 @@ module.exports = {
                     }
                 });
             }
+            const decoded = await jwt.decode(req.cookies.token, { complete: true });
+        const id = decoded.payload.id;
+        const user = await Account.findById(id).lean();
             res.render("layouts/user/accountPayment", {
                 layout: "user/main",
                 isHaveAccountPayment: paymentAccount ? true : false,
-                paymentAccount
+                paymentAccount,
+                user
             });
         } catch (error) {
             res.status(500).json({
