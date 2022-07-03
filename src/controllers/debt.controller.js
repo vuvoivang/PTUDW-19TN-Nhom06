@@ -9,25 +9,25 @@ module.exports = {
     },
     updateDebts: async (req, res) => {
         try {
-            if (!req.body) {
+            if (!req.body.data) {
                 res.status(400).json({
                     status: "Update debts failed"
                 });
             }
             else {
-                let array = req.body;
+                let array = req.body.data;
                 for (let i = 0; i < array.length; i++) {
                     let { userId, debt } = array[i];
                     if (!userId || !debt) {
-                        res.status(200).json({
+                        res.json({
                             status: "Update debts failed",
                             result: "failed"
                         });
                     }
-                    else if (debt > 0) {
+                    else {
                         let user = await Account.findById(userId).lean();
                         if (!user) {
-                            res.status(200).json({
+                            res.json({
                                 status: "Update debts failed",
                                 result: "failed"
                             });
@@ -39,7 +39,7 @@ module.exports = {
                         }
                     }
                 }
-                res.status(200).json({
+                res.json({
                     status: "Update debt successfully",
                     result: "success"
                 });

@@ -90,6 +90,25 @@ function sortProductByPackage(products, productPackage) {
     return [...productsInPackage, ...productsNotInPackage]
 }
 
+function getNextStateRelated(state) {
+    switch (state) {
+        case 'F0':
+            return 'F1';
+        case 'F1':
+            return 'F2';
+        case 'F2':
+            return 'F3';
+        default:
+            return 'Khỏi bệnh';
+    }
+}
+
+function compareState(state1, state2) {
+    const state1Index = ['Khỏi bệnh', 'F0', 'F1', 'F2', 'F3'].indexOf(state1);
+    const state2Index = ['Khỏi bệnh', 'F0', 'F1', 'F2', 'F3'].indexOf(state2);
+    return state1Index > state2Index;
+}
+
 module.exports = {
     uploadFile,
     getFileURL,
@@ -100,4 +119,6 @@ module.exports = {
     createUrlFromImageName,
     getDate,
     sortProductByPackage,
+    getNextStateRelated,
+    compareState,
 };

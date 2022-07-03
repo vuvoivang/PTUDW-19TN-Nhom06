@@ -5,6 +5,7 @@ const Permission = require('../models/Permission');
 const LogManager = require('../models/LogManager');
 const { hyperlinksSidebarManager, managerBreadCrumb } = require('../constants/index');
 const debtController = require('../controllers/debt.controller');
+const jwt = require('jsonwebtoken');
 
 const pushBreadCrumb = (label, link, isActive = true) => {
     let thisBreadCrumb = {};
@@ -168,7 +169,7 @@ module.exports = {
         const id = decoded.payload.id;
         const user = await Account.findById(id).lean();
         let debts = await debtController.getDebts();
-
+        console.log(debts);
         res.render(`${path}/paymentManagement`, {
             layout: "manager/main",
             tag: "payment",

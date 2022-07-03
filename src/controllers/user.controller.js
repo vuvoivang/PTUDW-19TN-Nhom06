@@ -109,7 +109,7 @@ module.exports = {
             const user = await Account.findById(userId).lean();
 
             let orderId = (req.params.orderId);
-            res.locals.hyperlinks = hyperlinksSidebarUser(userId,  "myPaymentHistory");
+            res.locals.hyperlinks = hyperlinksSidebarUser(userId, "myPaymentHistory");
             res.locals.userId = userId;
             res.locals.breadCrumb = pushBreadCrumb("Lịch sử mua hàng", `/user/${userId}/myPaymentHistory`);
             let announces = await announceController.getAnnounceById(userId);
@@ -148,12 +148,8 @@ module.exports = {
             res.locals.userId = userId;
             res.locals.breadCrumb = pushBreadCrumb("Tài khoản của tôi", `/user/${userId}/account`);
             let announces = await announceController.getAnnounceById(userId);
-            // for (let i = 0; i< announces.length; i++) {
-            //     announces[i]['time'] = announceController.formatTime(announces[i].createdAt);
-            // }
             console.log(announces);
             let correspondingAccount = await Account.findById(userId);
-            
             if (!correspondingAccount) {
                 res.redirect('layouts/error/404');
             }
@@ -177,7 +173,7 @@ module.exports = {
             const decoded = await jwt.decode(req.cookies.token, { complete: true });
             let userId = decoded.payload.id;
             const user = await Account.findById(userId).lean();
-            
+
             res.locals.hyperlinks = hyperlinksSidebarUser(userId, 'accountPayment');
             res.locals.userId = userId;
             res.locals.breadCrumb = pushBreadCrumb("Tài khoản thanh toán", `/user/${userId}/accountPayment`);
@@ -186,7 +182,7 @@ module.exports = {
             //     announces[i]['time'] = announceController.formatTime(announces[i].createdAt);
             // }
             let paymentAccount = await PaymentAccount.findOne({
-                paymentAccountId: userId,
+                paymentAccountId: Number(userId),
             });
             if (paymentAccount) {
                 let transactions = await Transaction.find({
@@ -199,18 +195,16 @@ module.exports = {
                     }
                 });
             }
-            
             res.render("layouts/user/accountPayment", {
                 layout: "user/main",
                 isHaveAccountPayment: paymentAccount ? true : false,
                 paymentAccount,
-                user,
                 announces
             });
         } catch (error) {
             res.status(500).json({
                 status: "Server Error",
-                message: 'Có lỗi xảy ra, vui lòng thử lại!!',
+                message: error?.message || 'Có lỗi xảy ra, vui lòng thử lại!!',
                 errorCode: "SERVER_ERROR"
             });
         }

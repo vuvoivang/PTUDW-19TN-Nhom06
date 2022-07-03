@@ -9,7 +9,7 @@ const addressSchema = new Schema({
     province: String,
     district: String,
     ward: String,
-})
+});
 
 const accountSchema = new Schema({
     _id: {
@@ -50,11 +50,12 @@ const accountSchema = new Schema({
     },
     cardID: {
         type: String,
-        $regex: /^([0-9]{12})$/
+        // accept all number and length only = 9 or 12
+        match: /^[0-9]{9,12}$/,
     },
     state: {
         type: String,
-        enum: ["Khỏi bệnh", 'F0', 'F1', 'F2', 'F3', 'F4']
+        enum: ["Khỏi bệnh", 'F0', 'F1', 'F2', 'F3']
     },
     auth: {
         type: String,
@@ -71,6 +72,10 @@ const accountSchema = new Schema({
     quarantineLocation: {
         type: ObjectId,
         ref: 'QuarantineLocation',
+    },
+    isNew: {
+        type: Boolean,
+        default: false
     }
 }, {
     _id: false, // mongodb can't interfere this field

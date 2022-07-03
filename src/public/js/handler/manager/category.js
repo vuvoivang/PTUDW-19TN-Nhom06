@@ -1,4 +1,4 @@
-const ROOT_API = "http://localhost:3000/manager";
+const API_URL = "http://localhost:3000";
 
 const handleAddCategory = async () => {
     const name = document.querySelector("#form-add-category #category-name").value;
@@ -8,7 +8,7 @@ const handleAddCategory = async () => {
     formData.append("name", name);
     formData.append("image", image);
 
-    const res = await fetch(`${ROOT_API}/category-management`, {
+    const res = await fetch(`${API_URL}/manager/category-management`, {
         method: "POST",
         body: formData
     });
@@ -31,7 +31,7 @@ const handleUpdateCategory = async () => {
     if (image) {
         formData.append("image", image);
     }
-    const res = await fetch(`${ROOT_API}/category-management/${id}`, {
+    const res = await fetch(`${API_URL}/manager/category-management/${id}`, {
         method: "PUT",
         body: formData
     });
@@ -45,7 +45,7 @@ const handleUpdateCategory = async () => {
 
 const handleDeleteCategory = async () => {
     const id = document.querySelector("#form-delete-category #category-id").value;
-    const res = await fetch(`${ROOT_API}/category-management/${id}`, {
+    const res = await fetch(`${API_URL}/manager/category-management/${id}`, {
         method: "DELETE"
     });
     const data = await res.json();

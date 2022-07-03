@@ -28,13 +28,28 @@
                 </ul>
             </div>
         </div>
-        <div class='col-lg-9 packages pt-3 pb-3'>
-            <div class='d-lg-flex flex-lg-row d-flex flex-column-reverse'>
+        <div class='col-lg-9 packages pt-3 pb-3 mb-5'>
+            <div class='d-lg-flex ms-4 mb-3'>
+                <form class='d-flex mb-2'>
+                    <div class='me-md-auto pe-md-3 d-flex align-items-center'>
+                        <div class='input-group input-group-outline'>
+                            <label class='form-label'>
+                                Tìm kiếm
+                            </label>
+                            <input type='text' class='form-control navbar-search-field search-input' name='package' />
+                            <button class='btn btn-search'>
+                                <i class='fas fa-xl fa-search search-icon'></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class='row row-cols-lg-3 row-cols-md-2 row-cols-1 gy-5'>
                 {{#each packages}}
-                    <div class='col-lg-4 col-md-6 col-12'>
+                    <div>
                         <div class='card p-3 mx-4'>
                             <div class='card-img'>
-                                <img src={{this.image}} class='popular-product-img' />
+                                <img src={{this.image}} class='popular-package-img' />
                             </div>
                             <div class='card-body p-0'>
                                 <h5 class='card-title py-3'>{{this.name}}</h5>

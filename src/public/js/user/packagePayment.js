@@ -58,7 +58,7 @@ const submitOrder = async (package) => {
             return;
         } else formData.passwordAccountPayment = password;
     }
-
+    console.log(formData);
     // fetch api here
     res = await fetch(`${API_URL}/order`, {
         headers: {
@@ -68,6 +68,10 @@ const submitOrder = async (package) => {
         method: 'POST',
         body: JSON.stringify(formData),
     });
+    if (res.redirected) {
+        window.location.href = response.url;
+        return;
+    }
     const data = await res.json();
     if (data.status == 'success') {
         toastMessage('Đặt hàng thành công', 'success');

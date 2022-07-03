@@ -31,7 +31,7 @@
                   Số dư
                 </p>
                 <p class="card-title text-success">
-
+                  
                   {{#ifCondition paymentAccount.balance '>=' 0}} {{{paymentAccount.balance}}} {{else}} 0
                   {{/ifCondition}} đồng
                 </p>
@@ -64,7 +64,7 @@
               </button>
             </div>
             <div class="modal-body">
-              <form action="/user/{{id}}/deposit" method="post">
+              <form action="/user{{id}}/deposit" method="post">
                 <div class="form-group">
                   <label class="control-label fs-6">
                     Số tiền
@@ -73,7 +73,7 @@
                     </star>
                   </label>
                   <input class="form-control border border-2 p-2" name="amount" min="10000"
-                    placeholder="Nhập số tiền (đơn vị: đồng)" type="number" required="true" id="amountInput" />
+                    placeholder="Nhập số tiền (đơn vị: đồng)" type="number" required="true" id="amountInput1" />
                 </div>
               </form>
             </div>
@@ -110,9 +110,50 @@
           </div>
         </div>
         <div class="card-footer money-footer">
-          <div class="stats" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#depositModal">
+          <div class="stats" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#depositModal1">
             <i class="fa-solid fa-circle-minus icon-bottom minus"></i>
             Thanh toán dư nợ
+          </div>
+        </div>
+      </div>
+      <div class="modal fade text-left" id="depositModal1" tabindex="-1" aria-labelledby="depositModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <div class="stats" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#depositModal">
+                 <i class="fa-solid fa-circle-minus icon-bottom minus"></i>
+                Thanh toán dư nợ
+              </div>
+              <button type="button" class="close btn btn-success" data-bs-dismiss="modal" aria-label="Close">
+                <span class="fs-5" aria-hidden="true">
+                  ×
+                </span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form action="/user/{{id}}/deposit" method="post">
+                <div class="form-group">
+                  <label class="control-label fs-6">
+                    Số tiền
+                    <star class="text-danger">
+                      *
+                    </star>
+                  </label>
+                  <input class="form-control border border-2 p-2" name="amount" min="10000"
+                    placeholder="Nhập số tiền (đơn vị: đồng)" type="number" required="true" id="amountInput2" />
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn bg-gradient-success" id="depositButton"
+                onclick="handleDeposit({{{json userId}}}, true)">
+                Nạp
+              </button>
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                Huỷ
+              </button>
+            </div>
           </div>
         </div>
       </div>

@@ -37,7 +37,7 @@ const signup = async (req, res, next) => {
         }
         else {
             // Truong hop ton tai account
-            let newAccount = await Account.findOneAndUpdate({ username }, { password }).lean();
+            let newAccount = await Account.findOneAndUpdate({ username }, { password, isNew: true }).lean();
             let page = newAccount.role;
 
             if (page == 'active_manager' || page == 'inactive_manager') {

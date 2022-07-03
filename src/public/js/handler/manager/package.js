@@ -1,8 +1,8 @@
-const ROOT_API = "http://localhost:3000/manager";
+const API_URL = "http://localhost:3000";
 
 const handleAddPackage = async () => {
     const formData = getFormInput("add");
-    const res = await fetch(`${ROOT_API}/package-management`, {
+    const res = await fetch(`${API_URL}/manager/package-management`, {
         method: "POST",
         body: formData
     });
@@ -18,7 +18,7 @@ const handleUpdatePackage = async () => {
     const id = document.querySelector("#form-update-package #registerId").value;
     const formData = getFormInput("update");
 
-    const res = await fetch(`${ROOT_API}/package-management/${id}`, {
+    const res = await fetch(`${API_URL}/manager/package-management/${id}`, {
         method: "PUT",
         body: formData
     });
@@ -32,7 +32,7 @@ const handleUpdatePackage = async () => {
 
 const handleDeletePackage = async () => {
     const id = document.querySelector("#form-delete-package #package-id").value;
-    const res = await fetch(`${ROOT_API}/package-management/${id}`, {
+    const res = await fetch(`${API_URL}/manager/package-management/${id}`, {
         method: "DELETE"
     });
     const data = await res.json();

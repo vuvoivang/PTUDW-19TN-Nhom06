@@ -49,21 +49,22 @@ const handleBankingConnect = (id) => {
         .catch(err => toastInform(err || "Có lỗi xảy ra, vui lòng thử lại", true))
 }
 
-const handleDeposit = (id) => {
-    const amount = document.getElementById('amountInput').value;
+const handleDeposit = (id, pay = false) => {
+    const type = pay? "2":"1";
+    const amount = document.getElementById(`amountInput${type}`).value;
 
     if (amount <= MIN_DEPOSIT) {
         toastInform(`Số tiền nạp ít nhất là ${MIN_DEPOSIT} đồng!`);
         return;
     }
 
-    fetch(`${API_URL}/v1/deposit`, {
+    fetch(`${API_URL}/v1/exchange`, {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
         method: "POST",
-        body: JSON.stringify({ id, amount })
+        body: JSON.stringify({ id, amount, pay })
     }).then(resp => resp.json())
         .then(result => {
             const { status, message } = result;
@@ -72,7 +73,7 @@ const handleDeposit = (id) => {
                 return
             }
             else {
-                toastInform(message || "Nạp tiền thành công!", true);
+                toastInform(message, true);
             }
 
         })

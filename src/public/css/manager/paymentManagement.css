@@ -1,0 +1,11 @@
+#updateMinimumTransferModal{
+    margin-top: 10px;
+   
+ }
+ #updateMinimumTransferModal .modal-dialog{
+    max-width: 700px;
+ }
+ 
+ #updateMinimumTransferModal .category{
+     margin: 20px 10px;
+ }

@@ -2,6 +2,7 @@ const Category = require('../../models/Category');
 const Package = require('../../models/Package');
 const jwt = require('jsonwebtoken');
 const Account = require('../../models/Account');
+const PackageStatistics = require('../../models/PackageStatistics');
 const { hyperlinksSidebarAdmin, hyperlinksSidebarUser, hyperlinksSidebarManager } = require('../../constants/index');
 
 module.exports = {
@@ -28,9 +29,28 @@ module.exports = {
             let categories = await Category.find({});
             categories = categories.map((category) => category.toObject());
 
-            // get all package ? TODO: popular packages
-            let packages = await Package.find({});
-            packages = packages.map((package) => package.toObject());
+            // get all popular packages
+            let packages = await Package.find({}).lean();
+            let packageStatistics = await PackageStatistics.find({}).lean();
+            packages.forEach((package) => {
+                package.totalSold = 0;
+                packageStatistics.forEach((statistic) => {
+                    if (package._id == statistic.package) {
+                        package.totalSold += statistic.totalSold;
+                    }
+                });
+            });
+            packages = packages.sort(function (x, y) {
+                if (x.totalSold < y.totalSold) {
+                    return 1;
+                }
+                if (x.totalSold > y.totalSold) {
+                    return -1;
+                }
+                return 0;
+            });
+            // get max 8 packages
+            packages = packages.slice(0, 8);
             res.render('layouts/sites/home', {
                 layout: 'sites/main',
                 categories,
@@ -45,7 +65,7 @@ module.exports = {
             });
         }
     },
-    
+
     signIn: (req, res) => {
         res.render('layouts/sites/signin');
     },
@@ -54,5 +74,5 @@ module.exports = {
     },
     authorize: (req, res) => {
         res.render('layouts/sites/authorize');
-    }
+    },
 };
