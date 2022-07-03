@@ -4,9 +4,7 @@
   "description": "My Project in Web Development course",
   "main": "src/app.js",
   "scripts": {
-    "build": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "webbuild": "webpack",
     "start": "node src/app.js",
     "dev": "nodemon src/app.js"
   },

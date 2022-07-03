@@ -16,7 +16,7 @@
     <ul class="navbar-nav">
       {{#each hyperlinks}}
       <li class="nav-item">
-        <a class="nav-link text-white" href="{{href}}">
+        <a class="nav-link text-white {{#ifCondition isActive '==' true}}active{{/ifCondition}}" href="{{href}}" >
           <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
             <i class="{{icon}}"></i>
           </div>
@@ -25,6 +25,7 @@
           </span>
         </a>
       </li>
+       <h3>{{pageTag}}</h3>
       {{/each}}
     </ul>
   </div>
