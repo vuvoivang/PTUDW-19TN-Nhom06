@@ -1,0 +1,215 @@
+{{#section "title"}}
+<title>
+    Thông tin bệnh nhân
+</title>
+{{/section}}
+<form id="form-update-patient" class="card" onsubmit="event.preventDefault(); handleUpdatePatient();">
+    <div class="card-header">
+        <div class="card-title">
+            <h2>
+                Thông tin bệnh nhân <span id="registerUsername">{{patient.username}}</span>
+            </h2>
+        </div>
+    </div>
+    <div class="card-body">
+        <input type="text" value="{{patient._id}}" name="id" id="registerId" hidden>
+        <div class="row mb-3">
+            <div class="col-12 col-sm-6 form-group">
+                <label class="control-label" for="registerName">
+                    Họ tên
+                    <span class="text-danger">
+                        *
+                    </span>
+                </label>
+                <input class="form-control" name="name" id="registerName" value="{{patient.displayName}}" type="text"
+                    required />
+            </div>
+            <div class="col-12 col-sm-6 form-group">
+                <label class="control-label" for="registerCardID">
+                    Số CMND/ CCCD
+                    <span class="text-danger">
+                        *
+                    </span>
+                </label>
+                <input class="form-control" name="cardID" id="registerCardID" value="{{patient.cardID}}" type="text"
+                    pattern="[0-9]{9,12}" required />
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-12 col-sm-6 form-group">
+                <label class="control-label" for="registerDOB">
+                    Ngày sinh
+                    <span class="text-danger">
+                        *
+                    </span>
+                </label>
+                <input class="form-control" name="dob" id="registerDOB" value="{{patient.dateOfBirth}}" type="date"
+                    required />
+            </div>
+            <div class="col-12 col-sm-6 form-group">
+                <label class="control-label" for="registerState">
+                    Trạng thái
+                    <span class="text-danger">
+                        *
+                    </span>
+                </label>
+                <select class="form-select" name="state" id="registerState" value="{{patient.state}}" required>
+                    <option value="F0">F0</option>
+                    <option value="F1">F1</option>
+                    <option value="F2">F2</option>
+                    <option value="F3">F3</option>
+                </select>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-12 col-sm-6 form-group">
+                <label class="control-label" for="registerProvince">
+                    Tỉnh thành
+                    <span class="text-danger">
+                        *
+                    </span>
+                </label>
+                <select class="form-select" name="province" id="registerProvince" required>
+                </select>
+            </div>
+            <div class="col-12 col-sm-6 form-group">
+                <label class="control-label" for="registerDistrict">
+                    Quận huyện
+                    <span class="text-danger">
+                        *
+                    </span>
+                </label>
+                <select class="form-select" name="district" id="registerDistrict" required>
+                </select>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-12 col-sm-6 form-group">
+                <label class="control-label" for="registerWard">
+                    Phường xã
+                    <span class="text-danger">
+                        *
+                    </span>
+                </label>
+                <select class="form-select" name="ward" id="registerWard" required>
+                </select>
+            </div>
+            <div class="col-12 col-sm-6 form-group">
+                <label class="control-label" for="registerQuarantine">
+                    Nơi điều trị / cách ly
+                    <span class="text-danger">
+                        *
+                    </span>
+                </label>
+                <select class="form-select" name="Quarantine" id="registerQuarantine"
+                    value="{{patient.quarantineLocation}}" required>
+                    {{#each quarantineLocations}}
+                    <option value="{{this._id}}">
+                        {{this.name}}
+                    </option>
+                    {{/each}}
+                </select>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="form-group">
+                <label class="control-label" for="registerRelates">
+                    ID những người liên quan (Vui lòng chọn trong danh sách bệnh nhân)
+                </label>
+                <input class="form-control" name="relates" id="registerRelates" type="text" onkeydown="return false;"
+                    style="caret-color: transparent !important;    background-color: #f0f2f5;
+    opacity: 1;" />
+            </div>
+        </div>
+    </div>
+    <div class="card-footer mx-auto">
+        <button type="button" class="btn btn-secondary mx-2" onclick="goBack()">
+            Quay về
+        </button>
+        <button type="submit" class="btn btn-primary mx-2">
+            Lưu thay đổi
+        </button>
+    </div>
+</form>
+
+<div class="pt-4">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">
+                Danh sách bệnh nhân
+            </h2>
+        </div>
+        <div class="card-body table-responsive py-3 table-view">
+            <table class="table table-hover" id="data_table">
+                <thead class="text-primary">
+                    <tr>
+                        <th>
+                            ID
+                        </th>
+                        <th>
+                            Username
+                        </th>
+                        <th>
+                            Họ tên
+                        </th>
+                        <th>
+                            Địa chỉ
+                        </th>
+                        <th class="text-center">
+                            Trạng thái
+                        </th>
+                        <th class="text-center">
+                            Đánh dấu liên quan
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each relates}}
+                    <form>
+                        <tr id="patient-relate-{{this._id}}">
+                            <td>
+                                {{this._id}}
+                            </td>
+                            <td>
+                                {{this.username}}
+                            </td>
+                            <td>
+                                {{this.displayName}}
+                            </td>
+                            <td>
+                                {{ get this.address 'province'}}
+                            </td>
+                            <td class="text-center">
+                                {{this.state}}
+                            </td>
+                            <td class="text-center">
+                                <input id="check-relate-{{this._id}}" type="checkbox" name="relate" value="{{this._id}}"
+                                    onclick="handleRelate({{{json this._id}}}, 'add')" />
+                            </td>
+                        </tr>
+                    </form>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{{#section "script"}}
+<script>
+    $(document).ready(function () {
+        $('#data_table').DataTable();
+    });
+</script>
+<script src="/js/custom/addressAPI.js"></script>
+<script src="/js/custom/relatePatient.js"></script>
+<script>
+    fetchAPI()
+</script>
+<script src="/js/handler/manager/patient.js"></script>
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+{{/section}}

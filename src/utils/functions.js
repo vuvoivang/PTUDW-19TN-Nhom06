@@ -109,6 +109,14 @@ function compareState(state1, state2) {
     return state1Index > state2Index;
 }
 
+// format Date type to format yyyy-MM-dd
+function formatDate(date) {
+    const d = new Date(date);
+    const month = `0${d.getMonth() + 1}`.slice(-2);
+    const day = `0${d.getDate()}`.slice(-2);
+    return `${d.getFullYear()}-${month}-${day}`;
+}
+
 module.exports = {
     uploadFile,
     getFileURL,
@@ -121,4 +129,5 @@ module.exports = {
     sortProductByPackage,
     getNextStateRelated,
     compareState,
+    formatDate,
 };

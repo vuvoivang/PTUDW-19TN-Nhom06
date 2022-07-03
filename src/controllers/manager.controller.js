@@ -184,25 +184,35 @@ module.exports = {
             if (!username || !password) {
                 return next(new AppError('Please provide a valid username and password', 400))
             }
-            // Truong hop chua ton tai account
-            let data = {
-                username,
-                password,
-                role: 'active_manager',
-                auth: 'normal'
+            else {
+                let user = await Account.findOne({ username }).lean();
+                if (user) {
+                    res.status(200).json({
+                        status: "Create manager failed",
+                        message: "username existed",
+                        user
+                    });
+                }
+                else {
+                    // Truong hop chua ton tai account
+                    let newAccount = await Account.create({
+                        username,
+                        password,
+                        role: "active_manager"
+                    });
+                    let newPermiss = await createPermission(username, permissions);
+
+                    res.status(200).json({
+                        status: "Create manager successfully",
+                        newPermiss,
+                        newAccount
+                    });
+                }
             }
-
-            const newAccount = await Account.create(data);
-            const newPermiss = await createPermission(newAccount._id, permissions);
-
-            res.status(200).json({
-                status: "Create manager successfully",
-                newPermiss
-            });
         } catch (error) {
             res.status(400).json({
                 status: "Error creating manager",
-                message: error
+                message: error.message
             });
         }
     },

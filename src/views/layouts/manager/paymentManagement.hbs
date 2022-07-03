@@ -14,17 +14,16 @@
     <div class="card">
       <div class="card-header">
         <div class="d-flex justify-content-between">
-          <h4>
+          <h2>
             Hạn mức giao dịch tối thiểu:
             <span class="text-success">
-              {{value}}
+              {{formatVietnameseCurrency value}}
             </span>
-          </h4>
-          <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#updateMinimumTransferModal">Cập nhật
-            hạn mức</button>
+          </h2>
+          <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#updateMinimumTransferModal">Cập nhật hạn mức</button>
         </div>
         <h4 class="card-title p-3">
-          Danh sách bệnh nhân
+          Danh sách người dùng đang nợ
         </h4>
       </div>
       <div class="card-body">
@@ -32,8 +31,14 @@
           <table class="table table-hover" id="data_table">
             <thead class="text-primary">
               <tr>
+                 <th class="text-left">
+                  Id
+                </th>
                 <th class="text-left">
-                  Tên bệnh nhân
+                  Tên người nợ
+                </th>
+                <th class="text-right">
+                  Username
                 </th>
                 <th class="text-right">
                   Tình trạng
