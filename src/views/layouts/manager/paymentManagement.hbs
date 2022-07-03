@@ -23,7 +23,7 @@
           <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#updateMinimumTransferModal">Cập nhật hạn mức</button>
         </div>
         <h4 class="card-title p-3">
-          Danh sách bệnh nhân
+          Danh sách người dùng đang nợ
         </h4>
       </div>
       <div class="card-body">
@@ -31,8 +31,14 @@
           <table class="table table-hover" id="data_table">
             <thead class="text-primary">
               <tr>
+                 <th class="text-left">
+                  Id
+                </th>
                 <th class="text-left">
-                  Tên bệnh nhân
+                  Tên người nợ
+                </th>
+                <th class="text-right">
+                  Username
                 </th>
                 <th class="text-right">
                   Tình trạng
@@ -46,19 +52,22 @@
               </tr>
             </thead>
             <tbody>
-              {{#each debts}}
+              {{#each debtors}}
               <tr>
                 <td id="userId" disabled>
-                  {{userId}}
+                  {{paymentAccountId}}
                 </td>
                 <td class="text-left">
-                  {{displayName}}
+                  {{this.info.displayName}}
+                </td>
+                <td class="text-left">
+                  {{this.info.username}}
                 </td>
                 <td>
-                  {{state}}
+                 {{this.info.state}}
                 </td>
                 <td class="text-center" id="debt">
-                  {{debt}}
+                  {{formatVietnameseCurrency this.balance}}
                 </td>
                 <td class="text-center">
                   <div class="form-check">
