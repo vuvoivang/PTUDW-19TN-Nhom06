@@ -1,23 +1,27 @@
-const hyperlinksSidebarUser = (userId) => [
+const hyperlinksSidebarUser = (userId, currentTab) => [
     {
         label: "Tài khoản của tôi",
         href: `/user/${userId}/account`,
-        icon: "fa-solid fa-circle-user fa-lg"
+        icon: "fa-solid fa-circle-user fa-lg",
+        isActive: "account" === currentTab
     },
     {
         label: "Lịch sử được quản lý",
         href: `/user/${userId}/managementHistory`,
-        icon: "fa-solid fa-clock-rotate-left fa-lg"
+        icon: "fa-solid fa-clock-rotate-left fa-lg",
+        isActive: "myManagementHistory" === currentTab
     },
     {
         label: "Lịch sử mua hàng",
         href: `/user/${userId}/paymentHistory`,
-        icon: "fa fa-cart-plus fa-lg"
+        icon: "fa fa-cart-plus fa-l g",
+        isActive: "myPaymentHistory" === currentTab
     },
     {
         label: "Tài khoản thanh toán",
         href: `/user/${userId}/accountPayment`,
-        icon: "fa-solid fa-user-plus fa-lg"
+        icon: "fa-solid fa-user-plus fa-lg",
+        isActive: "accountPayment" === currentTab
     }
 ];
 const userBreadCrumb = {

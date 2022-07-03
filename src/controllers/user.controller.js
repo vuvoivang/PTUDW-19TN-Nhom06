@@ -28,7 +28,7 @@ module.exports = {
         try {
             // push breadcrumb for this page
             let userId = (req.params.userId);
-            res.locals.hyperlinks = hyperlinksSidebarUser(userId);
+            res.locals.hyperlinks = hyperlinksSidebarUser(userId, "myManagementHistory");
             res.locals.userId = userId;
             res.locals.breadCrumb = pushBreadCrumb("Lịch sử được quản lý", `/user/${userId}/myManagementHistory`);
             let managementHistory = await LogManager.find({
@@ -54,7 +54,7 @@ module.exports = {
         try {
             // push breadcrumb for this page
             let userId = (req.params.userId);
-            res.locals.hyperlinks = hyperlinksSidebarUser(userId);
+            res.locals.hyperlinks = hyperlinksSidebarUser(userId, "myPaymentHistory");
             res.locals.userId = userId;
             res.locals.breadCrumb = pushBreadCrumb("Lịch sử mua hàng", `/user/${userId}/myPaymentHistory`);
             const ordersOfUser = await Order.find({ user: Number(userId) }).lean();
@@ -82,7 +82,7 @@ module.exports = {
             // push breadcrumb for this page
             let userId = (req.params.userId);
             let orderId = (req.params.orderId);
-            res.locals.hyperlinks = hyperlinksSidebarUser(userId);
+            res.locals.hyperlinks = hyperlinksSidebarUser(userId,  "myPaymentHistory");
             res.locals.userId = userId;
             res.locals.breadCrumb = pushBreadCrumb("Lịch sử mua hàng", `/user/${userId}/myPaymentHistory`);
             const order = await Order.findById(orderId).lean();
@@ -107,7 +107,7 @@ module.exports = {
         try {
             // push breadcrumb for this page
             let userId = (req.params.userId);
-            res.locals.hyperlinks = hyperlinksSidebarUser(userId);
+            res.locals.hyperlinks = hyperlinksSidebarUser(userId, "account");
             res.locals.userId = userId;
             res.locals.breadCrumb = pushBreadCrumb("Tài khoản của tôi", `/user/${userId}/account`);
             let correspondingAccount = await Account.findById(userId);
@@ -118,6 +118,7 @@ module.exports = {
             res.render("layouts/user/account", {
                 layout: "user/main",
                 account: correspondingAccount.toObject()
+              
             });
         } catch (error) {
             res.status(500).json({
@@ -131,7 +132,7 @@ module.exports = {
         try {
             // push breadcrumb for this page
             let userId = (req.params.userId);
-            res.locals.hyperlinks = hyperlinksSidebarUser(userId);
+            res.locals.hyperlinks = hyperlinksSidebarUser(userId, "accountPayment");
             res.locals.userId = userId;
             res.locals.breadCrumb = pushBreadCrumb("Tài khoản thanh toán", `/user/${userId}/accountPayment`);
             let paymentAccount = await PaymentAccount.findOne({
@@ -151,7 +152,7 @@ module.exports = {
             res.render("layouts/user/accountPayment", {
                 layout: "user/main",
                 isHaveAccountPayment: paymentAccount ? true : false,
-                paymentAccount,
+                paymentAccount
             });
         } catch (error) {
             res.status(500).json({
