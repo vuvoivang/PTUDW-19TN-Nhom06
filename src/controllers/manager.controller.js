@@ -3,6 +3,20 @@ const path = "layouts/manager";
 const Account = require('../models/Account');
 const Permission = require('../models/Permission');
 const LogManager = require('../models/LogManager');
+const { hyperlinksSidebarManager, managerBreadCrumb } = require('../constants/index');
+
+const pushBreadCrumb = (label, link, isActive = true) => {
+    let thisBreadCrumb = {};
+    Object.assign(thisBreadCrumb, userBreadCrumb);
+    thisBreadCrumb.path = [...userBreadCrumb.path];
+    thisBreadCrumb.path.push({
+        label,
+        link,
+        isActive
+    })
+    thisBreadCrumb.mainLabel = label;
+    return thisBreadCrumb;
+};
 
 const createPermission = async (managerUsername, permissions) => {
     try {
@@ -57,28 +71,46 @@ module.exports = {
     },
 
     // patient
-    getPatientManagement: (req, res) => {
+    getPatientManagement: async (req, res) => {
+        res.locals.hyperlinks = hyperlinksSidebarManager;
+        res.locals.breadCrumb = pushBreadCrumb("Quản lý bệnh nhân", '/manager/patient-management');
+        const decoded = await jwt.decode(req.cookies.token, { complete: true });
+        const id = decoded.payload.id;
+        const user = await Account.findById(id).lean();
         res.render(`${path}/patientManagement`, {
             layout: "manager/main",
-            tag: "patient"
+            tag: "patient",
+            user
         });
     },
 
     // category
-    getCategoryManagement: (req, res) => {
+    getCategoryManagement: async (req, res) => {
+        res.locals.hyperlinks = hyperlinksSidebarManager;
+        res.locals.breadCrumb = pushBreadCrumb("Quản lý danh mục", '/manager/category-management');
+        const decoded = await jwt.decode(req.cookies.token, { complete: true });
+        const id = decoded.payload.id;
+        const user = await Account.findById(id).lean();
         res.render(`${path}/categoryManagement`, {
             layout: "manager/main",
             tag: "category",
-            categories
-        })
+            categories,
+            user
+        });
     },
 
     // product
-    getProductManagement: (req, res) => {
+    getProductManagement: async (req, res) => {
+        res.locals.hyperlinks = hyperlinksSidebarManager;
+        res.locals.breadCrumb = pushBreadCrumb("Quản lý nhu yếu phẩm", '/manager/product-management');
+        const decoded = await jwt.decode(req.cookies.token, { complete: true });
+        const id = decoded.payload.id;
+        const user = await Account.findById(id).lean();
         res.render(`${path}/productManagement`, {
             layout: "manager/main",
             tag: "product",
-            products
+            products,
+            user
         })
     },
 
@@ -97,11 +129,17 @@ module.exports = {
     },
 
     // package
-    getPackageManagement: (req, res) => {
+    getPackageManagement: async (req, res) => {
+        res.locals.hyperlinks = hyperlinksSidebarManager;
+        res.locals.breadCrumb = pushBreadCrumb("Quản lý gói", '/manager/package-management');
+        const decoded = await jwt.decode(req.cookies.token, { complete: true });
+        const id = decoded.payload.id;
+        const user = await Account.findById(id).lean();
         res.render(`${path}/packageManagement`, {
             layout: "manager/main",
             tag: "package",
-            packages
+            packages,
+            user
         })
     },
 
@@ -122,10 +160,16 @@ module.exports = {
     },
 
     // payment
-    getPaymentManagement: (req, res) => {
+    getPaymentManagement: async (req, res) => {
+        res.locals.hyperlinks = hyperlinksSidebarManager;
+        res.locals.breadCrumb = pushBreadCrumb("Quản lý thanh toán", '/manager/payment-management');
+        const decoded = await jwt.decode(req.cookies.token, { complete: true });
+        const id = decoded.payload.id;
+        const user = await Account.findById(id).lean();
         res.render(`${path}/paymentManagement`, {
             layout: "manager/main",
-            tag: "payment"
+            tag: "payment",
+            user
         })
     },
     createManager: async (req, res, next) => {

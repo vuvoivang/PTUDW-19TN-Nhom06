@@ -12,7 +12,7 @@ function showToast(message) {
     x.className = "show";
     setTimeout(() => {
         x.className = x.className.replace("show", "");
-    }, 3000);
+    }, 2000);
 };
 
 

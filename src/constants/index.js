@@ -73,6 +73,51 @@ const adminBreadCrumb = {
     mainLabel: "Quản trị viên"
 }
 
+const hyperlinksSidebarManager = [
+    {
+        label: "Quản lý bệnh nhân",
+        href: "/manager/patient-management",
+        icon: "fa-solid fa-bed-pulse",
+        style: ''
+    },
+    {
+        label: "Quản lý danh mục",
+        href: "/manager/category-management",
+        icon: "material-icons",
+        style: ''
+    },
+    {
+        label: "Quản lý nhu yếu phẩm",
+        href: "/manager/product-management",
+        icon: "fa-solid fa-cube",
+        style: ''
+    },
+    {
+        label: "Quản lý gói",
+        href: "/manager/package-management",
+        icon: "fa-solid fa-box",
+        style: ''
+    },
+    {
+        label: "Quản lý thanh toán",
+        href: "/manager/payment-management",
+        icon: "fa-solid fa-credit-card",
+        style: ''
+    }
+];
+
+const managerBreadCrumb = {
+    path: [
+        {
+            label: "Quản lý",
+            link: "/manager"
+        }
+    ],
+    mainLabel: "Quản lý"
+}
+
+
+
 module.exports = {
     hyperlinksSidebarUser,
     userBreadCrumb,
@@ -80,5 +125,7 @@ module.exports = {
     MIN_DEPOSIT,
     PREFIX_STORAGE_FILE,
     hyperlinksSidebarAdmin,
-    adminBreadCrumb
+    adminBreadCrumb,
+    hyperlinksSidebarManager,
+    managerBreadCrumb
 }

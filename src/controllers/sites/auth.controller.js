@@ -147,6 +147,7 @@ const signIn = async (req, res, next) => {
         }
         const account = await Account.findOne({ username }).select('+password');
         let check = await account.correctPassword(password, account.password);
+        console.log('Compare password = ', check);
         if (check == true) {
             console.log("\nCheck password\n");
             let page = account.role;
@@ -155,7 +156,9 @@ const signIn = async (req, res, next) => {
                 page = page.split("_")[1];
             }
             createSendToken(account._id, page, res, 'token');
-
+            if (page == 'user') {
+                page = '';
+            }
             res.status(200).json({
                 status: "Sign up successfully",
                 page: `/${page}`

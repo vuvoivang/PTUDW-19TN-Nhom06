@@ -2,7 +2,7 @@ const Category = require('../../models/Category');
 const Package = require('../../models/Package');
 const jwt = require('jsonwebtoken');
 const Account = require('../../models/Account');
-const { hyperlinksSidebarAdmin } = require('../../constants/index');
+const { hyperlinksSidebarAdmin, hyperlinksSidebarUser, hyperlinksSidebarManager } = require('../../constants/index');
 
 module.exports = {
     get: async (req, res) => {
@@ -17,6 +17,12 @@ module.exports = {
                 res.locals.isLoggedIn = true;
                 if (role == 'admin') {
                     res.locals.hyperlinks = hyperlinksSidebarAdmin;
+                }
+                else if (role == 'user') {
+                    res.locals.hyperlinks = hyperlinksSidebarUser(id);
+                }
+                else {
+                    res.locals.hyperlinks = hyperlinksSidebarManager;
                 }
             }
             let categories = await Category.find({});

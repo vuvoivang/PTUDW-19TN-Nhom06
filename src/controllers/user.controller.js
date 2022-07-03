@@ -16,7 +16,8 @@ const pushBreadCrumb = (label, link, isActive = true) => {
     })
     thisBreadCrumb.mainLabel = label;
     return thisBreadCrumb;
-}
+};
+
 module.exports = {
     getManagementHistory: async (req, res) => {
         try {
