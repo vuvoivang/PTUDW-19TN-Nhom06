@@ -20,6 +20,9 @@ a.fas {
 }
 .card-title {
     color: #05a833;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .popular-product-title {
