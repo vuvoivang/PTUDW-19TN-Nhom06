@@ -161,7 +161,6 @@ module.exports = {
             // console.log(result);
             res.json({ status: 'success', data: result });
         } catch (error) {
-            console.log(error);
             res.status(500).json({
                 status: 'Server Error',
                 message: 'Có lỗi xảy ra, vui lòng thử lại!!',
@@ -169,7 +168,7 @@ module.exports = {
             });
         }
     },
-    statisticsPackageByMonth: async (req, res) => {
+    statisticPackageByMonth: async (req, res) => {
         try {
             let packageStatistics = await PackageStatistics.find({});
 
@@ -197,7 +196,6 @@ module.exports = {
             // console.log(result);
             res.json({ status: 'success', data: result });
         } catch (error) {
-            console.log(error);
             res.status(500).json({
                 status: 'Server Error',
                 message: 'Có lỗi xảy ra, vui lòng thử lại!!',

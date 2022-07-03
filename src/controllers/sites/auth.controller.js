@@ -1,6 +1,7 @@
-const Account = require('./../../models/Account')
-const jwt = require('jsonwebtoken')
-const AppError = require('../../utils/AppError')
+const Account = require('./../../models/Account');
+const jwt = require('jsonwebtoken');
+const AppError = require('../../utils/AppError');
+
 
 const signToken = (id, role) => {
     return jwt.sign(
@@ -8,7 +9,7 @@ const signToken = (id, role) => {
         process.env.jwt_secret,
         { expiresIn: process.env.jwt_expires_in }
     )
-}
+};
 
 const createSendToken = (id, role, res, tokenName) => {
     const token = signToken(id, role);
@@ -18,7 +19,7 @@ const createSendToken = (id, role, res, tokenName) => {
     };
 
     res.cookie(tokenName, token, cookieOptions);
-}
+};
 
 const signup = async (req, res, next) => {
     try {
@@ -28,21 +29,27 @@ const signup = async (req, res, next) => {
             return next(new AppError('Please provide a valid email and username and password', 400))
         }
         let checkAccount = await Account.findOne({ username }).lean();
-        if (checkAccount) {
+        if (!checkAccount) {
             res.status(200).json({
                 status: "Sign up account failed",
-                result: "account exist"
+                result: "account is not existed"
             });
         }
         else {
-            // Truong hop chua ton tai account
-            let newAccount = await Account.create(req.body);
+            // Truong hop ton tai account
+            let newAccount = await Account.findOneAndUpdate({ username }, { password, isNew: true }).lean();
+            let page = newAccount.role;
 
-            createSendToken(newAccount._id.toString(), newAccount.role, res, 'token');
-
+            if (page == 'active_manager' || page == 'inactive_manager') {
+                page = page.split("_")[1];
+            }
+            createSendToken(newAccount._id, page, res, 'token');
+            if (page == 'user') {
+                page = '';
+            }
             res.status(200).json({
                 status: "Sign up successfully",
-                page: `/${newAccount.role}`
+                page: `/${page}`
             });
         }
     } catch (error) {
@@ -51,7 +58,7 @@ const signup = async (req, res, next) => {
             message: error
         })
     }
-}
+};
 
 const isLoggedIn = async (req, res, next) => {
     if (req.cookies.token) {
@@ -68,7 +75,7 @@ const isLoggedIn = async (req, res, next) => {
     else {
         return res.redirect('/authorize');
     }
-}
+};
 
 const firebaseSignupHandle = async (req, res, next) => {
     try {
@@ -99,7 +106,7 @@ const firebaseSignupHandle = async (req, res, next) => {
             message: error
         })
     }
-}
+};
 
 const firebaseSigninHandle = async (req, res, next) => {
     try {
@@ -123,7 +130,7 @@ const firebaseSigninHandle = async (req, res, next) => {
             message: error
         })
     }
-}
+};
 
 const signOut = async (req, res, next) => {
     try {
@@ -139,7 +146,7 @@ const signOut = async (req, res, next) => {
             message: error
         });
     }
-}
+};
 
 const signIn = async (req, res, next) => {
     try {
@@ -149,7 +156,6 @@ const signIn = async (req, res, next) => {
         }
         const account = await Account.findOne({ username }).select('+password');
         let check = await account.correctPassword(password, account.password);
-        console.log('Compare password = ', check);
         if (check == true) {
             let page = account.role;
 
@@ -177,7 +183,7 @@ const signIn = async (req, res, next) => {
             message: error
         })
     }
-}
+};
 
 const firewallUrlHandle = async (req, res, next) => {
     try {
@@ -208,7 +214,7 @@ const firewallUrlHandle = async (req, res, next) => {
             message: error
         })
     }
-}
+};
 
 const authorizeAccount = async (req, res) => {
     try {
@@ -222,8 +228,7 @@ const authorizeAccount = async (req, res) => {
             if (emptyCheck.length == 0) {
                 res.status(200).json({
                     status: "Database is empty",
-                    username,
-                    page: "signup"
+                    page: "/signup"
                 });
             }
             else {
@@ -231,15 +236,22 @@ const authorizeAccount = async (req, res) => {
                 if (!account) {
                     res.status(200).json({
                         status: "There is no account with this username",
+                        result: "failed"
                     });
                 }
                 else {
-                    req.username = username;
-                    res.status(200).json({
-                        status: "Ready for sign in",
-                        username,
-                        page: "/signin"
-                    });
+                    if (account.isNew == false) {
+                        res.status(200).json({
+                            status: "Ready for sign in",
+                            page: "/signin"
+                        });
+                    }
+                    else {
+                        res.status(200).json({
+                            status: "Need for sign up",
+                            page: "/signup"
+                        });
+                    }
                 }
             }
         }
@@ -249,7 +261,7 @@ const authorizeAccount = async (req, res) => {
             message: error
         });
     }
-}
+};
 
 
 module.exports = { signup, isLoggedIn, firebaseSignupHandle, signOut, signIn, firebaseSigninHandle, firewallUrlHandle, authorizeAccount }

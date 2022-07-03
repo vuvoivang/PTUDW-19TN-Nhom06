@@ -188,7 +188,7 @@ module.exports = {
                 relatedUsers.push(relatedUser);
             }
         }
-        console.log(relatedUsers);
+        
         res.render(`${path}/historyPatient`, {
             layout: "manager/main",
             tag: "patient",
