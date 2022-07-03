@@ -45,7 +45,6 @@ module.exports = {
                     });
                 }
             }
-
             let detail = req.body.productList.map((product) => {
                 return {
                     product: product.product._id,
@@ -117,7 +116,7 @@ module.exports = {
                     accountId: paymentAccount._id,
                     amount: req.body.totalAmount,
                     type: 'payment',
-                    description: 'Thanh toán đơn hàng',
+                    description: 'Thanh toán đơn hàng ' + order._id.toString(),
                 });
                 await transaction.save();
             }
