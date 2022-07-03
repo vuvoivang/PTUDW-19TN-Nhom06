@@ -30,9 +30,6 @@
           <table class="table table-hover" id="data_table">
             <thead class="text-primary">
               <tr>
-                <th class="text-left">
-                  Mã giao dịch
-                </th>
                 <th>
                   Tên sản phẩm
                 </th>
@@ -43,6 +40,9 @@
                   Tổng tiền
                 </th>
                 <th class="text-center">
+                  Phương thức thanh toán
+                </th>
+                <th class="text-center">
                   Ngày
                 </th>
                 <th class="text-center">
@@ -51,29 +51,39 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>
-                  PM
-                  1122
-                </td>
-                <td>
-                  Gói ăn vặt 1
-                </td>
-                <td>
-                  1
-                </td>
-                <td class="text-center">
-                  3000 đồng
-                </td>
-                <td class="text-center">
-                  22/10/2022
-                </td>
-                <td class="text-center">
-                  <button class="btn btn-success">
-                    Xem đơn hàng
-                  </button>
-                </td>
-              </tr>
+              {{#each ordersOfUser}}
+                <tr>
+                  <td>
+                    {{this.package.name}}
+                  </td>
+                  <td>
+                    {{this.quantity}}
+                  </td>
+                  <td class="text-center">
+                    {{this.totalPrice}}
+                  </td>
+                  <td class="text-center">
+                    {{#ifCondition this.paymentMethod "==" "cash"}}
+                      Tiền mặt
+                    {{else}}
+                      Tài khoản thanh toán
+                    {{/ifCondition}}
+                  </td>
+                  <td class="text-center">
+                    {{this.orderTime}}
+                  </td>
+                  <td class="text-center">
+                    <button class="btn btn-success">
+                      <a
+                        style="color: white"
+                        href="/user/{{{this.user}}}/paymentHistory/order/{{{this._id}}}"
+                      >
+                        Xem đơn hàng
+                      </a>
+                    </button>
+                  </td>
+                </tr>
+              {{/each}}
             </tbody>
           </table>
         </div>

@@ -61,10 +61,12 @@ const isLoggedIn = async (req, res, next) => {
         if (!user) {
             return next(new AppError('Invalid token', 400));
         }
+        req.userId = user._id;
+        req.userRole = user.role;
         return next()
     }
     else {
-        return res.redirect('/signin');
+        return res.redirect('/authorize');
     }
 }
 
@@ -149,7 +151,6 @@ const signIn = async (req, res, next) => {
         let check = await account.correctPassword(password, account.password);
         console.log('Compare password = ', check);
         if (check == true) {
-            console.log("\nCheck password\n");
             let page = account.role;
 
             if (page == 'active_manager' || page == 'inactive_manager') {
@@ -219,7 +220,6 @@ const authorizeAccount = async (req, res) => {
             // Check if db is empty
             let emptyCheck = await Account.find().lean();
             if (emptyCheck.length == 0) {
-                console.log("No database");
                 res.status(200).json({
                     status: "Database is empty",
                     username,
@@ -229,13 +229,12 @@ const authorizeAccount = async (req, res) => {
             else {
                 let account = await Account.findOne({ username }).lean();
                 if (!account) {
-                    console.log('No account username');
                     res.status(200).json({
                         status: "There is no account with this username",
                     });
                 }
                 else {
-                    console.log("Have account username");
+                    req.username = username;
                     res.status(200).json({
                         status: "Ready for sign in",
                         username,

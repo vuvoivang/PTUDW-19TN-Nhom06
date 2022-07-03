@@ -30,7 +30,7 @@ module.exports = {
             });
             now = utils.getDate();
             let order = new Order({
-                user: '62a535ef1abf9f2d83c459de',
+                user: req.userId,
                 item: req.body._id,
                 type: req.body.productList ? 'Package' : 'Product',
                 detail: detail,

@@ -1,0 +1,144 @@
+{{#section "title"}}
+  <title>
+    Chi tiết đơn hàng
+  </title>
+{{/section}}
+{{#section "style"}}
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+   <link rel="stylesheet" href="/css/packagePayment.css" />
+{{/section}}
+
+<table id="dataTable" class="table mt-5" style="width:100%">
+  <thead class="text-primary">
+    <tr>
+      <th>
+        Ảnh sản phẩm
+      </th>
+      <th>
+        Tên sản phẩm
+      </th>
+      <th>
+        Đơn vị định lượng
+      </th>
+      <th>
+        Số lượng
+      </th>
+      <th>
+        Đơn giá
+      </th>
+      <th>
+        Thành tiền
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each order.detail}}
+      <tr>
+        <td>
+          <div class="product-img-detail">
+            <img src={{this.product.images.[0]}} alt="product" class="img-detail" />
+          </div>
+        </td>
+        <td>
+          {{this.product.name}}
+        </td>
+        <td class="text-center">
+          {{this.product.unit}}
+        </td>
+        <td>
+          <div>
+            <input
+              type="text"
+              placeholder="1"
+              class="amount-input-product form-control border-1 soluong"
+              value={{this.quantity}}
+              id="product-{{this.product._id}}"
+            />
+          </div>
+        </td>
+        <td class="text-center" id="price-product-{{this.product._id}}">
+          {{this.product.price}}
+        </td>
+        <td
+          id="total-price-product-{{this.product._id}}"
+          class="product-total-price text-center"
+        >
+          {{product this.product.price this.quantity}}
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+<div class="mt-5 form d-flex justify-content-between align-items-baseline">
+  <div class="form d-flex justify-content-start align-items-baseline">
+    <label for="package-number" class="form-label m-0 me-3">
+      Số lượng
+    </label>
+    <div>
+     
+      <input
+        type="text"
+        placeholder="1"
+        class="form-control border-1 soluong"
+        id="package-number"
+        value="1"
+      />
+    
+    </div>
+  </div>
+  <div class="total-payment">
+    <span class="total-payment-title text-bold">
+      Tổng tiền:
+    </span>
+    <span
+      id="package-total-price"
+      class="total-price text-danger text-bold fs-5"
+    >
+      {{order.totalPrice}}
+      <i class="fa-solid fa-dong-sign"></i>
+    </span>
+  </div>
+</div>
+<div
+  class="my-3 form d-flex justify-content-between align-items-baseline gap-5"
+>
+  <input
+    type="text"
+    placeholder="Địa chỉ nhận hàng *"
+    class="form-control border-1 payment-address"
+    id="address-order"
+    value={{order.deliveryAddress}}
+    readonly
+  />
+  <input
+    type="text"
+    placeholder="Số điện thoại *"
+    class="form-control border-1 payment-phone"
+    id="phone-number-order"
+    value={{order.phone}}
+    readonly
+  />
+</div>
+<div class="d-flex align-items-baseline">
+  <div class="payment-method">
+    Phương thức thanh toán:
+  </div>
+  <div class="d-flex align-items-center ms-3">
+    {{#ifCondition order.paymentMethod "==" "cash"}}
+        Tiền mặt
+    {{else}}
+        Tài khoản thanh toán
+    {{/ifCondition}}
+  </div>
+</div>
+{{#section "script"}}
+  <script>
+    $(document).ready(function() { $('#dataTable').DataTable(); } );
+  </script>
+ 
+{{/section}}

@@ -31,7 +31,7 @@
           <thead class="text-primary">
             <tr>
               <th>
-                No.
+                ID
               </th>
               <th>
                 Tên nhu yếu phẩm
@@ -54,7 +54,7 @@
             {{#each products}}
             <tr>
               <td>
-                {{inc @index}}
+                {{this._id}}
               </td>
               <td>
                 {{this.name}}
@@ -106,7 +106,8 @@
                     Sửa
                   </button>
                 </a>
-                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteProductModal">
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteProductModal"
+                  onclick="handleDeleteProductModal({{{json this}}})">
                   Xóa
                 </button>
               </div>

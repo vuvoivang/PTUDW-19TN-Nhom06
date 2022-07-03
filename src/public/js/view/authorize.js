@@ -28,8 +28,6 @@ const sendAuthorizeRequest = async (username) => {
         localStorage.username = username;
         location.href = res.data.page;
     }
-
-
 };
 
 function authorizeAccount() {

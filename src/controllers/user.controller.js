@@ -2,6 +2,12 @@ const mongoose = require('mongoose');
 const Transaction = require('../models/Transaction')
 const PaymentAccount = require('../models/PaymentAccount')
 const Account = require('../models/Account')
+const Order = require('../models/Order')
+const Package = require('../models/Package')
+const Product = require('../models/Product')
+const LogManager = require('../models/LogManager')
+const bcrypt = require('bcryptjs');
+
 const jwt = require('jsonwebtoken')
 const { hyperlinksSidebarUser, userBreadCrumb } = require('../constants/index');
 
@@ -26,13 +32,17 @@ module.exports = {
             res.locals.hyperlinks = hyperlinksSidebarUser(userId);
             res.locals.userId = userId;
             res.locals.breadCrumb = pushBreadCrumb("Lịch sử được quản lý", `/user/${userId}/myManagementHistory`);
-            const decoded = await jwt.decode(req.cookies.token, { complete: true });
-            const id = decoded.payload.id;
-            const user = await Account.findById(id).lean();
+            let managementHistory = await LogManager.find({
+                userId: Number(userId)
+            }).lean();
+            if(managementHistory.length === 0) {
+                managementHistory = [];
+            }
             res.render("layouts/user/managementHistory", {
                 layout: "user/main",
-                user
+                managementHistory
             });
+           
         } catch (error) {
             res.status(500).json({
                 status: "Server Error",
@@ -48,12 +58,43 @@ module.exports = {
             res.locals.hyperlinks = hyperlinksSidebarUser(userId);
             res.locals.userId = userId;
             res.locals.breadCrumb = pushBreadCrumb("Lịch sử mua hàng", `/user/${userId}/myPaymentHistory`);
-            const decoded = await jwt.decode(req.cookies.token, { complete: true });
-            const id = decoded.payload.id;
-            const user = await Account.findById(id).lean();
+            const ordersOfUser = await Order.find({ user: Number(userId) }).lean();
+            for (let i = 0; i < ordersOfUser.length; i++) {
+                const order = ordersOfUser[i];
+                const package = await Package.findById(order.item).lean();
+                order.package = package;
+                ordersOfUser[i] = order;
+            }
             res.render("layouts/user/paymentHistory", {
                 layout: "user/main",
-                user
+                ordersOfUser,
+                userId
+            });
+        } catch (error) {
+            res.status(500).json({
+                status: "Server Error",
+                message: error?.message || 'Có lỗi xảy ra, vui lòng thử lại!!',
+                errorCode: "SERVER_ERROR"
+            });
+        }
+    },
+    getOrderOfPaymentHistory: async (req, res) => {
+        try {
+            // push breadcrumb for this page
+            let userId = (req.params.userId);
+            let orderId = (req.params.orderId);
+            res.locals.hyperlinks = hyperlinksSidebarUser(userId);
+            res.locals.userId = userId;
+            res.locals.breadCrumb = pushBreadCrumb("Lịch sử mua hàng", `/user/${userId}/myPaymentHistory`);
+            const order = await Order.findById(orderId).lean();
+            for (let i = 0; i < order.detail.length; i++) {
+                const pId =  order.detail[i].product;
+                const product = await Product.findById(pId).lean();
+                order.detail[i].product = product;
+            }            
+            res.render("layouts/user/detailOrder", {
+                layout: "user/main",
+                order
             });
         } catch (error) {
             res.status(500).json({
@@ -122,6 +163,35 @@ module.exports = {
                 user
             });
         } catch (error) {
+            res.status(500).json({
+                status: "Server Error",
+                message: 'Có lỗi xảy ra, vui lòng thử lại!!',
+                errorCode: "SERVER_ERROR"
+            });
+        }
+    },
+    changePassword: async (req, res) => {
+        try {
+            let correspondingAccount = await Account.findById(req.body.id).select('+password');
+            if (!correspondingAccount) {
+                res.status(400).json({
+                    status: "failed",
+                    message: "Account này không tồn tại để đổi mật khẩu"
+                })
+                return 
+            }
+            const isMatch = await correspondingAccount.correctPassword(req.body.oldPassword, correspondingAccount.password)
+            if(!isMatch){
+                res.status(400).json({
+                    status: "failed",
+                    message: "Mật khẩu cũ chưa đúng. Vui lòng nhập lại"
+                })
+                return 
+            }
+            const newPassword = await bcrypt.hash(req.body.newPassword, 12)
+            await correspondingAccount.updateOne({password: newPassword})
+            res.json({ status: "success", message: "Đổi mật khẩu thành công!" })
+        } catch (error) {
             console.log(error);
             res.status(500).json({
                 status: "Server Error",
@@ -129,5 +199,5 @@ module.exports = {
                 errorCode: "SERVER_ERROR"
             });
         }
-    }
+    },
 }

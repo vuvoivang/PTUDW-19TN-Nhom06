@@ -5,6 +5,12 @@ const Schema = mongoose.Schema;
 const { ObjectId } = mongoose.Schema.Types;
 const AutoIncrement = require('mongoose-sequence')(mongoose);
 
+const addressSchema = new Schema({
+    province: String,
+    district: String,
+    ward: String,
+})
+
 const accountSchema = new Schema({
     _id: {
         type: Number,
@@ -30,7 +36,7 @@ const accountSchema = new Schema({
         type: String,
     },
     address: {
-        type: String,
+        type: addressSchema,
     },
     dateOfBirth: {
         type: Date,
@@ -50,7 +56,7 @@ const accountSchema = new Schema({
     },
     state: {
         type: String,
-        enum: ['F0', 'F1', 'F2', 'F3']
+        enum: ["Khỏi bệnh", 'F0', 'F1', 'F2', 'F3', 'F4']
     },
     auth: {
         type: String,
@@ -87,6 +93,11 @@ accountSchema.pre('save', async function (next) {
 });
 
 accountSchema.methods.correctPassword = async function (candidate, password) {
+//     await bcrypt.compare(candidate, password, (err, isMatch) => {
+//         if (err) throw err;
+//         console.log('isMatch in correctPassword = ', isMatch);
+//         return isMatch;
+//   });
     return await bcrypt.compare(candidate, password);
 };
 

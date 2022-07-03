@@ -31,7 +31,7 @@
           <thead class="text-primary">
             <tr>
               <th>
-                No.
+                ID
               </th>
               <th>
                 Tên gói
@@ -42,6 +42,9 @@
               <th>
                 Giới hạn (ngày)
               </th>
+              <th>
+                Giá tiền
+              </th>
               <th class="text-end">
                 Thao tác
               </th>
@@ -51,7 +54,7 @@
             {{#each packages}}
             <tr>
               <td>
-                {{inc @index}}
+                {{this._id}}
               </td>
               <td>
                 {{this.name}}
@@ -62,13 +65,17 @@
               <td>
                 {{this.limitTime}}
               </td>
+              <td>
+                {{numberWithCommas this.defaultPrice}} đ
+              </td>
               <td class="text-end">
                 <a href="/manager/package-management/{{this._id}}">
                   <button class="btn btn-success">
                     Sửa
                   </button>
                 </a>
-                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deletePackageModal">
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deletePackageModal"
+                  onclick="handleDeletePackageModal({{{json this}}})">
                   Xóa
                 </button>
               </td>
@@ -102,7 +109,8 @@
                     Sửa
                   </button>
                 </a>
-                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deletePackageModal">
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deletePackageModal"
+                  onclick="handleDeletePackageModal({{{json this}}})">
                   Xóa
                 </button>
               </div>
@@ -140,7 +148,7 @@
         </h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form id="form-delete-package" onsubmit="event.preventDefault()">
+      <form id="form-delete-package" onsubmit="event.preventDefault(); handleDeletePackage();">
         <input type="text" name="id" id="package-id" hidden>
         <div class="modal-body">
           Bạn chắc chắn muốn xóa gói nhu yếu phẩm này?
@@ -235,5 +243,8 @@
   };
   var packageChart = new Chart(ctx, config);
 </script>
+<script src="/js/custom/modal.js"></script>
+<script src="/js/handler/manager/package.js"></script>
 <script src="/js/custom/cardPagination.js"></script>
+<script></script>
 {{/section}}

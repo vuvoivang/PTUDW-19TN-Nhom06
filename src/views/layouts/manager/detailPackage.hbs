@@ -3,7 +3,7 @@
     Thông tin gói nhu yếu phẩm
 </title>
 {{/section}}
-<form id="form-update-package" class="card">
+<form id="form-update-package" class="card" onsubmit="event.preventDefault(); handleUpdatePackage();">
     <div class="card-header">
         <div class="card-title">
             <h2>
@@ -77,6 +77,14 @@
                             value="{{package.productData}}" />
                     </div>
                 </div>
+                <div class="row mb-3">
+                    <h4>Tổng tiền:
+                        <div class="d-inline-block" style="color: red; font-size:1.5em">
+                            <span id="registerPrice">{{numberWithCommas package.defaultPrice}}</span>
+                            <span>đ</span>
+                        </div>
+                    </h4>
+                </div>
             </div>
         </div>
         <div class="col-12 col-md-3">
@@ -108,7 +116,7 @@
                 <thead class="text-primary">
                     <tr>
                         <th>
-                            No.
+                            ID
                         </th>
                         <th>
                             Tên nhu yếu phẩm
@@ -122,16 +130,16 @@
                         <th>
                             Danh mục
                         </th>
-                        <th class="text-end">
+                        <th>
                             Tối đa
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     {{#each products}}
-                    <tr>
+                    <tr id="package-product-{{this._id}}">
                         <td>
-                            {{inc @index}}
+                            {{this._id}}
                         </td>
                         <td>
                             {{this.name}}
@@ -140,18 +148,34 @@
                             {{this.unit}}
                         </td>
                         <td>
-                            {{numberWithCommas this.price}} đ
+                            <span id="product-{{this._id}}-price"> {{numberWithCommas this.price}}</span> đ
                         </td>
                         <td>
                             {{get this.category "name"}}
                         </td>
-                        <td class="text-end">
-                            <input class="form-inline me-3" style="width: 80px" type="number" min="1" name={{this.id}}
-                                id={{this._id}}>
-                            <i id="select-product" class="fa-solid fa-circle-plus fa-lg"
-                                style="cursor: pointer; color: #4CAF50"></i>
-                            {{!-- <i id="unselect-product" class="fa-solid fa-trash fa-lg"
-                                style="cursor: pointer; color: #dc3545"></i> --}}
+                        <td class="text-end d-flex flex-row justify-content-between">
+                            <input class="form-inline me-3" style="width: 80px" type="number" min="1"
+                                name="product-{{this._id}}" id="product-{{this._id}}">
+                            <div>
+                                <div id="select-product" style="display: block">
+                                    <button class="button-no-style" onclick="handleAddProduct({{this._id}}, 'update')">
+                                        <i id="add-product" class="fa-solid fa-circle-plus fa-lg"
+                                            style="color: #4CAF50"></i>
+                                    </button>
+                                </div>
+                                <div id="unselect-product" style="display: none">
+                                    <button class="button-no-style me-3"
+                                        onclick="handleUpdateProduct({{this._id}}, 'update')">
+                                        <i id="update-product" class="fa-solid fa-square-pen fa-lg"
+                                            style="color: #e3e717"></i>
+                                    </button>
+                                    <button class="button-no-style"
+                                        onclick="handleDeleteProduct({{this._id}}, 'update')">
+                                        <i id="delete-product" class="fa-solid fa-trash fa-lg"
+                                            style="color: #dc3545"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                     {{/each}}
@@ -164,7 +188,19 @@
 {{#section "script"}}
 <script>
     $(document).ready(function () {
-        $('#data_table').DataTable();
+        $('#data_table').DataTable({
+            "aaSorting": [],
+        });
     });
+</script>
+<script src="/js/custom/packageProduct.js"></script>
+<script src="/js/handler/manager/package.js"></script>
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+<script>
+    handleDetailProduct("{{ package.productData }}");
 </script>
 {{/section}}

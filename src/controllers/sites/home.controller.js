@@ -45,6 +45,7 @@ module.exports = {
             });
         }
     },
+    
     signIn: (req, res) => {
         res.render('layouts/sites/signin');
     },
