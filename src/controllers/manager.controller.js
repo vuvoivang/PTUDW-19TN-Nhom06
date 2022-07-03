@@ -4,6 +4,8 @@ const Account = require('../models/Account');
 const Permission = require('../models/Permission');
 const LogManager = require('../models/LogManager');
 const { hyperlinksSidebarManager, managerBreadCrumb } = require('../constants/index');
+const debtController = require('../controllers/debt.controller');
+const jwt = require('jsonwebtoken');
 
 const pushBreadCrumb = (label, link, isActive = true) => {
     let thisBreadCrumb = {};
@@ -72,7 +74,7 @@ module.exports = {
 
     // patient
     getPatientManagement: async (req, res) => {
-        res.locals.hyperlinks = hyperlinksSidebarManager;
+        res.locals.hyperlinks = hyperlinksSidebarManager('patient-management');
         res.locals.breadCrumb = pushBreadCrumb("Quản lý bệnh nhân", '/manager/patient-management');
         const decoded = await jwt.decode(req.cookies.token, { complete: true });
         const id = decoded.payload.id;
@@ -86,7 +88,7 @@ module.exports = {
 
     // category
     getCategoryManagement: async (req, res) => {
-        res.locals.hyperlinks = hyperlinksSidebarManager;
+        res.locals.hyperlinks = hyperlinksSidebarManager('category-management');
         res.locals.breadCrumb = pushBreadCrumb("Quản lý danh mục", '/manager/category-management');
         const decoded = await jwt.decode(req.cookies.token, { complete: true });
         const id = decoded.payload.id;
@@ -101,7 +103,7 @@ module.exports = {
 
     // product
     getProductManagement: async (req, res) => {
-        res.locals.hyperlinks = hyperlinksSidebarManager;
+        res.locals.hyperlinks = hyperlinksSidebarManager('product-management');
         res.locals.breadCrumb = pushBreadCrumb("Quản lý nhu yếu phẩm", '/manager/product-management');
         const decoded = await jwt.decode(req.cookies.token, { complete: true });
         const id = decoded.payload.id;
@@ -130,7 +132,7 @@ module.exports = {
 
     // package
     getPackageManagement: async (req, res) => {
-        res.locals.hyperlinks = hyperlinksSidebarManager;
+        res.locals.hyperlinks = hyperlinksSidebarManager('package-management');
         res.locals.breadCrumb = pushBreadCrumb("Quản lý gói", '/manager/package-management');
         const decoded = await jwt.decode(req.cookies.token, { complete: true });
         const id = decoded.payload.id;
@@ -161,15 +163,18 @@ module.exports = {
 
     // payment
     getPaymentManagement: async (req, res) => {
-        res.locals.hyperlinks = hyperlinksSidebarManager;
+        res.locals.hyperlinks = hyperlinksSidebarManager('payment-management');
         res.locals.breadCrumb = pushBreadCrumb("Quản lý thanh toán", '/manager/payment-management');
         const decoded = await jwt.decode(req.cookies.token, { complete: true });
         const id = decoded.payload.id;
         const user = await Account.findById(id).lean();
+        let debts = await debtController.getDebts();
+        console.log(debts);
         res.render(`${path}/paymentManagement`, {
             layout: "manager/main",
             tag: "payment",
-            user
+            user,
+            debts
         })
     },
     createManager: async (req, res, next) => {

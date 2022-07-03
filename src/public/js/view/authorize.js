@@ -1,5 +1,6 @@
 const { ggSignin, faceSignin } = require('../../../config/firebase.config');
 const axios = require('axios');
+const API_URL = 'http://localhost:3000';
 
 var usernameInput = document.getElementById('username');
 var ggBtn = document.getElementById('google');
@@ -18,7 +19,7 @@ function showToast(message) {
 const sendAuthorizeRequest = async (username) => {
     const res = await axios({
         method: "POST",
-        url: "http://localhost:3000/api/v1/authentication/authorize",
+        url: `${API_URL}/api/v1/authentication/authorize`,
         data: {
             username
         }

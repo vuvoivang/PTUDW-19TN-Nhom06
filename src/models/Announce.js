@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
 const announceSchema = mongoose.Schema({
-    type: {
+    header: {
         type: String,
-        default: "debt",
-        require: true
+        default: "Thanh toán nợ",
+        trim: true
     },
     content: {
         type: String,
@@ -12,16 +12,16 @@ const announceSchema = mongoose.Schema({
     },
     userId: {
         type: Number,
-        ref: 'Account'
-    },
-    label: {
-        type: String,
-        default: "Thanh toán nợ",
-        trim: true
+        ref: 'Account',
+        require: true
     },
     createAt: {
         type: Date,
         default: Date(Date.now())
+    },
+    isDelete: {
+        type: Boolean,
+        default: false
     }
 });
 

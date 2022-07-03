@@ -1,7 +1,6 @@
 body {
     background-color: #F8F8F8;
     overflow: hidden;
-    font-size: 12px;
 }
 
 .container {
@@ -31,7 +30,7 @@ body {
 
 .header div {
     font-weight: 500;
-    font-size: 20px;
+    font-size: 24px;
 }
 
 .content {
@@ -65,44 +64,7 @@ body {
     font-weight: bold;
 }
 
-ul {
-    list-style-type: none;
-}
-
-.list-item {
-    display: inline-flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    width: 100%;
-    margin-left: -10px;
-    margin-bottom: 20px;
-}
-
-li .create_index {
-    margin-top: 7px;
-    width: 20px;
-}
-
-li .name {
-    margin-top: 7px;
-    width: 150px;
-    margin-left: 70px;
-}
-
-li .capacity {
-    margin-top: 7px;
-    width: 40px;
-    margin-left: 35px;
-}
-
-li .patientsNumber {
-    margin-top: 7px;
-    width: 40px;
-    margin-left: 220px;
-}
-
 button.edit {
-    margin-left: 200px;
     padding: 6px 14px;
     background-color: #7ed987;
     color: white;

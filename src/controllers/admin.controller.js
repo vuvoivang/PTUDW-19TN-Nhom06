@@ -18,7 +18,7 @@ const pushBreadCrumb = (label, link, isActive = true) => {
 
 module.exports = {
     viewManager: async (req, res) => {
-        res.locals.hyperlinks = hyperlinksSidebarAdmin;
+        res.locals.hyperlinks = hyperlinksSidebarAdmin('view');
         const decoded = await jwt.decode(req.cookies.token, { complete: true });
         const id = decoded.payload.id;
         const user = await Account.findById(id).lean();
@@ -44,7 +44,7 @@ module.exports = {
     },
 
     viewPlace: async (req, res) => {
-        res.locals.hyperlinks = hyperlinksSidebarAdmin;
+        res.locals.hyperlinks = hyperlinksSidebarAdmin('place');
         const decoded = await jwt.decode(req.cookies.token, { complete: true });
         const id = decoded.payload.id;
         const user = await Account.findById(id).lean();
@@ -59,7 +59,7 @@ module.exports = {
         }
     },
     createManager: async (req, res) => {
-        res.locals.hyperlinks = hyperlinksSidebarAdmin;
+        res.locals.hyperlinks = hyperlinksSidebarAdmin('create');
         const decoded = await jwt.decode(req.cookies.token, { complete: true });
         const id = decoded.payload.id;
         const user = await Account.findById(id).lean();
