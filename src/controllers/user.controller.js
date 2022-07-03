@@ -136,7 +136,7 @@ module.exports = {
             res.locals.userId = userId;
             res.locals.breadCrumb = pushBreadCrumb("Tài khoản thanh toán", `/user/${userId}/accountPayment`);
             let paymentAccount = await PaymentAccount.findOne({
-                paymentAccountId: userId,
+                paymentAccountId: Number(userId),
             });
             if (paymentAccount) {
                 let transactions = await Transaction.find({
@@ -151,8 +151,7 @@ module.exports = {
             }
             res.render("layouts/user/accountPayment", {
                 layout: "user/main",
-                isHaveAccountPayment: paymentAccount ? true : false,
-                paymentAccount
+                isHaveAccountPayment: paymentAccount ? true : false
             });
         } catch (error) {
             res.status(500).json({
