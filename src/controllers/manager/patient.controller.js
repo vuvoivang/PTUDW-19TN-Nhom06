@@ -1,5 +1,6 @@
 const path = 'layouts/manager';
 const Account = require('../../models/Account');
+const LogManager = require('../../models/LogManager');
 const QuarantineLocation = require('../../models/QuarantineLocation');
 const RelatedUser = require('../../models/RelatedUser');
 const utils = require('../../utils/functions');
@@ -54,9 +55,9 @@ module.exports = {
             if (req.body.state === 'F3') {
                 return res.status(400).json({
                     status: 'Bad Request',
-                    message: 'Không cần thêm người liên quan',
-                    errorCode: 'INVALID_DATA',
-                });
+                    message: 'F3 không cần thêm người liên quan',
+                    errorCode: "INVALID_DATA"
+                })
             }
 
             const quarantineLocation = await QuarantineLocation.findById(req.body.quarantineLocation);
@@ -131,10 +132,32 @@ module.exports = {
     },
 
     historyPatient: async (req, res) => {
+        const userId = req.params.id;
+        let patient = await Account.findById(userId).lean();
+        let managementHistory = await LogManager.find({
+            userId: Number(userId)
+        }).lean();
+        if (managementHistory.length === 0) {
+            managementHistory = [];
+        }
+        let relationships = await RelatedUser.find({
+            userId: Number(userId)
+        }).select({relatedUserId:1, _id:0}).lean();
+        let relatedUsers = [];
+        if (relationships.length > 0) {
+            for (let i = 0; i < relationships.length; i++) {
+                let relatedUser = await Account.findById(relationships[i].relatedUserId).lean();
+                relatedUsers.push(relatedUser);
+            }
+        }
+        console.log(relatedUsers);
         res.render(`${path}/historyPatient`, {
-            layout: 'manager/main',
-            tag: 'patient',
-        });
+            layout: "manager/main",
+            tag: "patient",
+            patient,
+            managementHistory,
+            relatedUsers
+        })
     },
 
     updatePatient: async (req, res) => {},
