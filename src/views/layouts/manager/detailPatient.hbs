@@ -3,36 +3,16 @@
     Thông tin bệnh nhân
 </title>
 {{/section}}
-<form id="form-add-patient" class="card" onsubmit="event.preventDefault(); handleAddPatient();">
+<form id="form-update-patient" class="card" onsubmit="event.preventDefault(); handleUpdatePatient();">
     <div class="card-header">
         <div class="card-title">
             <h2>
-                Thông tin bệnh nhân
+                Thông tin bệnh nhân <span id="registerUsername">{{patient.username}}</span>
             </h2>
         </div>
     </div>
     <div class="card-body">
         <input type="text" value="{{patient._id}}" name="id" id="registerId" hidden>
-        <div class="row mb-3">
-            <div class="col-12 col-sm-6 form-group">
-                <label class="control-label" for="registerUsername">
-                    Username
-                    <span class="text-danger">
-                        *
-                    </span>
-                </label>
-                <input class="form-control" name="username" id="registerUsername" type="text" required />
-            </div>
-            <div class="col-12 col-sm-6 form-group">
-                <label class="control-label" for="registerPassword">
-                    Mật khẩu mặc định
-                    <span class="text-danger">
-                        *
-                    </span>
-                </label>
-                <input class="form-control" name="password" id="registerPassword" type="password" required />
-            </div>
-        </div>
         <div class="row mb-3">
             <div class="col-12 col-sm-6 form-group">
                 <label class="control-label" for="registerName">
@@ -41,7 +21,8 @@
                         *
                     </span>
                 </label>
-                <input class="form-control" name="name" id="registerName" type="text" required />
+                <input class="form-control" name="name" id="registerName" value="{{patient.displayName}}" type="text"
+                    required />
             </div>
             <div class="col-12 col-sm-6 form-group">
                 <label class="control-label" for="registerCardID">
@@ -50,8 +31,8 @@
                         *
                     </span>
                 </label>
-                <input class="form-control" name="cardID" id="registerCardID" type="text" pattern="[0-9]{9,12}"
-                    required />
+                <input class="form-control" name="cardID" id="registerCardID" value="{{patient.cardID}}" type="text"
+                    pattern="[0-9]{9,12}" required />
             </div>
         </div>
         <div class="row mb-3">
@@ -62,7 +43,8 @@
                         *
                     </span>
                 </label>
-                <input class="form-control" name="dob" id="registerDOB" type="date" required />
+                <input class="form-control" name="dob" id="registerDOB" value="{{patient.dateOfBirth}}" type="date"
+                    required />
             </div>
             <div class="col-12 col-sm-6 form-group">
                 <label class="control-label" for="registerState">
@@ -71,8 +53,8 @@
                         *
                     </span>
                 </label>
-                <select class="form-select" name="state" id="registerState" required>
-                    <option value="F0" selected>F0</option>
+                <select class="form-select" name="state" id="registerState" value="{{patient.state}}" required>
+                    <option value="F0">F0</option>
                     <option value="F1">F1</option>
                     <option value="F2">F2</option>
                     <option value="F3">F3</option>
@@ -119,10 +101,8 @@
                         *
                     </span>
                 </label>
-                <select class="form-select" name="Quarantine" id="registerQuarantine" required>
-                    <option value="" selected disabled hidden>
-                        -- Chọn nơi điều trị / cách ly --
-                    </option>
+                <select class="form-select" name="Quarantine" id="registerQuarantine"
+                    value="{{patient.quarantineLocation}}" required>
                     {{#each quarantineLocations}}
                     <option value="{{this._id}}">
                         {{this.name}}
