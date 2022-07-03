@@ -70,10 +70,10 @@ const accountSchema = new Schema({
         enum: ['admin', 'active_manager', 'inactive_manager', 'user'],
         default: 'user'
     },
-    quarantineLocation: [{
+    quarantineLocation: {
         type: ObjectId,
         ref: 'QuarantineLocation',
-    }]
+    }
 }, {
     _id: false, // mongodb can't interfere this field
     timestamps: true,
