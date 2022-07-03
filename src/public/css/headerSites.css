@@ -27,3 +27,11 @@ select.form-select-category {
     padding-left: 0;
     margin-bottom: 0;
 }
+
+ul, li {
+    list-style-type: none;
+}
+
+
+
+ 

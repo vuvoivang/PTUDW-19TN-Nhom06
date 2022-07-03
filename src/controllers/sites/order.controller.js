@@ -119,6 +119,9 @@ module.exports = {
                     description: 'Thanh toán đơn hàng ' + order._id.toString(),
                 });
                 await transaction.save();
+
+                paymentAccount.balance -= req.body.totalAmount;
+                await paymentAccount.save();
             }
             res.json({ status: 'success', data: order });
         } catch (error) {
