@@ -54,7 +54,7 @@ module.exports = {
             if (req.body.state === "F3") {
                 return res.status(400).json({
                     status: 'Bad Request',
-                    message: 'Không cần thêm người liên quan',
+                    message: 'F3 không cần thêm người liên quan',
                     errorCode: "INVALID_DATA"
                 })
             }
