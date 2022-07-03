@@ -60,7 +60,7 @@
                     {{this.quantity}}
                   </td>
                   <td class="text-center">
-                    {{this.totalPrice}}
+                    {{formatVietnameseCurrency this.totalPrice}}
                   </td>
                   <td class="text-center">
                     {{#ifCondition this.paymentMethod "==" "cash"}}
