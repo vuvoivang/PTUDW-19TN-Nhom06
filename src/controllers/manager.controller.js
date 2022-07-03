@@ -4,6 +4,7 @@ const Account = require('../models/Account');
 const Permission = require('../models/Permission');
 const LogManager = require('../models/LogManager');
 const { hyperlinksSidebarManager, managerBreadCrumb } = require('../constants/index');
+const debtController = require('../controllers/debt.controller');
 
 const pushBreadCrumb = (label, link, isActive = true) => {
     let thisBreadCrumb = {};
@@ -166,10 +167,13 @@ module.exports = {
         const decoded = await jwt.decode(req.cookies.token, { complete: true });
         const id = decoded.payload.id;
         const user = await Account.findById(id).lean();
+        let debts = await debtController.getDebts();
+
         res.render(`${path}/paymentManagement`, {
             layout: "manager/main",
             tag: "payment",
-            user
+            user,
+            debts
         })
     },
     createManager: async (req, res, next) => {
