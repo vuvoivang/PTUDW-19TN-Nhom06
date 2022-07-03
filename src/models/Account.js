@@ -9,7 +9,7 @@ const addressSchema = new Schema({
     province: String,
     district: String,
     ward: String,
-})
+});
 
 const accountSchema = new Schema({
     _id: {
@@ -73,7 +73,7 @@ const accountSchema = new Schema({
     quarantineLocation: {
         type: ObjectId,
         ref: 'QuarantineLocation',
-    }
+    },
 }, {
     _id: false, // mongodb can't interfere this field
     timestamps: true,

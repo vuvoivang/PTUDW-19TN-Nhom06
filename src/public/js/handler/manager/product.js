@@ -1,8 +1,8 @@
-const ROOT_API = "http://localhost:3000/manager";
+const API_URL = "http://localhost:3000";
 
 const handleAddProduct = async () => {
     const formData = getFormInput("add");
-    const res = await fetch(`${ROOT_API}/product-management`, {
+    const res = await fetch(`${API_URL}/manager/product-management`, {
         method: "POST",
         body: formData
     });
@@ -18,7 +18,7 @@ const handleUpdateProduct = async () => {
     const id = document.querySelector("#form-update-product #registerId").value;
     const formData = getFormInput("update");
 
-    const res = await fetch(`${ROOT_API}/product-management/${id}`, {
+    const res = await fetch(`${API_URL}/manager/product-management/${id}`, {
         method: "PUT",
         body: formData
     });
@@ -32,7 +32,7 @@ const handleUpdateProduct = async () => {
 
 const handleDeleteProduct = async () => {
     const id = document.querySelector("#form-delete-product #product-id").value;
-    const res = await fetch(`${ROOT_API}/product-management/${id}`, {
+    const res = await fetch(`${API_URL}/manager/product-management/${id}`, {
         method: "DELETE"
     });
     const data = await res.json();

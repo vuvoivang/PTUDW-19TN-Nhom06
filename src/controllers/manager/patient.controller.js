@@ -24,11 +24,14 @@ module.exports = {
         try {
             let quarantineLocations = await QuarantineLocation.find({});
             quarantineLocations = utils.mapObjectInArray(quarantineLocations);
+            let relates = await Account.find({ role: "user" });
+            relates = utils.mapObjectInArray(relates);
 
             res.render(`${path}/addPatient`, {
                 layout: "manager/main",
                 tag: "patient",
-                quarantineLocations
+                quarantineLocations,
+                relates
             });
         } catch (err) {
             console.log(err.message);
