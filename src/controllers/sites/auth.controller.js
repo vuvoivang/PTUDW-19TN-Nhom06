@@ -143,7 +143,7 @@ const signIn = async (req, res, next) => {
         if (account.correctPassword(password, account.password)) {
             createSendToken(account._id, account.role, res, 'token')
             res.status(200).json({
-                status: "Sign up successfully",
+                status: "Sign in successfully",
                 page: `/${account.role}`
             })
         }

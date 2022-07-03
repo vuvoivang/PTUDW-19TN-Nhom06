@@ -6,6 +6,7 @@ const Order = require('../models/Order')
 const Package = require('../models/Package')
 const Product = require('../models/Product')
 const LogManager = require('../models/LogManager')
+const bcrypt = require('bcryptjs');
 
 const jwt = require('jsonwebtoken')
 const { hyperlinksSidebarUser, userBreadCrumb } = require('../constants/index');
@@ -153,6 +154,35 @@ module.exports = {
                 paymentAccount,
             });
         } catch (error) {
+            res.status(500).json({
+                status: "Server Error",
+                message: 'Có lỗi xảy ra, vui lòng thử lại!!',
+                errorCode: "SERVER_ERROR"
+            });
+        }
+    },
+    changePassword: async (req, res) => {
+        try {
+            let correspondingAccount = await Account.findById(req.body.id).select('+password');
+            if (!correspondingAccount) {
+                res.status(400).json({
+                    status: "failed",
+                    message: "Account này không tồn tại để đổi mật khẩu"
+                })
+                return 
+            }
+            const isMatch = await correspondingAccount.correctPassword(req.body.oldPassword, correspondingAccount.password)
+            if(!isMatch){
+                res.status(400).json({
+                    status: "failed",
+                    message: "Mật khẩu cũ chưa đúng. Vui lòng nhập lại"
+                })
+                return 
+            }
+            const newPassword = await bcrypt.hash(req.body.newPassword, 12)
+            await correspondingAccount.updateOne({password: newPassword})
+            res.json({ status: "success", message: "Đổi mật khẩu thành công!" })
+        } catch (error) {
             console.log(error);
             res.status(500).json({
                 status: "Server Error",
@@ -160,5 +190,5 @@ module.exports = {
                 errorCode: "SERVER_ERROR"
             });
         }
-    }
+    },
 }

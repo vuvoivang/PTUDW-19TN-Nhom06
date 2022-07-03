@@ -1,0 +1,11 @@
+#changePasswordModal{
+    margin-top: 10px;
+   
+ }
+ #changePasswordModal .modal-dialog{
+    max-width: 700px;
+ }
+ 
+ #changePasswordModal .category{
+     margin: 20px 10px;
+ }
