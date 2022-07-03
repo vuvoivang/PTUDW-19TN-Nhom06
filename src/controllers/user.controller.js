@@ -7,6 +7,7 @@ const Package = require('../models/Package')
 const Product = require('../models/Product')
 const LogManager = require('../models/LogManager')
 const bcrypt = require('bcryptjs');
+const announceController = require('../controllers/announce.controller');
 
 const jwt = require('jsonwebtoken')
 const { hyperlinksSidebarUser, userBreadCrumb } = require('../constants/index');
@@ -28,21 +29,33 @@ module.exports = {
     getManagementHistory: async (req, res) => {
         try {
             // push breadcrumb for this page
-            let userId = (req.params.userId);
+            const decoded = await jwt.decode(req.cookies.token, { complete: true });
+            let userId = decoded.payload.id;
+            const user = await Account.findById(userId).lean();
+
             res.locals.hyperlinks = hyperlinksSidebarUser(userId);
             res.locals.userId = userId;
             res.locals.breadCrumb = pushBreadCrumb("Lịch sử được quản lý", `/user/${userId}/myManagementHistory`);
+
+            let announces = await announceController.getAnnounceById(userId);
+            // for (let i = 0; i< announces.length; i++) {
+            //     announces[i]['time'] = announceController.formatTime(announces[i].createdAt);
+            // }
+            console.log(announces);
+
             let managementHistory = await LogManager.find({
                 userId: Number(userId)
             }).lean();
-            if(managementHistory.length === 0) {
+            if (managementHistory.length === 0) {
                 managementHistory = [];
             }
             res.render("layouts/user/managementHistory", {
                 layout: "user/main",
-                managementHistory
+                managementHistory,
+                user,
+                announces
             });
-           
+
         } catch (error) {
             res.status(500).json({
                 status: "Server Error",
@@ -54,10 +67,18 @@ module.exports = {
     getPaymentHistory: async (req, res) => {
         try {
             // push breadcrumb for this page
-            let userId = (req.params.userId);
+            const decoded = await jwt.decode(req.cookies.token, { complete: true });
+            let userId = decoded.payload.id;
+            const user = await Account.findById(userId).lean();
+
             res.locals.hyperlinks = hyperlinksSidebarUser(userId);
             res.locals.userId = userId;
             res.locals.breadCrumb = pushBreadCrumb("Lịch sử mua hàng", `/user/${userId}/myPaymentHistory`);
+            let announces = await announceController.getAnnounceById(userId);
+            // for (let i = 0; i< announces.length; i++) {
+            //     announces[i]['time'] = announceController.formatTime(announces[i].createdAt);
+            // }
+            console.log(announces);
             const ordersOfUser = await Order.find({ user: Number(userId) }).lean();
             for (let i = 0; i < ordersOfUser.length; i++) {
                 const order = ordersOfUser[i];
@@ -68,7 +89,9 @@ module.exports = {
             res.render("layouts/user/paymentHistory", {
                 layout: "user/main",
                 ordersOfUser,
-                userId
+                userId,
+                user,
+                announces
             });
         } catch (error) {
             res.status(500).json({
@@ -81,20 +104,30 @@ module.exports = {
     getOrderOfPaymentHistory: async (req, res) => {
         try {
             // push breadcrumb for this page
-            let userId = (req.params.userId);
+            const decoded = await jwt.decode(req.cookies.token, { complete: true });
+            let userId = decoded.payload.id;
+            const user = await Account.findById(userId).lean();
+
             let orderId = (req.params.orderId);
             res.locals.hyperlinks = hyperlinksSidebarUser(userId);
             res.locals.userId = userId;
             res.locals.breadCrumb = pushBreadCrumb("Lịch sử mua hàng", `/user/${userId}/myPaymentHistory`);
+            let announces = await announceController.getAnnounceById(userId);
+            // for (let i = 0; i< announces.length; i++) {
+            //     announces[i]['time'] = announceController.formatTime(announces[i].createdAt);
+            // }
+            console.log(announces);
             const order = await Order.findById(orderId).lean();
             for (let i = 0; i < order.detail.length; i++) {
-                const pId =  order.detail[i].product;
+                const pId = order.detail[i].product;
                 const product = await Product.findById(pId).lean();
                 order.detail[i].product = product;
-            }            
+            }
             res.render("layouts/user/detailOrder", {
                 layout: "user/main",
-                order
+                order,
+                user,
+                announces
             });
         } catch (error) {
             res.status(500).json({
@@ -107,22 +140,28 @@ module.exports = {
     getAccountInfo: async (req, res) => {
         try {
             // push breadcrumb for this page
-            let userId = (req.params.userId);
+            const decoded = await jwt.decode(req.cookies.token, { complete: true });
+            let userId = decoded.payload.id;
+            const user = await Account.findById(userId).lean();
+
             res.locals.hyperlinks = hyperlinksSidebarUser(userId);
             res.locals.userId = userId;
             res.locals.breadCrumb = pushBreadCrumb("Tài khoản của tôi", `/user/${userId}/account`);
+            let announces = await announceController.getAnnounceById(userId);
+            // for (let i = 0; i< announces.length; i++) {
+            //     announces[i]['time'] = announceController.formatTime(announces[i].createdAt);
+            // }
+            console.log(announces);
             let correspondingAccount = await Account.findById(userId);
-            const decoded = await jwt.decode(req.cookies.token, { complete: true });
-        const id = decoded.payload.id;
-        const user = await Account.findById(id).lean();
+            
             if (!correspondingAccount) {
                 res.redirect('layouts/error/404');
             }
-            console.log(correspondingAccount);
             res.render("layouts/user/account", {
                 layout: "user/main",
                 account: correspondingAccount.toObject(),
-                user
+                user,
+                announces
             });
         } catch (error) {
             res.status(500).json({
@@ -135,10 +174,17 @@ module.exports = {
     getAccountPayment: async (req, res) => {
         try {
             // push breadcrumb for this page
-            let userId = (req.params.userId);
+            const decoded = await jwt.decode(req.cookies.token, { complete: true });
+            let userId = decoded.payload.id;
+            const user = await Account.findById(userId).lean();
+            
             res.locals.hyperlinks = hyperlinksSidebarUser(userId);
             res.locals.userId = userId;
             res.locals.breadCrumb = pushBreadCrumb("Tài khoản thanh toán", `/user/${userId}/accountPayment`);
+            let announces = await announceController.getAnnounceById(userId);
+            // for (let i = 0; i< announces.length; i++) {
+            //     announces[i]['time'] = announceController.formatTime(announces[i].createdAt);
+            // }
             let paymentAccount = await PaymentAccount.findOne({
                 paymentAccountId: userId,
             });
@@ -153,14 +199,13 @@ module.exports = {
                     }
                 });
             }
-            const decoded = await jwt.decode(req.cookies.token, { complete: true });
-        const id = decoded.payload.id;
-        const user = await Account.findById(id).lean();
+            
             res.render("layouts/user/accountPayment", {
                 layout: "user/main",
                 isHaveAccountPayment: paymentAccount ? true : false,
                 paymentAccount,
-                user
+                user,
+                announces
             });
         } catch (error) {
             res.status(500).json({
@@ -178,21 +223,20 @@ module.exports = {
                     status: "failed",
                     message: "Account này không tồn tại để đổi mật khẩu"
                 })
-                return 
+                return
             }
             const isMatch = await correspondingAccount.correctPassword(req.body.oldPassword, correspondingAccount.password)
-            if(!isMatch){
+            if (!isMatch) {
                 res.status(400).json({
                     status: "failed",
                     message: "Mật khẩu cũ chưa đúng. Vui lòng nhập lại"
                 })
-                return 
+                return
             }
             const newPassword = await bcrypt.hash(req.body.newPassword, 12)
-            await correspondingAccount.updateOne({password: newPassword})
+            await correspondingAccount.updateOne({ password: newPassword })
             res.json({ status: "success", message: "Đổi mật khẩu thành công!" })
         } catch (error) {
-            console.log(error);
             res.status(500).json({
                 status: "Server Error",
                 message: 'Có lỗi xảy ra, vui lòng thử lại!!',

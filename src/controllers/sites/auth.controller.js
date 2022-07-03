@@ -1,6 +1,7 @@
-const Account = require('./../../models/Account')
-const jwt = require('jsonwebtoken')
-const AppError = require('../../utils/AppError')
+const Account = require('./../../models/Account');
+const jwt = require('jsonwebtoken');
+const AppError = require('../../utils/AppError');
+
 
 const signToken = (id, role) => {
     return jwt.sign(
@@ -8,7 +9,7 @@ const signToken = (id, role) => {
         process.env.jwt_secret,
         { expiresIn: process.env.jwt_expires_in }
     )
-}
+};
 
 const createSendToken = (id, role, res, tokenName) => {
     const token = signToken(id, role);
@@ -18,7 +19,7 @@ const createSendToken = (id, role, res, tokenName) => {
     };
 
     res.cookie(tokenName, token, cookieOptions);
-}
+};
 
 const signup = async (req, res, next) => {
     try {
@@ -51,7 +52,7 @@ const signup = async (req, res, next) => {
             message: error
         })
     }
-}
+};
 
 const isLoggedIn = async (req, res, next) => {
     if (req.cookies.token) {
@@ -68,7 +69,7 @@ const isLoggedIn = async (req, res, next) => {
     else {
         return res.redirect('/authorize');
     }
-}
+};
 
 const firebaseSignupHandle = async (req, res, next) => {
     try {
@@ -99,7 +100,7 @@ const firebaseSignupHandle = async (req, res, next) => {
             message: error
         })
     }
-}
+};
 
 const firebaseSigninHandle = async (req, res, next) => {
     try {
@@ -123,7 +124,7 @@ const firebaseSigninHandle = async (req, res, next) => {
             message: error
         })
     }
-}
+};
 
 const signOut = async (req, res, next) => {
     try {
@@ -139,7 +140,7 @@ const signOut = async (req, res, next) => {
             message: error
         });
     }
-}
+};
 
 const signIn = async (req, res, next) => {
     try {
@@ -177,7 +178,7 @@ const signIn = async (req, res, next) => {
             message: error
         })
     }
-}
+};
 
 const firewallUrlHandle = async (req, res, next) => {
     try {
@@ -208,7 +209,7 @@ const firewallUrlHandle = async (req, res, next) => {
             message: error
         })
     }
-}
+};
 
 const authorizeAccount = async (req, res) => {
     try {
@@ -223,7 +224,7 @@ const authorizeAccount = async (req, res) => {
                 res.status(200).json({
                     status: "Database is empty",
                     username,
-                    page: "signup"
+                    page: "/signup"
                 });
             }
             else {
@@ -231,6 +232,7 @@ const authorizeAccount = async (req, res) => {
                 if (!account) {
                     res.status(200).json({
                         status: "There is no account with this username",
+                        result: "failed"
                     });
                 }
                 else {
@@ -249,7 +251,7 @@ const authorizeAccount = async (req, res) => {
             message: error
         });
     }
-}
+};
 
 
 module.exports = { signup, isLoggedIn, firebaseSignupHandle, signOut, signIn, firebaseSigninHandle, firewallUrlHandle, authorizeAccount }
