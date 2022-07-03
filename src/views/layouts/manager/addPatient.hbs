@@ -14,6 +14,26 @@
     <div class="card-body">
         <div class="row mb-3">
             <div class="col-12 col-sm-6 form-group">
+                <label class="control-label" for="registerUsername">
+                    Username
+                    <span class="text-danger">
+                        *
+                    </span>
+                </label>
+                <input class="form-control" name="username" id="registerUsername" type="text" required />
+            </div>
+            <div class="col-12 col-sm-6 form-group">
+                <label class="control-label" for="registerPassword">
+                    Mật khẩu mặc định
+                    <span class="text-danger">
+                        *
+                    </span>
+                </label>
+                <input class="form-control" name="password" id="registerPassword" type="password" required />
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-12 col-sm-6 form-group">
                 <label class="control-label" for="registerName">
                     Họ tên
                     <span class="text-danger">
@@ -29,7 +49,8 @@
                         *
                     </span>
                 </label>
-                <input class="form-control" name="cardID" id="registerCardID" required />
+                <input class="form-control" name="cardID" id="registerCardID" type="text" pattern="[0-9]{9,12}"
+                    required />
             </div>
         </div>
         <div class="row mb-3">
@@ -54,7 +75,6 @@
                     <option value="F1">F1</option>
                     <option value="F2">F2</option>
                     <option value="F3">F3</option>
-                    <option value="F4">F4</option>
                 </select>
             </div>
         </div>
@@ -67,14 +87,6 @@
                     </span>
                 </label>
                 <select class="form-select" name="province" id="registerProvince" required>
-                    <option value="" selected disabled hidden>
-                        -- Chọn tỉnh thành --
-                    </option>
-                    {{#each provinces}}
-                    <option value="{{this._id}}">
-                        {{this.name}}
-                    </option>
-                    {{/each}}
                 </select>
             </div>
             <div class="col-12 col-sm-6 form-group">
@@ -85,14 +97,6 @@
                     </span>
                 </label>
                 <select class="form-select" name="district" id="registerDistrict" required>
-                    <option value="" selected disabled hidden>
-                        -- Chọn quận huyện --
-                    </option>
-                    {{#each districts}}
-                    <option value="{{this._id}}">
-                        {{this.name}}
-                    </option>
-                    {{/each}}
                 </select>
             </div>
         </div>
@@ -105,14 +109,6 @@
                     </span>
                 </label>
                 <select class="form-select" name="ward" id="registerWard" required>
-                    <option value="" selected disabled hidden>
-                        -- Chọn phường xã --
-                    </option>
-                    {{#each wards}}
-                    <option value="{{this._id}}">
-                        {{this.name}}
-                    </option>
-                    {{/each}}
                 </select>
             </div>
             <div class="col-12 col-sm-6 form-group">
@@ -138,13 +134,10 @@
             <div class="form-group">
                 <label class="control-label" for="registerRelates">
                     ID những người liên quan (Vui lòng chọn trong danh sách bệnh nhân)
-                    <span class="text-danger">
-                        *
-                    </span>
                 </label>
                 <input class="form-control" name="relates" id="registerRelates" type="text" onkeydown="return false;"
                     style="caret-color: transparent !important;    background-color: #f0f2f5;
-    opacity: 1;" required />
+    opacity: 1;" />
             </div>
         </div>
     </div>
@@ -173,12 +166,15 @@
                             ID
                         </th>
                         <th>
+                            Username
+                        </th>
+                        <th>
                             Họ tên
                         </th>
                         <th>
                             Địa chỉ
                         </th>
-                        <th>
+                        <th class="text-center">
                             Trạng thái
                         </th>
                         <th class="text-center">
@@ -194,16 +190,20 @@
                                 {{this._id}}
                             </td>
                             <td>
+                                {{this.username}}
+                            </td>
+                            <td>
                                 {{this.displayName}}
                             </td>
                             <td>
-                                {{this.address}}
+                                {{ get this.address 'province'}}
                             </td>
-                            <td>
+                            <td class="text-center">
                                 {{this.state}}
                             </td>
                             <td class="text-center">
-                                <input type="checkbox" name="relate" value="{{this._id}}" />
+                                <input id="check-relate-{{this._id}}" type="checkbox" name="relate" value="{{this._id}}"
+                                    onclick="handleRelate({{{json this._id}}}, 'add')" />
                             </td>
                         </tr>
                     </form>
@@ -220,9 +220,11 @@
         $('#data_table').DataTable();
     });
 </script>
-{{!--
+<script src="/js/custom/addressAPI.js"></script>
 <script src="/js/custom/relatePatient.js"></script>
---}}
+<script>
+    fetchAPI()
+</script>
 <script src="/js/handler/manager/patient.js"></script>
 <script>
     function goBack() {

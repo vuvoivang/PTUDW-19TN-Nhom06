@@ -26,7 +26,10 @@ const helper = {
         return options.fn(this).replace(new RegExp('value="' + selected + '"'), '$& selected="selected"');
     },
     get: function (Obj, prop) {
-        return Obj[prop];
+        if (Obj.hasOwnProperty(prop)) {
+            return Obj[prop];
+        }
+        return '';
     },
     ifCondition: function (v1, operator, v2, options) {
         switch (operator) {
@@ -98,7 +101,7 @@ const helper = {
     or: function (value, defaultValue) {
         return value || defaultValue;
     },
-    date: function(date){
+    date: function (date) {
         return formatDate(new Date(date));
     }
 };

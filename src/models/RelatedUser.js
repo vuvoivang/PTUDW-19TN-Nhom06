@@ -1,19 +1,18 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const { ObjectId } = mongoose.Schema.Types;
 
 const relatedUserSchema = new Schema({
     userId: {
-        type: ObjectId,
+        type: Number,
         ref: 'Account',
     },
     relatedUserId: {
-        type: ObjectId,
+        type: Number,
         ref: 'Account',
     },
     stateRelatedUser: {
         type: String,
-        enum: ['F0', 'F1', 'F2', 'F3'],
+        enum: ['Khỏi bệnh', 'F0', 'F1', 'F2', 'F3'],
         required: true
     },
 });
