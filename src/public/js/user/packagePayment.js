@@ -58,7 +58,7 @@ const submitOrder = async (package) => {
             return;
         } else formData.passwordAccountPayment = password;
     }
-
+    console.log(formData);
     // fetch api here
     res = await fetch(`${API_URL}/order`, {
         headers: {

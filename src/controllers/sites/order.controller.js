@@ -5,6 +5,7 @@ const ProductStatistics = require('../../models/ProductStatistics');
 const Package = require('../../models/Package');
 const PaymentAccount = require('../../models/PaymentAccount');
 const utils = require('../../utils/functions');
+const Transaction = require('../../models/Transaction');
 module.exports = {
     findByUserId: async (req, res) => {
         try {
@@ -22,8 +23,9 @@ module.exports = {
     },
     create: async (req, res) => {
         try {
+            let paymentAccount = null;
             if (req.body.paymentMethod == 'credit-card') {
-                paymentAccount = await PaymentAccount.findOne({paymentAccountId: req.userId});
+                paymentAccount = await PaymentAccount.findOne({ paymentAccountId: req.userId }).select('+password');
                 if (!paymentAccount) {
                     return res.status(400).json({
                         status: 'Payment account not found',
@@ -31,16 +33,18 @@ module.exports = {
                         errorCode: 'PAYMENT_ACCOUNT_NOT_FOUND',
                     });
                 }
-                if (paymentAccount.password != req.body.passwordAccountPayment) {
+                let checkPassword = await paymentAccount.correctPassword(
+                    req.body.passwordAccountPayment,
+                    paymentAccount.password
+                );
+                if (!checkPassword) {
                     return res.status(400).json({
                         status: 'Wrong password',
-                        message: 'Mật khẩu tài khoản không đúng',
+                        message: 'Mật khẩu Payment Account không đúng',
                         errorCode: 'WRONG_PASSWORD',
                     });
                 }
-
             }
-
 
             let detail = req.body.productList.map((product) => {
                 return {
@@ -63,6 +67,11 @@ module.exports = {
                 phone: req.body.phone,
                 quantity: req.body.packageQuantity,
             });
+
+            if (paymentAccount) {
+                order.paymentAccount = paymentAccount._id;
+                order.paymentTime = new Date();
+            }
             await order.save();
 
             // statistics
@@ -102,30 +111,16 @@ module.exports = {
                 });
             }
             //============
-            let packageStatistics = await PackageStatistics.find({});
-
-            let packages = new Set(packageStatistics.map((statistics) => statistics.package));
-            let result = {};
-            for (const package of packages) {
-                // find package
-                const packageDetail = await Package.findById(package);
-                result[packageDetail.name] = {
-                    '01/2022': 0,
-                    '02/2022': 0,
-                    '03/2022': 0,
-                    '04/2022': 0,
-                    '05/2022': 0,
-                    '06/2022': 0,
-                    '07/2022': 0,
-                };
-                packageStatistics.forEach((statistics) => {
-                    if (package == statistics.package) {
-                        const month = statistics.date.substring(3);
-                        result[packageDetail.name][month] += statistics.totalSold;
-                    }
+            // create transaction
+            if (paymentAccount) {
+                let transaction = new Transaction({
+                    accountId: paymentAccount._id,
+                    amount: req.body.totalAmount,
+                    type: 'payment',
+                    description: 'Thanh toán đơn hàng',
                 });
+                await transaction.save();
             }
-            console.log(result);
             res.json({ status: 'success', data: order });
         } catch (error) {
             console.log(error);
