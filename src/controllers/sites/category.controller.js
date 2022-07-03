@@ -75,19 +75,6 @@ module.exports = {
         }
     },
 
-    // get: async (req, res) => {
-    //     try {
-    //         const category = await Category.findById(req.params.id);
-    //         res.json({ status: 'success', data: category });
-    //     } catch (error) {
-    //         console.log(error);
-    //         res.status(500).json({
-    //             status: 'Server Error',
-    //             message: 'Có lỗi xảy ra, vui lòng thử lại!!',
-    //             errorCode: 'SERVER_ERROR',
-    //         });
-    //     }
-    // },
     create: async (req, res) => {
         try {
             if (!req.file) {
@@ -120,30 +107,4 @@ module.exports = {
             });
         }
     },
-    // update: async (req, res) => {
-    //     try {
-    //         const category = await Category.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    //         res.json({ status: 'success', data: category });
-    //     } catch (error) {
-    //         console.log(error);
-    //         res.status(500).json({
-    //             status: 'Server Error',
-    //             message: 'Có lỗi xảy ra, vui lòng thử lại!!',
-    //             errorCode: 'SERVER_ERROR',
-    //         });
-    //     }
-    // },
-    // delete: async (req, res) => {
-    //     try {
-    //         const category = await Category.findByIdAndDelete(req.params.id);
-    //         res.json({ status: 'success', data: category });
-    //     } catch (error) {
-    //         console.log(error);
-    //         res.status(500).json({
-    //             status: 'Server Error',
-    //             message: 'Có lỗi xảy ra, vui lòng thử lại!!',
-    //             errorCode: 'SERVER_ERROR',
-    //         });
-    //     }
-    // },
 };
