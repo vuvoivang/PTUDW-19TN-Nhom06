@@ -1,5 +1,6 @@
 const path = "layouts/manager";
 const Account = require('../../models/Account');
+const QuarantineLocation = require('../../models/QuarantineLocation');
 const utils = require('../../utils/functions');
 
 module.exports = {
@@ -20,10 +21,19 @@ module.exports = {
     },
 
     getAddPatient: async (req, res) => {
-        res.render(`${path}/addPatient`, {
-            layout: "manager/main",
-            tag: "patient"
-        });
+        try {
+            let quarantineLocations = await QuarantineLocation.find({});
+            quarantineLocations = utils.mapObjectInArray(quarantineLocations);
+
+            res.render(`${path}/addPatient`, {
+                layout: "manager/main",
+                tag: "patient",
+                quarantineLocations
+            });
+        } catch (err) {
+            console.log(err.message);
+            res.render("error/500");
+        }
     },
 
     addPatient: async (req, res) => {
