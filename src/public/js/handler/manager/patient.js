@@ -37,19 +37,6 @@ const handleUpdatePatient = async () => {
     }
 }
 
-const handleDeletePatient = async () => {
-    const id = document.querySelector("#form-delete-patient #patient-id").value;
-    const res = await fetch(`${API_URL}/manager/patient-management/${id}`, {
-        method: "DELETE"
-    });
-    const data = await res.json();
-    if (data.status === "success") {
-        toastMessage(data.message, "success");
-    } else {
-        toastMessage(data.message || "Có lỗi xảy ra, vui lòng thử lại", "error");
-    }
-}
-
 const getFormInput = (type) => {
     const username = document.querySelector(`#form-${type}-patient #registerUsername`).value;
     const password = document.querySelector(`#form-${type}-patient #registerPassword`).value;
