@@ -27,7 +27,6 @@ const handleUpdateMinimumTransfer = () => {
             else {
                 toastMessage(message || "Cập nhật thành công!", "success", true);
             }
-
         })
         .catch(err => toastMessage(message(err || "Có lỗi xảy ra, vui lòng thử lại")))
 }
