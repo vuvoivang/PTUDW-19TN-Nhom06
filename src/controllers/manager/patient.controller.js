@@ -89,6 +89,15 @@ module.exports = {
             await patient.save();
 
             const patientId = patient._id;
+
+            // add this patient relate to itself
+            let relate = new RelatedUser({
+                userId: null,
+                relatedUserId: patientId,
+                stateRelatedUser: req.body.state
+            });
+            await relate.save();
+
             if (relates.length > 0) {
                 for (let relateId of relates) {
                     let relatedUser = new RelatedUser({
@@ -125,10 +134,32 @@ module.exports = {
     },
 
     detailPatient: async (req, res) => {
-        res.render(`${path}/detailPatient`, {
-            layout: 'manager/main',
-            tag: 'patient',
-        });
+        try {
+            const id = req.params.id;
+            let patient = await Account.findById(id);
+            if (!patient) {
+                return res.render("error/404");
+            }
+            patient = patient.toObject();
+            patient.dateOfBirth = utils.formatDate(patient.dateOfBirth);
+            let relates = await RelatedUser.find({ userId: id });
+            relates = utils.mapObjectInArray(relates);
+            patient.relates = relates.map(item => item.relatedUserId).join(', ');
+
+            let quarantineLocation = await QuarantineLocation.findById(patient.quarantineLocation);
+            quarantineLocation = quarantineLocation.toObject();
+
+            res.render(`${path}/detailPatient`, {
+                layout: "manager/main",
+                tag: "patient",
+                patient,
+                relates,
+                quarantineLocation
+            });
+        } catch (err) {
+            console.log(err.message);
+            res.render("error/500");
+        }
     },
 
     historyPatient: async (req, res) => {
@@ -142,7 +173,7 @@ module.exports = {
         }
         let relationships = await RelatedUser.find({
             userId: Number(userId)
-        }).select({relatedUserId:1, _id:0}).lean();
+        }).select({ relatedUserId: 1, _id: 0 }).lean();
         let relatedUsers = [];
         if (relationships.length > 0) {
             for (let i = 0; i < relationships.length; i++) {
@@ -160,9 +191,9 @@ module.exports = {
         })
     },
 
-    updatePatient: async (req, res) => {},
+    updatePatient: async (req, res) => { },
 
-    deletePatient: async (req, res) => {},
+    deletePatient: async (req, res) => { },
 
     statisticsPatient: async (req, res) => {
         let relatedUsers = await RelatedUser.find({}).lean();
@@ -179,8 +210,8 @@ module.exports = {
                 date: `${month}/${year}`,
             };
         });
-        
-        const states = ['F0','F1','F2','F3']
+
+        const states = ['F0', 'F1', 'F2', 'F3']
         let result = {};
         states.forEach(state => {
             result[state] = {
