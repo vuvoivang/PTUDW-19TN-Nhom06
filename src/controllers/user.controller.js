@@ -22,7 +22,8 @@ const pushBreadCrumb = (label, link, isActive = true) => {
     })
     thisBreadCrumb.mainLabel = label;
     return thisBreadCrumb;
-}
+};
+
 module.exports = {
     getManagementHistory: async (req, res) => {
         try {
@@ -34,14 +35,14 @@ module.exports = {
             let managementHistory = await LogManager.find({
                 userId: Number(userId)
             }).lean();
-            if(managementHistory.length === 0) {
+            if (managementHistory.length === 0) {
                 managementHistory = [];
             }
             res.render("layouts/user/managementHistory", {
                 layout: "user/main",
                 managementHistory
             });
-           
+
         } catch (error) {
             res.status(500).json({
                 status: "Server Error",
@@ -82,15 +83,15 @@ module.exports = {
             // push breadcrumb for this page
             let userId = (req.params.userId);
             let orderId = (req.params.orderId);
-            res.locals.hyperlinks = hyperlinksSidebarUser(userId,  "myPaymentHistory");
+            res.locals.hyperlinks = hyperlinksSidebarUser(userId, "myPaymentHistory");
             res.locals.userId = userId;
             res.locals.breadCrumb = pushBreadCrumb("Lịch sử mua hàng", `/user/${userId}/myPaymentHistory`);
             const order = await Order.findById(orderId).lean();
             for (let i = 0; i < order.detail.length; i++) {
-                const pId =  order.detail[i].product;
+                const pId = order.detail[i].product;
                 const product = await Product.findById(pId).lean();
                 order.detail[i].product = product;
-            }            
+            }
             res.render("layouts/user/detailOrder", {
                 layout: "user/main",
                 order
@@ -111,14 +112,17 @@ module.exports = {
             res.locals.userId = userId;
             res.locals.breadCrumb = pushBreadCrumb("Tài khoản của tôi", `/user/${userId}/account`);
             let correspondingAccount = await Account.findById(userId);
+            const decoded = await jwt.decode(req.cookies.token, { complete: true });
+            const id = decoded.payload.id;
+            const user = await Account.findById(id).lean();
             if (!correspondingAccount) {
                 res.redirect('layouts/error/404');
             }
             console.log(correspondingAccount);
             res.render("layouts/user/account", {
                 layout: "user/main",
-                account: correspondingAccount.toObject()
-              
+                account: correspondingAccount.toObject(),
+                user
             });
         } catch (error) {
             res.status(500).json({
@@ -149,9 +153,13 @@ module.exports = {
                     }
                 });
             }
+            const decoded = await jwt.decode(req.cookies.token, { complete: true });
+            const id = decoded.payload.id;
+            const user = await Account.findById(id).lean();
             res.render("layouts/user/accountPayment", {
                 layout: "user/main",
-                isHaveAccountPayment: paymentAccount ? true : false
+                isHaveAccountPayment: paymentAccount ? true : false,
+                user
             });
         } catch (error) {
             res.status(500).json({
@@ -169,18 +177,18 @@ module.exports = {
                     status: "failed",
                     message: "Account này không tồn tại để đổi mật khẩu"
                 })
-                return 
+                return
             }
             const isMatch = await correspondingAccount.correctPassword(req.body.oldPassword, correspondingAccount.password)
-            if(!isMatch){
+            if (!isMatch) {
                 res.status(400).json({
                     status: "failed",
                     message: "Mật khẩu cũ chưa đúng. Vui lòng nhập lại"
                 })
-                return 
+                return
             }
             const newPassword = await bcrypt.hash(req.body.newPassword, 12)
-            await correspondingAccount.updateOne({password: newPassword})
+            await correspondingAccount.updateOne({ password: newPassword })
             res.json({ status: "success", message: "Đổi mật khẩu thành công!" })
         } catch (error) {
             console.log(error);

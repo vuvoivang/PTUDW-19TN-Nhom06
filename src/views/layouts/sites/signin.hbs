@@ -40,9 +40,9 @@
                         <div class="icon">
                             <i class="fa-solid fa-circle-user"></i>
                         </div>
-                        <input type="text" id="username" name="username" placeholder="Enter username">
+                        <input type="text" id="username" name="username" placeholder="Enter username" value="{{username}}">
                     </div>
-                    <div id="signup-box">
+                    <div id="signin-box">
                         <label for="password">Password</label>
                         <div class="input-field password">
                             <div class="icon">
@@ -50,15 +50,11 @@
                             </div>
                             <input type="password" id="password" name="password" placeholder="Enter password">
                         </div>
-                        <label for="confirm-password">Confirm Password</label>
-                        <div class="input-field confirm-password">
-                            <div class="icon">
-                                <i class="fa-solid fa-lock"></i>
-                            </div>
-                            <input type="password" id="confirm-password" name="confirm-password"
-                                placeholder="Confirm your password">
+                        <div class="account-option">
+                            <input type="checkbox" id="rememberAccount" , name="rememberAccount" value="remember me">
+                            <label for="user-login">Remember me</label>
                         </div>
-                        <input type="submit" id="submit" value="Sign up">
+                        <input type="submit" id="submit" value="Sign in">
                     </div>
                 </form>
                 <div class="additional-login">
@@ -85,7 +81,7 @@
         </div>
     </div>
 
-    <script type="module" src="/js/authentication/signup.js"></script>
+    <script type="module" src="/js/authentication/signin.js"></script>
 </body>
 
 </html>

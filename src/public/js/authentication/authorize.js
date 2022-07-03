@@ -434,13 +434,13 @@ eval("const { initializeApp } = __webpack_require__(/*! firebase/app */ \"./node
 
 /***/ }),
 
-/***/ "./src/public/js/view/signin.js":
-/*!**************************************!*\
-  !*** ./src/public/js/view/signin.js ***!
-  \**************************************/
+/***/ "./src/public/js/view/authorize.js":
+/*!*****************************************!*\
+  !*** ./src/public/js/view/authorize.js ***!
+  \*****************************************/
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const axios = __webpack_require__(/*! axios */ \"./node_modules/axios/index.js\");\nconst { ggSignin, faceSignin } = __webpack_require__(/*! ../../../config/firebase.config */ \"./src/config/firebase.config.js\");\n\nvar usernameInput = document.getElementById('username');\nvar ggBtn = document.getElementById('google');\nvar fBtn = document.getElementById('facebook');\n\nfunction showToast(message) {\n    document.getElementById(\"alertMessage\").innerHTML = message;\n    document.getElementById(\"alertMessage\").style.color = \"red\";\n    var x = document.getElementById(\"alertMessage\");\n    x.className = \"show\";\n    setTimeout(() => {\n        x.className = x.className.replace(\"show\", \"\");\n    }, 2000);\n};\n\n\nconst signInRequest = async (username, password) => {\n    try {\n        const res = await axios({\n            method: 'POST',\n            url: 'http://localhost:3000/api/v1/authentication/signin',\n            data: {\n                username, password\n            }\n        });\n        if (res.data.page) {\n            location.href = res.data.page\n        }\n        else if (res.data.result == 'failed') {\n            showToast(\"Username or password is incorrect!!!\");\n        }\n    } catch (error) {\n        alert(error)\n    }\n};\n\nfunction signin() {\n    let username = usernameInput.value;\n    let password = document.getElementById('password').value;\n    signInRequest(username, password);\n};\n\nggBtn.addEventListener('click', (e) => {\n    ggSignin()\n});\n\nfBtn.addEventListener('click', e => {\n    faceSignin()\n});\n\nlet form = document.getElementById('form');\n\nform.addEventListener('submit', (e) => {\n    e.preventDefault();\n    signin();\n});\n\n\n//# sourceURL=webpack://covid-msys/./src/public/js/view/signin.js?");
+eval("const { ggSignin, faceSignin } = __webpack_require__(/*! ../../../config/firebase.config */ \"./src/config/firebase.config.js\");\nconst axios = __webpack_require__(/*! axios */ \"./node_modules/axios/index.js\");\n\nvar usernameInput = document.getElementById('username');\nvar ggBtn = document.getElementById('google');\nvar fBtn = document.getElementById('facebook');\n\nfunction showToast(message) {\n    document.getElementById(\"alertMessage\").innerHTML = message;\n    document.getElementById(\"alertMessage\").style.color = \"red\";\n    var x = document.getElementById(\"alertMessage\");\n    x.className = \"show\";\n    setTimeout(() => {\n        x.className = x.className.replace(\"show\", \"\");\n    }, 2000);\n};\n\nconst sendAuthorizeRequest = async (username) => {\n    const res = await axios({\n        method: \"POST\",\n        url: \"http://localhost:3000/api/v1/authentication/authorize\",\n        data: {\n            username\n        }\n    });\n\n    if (res.data.page) {\n        localStorage.username = username;\n        location.href = res.data.page;\n    }\n\n\n};\n\nfunction authorizeAccount() {\n    let username = usernameInput.value;\n    if (username == \"\") {\n        showToast(\"Please fill the username\");\n    }\n    else {\n        sendAuthorizeRequest(username);\n    }\n};\n\nggBtn.addEventListener('click', (e) => {\n    ggSignin()\n});\n\nfBtn.addEventListener('click', e => {\n    faceSignin()\n});\n\nlet form = document.getElementById('form');\n\nform.addEventListener('submit', (e) => {\n    e.preventDefault();\n    authorizeAccount();\n});\n\n\n\n//# sourceURL=webpack://covid-msys/./src/public/js/view/authorize.js?");
 
 /***/ }),
 
@@ -571,7 +571,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module can't be inlined because the eval devtool is used.
-/******/ 	var __webpack_exports__ = __webpack_require__("./src/public/js/view/signin.js");
+/******/ 	var __webpack_exports__ = __webpack_require__("./src/public/js/view/authorize.js");
 /******/ 	
 /******/ })()
 ;
