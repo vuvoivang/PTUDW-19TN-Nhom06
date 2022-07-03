@@ -32,8 +32,8 @@
                 </p>
                 <p class="card-title text-success">
                   
-                  {{#ifCondition paymentAccount.balance '>=' 0}} {{{paymentAccount.balance}}} {{else}} 0
-                  {{/ifCondition}} đồng
+                  {{#ifCondition paymentAccount.balance '>=' 0}} {{{formatVietnameseCurrency paymentAccount.balance}}} {{else}} 0
+                  {{/ifCondition}}
                 </p>
               </div>
             </div>
@@ -103,8 +103,8 @@
                   Tiền nợ
                 </p>
                 <p class="card-title text-danger">
-                  {{#ifCondition paymentAccount.balance "<" 0}} {{paymentAccount.balance}} {{else}} 0 {{/ifCondition}}
-                    đồng </p>
+                  {{#ifCondition paymentAccount.balance "<" 0}} -{{formatVietnameseCurrency paymentAccount.balance}} {{else}} 0 {{/ifCondition}}
+                    </p>
               </div>
             </div>
           </div>
@@ -198,7 +198,7 @@
                   {{description}}
                 </td>
                 <td class="text-center">
-                  {{amount}} đồng
+                  {{formatVietnameseCurrency amount}}
                 </td>
               </tr>
               {{/each}}

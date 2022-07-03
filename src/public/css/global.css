@@ -1046,3 +1046,11 @@ table.dataTable > thead .sorting_desc_disabled:after {
     padding-bottom: 30px;
   }
 }
+
+.dropdown:not(.dropdown-hover) .dropdown-menu.show{
+  margin-top: 1.5rem !important
+}
+.fixed-plugin .card{
+  width: 400px;
+  right: -400px;
+}
