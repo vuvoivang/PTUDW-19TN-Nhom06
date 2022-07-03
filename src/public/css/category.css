@@ -28,7 +28,7 @@ a.fas {
     font-weight: bold;
 }
 
-.popular-product-img {
+.popular-package-img {
     height: 150px;
     width: 100%;
     object-fit: contain;
@@ -37,4 +37,20 @@ a.fas {
 
 .packages {
     background-color: #fafafa;
+}
+
+.btn-search {
+    position: relative;
+    margin: 0;
+    padding: 10px;
+}
+.btn-search {
+    color: #fff;
+    background-color: #6fc072;
+    z-index: -1;
+    cursor: pointer;
+}
+.btn-search:hover {
+    color: #fff;
+    background-color: #4caf50;
 }

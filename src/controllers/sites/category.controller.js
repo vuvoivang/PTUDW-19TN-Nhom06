@@ -23,14 +23,17 @@ module.exports = {
         try {
             let categories = await Category.find({}).lean();
 
-            console.log(categories);
             // find category by id
 
             if (req.params.id == '0') {
                 // tất cả
                 // return all packages
                 let packages = await Package.find({}).lean();
-
+                if(req.query.package){
+                    // filter by name
+                    packages = packages.filter((package) => package.name.toLowerCase().indexOf(req.query.package.toLowerCase()) != -1);
+                    console.log(packages);
+                }
                 res.render('layouts/sites/category', {
                     layout: 'sites/main',
                     categories,
@@ -50,6 +53,13 @@ module.exports = {
                     },
                 },
             }).lean();
+
+            if(req.query.package){
+                // filter by name
+                packages = packages.filter((package) => package.name.toLowerCase().indexOf(req.query.package.toLowerCase()) != -1);
+                console.log(packages);
+            }
+
             res.render('layouts/sites/category', {
                 layout: 'sites/main',
                 categories,
