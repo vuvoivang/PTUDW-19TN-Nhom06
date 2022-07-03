@@ -10,14 +10,21 @@
     crossorigin="anonymous"
     referrerpolicy="no-referrer"
   />
+  <link rel="stylesheet" href="/css/user/account.css" />
+
 {{/section}}
 <div id="content-account pe-none">
   <div class="col-md-12 p-0">
     <div class="card">
-      <div class="card-header">
+      <div
+        class="card-header d-flex justify-content-between align-items-center"
+      >
         <h4 class="card-title p-3">
           Tài khoản của tôi
         </h4>
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+          Đổi mật khẩu
+        </button>
       </div>
       <div class="card-body">
         <form>
@@ -146,4 +153,99 @@
       </div>
     </div>
   </div>
+  <div
+    class="modal fade text-left"
+    id="changePasswordModal"
+    tabindex="-1"
+    aria-labelledby="changePasswordModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="changePasswordModalLabel">
+            Đổi mật khẩu
+            <br />
+          </h5>
+          <button
+            type="button"
+            class="btn btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            style="background: red; color: white; padding: 5px 10px 10px"
+          >
+            X
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="control-label">
+              Mật khẩu cũ
+              <star class="text-danger">
+                *
+              </star>
+            </label>
+            <input
+              class="form-control"
+              name="password"
+              id="oldPassword"
+              type="password"
+              required="true"
+            />
+          </div>
+          <div class="form-group">
+            <label class="control-label">
+              Mật khẩu mới
+              <star class="text-danger">
+                *
+              </star>
+            </label>
+            <input
+              class="form-control"
+              name="password"
+              id="newPassword"
+              type="password"
+              required="true"
+            />
+          </div>
+          <div class="form-group">
+            <label class="control-label">
+              Xác nhận lại mật khẩu mới
+              <star class="text-danger">
+                *
+              </star>
+            </label>
+            <input
+              class="form-control"
+              name="password_confirmation"
+              id="newPasswordConfirmation"
+              type="password"
+              required="true"
+              equalto="#newPasswordConfirmation"
+            />
+            <small id="newPasswordError" class="text-danger"></small>
+          </div>
+          <div class="category">
+            <star class="text-danger">
+              *
+            </star>
+            Required fields
+          </div>
+          <button
+            type="button"
+            class="btn btn-primary float-right"
+            onclick="handleChangePassword({{{json userId}}})"
+          >
+            Đổi mật khẩu
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+{{#section "script"}}
+<script type="text/javascript" src="/js/utils/toast.js"></script>
+<script type="text/javascript" src="/js/user/account.js"></script>
+
+{{/section}}

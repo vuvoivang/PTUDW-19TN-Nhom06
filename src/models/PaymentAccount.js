@@ -41,7 +41,11 @@ paymentAccountSchema.pre('save', async function (next) {
 });
 
 paymentAccountSchema.methods.correctPassword = async function (candidate, password) {
-    return await bcrypt.compare(candidate, password);
+   bcrypt.compare(candidate, password, (err, isMatch) => {
+         if (err) throw err;
+         console.log(isMatch);
+         return isMatch;
+   });
 };
 
 module.exports = mongoose.model('payment_accounts', paymentAccountSchema);
