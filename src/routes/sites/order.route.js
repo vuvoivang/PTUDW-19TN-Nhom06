@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const authController = require('../../controllers/sites/auth.controller');
 
 const orderController = require('../../controllers/sites/order.controller');
+const authMiddleware = require('../../middlewares/auth.middleware');
 
 // router.get('/:id', orderController.get);
-router.post('/', authController.isLoggedIn, orderController.create);
+router.post('/', authMiddleware.checkLoggedIn, authMiddleware.mustLoggedIn, orderController.create);
 // router.delete('/:id', orderController.delete);
 // router.put('/:id',  orderController.update);
 
