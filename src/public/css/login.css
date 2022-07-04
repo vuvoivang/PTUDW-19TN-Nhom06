@@ -18,7 +18,7 @@ a {
     margin-top: 80px;
     flex-basis: 70%;
     padding: 25px 0 0 60px;
-    margin-left: 50px;
+    margin-left: 80px;
 }
 
 .background {
@@ -30,7 +30,17 @@ a {
 .login-container {
     background-color: white;
     border-radius: 20px;
-    width: 600px;
+    width: 800px;
+    height: 400px;
+    padding: 10px 10% 30px 10%;
+    box-shadow: 0 0 20px #ccc;
+}
+
+.login-container-2 {
+    background-color: white;
+    border-radius: 20px;
+    width: 800px;
+    max-height: 600px;
     padding: 10px 10% 30px 10%;
     box-shadow: 0 0 20px #ccc;
 }
@@ -155,10 +165,9 @@ form .account-option {
 .direction {
     display: flex;
     justify-content: center;
-    color: #252733;
-    margin: 15px 8% 0 0;
+    margin: 25px 8% 0 0;
     font-size: 16px;
-    width: 520px;
+    width: 320px;
 }
 
 #back-home i {

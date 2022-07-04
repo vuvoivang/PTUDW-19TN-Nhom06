@@ -6,11 +6,11 @@ const authController = require('../controllers/sites/auth.controller')
 
 router.use(authController.isLoggedIn, authController.firewallUrlHandle);
 
-router.get('/:userId/account', userController.getAccountInfo);
-router.get('/:userId/managementHistory', userController.getManagementHistory);
-router.get('/:userId/paymentHistory/order/:orderId', userController.getOrderOfPaymentHistory);
-router.get('/:userId/paymentHistory', userController.getPaymentHistory);
-router.get('/:userId/accountPayment', userController.getAccountPayment);
+router.get('/account', userController.getAccountInfo);
+router.get('/managementHistory', userController.getManagementHistory);
+router.get('/paymentHistory/order/:orderId', userController.getOrderOfPaymentHistory);
+router.get('/paymentHistory', userController.getPaymentHistory);
+router.get('/accountPayment', userController.getAccountPayment);
 router.post('/change-password', userController.changePassword);
 
 router.get('/', userController.getAccountPayment);

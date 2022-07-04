@@ -1,7 +1,6 @@
 const axios = require('axios');
 const { ggSignin, faceSignin } = require('../../../config/firebase.config');
 
-var usernameInput = document.getElementById('username');
 var ggBtn = document.getElementById('google');
 var fBtn = document.getElementById('facebook');
 

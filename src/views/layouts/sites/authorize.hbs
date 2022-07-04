@@ -27,7 +27,7 @@
 
 <body>
     <div class="main">
-        <div class="container">
+        <div class="container d-flex flex-column justify-content-center align-items-center">
             <div class="login-container">
                 <div class="logo">
                     <img src="https://i.ibb.co/6Nnf81X/logo-3.png" alt="app-logo">
@@ -35,30 +35,30 @@
                 </div>
                 <div id="alertMessage"></div>
                 <form action="javascript:void(0)" method="post" id="form">
-                    <label for="username">Username</label>
+                    <label for="username" class="lead font-weight-bold">Username</label>
                     <div class="input-field username">
                         <div class="icon">
                             <i class="fa-solid fa-circle-user"></i>
                         </div>
                         <input type="text" id="username" name="username" placeholder="Enter username">
                     </div>
-                    <input type="submit" id="submit" value="Sign in">
+                    <input class="btn btn-success" type="submit" id="submit" value="Sign in">
                 </form>
                 <div class="additional-login">
-                    <span>or login with</span>
+                    <span class="text-danger lead fw-bold">or login with</span>
                     <div class="other-login">
-                        <button id="facebook"><i class="fa-brands fa-facebook-square fa-lg"></i></button>
-                        <button id="google"><i class="fa-brands fa-google fa-lg"></i></button>
+                        <button id="facebook"><i class="fa-brands fa-facebook-square fa-xl"></i></button>
+                        <button id="google"><i class="fa-brands fa-google fa-xl"></i></button>
                     </div>
                 </div>
 
 
             </div>
             <a href="/" id="back-home">
-                <div class="direction">
+                <button class="btn btn-success direction">
                     <i class="fa-solid fa-arrow-left"></i>
-                    <span>Back to homepage</span>
-                </div>
+                    Back to homepage
+                </button>
             </a>
         </div>
         <div class="no-bacground"></div>

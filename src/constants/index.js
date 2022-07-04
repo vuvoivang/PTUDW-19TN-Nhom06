@@ -1,25 +1,25 @@
-const hyperlinksSidebarUser = (userId, currentTab) => [
+const hyperlinksSidebarUser = (currentTab) => [
     {
         label: "Tài khoản của tôi",
-        href: `/user/${userId}/account`,
+        href: `/user/account`,
         icon: "fa-solid fa-circle-user fa-lg",
         isActive: "account" === currentTab
     },
     {
         label: "Lịch sử được quản lý",
-        href: `/user/${userId}/managementHistory`,
+        href: `/user/managementHistory`,
         icon: "fa-solid fa-clock-rotate-left fa-lg",
         isActive: "myManagementHistory" === currentTab
     },
     {
         label: "Lịch sử mua hàng",
-        href: `/user/${userId}/paymentHistory`,
+        href: `/user/paymentHistory`,
         icon: "fa fa-cart-plus fa-lg",
         isActive: "myPaymentHistory" === currentTab
     },
     {
         label: "Tài khoản thanh toán",
-        href: `/user/${userId}/accountPayment`,
+        href: `/user/accountPayment`,
         icon: "fa-solid fa-user-plus fa-lg",
         isActive: "accountPayment" === currentTab
     }

@@ -27,8 +27,8 @@
 
 <body>
     <div class="main">
-        <div class="container">
-            <div class="login-container">
+        <div class="container d-flex flex-column justify-content-center align-items-center">
+            <div class="login-container-2">
                 <div class="logo">
                     <img src="https://i.ibb.co/6Nnf81X/logo-3.png" alt="app-logo">
                     <span>SIGN IN</span>
@@ -62,7 +62,7 @@
                     </div>
                 </form>
                 <div class="additional-login">
-                    <span>or login with</span>
+                    <span class="text-danger lead fw-bold">or login with</span>
                     <div class="other-login">
                         <button id="facebook"><i class="fa-brands fa-facebook-square fa-lg"></i></button>
                         <button id="google"><i class="fa-brands fa-google fa-lg"></i></button>
@@ -72,10 +72,10 @@
 
             </div>
             <a href="/" id="back-home">
-                <div class="direction">
+               <button class="btn btn-success direction">
                     <i class="fa-solid fa-arrow-left"></i>
-                    <span>Back to homepage</span>
-                </div>
+                    Back to homepage
+                </button>
             </a>
         </div>
         <div class="no-bacground"></div>
@@ -84,7 +84,7 @@
                 alt="Blue-Illustration-Vaccination-Covid-19-Facebook-Post" border="0">
         </div>
     </div>
-
+    <script type="module" src="/js/authentication/username.js"></script>
     <script type="module" src="/js/authentication/signup.js"></script>
 </body>
 

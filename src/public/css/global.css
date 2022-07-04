@@ -1048,9 +1048,24 @@ table.dataTable > thead .sorting_desc_disabled:after {
 }
 
 .dropdown:not(.dropdown-hover) .dropdown-menu.show{
-  margin-top: 1.5rem !important
+  margin-top: 2.2rem !important
 }
 .fixed-plugin .card{
   width: 400px;
   right: -400px;
+}
+.amount-announce{
+  top:18px;
+  right:3px;
+  background-color: white;
+  border-radius: 20px;
+  padding: 0 1px;
+  border: 1px solid rgb(243, 11, 11);
+}
+#confirm-password{
+  border: 0;
+    width: 100%;
+    padding-left: 8px;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
 }
