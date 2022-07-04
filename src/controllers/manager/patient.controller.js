@@ -170,35 +170,114 @@ module.exports = {
     },
 
     historyPatient: async (req, res) => {
-        const userId = req.params.id;
-        let patient = await Account.findById(userId).lean();
-        let managementHistory = await LogManager.find({
-            userId: Number(userId)
-        }).lean();
-        if (managementHistory.length === 0) {
-            managementHistory = [];
-        }
-        let relationships = await RelatedUser.find({
-            userId: Number(userId)
-        }).select({ relatedUserId: 1, _id: 0 }).lean();
-        let relatedUsers = [];
-        if (relationships.length > 0) {
-            for (let i = 0; i < relationships.length; i++) {
-                let relatedUser = await Account.findById(relationships[i].relatedUserId).lean();
-                relatedUsers.push(relatedUser);
+        try {
+            const userId = req.params.id;
+            let patient = await Account.findById(userId).lean();
+            let managementHistory = await LogManager.find({
+                userId: Number(userId)
+            }).lean();
+            if (managementHistory.length === 0) {
+                managementHistory = [];
             }
+            let relationships = await RelatedUser.find({
+                userId: Number(userId)
+            }).select({ relatedUserId: 1, _id: 0 }).lean();
+            let relatedUsers = [];
+            if (relationships.length > 0) {
+                for (let i = 0; i < relationships.length; i++) {
+                    let relatedUser = await Account.findById(relationships[i].relatedUserId).lean();
+                    relatedUsers.push(relatedUser);
+                }
+            }
+
+            res.render(`${path}/historyPatient`, {
+                layout: "manager/main",
+                tag: "patient",
+                patient,
+                managementHistory,
+                relatedUsers
+            })
+        } catch (err) {
+            console.log(err.message);
+            res.render("error/500");
         }
-        
-        res.render(`${path}/historyPatient`, {
-            layout: "manager/main",
-            tag: "patient",
-            patient,
-            managementHistory,
-            relatedUsers
-        })
     },
 
-    updatePatient: async (req, res) => { },
+    updatePatient: async (req, res) => {
+        try {
+            const id = req.params.id;
+            let patient = await Account.findById(id);
+            if (!patient) {
+                return res.status(400).json({
+                    status: 'Bad Request',
+                    message: 'Không tìm thấy bệnh nhân',
+                    errorCode: "PATIENT_NOT_FOUND",
+                })
+            }
+
+            if (req.body.state === 'F3') {
+                return res.status(400).json({
+                    status: 'Bad Request',
+                    message: 'F3 không cần thêm người liên quan',
+                    errorCode: "INVALID_DATA"
+                })
+            }
+
+            const newState = patient.state !== req.body.state ? req.body.state : null;
+            const oldQuarantine = patient.quarantineLocation !== req.body.quarantineLocation ? patient.quarantineLocation : null;
+
+            if (oldQuarantine) {
+                const quarantineLocation = await QuarantineLocation.findById(req.body.quarantineLocation);
+                if (quarantineLocation.patientsNumber >= quarantineLocation.capacity) {
+                    return res.status(400).json({
+                        status: 'Bad Request',
+                        message: 'Đã đạt giới hạn số bệnh nhân trong khu vực',
+                        errorCode: 'QUARANTINE_LOCATION_FULL',
+                    });
+                }
+            }
+
+            patient.displayName = req.body.displayName;
+            patient.cardID = req.body.cardID;
+            patient.dateOfBirth = req.body.dateOfBirth;
+            patient.address = {
+                province: req.body.province,
+                district: req.body.district,
+                ward: req.body.ward,
+            }
+            newState && (patient.state = newState);
+            oldQuarantine && (patient.quarantineLocation = req.body.quarantineLocation);
+            console.log("patient ne", patient);
+            await patient.save();
+
+            // update quarantine location
+            // if (oldQuarantine) {
+            //     const oldQuarantineLocation = await QuarantineLocation.findById(oldQuarantine);
+            //     oldQuarantineLocation.patientsNumber -= 1;
+            //     await oldQuarantineLocation.save();
+
+            //     const newQuarantineLocation = await QuarantineLocation.findById(req.body.quarantineLocation);
+            //     newQuarantineLocation.patientsNumber += 1;
+            //     await newQuarantineLocation.save();
+            // }
+
+            // update related user
+            // const relates = req.body.relates ? req.body.relates.split(', ').map((item) => parseInt(item)) : [];
+
+            res.status(200).json({
+                status: 'success',
+                message: 'Cập nhật thông tin bệnh nhân thành công',
+                data: patient,
+            });
+        } catch (err) {
+            console.log(err.message);
+            res.status(500).json({
+                status: 'Server Error',
+                message: err.message,
+                errorCode: 'SERVER_ERROR',
+            });
+        }
+    },
 
     deletePatient: async (req, res) => { },
 

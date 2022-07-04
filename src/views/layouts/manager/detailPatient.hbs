@@ -13,7 +13,6 @@
     </div>
     <div class="card-body">
         <input type="text" value="{{patient._id}}" name="id" id="registerId" hidden>
-        <input type="text" value="{{patient.username}}" name="username" id="registerUsername" hidden />
         <div class="row mb-3">
             <div class="col-12 col-sm-6 form-group">
                 <label class="control-label" for="registerName">
@@ -191,7 +190,7 @@
                             </td>
                             <td class="text-center">
                                 <input id="check-relate-{{this._id}}" type="checkbox" name="relate" value="{{this._id}}"
-                                    onclick="handleRelate({{{json this._id}}}, 'add')" />
+                                    onclick="handleRelate({{{json this._id}}}, 'update')" />
                             </td>
                         </tr>
                     </form>

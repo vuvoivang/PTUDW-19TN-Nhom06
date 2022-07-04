@@ -38,8 +38,12 @@ const handleUpdatePatient = async () => {
 }
 
 const getFormInput = (type) => {
-    const username = document.querySelector(`#form-${type}-patient #registerUsername`).value;
-    const password = document.querySelector(`#form-${type}-patient #registerPassword`).value;
+    let username = "";
+    let password = "";
+    if (type === "add") {
+        username = document.querySelector(`#form-${type}-patient #registerUsername`).value;
+        password = document.querySelector(`#form-${type}-patient #registerPassword`).value;
+    }
     const displayName = document.querySelector(`#form-${type}-patient #registerName`).value;
     const cardID = document.querySelector(`#form-${type}-patient #registerCardID`).value;
     const dateOfBirth = document.querySelector(`#form-${type}-patient #registerDOB`).value;
@@ -52,8 +56,6 @@ const getFormInput = (type) => {
 
     // body json data
     const data = {
-        username,
-        password,
         displayName,
         cardID,
         dateOfBirth,
@@ -64,6 +66,10 @@ const getFormInput = (type) => {
         quarantineLocation,
         relates
     };
+    if (type === "add") {
+        data.username = username;
+        data.password = password;
+    }
 
     return JSON.stringify(data);
 }
