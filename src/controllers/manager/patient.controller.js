@@ -250,8 +250,10 @@ module.exports = {
             }
 
             const isNewState = patient.state !== req.body.state;
+            // is have old location or null (not change)
             const oldQuarantine = patient.quarantineLocation.toString() !== req.body.quarantineLocation ? patient.quarantineLocation : null;
 
+            // change location
             if (oldQuarantine) {
                 const quarantineLocation = await QuarantineLocation.findById(req.body.quarantineLocation);
                 if (quarantineLocation.patientsNumber >= quarantineLocation.capacity) {
@@ -287,6 +289,13 @@ module.exports = {
                 const newQuarantineLocation = await QuarantineLocation.findById(req.body.quarantineLocation);
                 newQuarantineLocation.patientsNumber += 1;
                 await newQuarantineLocation.save();
+                // update log
+                LogManager.create({
+                    description: `Chuyển bệnh nhân từ ${oldQuarantineLocation.name} sang ${newQuarantineLocation.name}`,
+                    userId: id,
+                    time: new Date(),
+                    action: "UPDATE LOCATION"
+                })
             }
 
             // update related user
@@ -349,8 +358,20 @@ module.exports = {
                         await relatedAccount.save();
                     }
                 }
-            }
 
+                // save LogManager
+                let desc = "";
+                if(req.body.state === 'Khỏi bệnh'){
+                    desc = "Cho xuất viện vì đã khỏi bệnh";
+                } else desc =  `Đổi trạng thái từ ${patient.state} sang ${req.body.state}`;
+                LogManager.create({
+                    description: desc,
+                    userId: id,
+                    time: new Date(),
+                    action: "UPDATE STATE"
+                })
+            }
+            
             res.status(200).json({
                 status: 'success',
                 message: 'Cập nhật thông tin bệnh nhân thành công',
