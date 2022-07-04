@@ -49,21 +49,23 @@ module.exports = {
             });
             // get max 8 packages
             packages = packages.slice(0, 8);
-            for (let i = 0; i < packages.length; i++) {
-                let totalPrice = 0;
-                for (let product of packages[i].productList) {
-                    const productItem = await Product.findById(product.product);
-                    if (!productItem) {
-                        return res.status(404).json({
-                            status: 'Not Found',
-                            message: 'Không tìm thấy sản phẩm',
-                            errorCode: 'NOT_FOUND',
-                        });
-                    }
-                    totalPrice += productItem.price;
-                }
-                packages[i].defaultPrice = totalPrice;
-            }
+            // for (let i = 0; i < packages.length; i++) {
+            //     let totalPrice = 0;
+            //     for (let product of packages[i].productList) {
+            //         const productItem = await Product.findById(product.product);
+            //         if (!productItem) {
+            //             return res.status(404).json({
+            //                 status: 'Not Found',
+            //                 message: 'Không tìm thấy sản phẩm',
+            //                 errorCode: 'NOT_FOUND',
+            //             });
+            //         }
+            //         totalPrice += productItem.price;
+            //     }
+            //     packages[i].defaultPrice = totalPrice;
+            
+            // }
+            
             res.render('layouts/sites/home', {
                 layout: 'sites/main',
                 categories,
