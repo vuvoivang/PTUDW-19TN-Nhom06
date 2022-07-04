@@ -48,21 +48,23 @@ update.addEventListener("click", () => {
     showToast();
 });
 
-const sendCreateForm = async () => {
+const sendCreateForm = () => {
     let checkbox = document.querySelectorAll(".form-check-input.float-end");
     let permissions = [];
     checkbox.forEach(element => {
         if (element.checked == true && element.value !== 'all')
             permissions.push(element.value);
     });
-
-    const res = await axios({
+    fetch(`${API_URL}/api/v1/manager/create`, {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
         method: "POST",
-        url: "http://localhost:3000/api/v1/manager/create",
-        data: {
+        body: JSON.stringify({
             username: username.value,
             password: password.value,
             permissions
-        }
+        })
     });
 }

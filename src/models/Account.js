@@ -95,6 +95,13 @@ accountSchema.pre('save', async function (next) {
     next();
 });
 
+accountSchema.pre('findOneAndUpdate', async function (next) {
+    let data = this.getUpdate();
+    this.password = await bcrypt.hash(data.password, 12);
+    this.update({}, { password: this.password });
+    next();
+});
+
 accountSchema.methods.correctPassword = async function (candidate, password) {
     return await bcrypt.compare(candidate, password);
 };
