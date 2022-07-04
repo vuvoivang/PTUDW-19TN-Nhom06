@@ -1,4 +1,4 @@
-const API_URl = "http://localhost:3000";
+const API_URl = "https://covid-19-management-sys-19tn.herokuapp.com";
 
 function random_rgba() {
     var o = Math.round,

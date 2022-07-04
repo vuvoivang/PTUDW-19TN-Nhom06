@@ -1,10 +1,12 @@
+const API_URL = "https://covid-19-management-sys-19tn.herokuapp.com";
+
 var searchInput = document.getElementsByClassName('search-innut');
 var addNameIn = document.getElementById('add-name');
 var addCapacityIn = document.getElementById('add-capacity');
 
-function showToast(message) {
+function showToast(message, color) {
     document.getElementById("snackbar").innerHTML = message;
-    document.getElementById("snackbar").style.color = "#008000";
+    document.getElementById("snackbar").style.color = color;
     var x = document.getElementById("snackbar");
     x.className = "show";
     setTimeout(() => {
@@ -20,16 +22,26 @@ function addLocation() {
         console.log('Please provide name and capacity');
     }
     else {
-        const res = axios({
+        fetch(`${API_URL}/api/v1/location/create`, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
             method: "POST",
-            url: "http://localhost:3000/api/v1/location/create",
-            data: {
+            body: JSON.stringify({
                 name,
                 capacity
-            }
-        });
-        showToast('Thêm cơ sở điều / cách ly thành công');
-        location.reload();
+            })
+        }).then(resp => resp.json())
+            .then(res => {
+                if (res.result === 'success') {
+                    showToast('Thêm cơ sở điều / cách ly thành công', "#008000");
+                    location.reload();
+                }
+                else {
+                    showToast('Thêm cơ sở điều / cách ly thất bại', "red");
+                }
+            });
     }
 }
 
@@ -37,15 +49,25 @@ function editLocation(_id) {
     let name = document.getElementById(`edit-name-${_id}`).value;
     let capacity = document.getElementById(`edit-capacity-${_id}`).value;
 
-    const res = axios({
+    fetch(`${API_URL}/api/v1/location/edit`, {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
         method: "POST",
-        url: "http://localhost:3000/api/v1/location/edit",
-        data: {
+        body: JSON.stringify({
             id: _id,
             name,
             capacity
-        }
-    });
-    showToast('Thay đổi thông tin cơ sở điều trị / cách ly thành công');
-    location.reload();
+        })
+    }).then(resp => resp.json())
+        .then(res => {
+            if (res.result === 'success') {
+                showToast('Thay đổi thông tin cơ sở điều trị / cách ly thành công', "#008000");
+                location.reload();
+            }
+            else {
+                showToast('Thêm cơ sở điều / cách ly thất bại', "red");
+            }
+        });
 }

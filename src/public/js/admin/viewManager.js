@@ -1,8 +1,8 @@
-const API_URL = "http://localhost:3000";
+const API_URL = "https://covid-19-management-sys-19tn.herokuapp.com";
 
-function showToast() {
-    document.getElementById("snackbar").innerHTML = "Cập nhật quyền thành công";
-    document.getElementById("snackbar").style.color = "#008000";
+function showToast(message, color) {
+    document.getElementById("snackbar").innerHTML = message;
+    document.getElementById("snackbar").style.color = color;
     var x = document.getElementById("snackbar");
     x.className = "show";
     setTimeout(() => {
@@ -38,7 +38,15 @@ const updatePermission = (managerUsername, changeData) => {
             managerUsername,
             permissions: changeData
         })
-    });
+    }).then(resp => resp.json())
+    .then(res => {
+        if (res.result === 'success') {
+            showToast('Cập nhật quyền cho quan lý thành công', "#008000");
+        }
+        else {
+            showToast('Cập nhật quyền cho quản lý thất bại', "red");
+        }
+    })
 };
 
 const showState = () => {
@@ -100,7 +108,6 @@ const getCheckedElement = (username) => {
 function permissionUpdate(username) {
     console.log(username);
     updatePermission(username, getCheckedElement(username));
-    showToast();
 }
 
 function historyView(username) {
