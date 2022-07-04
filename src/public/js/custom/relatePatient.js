@@ -26,3 +26,10 @@ const handleRemoveRelate = (id, relateInput) => {
         relateInput.value = newRelateList.join(", ");
     }
 }
+
+const handleDetailPatient = (relateData) => {
+    const relateList = relateData.split(", ").map(id => parseInt(id));
+    relateList.forEach(id => {
+        document.querySelector(`#patient-relate-${id} #check-relate-${id}`).checked = true;
+    })
+}
