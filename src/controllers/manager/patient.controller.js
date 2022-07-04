@@ -72,7 +72,8 @@ module.exports = {
                 });
             }
 
-            if (req.body.state === 'F3') {
+            const relates = req.body.relates ? req.body.relates.split(', ').map((item) => parseInt(item)) : [];
+            if (req.body.state === 'F3' && relates.length > 0) {
                 return res.status(400).json({
                     status: 'Bad Request',
                     message: 'F3 không cần thêm người liên quan',
@@ -89,7 +90,6 @@ module.exports = {
                 });
             }
 
-            const relates = req.body.relates ? req.body.relates.split(', ').map((item) => parseInt(item)) : [];
             const patient = new Account({
                 username: req.body.username,
                 password: req.body.password,
@@ -241,7 +241,8 @@ module.exports = {
                 })
             }
 
-            if (req.body.state === 'F3') {
+            const relates = req.body.relates ? req.body.relates.split(', ').map((item) => parseInt(item)) : [];
+            if (req.body.state === 'F3' && relates.length > 0) {
                 return res.status(400).json({
                     status: 'Bad Request',
                     message: 'F3 không cần thêm người liên quan',
