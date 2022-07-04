@@ -78,7 +78,6 @@ const accountSchema = new Schema({
         default: false
     }
 }, {
-    _id: false, // mongodb can't interfere this field
     timestamps: true,
 });
 
