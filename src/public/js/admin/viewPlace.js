@@ -3,12 +3,12 @@ var addNameIn = document.getElementById('add-name');
 var addCapacityIn = document.getElementById('add-capacity');
 
 function showToast(message) {
-    document.getElementById("snackbar").innerHTML = message;
-    document.getElementById("snackbar").style.color = "#008000";
-    var x = document.getElementById("snackbar");
-    x.className = "show";
+    document.getElementById('snackbar').innerHTML = message;
+    document.getElementById('snackbar').style.color = '#008000';
+    var x = document.getElementById('snackbar');
+    x.className = 'show';
     setTimeout(() => {
-        x.className = x.className.replace("show", "");
+        x.className = x.className.replace('show', '');
     }, 3000);
 }
 
@@ -18,15 +18,14 @@ function addLocation() {
 
     if (name == '' || capacity == '') {
         console.log('Please provide name and capacity');
-    }
-    else {
+    } else {
         const res = axios({
-            method: "POST",
-            url: "http://localhost:3000/api/v1/location/create",
+            method: 'POST',
+            url: 'https://covid-19-management-sys-19tn.herokuapp.com//api/v1/location/create',
             data: {
                 name,
-                capacity
-            }
+                capacity,
+            },
         });
         showToast('Thêm cơ sở điều / cách ly thành công');
         location.reload();
@@ -38,13 +37,13 @@ function editLocation(_id) {
     let capacity = document.getElementById(`edit-capacity-${_id}`).value;
 
     const res = axios({
-        method: "POST",
-        url: "http://localhost:3000/api/v1/location/edit",
+        method: 'POST',
+        url: 'https://covid-19-management-sys-19tn.herokuapp.com//api/v1/location/edit',
         data: {
             id: _id,
             name,
-            capacity
-        }
+            capacity,
+        },
     });
     showToast('Thay đổi thông tin cơ sở điều trị / cách ly thành công');
     location.reload();

@@ -1,47 +1,47 @@
-const API_URL = "http://localhost:3000";
+const API_URL = 'https://covid-19-management-sys-19tn.herokuapp.com/';
 
 const handleAddPatient = async () => {
-    const body = getFormInput("add");
+    const body = getFormInput('add');
     const res = await fetch(`${API_URL}/manager/patient-management`, {
         headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
         },
-        method: "POST",
-        body: body
+        method: 'POST',
+        body: body,
     });
     const data = await res.json();
-    if (data.status === "success") {
-        toastMessage(data.message, "success", true);
+    if (data.status === 'success') {
+        toastMessage(data.message, 'success', true);
     } else {
-        toastMessage(data.message || "Có lỗi xảy ra, vui lòng thử lại", "error");
+        toastMessage(data.message || 'Có lỗi xảy ra, vui lòng thử lại', 'error');
     }
-}
+};
 
 const handleUpdatePatient = async () => {
-    const id = document.querySelector("#form-update-patient #registerId").value;
-    const body = getFormInput("update");
+    const id = document.querySelector('#form-update-patient #registerId').value;
+    const body = getFormInput('update');
     const res = await fetch(`${API_URL}/manager/patient-management/${id}`, {
         headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
         },
-        method: "PUT",
-        body: body
+        method: 'PUT',
+        body: body,
     });
     const data = await res.json();
-    if (data.status === "success") {
-        toastMessage(data.message, "success");
+    if (data.status === 'success') {
+        toastMessage(data.message, 'success');
     } else {
-        toastMessage(data.message || "Có lỗi xảy ra, vui lòng thử lại", "error");
+        toastMessage(data.message || 'Có lỗi xảy ra, vui lòng thử lại', 'error');
     }
-}
+};
 
 const getFormInput = (type) => {
-    let username = "";
-    let password = "";
-    let oldRelates = "";
-    if (type === "add") {
+    let username = '';
+    let password = '';
+    let oldRelates = '';
+    if (type === 'add') {
         username = document.querySelector(`#form-add-patient #registerUsername`).value;
         password = document.querySelector(`#form-add-patient #registerPassword`).value;
     }
@@ -54,7 +54,7 @@ const getFormInput = (type) => {
     const ward = document.querySelector(`#form-${type}-patient #registerWard`).value;
     const quarantineLocation = document.querySelector(`#form-${type}-patient #registerQuarantine`).value;
     const relates = document.querySelector(`#form-${type}-patient #registerRelates`).value;
-    if (type === "update") {
+    if (type === 'update') {
         oldRelates = document.querySelector(`#form-update-patient #registerOldRelates`).value;
     }
 
@@ -68,34 +68,33 @@ const getFormInput = (type) => {
         district,
         ward,
         quarantineLocation,
-        relates
+        relates,
     };
-    if (type === "add") {
+    if (type === 'add') {
         data.username = username;
         data.password = password;
-    } else if (type === "update") {
+    } else if (type === 'update') {
         data.oldRelates = oldRelates;
     }
 
     return JSON.stringify(data);
-}
+};
 
 // utils
-const toastMessage = (message, type = "success", isRedirect = false) => {
+const toastMessage = (message, type = 'success', isRedirect = false) => {
     Toastify({
         text: message,
         duration: 1000,
-        gravity: "top",
+        gravity: 'top',
         stopOnFocus: true,
-        position: "right",
+        position: 'right',
         style: {
-            background: type === "success" ? "#4CAF50" : "#F44335",
+            background: type === 'success' ? '#4CAF50' : '#F44335',
         },
         callback: function () {
-            if (type == "success") {
-                isRedirect ? window.location.href = "/manager/patient-management" : window.location.reload();
+            if (type == 'success') {
+                isRedirect ? (window.location.href = '/manager/patient-management') : window.location.reload();
             }
-
-        }
+        },
     }).showToast();
-}
+};

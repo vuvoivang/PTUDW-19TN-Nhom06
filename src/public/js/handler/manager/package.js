@@ -1,47 +1,47 @@
-const API_URL = "http://localhost:3000";
+const API_URL = 'https://covid-19-management-sys-19tn.herokuapp.com/';
 
 const handleAddPackage = async () => {
-    const formData = getFormInput("add");
+    const formData = getFormInput('add');
     const res = await fetch(`${API_URL}/manager/package-management`, {
-        method: "POST",
-        body: formData
+        method: 'POST',
+        body: formData,
     });
     const data = await res.json();
-    if (data.status === "success") {
-        toastMessage(data.message, "success", true);
+    if (data.status === 'success') {
+        toastMessage(data.message, 'success', true);
     } else {
-        toastMessage(data.message || "Có lỗi xảy ra, vui lòng thử lại", "error");
+        toastMessage(data.message || 'Có lỗi xảy ra, vui lòng thử lại', 'error');
     }
-}
+};
 
 const handleUpdatePackage = async () => {
-    const id = document.querySelector("#form-update-package #registerId").value;
-    const formData = getFormInput("update");
+    const id = document.querySelector('#form-update-package #registerId').value;
+    const formData = getFormInput('update');
 
     const res = await fetch(`${API_URL}/manager/package-management/${id}`, {
-        method: "PUT",
-        body: formData
+        method: 'PUT',
+        body: formData,
     });
     const data = await res.json();
-    if (data.status === "success") {
-        toastMessage(data.message, "success");
+    if (data.status === 'success') {
+        toastMessage(data.message, 'success');
     } else {
-        toastMessage(data.message || "Có lỗi xảy ra, vui lòng thử lại", "error");
+        toastMessage(data.message || 'Có lỗi xảy ra, vui lòng thử lại', 'error');
     }
-}
+};
 
 const handleDeletePackage = async () => {
-    const id = document.querySelector("#form-delete-package #package-id").value;
+    const id = document.querySelector('#form-delete-package #package-id').value;
     const res = await fetch(`${API_URL}/manager/package-management/${id}`, {
-        method: "DELETE"
+        method: 'DELETE',
     });
     const data = await res.json();
-    if (data.status === "success") {
-        toastMessage(data.message, "success");
+    if (data.status === 'success') {
+        toastMessage(data.message, 'success');
     } else {
-        toastMessage(data.message || "Có lỗi xảy ra, vui lòng thử lại", "error");
+        toastMessage(data.message || 'Có lỗi xảy ra, vui lòng thử lại', 'error');
     }
-}
+};
 
 const getFormInput = (type) => {
     const name = document.querySelector(`#form-${type}-package #registerName`).value;
@@ -55,37 +55,36 @@ const getFormInput = (type) => {
     const image = imageInput.files.length > 0 ? imageInput.files[0] : null;
 
     const formData = new FormData();
-    formData.append("name", name);
-    formData.append("limitPerPerson", limitPerPerson);
-    formData.append("limitTime", limitTime);
-    formData.append("productList", productList);
-    formData.append("defaultPrice", defaultPrice);
+    formData.append('name', name);
+    formData.append('limitPerPerson', limitPerPerson);
+    formData.append('limitTime', limitTime);
+    formData.append('productList', productList);
+    formData.append('defaultPrice', defaultPrice);
     if (image) {
-        formData.append("image", image);
+        formData.append('image', image);
     }
     if (description) {
-        formData.append("description", description);
+        formData.append('description', description);
     }
 
     return formData;
-}
+};
 
 // utils
-const toastMessage = (message, type = "success", isRedirect = false) => {
+const toastMessage = (message, type = 'success', isRedirect = false) => {
     Toastify({
         text: message,
         duration: 1000,
-        gravity: "top",
+        gravity: 'top',
         stopOnFocus: true,
-        position: "right",
+        position: 'right',
         style: {
-            background: type === "success" ? "#4CAF50" : "#F44335",
+            background: type === 'success' ? '#4CAF50' : '#F44335',
         },
         callback: function () {
-            if (type == "success") {
-                isRedirect ? window.location.href = "/manager/package-management" : window.location.reload();
+            if (type == 'success') {
+                isRedirect ? (window.location.href = '/manager/package-management') : window.location.reload();
             }
-
-        }
+        },
     }).showToast();
-}
+};
