@@ -1,16 +1,15 @@
 body {
     background-color: #F8F8F8;
-    overflow: hidden;
-    font-size: 12px;
+    font-size: 16px;
 }
 
 .container {
     clear: both;
-    margin: 3% 15%;
+    margin: 3% auto;
     background-color: white;
     border-radius: 20px;
-    width: 70%;
-    padding: 30px 40px;
+    width: 90%;
+    padding: 20px 10px;
     padding-bottom: 20px;
     box-shadow: 0 0 20px #ccc;
 }
@@ -69,4 +68,7 @@ button {
     border: 1px solid lightgray;
     border-radius: 5px;
     padding: 6px 10px;
+}
+#data_table{
+    margin: 30px 0 !important;
 }
