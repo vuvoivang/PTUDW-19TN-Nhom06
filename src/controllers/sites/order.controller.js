@@ -159,7 +159,7 @@ module.exports = {
                 });
             }
             // console.log(result);
-            res.json({ status: 'success', data: result });
+            res.status(200).json({ status: 'success', data: result });
         } catch (error) {
             res.status(500).json({
                 status: 'Server Error',
@@ -194,7 +194,7 @@ module.exports = {
                 });
             }
             // console.log(result);
-            res.json({ status: 'success', data: result });
+            res.status(200).json({ status: 'success', data: result });
         } catch (error) {
             res.status(500).json({
                 status: 'Server Error',

@@ -42,6 +42,9 @@ module.exports = {
 
     getAddProduct: async (req, res) => {
         try {
+            res.locals.hyperlinks = hyperlinksSidebarManager('product-management');
+            res.locals.breadCrumb = pushBreadCrumb("Quản lý nhu yếu phẩm", '/manager/product-management');
+
             let categories = await Category.find({});
             categories = utils.mapObjectInArray(categories);
             res.render(`${path}/addProduct`, {
@@ -102,6 +105,9 @@ module.exports = {
 
     detailProduct: async (req, res) => {
         try {
+            res.locals.hyperlinks = hyperlinksSidebarManager('product-management');
+            res.locals.breadCrumb = pushBreadCrumb("Quản lý nhu yếu phẩm", '/manager/product-management');
+
             const id = req.params.id;
             let product = await Product.findById(id);
             if (!product) {
