@@ -71,51 +71,6 @@ module.exports = {
             tag: "patient"
         });
     },
-
-    // patient
-    getPatientManagement: async (req, res) => {
-        res.locals.hyperlinks = hyperlinksSidebarManager('patient-management');
-        res.locals.breadCrumb = pushBreadCrumb("Quản lý bệnh nhân", '/manager/patient-management');
-        const decoded = await jwt.decode(req.cookies.token, { complete: true });
-        const id = decoded.payload.id;
-        const user = await Account.findById(id).lean();
-        res.render(`${path}/patientManagement`, {
-            layout: "manager/main",
-            tag: "patient",
-            user
-        });
-    },
-
-    // category
-    getCategoryManagement: async (req, res) => {
-        res.locals.hyperlinks = hyperlinksSidebarManager('category-management');
-        res.locals.breadCrumb = pushBreadCrumb("Quản lý danh mục", '/manager/category-management');
-        const decoded = await jwt.decode(req.cookies.token, { complete: true });
-        const id = decoded.payload.id;
-        const user = await Account.findById(id).lean();
-        res.render(`${path}/categoryManagement`, {
-            layout: "manager/main",
-            tag: "category",
-            categories,
-            user
-        });
-    },
-
-    // product
-    getProductManagement: async (req, res) => {
-        res.locals.hyperlinks = hyperlinksSidebarManager('product-management');
-        res.locals.breadCrumb = pushBreadCrumb("Quản lý nhu yếu phẩm", '/manager/product-management');
-        const decoded = await jwt.decode(req.cookies.token, { complete: true });
-        const id = decoded.payload.id;
-        const user = await Account.findById(id).lean();
-        res.render(`${path}/productManagement`, {
-            layout: "manager/main",
-            tag: "product",
-            products,
-            user
-        })
-    },
-
     addProduct: (req, res) => {
         res.render(`${path}/addProduct`, {
             layout: "manager/main",
@@ -130,20 +85,7 @@ module.exports = {
         })
     },
 
-    // package
-    getPackageManagement: async (req, res) => {
-        res.locals.hyperlinks = hyperlinksSidebarManager('package-management');
-        res.locals.breadCrumb = pushBreadCrumb("Quản lý gói", '/manager/package-management');
-        const decoded = await jwt.decode(req.cookies.token, { complete: true });
-        const id = decoded.payload.id;
-        const user = await Account.findById(id).lean();
-        res.render(`${path}/packageManagement`, {
-            layout: "manager/main",
-            tag: "package",
-            packages,
-            user
-        })
-    },
+  
 
     addPackage: (req, res) => {
         res.render(`${path}/addPackage`, {
