@@ -13,7 +13,7 @@ const fetchData = async (type, cate) => {
     if (type === "order") {
         res = await fetch(`${API_URL}/order/statistics-${cate}`);
     } else if (type === "patient") {
-        res = await fetch(`${API_URL}/patient-management/statistics`);
+        res = await fetch(`${API_URL}/manager/patient-management/statistics`);
     }
     res = await res.json();
     if (res.status == 'success') {
