@@ -1,4 +1,5 @@
 const { ggSignin, faceSignin } = require('../../../config/firebase.config');
+const API_URL = "http://localhost:3000";
 
 var usernameInput = document.getElementById('username');
 var ggBtn = document.getElementById('google');
