@@ -37,6 +37,7 @@ const updatePermission = async (req, res) => {
             await Permission.findByIdAndUpdate(permiss._id, { permissions });
             res.status(200).json({
                 status: 'Update permission successfully',
+                result: "success"
             });
         }
     } catch (error) {
@@ -53,7 +54,8 @@ const getPermission = async (req, res) => {
         let view = await Permission.findOne({ managerUsername }).lean();
         res.status(200).json({
             status: 'Get permission successfully',
-            permissions: view.permissions
+            permissions: view.permissions,
+            result: "success"
         });
     } catch (error) {
         res.status(400).json({
@@ -131,7 +133,8 @@ module.exports = {
                     res.status(200).json({
                         status: "Create manager failed",
                         message: "username existed",
-                        user
+                        user,
+                        result: "failed"
                     });
                 }
                 else {
@@ -146,7 +149,8 @@ module.exports = {
                     res.status(200).json({
                         status: "Create manager successfully",
                         newPermiss,
-                        newAccount
+                        newAccount,
+                        result: "success"
                     });
                 }
             }
@@ -175,7 +179,8 @@ module.exports = {
                 permissions
             });
             res.status(200).json({
-                status: "Update manager successfully"
+                status: "Update manager successfully",
+                result: "success"
             });
         } catch (error) {
             res.status(400).json({
@@ -193,7 +198,8 @@ module.exports = {
             if (log) {
                 res.status(200).json({
                     status: "Get manager log successfully",
-                    log
+                    log,
+                    result: "success"
                 });
             }
             else {

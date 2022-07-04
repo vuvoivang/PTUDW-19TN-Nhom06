@@ -7,6 +7,16 @@ var checkAll = document.getElementById("p8");
 var update = document.getElementById("update");
 var cancel = document.getElementById("cancel");
 
+function showToast(message, color) {
+    document.getElementById("snackbar").innerHTML = message;
+    document.getElementById("snackbar").style.color = color;
+    var x = document.getElementById("snackbar");
+    x.className = "show";
+    setTimeout(() => {
+        x.className = x.className.replace("show", "");
+    }, 3000);
+}
+
 form.addEventListener("change", () => {
     if (username.value != "" && pass1.value != "" && pass1.value === pass2.value) {
         button.disabled = false;
@@ -31,21 +41,8 @@ checkAll.addEventListener("change", () => {
     }
 });
 
-function showToast() {
-    document.getElementById("snackbar").innerHTML = "Thêm tài khoản quản lý thành công";
-    document.getElementById("snackbar").style.color = "#008000";
-    var x = document.getElementById("snackbar");
-    x.className = "show";
-    setTimeout(() => {
-        x.className = x.className.replace("show", "");
-    }, 3000);
-}
-
-
-
 update.addEventListener("click", () => {
     sendCreateForm();
-    showToast();
 });
 
 const sendCreateForm = () => {
@@ -66,5 +63,13 @@ const sendCreateForm = () => {
             password: password.value,
             permissions
         })
-    });
+    }).then(resp => resp.json())
+    .then(res => {
+        if (res.result === 'success') {
+            showToast("Thêm tài khoản quản lý thành công", "#008000");
+        }
+        else {
+            showToast("Thêm tài khoản quản lý thất bại", "red");
+        }
+    })
 }
