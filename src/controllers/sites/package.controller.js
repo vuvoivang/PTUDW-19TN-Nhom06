@@ -18,6 +18,19 @@ module.exports = {
             });
         }
         package = package.toObject();
+        let totalPrice = 0;
+        for (let product of package.productList) {
+            const productItem = await Product.findById(product.product);
+            if (!productItem) {
+                return res.status(404).json({
+                    status: 'Not Found',
+                    message: 'Không tìm thấy sản phẩm',
+                    errorCode: 'NOT_FOUND',
+                });
+            }
+            totalPrice += productItem.price;
+        }
+        package.defaultPrice = totalPrice;
         package._id = package._id.toString();
 
         res.render('layouts/sites/packagePayment', {
@@ -26,8 +39,6 @@ module.exports = {
         });
     },
     get: async (req, res) => {
-        // TODO: ref
-
         const id = req.params.id;
         let package = await Package.findById(id)
             .populate('productList')
@@ -43,6 +54,19 @@ module.exports = {
             });
         }
         package = package.toObject();
+        let totalPrice = 0;
+        for (let product of package.productList) {
+            const productItem = await Product.findById(product.product);
+            if (!productItem) {
+                return res.status(404).json({
+                    status: 'Not Found',
+                    message: 'Không tìm thấy sản phẩm',
+                    errorCode: 'NOT_FOUND',
+                });
+            }
+            totalPrice += productItem.price;
+        }
+        package.defaultPrice = totalPrice;
         res.render('layouts/sites/package', {
             layout: 'sites/main',
             package,
@@ -80,7 +104,7 @@ module.exports = {
                     });
                 }
                 totalPrice += productItem.price;
-            };
+            }
             const package = new Package({
                 name: req.body.name,
                 limitPerPerson: req.body.limitPerPerson,
