@@ -91,7 +91,7 @@ const firebaseHandle = async (req, res, next) => {
             auth: 'firebase'
         }).lean();
         if (!currentUser) {
-            let newUser = await Account.create({
+            let newUser = new Account({
                 username: user.uid,
                 password: '1',
                 email: user.email,
@@ -100,6 +100,7 @@ const firebaseHandle = async (req, res, next) => {
                 isNew: false,
                 auth: 'firebase'
             });
+            await newUser.save();
 
             createSendToken(newUser._id, newUser.role, res, 'token');
         }
