@@ -87,7 +87,7 @@ const hyperlinksSidebarManager = (currentTab) => [
     {
         label: "Quản lý danh mục",
         href: "/manager/category-management",
-        icon: "material-icons",
+        icon: "fa-solid fa-bars-progress",
         isActive: "category-management" === currentTab
     },
     {

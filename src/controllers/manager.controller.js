@@ -9,8 +9,8 @@ const jwt = require('jsonwebtoken');
 
 const pushBreadCrumb = (label, link, isActive = true) => {
     let thisBreadCrumb = {};
-    Object.assign(thisBreadCrumb, userBreadCrumb);
-    thisBreadCrumb.path = [...userBreadCrumb.path];
+    Object.assign(thisBreadCrumb, managerBreadCrumb);
+    thisBreadCrumb.path = [...managerBreadCrumb.path];
     thisBreadCrumb.path.push({
         label,
         link,
@@ -169,7 +169,6 @@ module.exports = {
         const id = decoded.payload.id;
         const user = await Account.findById(id).lean();
         let debts = await debtController.getDebts();
-        console.log(debts);
         res.render(`${path}/paymentManagement`, {
             layout: "manager/main",
             tag: "payment",

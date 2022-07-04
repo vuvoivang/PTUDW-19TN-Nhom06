@@ -3,11 +3,30 @@ const Product = require('../../models/Product');
 const Package = require('../../models/Package');
 const Order = require('../../models/Order');
 const utils = require('../../utils/functions');
+const jwt = require('jsonwebtoken');
+const { hyperlinksSidebarManager, managerBreadCrumb } = require('../../constants/index');
+
+const pushBreadCrumb = (label, link, isActive = true) => {
+    let thisBreadCrumb = {};
+    Object.assign(thisBreadCrumb, managerBreadCrumb);
+    thisBreadCrumb.path = [...managerBreadCrumb.path];
+    thisBreadCrumb.path.push({
+        label,
+        link,
+        isActive
+    })
+    thisBreadCrumb.mainLabel = label;
+    return thisBreadCrumb;
+};
 
 module.exports = {
     getPackageManagement: async (req, res) => {
         // get All Packages
         try {
+            res.locals.hyperlinks = hyperlinksSidebarManager('package-management');
+            res.locals.breadCrumb = pushBreadCrumb("Quản lý gói", '/manager/package-management');
+            const decoded = await jwt.decode(req.cookies.token, { complete: true });
+            const id = decoded.payload.id;
             let packages = await Package.find({}).populate("productList")
             packages = utils.mapObjectInArray(packages);
             let view = req.query.view || "table"

@@ -4,11 +4,27 @@ const LogManager = require('../../models/LogManager');
 const QuarantineLocation = require('../../models/QuarantineLocation');
 const RelatedUser = require('../../models/RelatedUser');
 const utils = require('../../utils/functions');
+const { hyperlinksSidebarManager, managerBreadCrumb } = require('../../constants/index');
+
+const pushBreadCrumb = (label, link, isActive = true) => {
+    let thisBreadCrumb = {};
+    Object.assign(thisBreadCrumb, managerBreadCrumb);
+    thisBreadCrumb.path = [...managerBreadCrumb.path];
+    thisBreadCrumb.path.push({
+        label,
+        link,
+        isActive
+    })
+    thisBreadCrumb.mainLabel = label;
+    return thisBreadCrumb;
+};
 
 module.exports = {
     // get All Accounts with role user
     getPatientManagement: async (req, res) => {
         try {
+            res.locals.hyperlinks = hyperlinksSidebarManager('patient-management');
+            res.locals.breadCrumb = pushBreadCrumb("Quản lý bệnh nhân", '/manager/patient-management');
             let patients = await Account.find({ role: 'user' });
             patients = utils.mapObjectInArray(patients);
             res.render(`${path}/patientManagement`, {
