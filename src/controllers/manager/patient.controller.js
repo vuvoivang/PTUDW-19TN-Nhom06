@@ -348,22 +348,24 @@ module.exports = {
                     }
                 }
 
-                // with relatesInBoth, each item in relatesInBoth is updated
-                for (let i = 0; i < relatesInBoth.length; i++) {
-                    await RelatedUser.updateOne({ userId: id, relatedUserId: relatesInBoth[i] }, { stateRelatedUser: utils.getNextStateRelated(req.body.state) });
+                if (req.body.state !== "Khỏi bệnh") {
+                    // with relatesInBoth, each item in relatesInBoth is updated
+                    for (let i = 0; i < relatesInBoth.length; i++) {
+                        await RelatedUser.updateOne({ userId: id, relatedUserId: relatesInBoth[i] }, { stateRelatedUser: utils.getNextStateRelated(req.body.state) });
 
-                    let relatedAccount = await Account.findById(relatesInBoth[i]);
-                    if (utils.compareState(relatedAccount.state, utils.getNextStateRelated(req.body.state))) {
-                        relatedAccount.state = utils.getNextStateRelated(req.body.state);
-                        await relatedAccount.save();
+                        let relatedAccount = await Account.findById(relatesInBoth[i]);
+                        if (utils.compareState(relatedAccount.state, utils.getNextStateRelated(req.body.state))) {
+                            relatedAccount.state = utils.getNextStateRelated(req.body.state);
+                            await relatedAccount.save();
+                        }
                     }
                 }
 
                 // save LogManager
                 let desc = "";
-                if(req.body.state === 'Khỏi bệnh'){
+                if (req.body.state === 'Khỏi bệnh') {
                     desc = "Cho xuất viện vì đã khỏi bệnh";
-                } else desc =  `Đổi trạng thái từ ${patient.state} sang ${req.body.state}`;
+                } else desc = `Đổi trạng thái từ ${patient.state} sang ${req.body.state}`;
                 LogManager.create({
                     description: desc,
                     userId: id,
@@ -371,7 +373,7 @@ module.exports = {
                     action: "UPDATE STATE"
                 })
             }
-            
+
             res.status(200).json({
                 status: 'success',
                 message: 'Cập nhật thông tin bệnh nhân thành công',
