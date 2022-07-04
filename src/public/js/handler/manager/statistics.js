@@ -1,3 +1,5 @@
+const API_URl = "https://covid-19-management-sys-19tn.herokuapp.com";
+
 function random_rgba() {
     var o = Math.round,
         r = Math.random,
@@ -11,9 +13,9 @@ function random_rgba() {
 const fetchData = async (type, cate) => {
     let res = null;
     if (type === "order") {
-        res = await fetch(`${API_URL}/order/statistics-${cate}`);
+        res = await fetch(`${API_URl}/order/statistics-${cate}`);
     } else if (type === "patient") {
-        res = await fetch(`${API_URL}/manager/patient-management/statistics`);
+        res = await fetch(`${API_URl}/manager/patient-management/statistics`);
     }
     res = await res.json();
     if (res.status == 'success') {

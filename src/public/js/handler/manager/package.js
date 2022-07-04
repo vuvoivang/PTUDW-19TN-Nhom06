@@ -1,5 +1,3 @@
-const API_URL = "https://covid-19-management-sys-19tn.herokuapp.com";
-
 const handleAddPackage = async () => {
     const formData = getFormInput("add");
     const res = await fetch(`${API_URL}/manager/package-management`, {

@@ -1,5 +1,3 @@
-const API_URL = "https://covid-19-management-sys-19tn.herokuapp.com";
-
 const handleAddCategory = async () => {
     const name = document.querySelector("#form-add-category #category-name").value;
     const image = document.querySelector("#form-add-category #category-image").files[0];
