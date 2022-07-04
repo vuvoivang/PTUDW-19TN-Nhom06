@@ -37,7 +37,7 @@ const signup = async (req, res, next) => {
         }
         else {
             // Truong hop ton tai account
-            let newAccount = await Account.findOneAndUpdate({ username }, { password, isNew: true }).lean();
+            let newAccount = await Account.findOneAndUpdate({ username }, { password, isNew: false }, { runValidators: true, new: true }).lean();
             let page = newAccount.role;
 
             if (page == 'active_manager' || page == 'inactive_manager') {
@@ -188,8 +188,8 @@ const signIn = async (req, res, next) => {
 const firewallUrlHandle = async (req, res, next) => {
     try {
         const decoded = await jwt.decode(req.cookies.token, { complete: true })
-        const role = decoded.payload.role
-        const id = decoded.payload.id
+        const role = decoded.payload.role;
+        const id = decoded.payload.id;
 
         if (!role) {
             return next(new AppError('There is no page url for redirect', 400))
@@ -226,6 +226,11 @@ const authorizeAccount = async (req, res) => {
             // Check if db is empty
             let emptyCheck = await Account.find().lean();
             if (emptyCheck.length == 0) {
+                await Account.create({
+                    username,
+                    password: "1",
+                    role: "admin"
+                });
                 res.status(200).json({
                     status: "Database is empty",
                     page: "/signup"

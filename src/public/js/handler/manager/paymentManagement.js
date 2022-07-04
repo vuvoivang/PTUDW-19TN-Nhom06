@@ -37,12 +37,10 @@ function handleUpdateDebt() {
     let data = [];
     for (let i = 0; i < ids.length; i++) {
         let body = {
-            userId: parseInt(ids[i].value),
-            displayName: document.getElementById(`displayName-${ids[i].value}`).innerText,
-            state: document.getElementById(`state-${ids[i].value}`).innerText,
-            debt: document.getElementById(`debt-${ids[i].value}`).innerText
+            userId: parseInt(ids[i].innerText),
+            debt: document.getElementById(`debt-${ids[i].innerText}`).innerText
         }
-        checkbox = document.getElementById(`checkNotify-${ids[i].value}`);
+        checkbox = document.getElementById(`checkNotify-${ids[i].innerText}`);
         if (checkbox.checked == true) {
             data.push(body);
         }
