@@ -137,7 +137,8 @@ const signOut = async (req, res, next) => {
         if (req.cookies.token) {
             res.clearCookie('token');
             res.status(200).json({
-                status: "Signout successful"
+                status: "Signout successful",
+                result: "success"
             });
         }
     } catch (error) {
