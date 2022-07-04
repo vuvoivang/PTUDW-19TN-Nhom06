@@ -14,109 +14,194 @@
 {{/section}}
 
 <div class="header">
-  <div class="title">Danh sách quản lý</div>
-  {{!-- <button class="order">
-    <i class="fa-solid fa-arrow-down-wide-short fa-lg"></i>
-    <span>Sắp xếp theo</span>
-  </button>
-  <button class="filter">
-    <i class="fa-solid fa-filter fa-lg"></i>
-    <span>Lọc theo</span> --}}
-  </button>
-  <div class="search-bar">
-    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-    <input type="text" placeholder="Search.." class="search-input">
+  <div class="card-title">
+    Danh sách quản lý
+  </div>
+</div>
+<div class="card-body">
+  <div class="table-responsive py-3 table-view">
+    <table class="table table-hover" id="data_table">
+      <thead class="text-primary">
+        <tr>
+          <th>
+            ID
+          </th>
+          <th>
+            TÊN
+          </th>
+          <th>
+            USERNAME
+          </th>
+          <th class="text-center">
+            PHÂN QUYỀN
+          </th>
+          <th>
+            TRẠNG THÁI
+          </th>
+          <th>
+            LỊCH SỬ
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each managers}}
+        <tr>
+          <td>
+            {{_id}}
+          </td>
+          <td>
+            {{displayName}}
+          </td>
+          <td>
+            {{username}}
+          </td>
+          <td class="text-center">
+            <button class="permission btn btn-info" data-bs-toggle="modal" data-bs-target="#permission-popup-{{username}}"
+              onclick="permissionView('{{username}}')">
+              Quản lý quyền
+            </button>
+            <!-- Modal -->
+            <div class="modal fade rounded-pill p-3" id="permission-popup-{{username}}" tabindex="-1"
+              aria-labelledby="permission-popupLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-toggle="modal"
+                      aria-label="Close" data-bs-target="#mess-failed"></button>
+                  </div>
+                  <div class="modal-body py-4">
+                    <div class="title">
+                      <h4 class="text-center">Danh sách các quyền hạn của người quản lý</h4>
+                    </div>
+                    <div class="my-4 me-4" id="permission-content">
+                      <div class="form-check form-switch">
+                        <label class="form-check-label" for="p1">Quản lý danh sách người liên quan Covid-19</label>
+                        <input class="form-check-input float-end {{username}}" type="checkbox" id="p1-{{username}}"
+                          value="1">
+                      </div>
+                      <div class="form-check form-switch">
+                        <label class="form-check-label" for="p2">Thêm người liên quan Covid-19 vào hệ thống</label>
+                        <input class="form-check-input float-end {{username}}" type="checkbox" id="p2-{{username}}"
+                          value="2">
+                      </div>
+                      <div class="form-check form-switch">
+                        <label class="form-check-label" for="p3">Thay đổi trạng thái người liên quan Covid-19</label>
+                        <input class="form-check-input float-end {{username}}" type="checkbox" id="p3-{{username}}"
+                          value="3">
+                      </div>
+                      <div class="form-check form-switch">
+                        <label class="form-check-label" for="p4">Quản lý các sản phẩm nhu yếu phẩm</label>
+                        <input class="form-check-input float-end {{username}}" type="checkbox" id="p4-{{username}}"
+                          value="4">
+                      </div>
+                      <div class="form-check form-switch">
+                        <label class="form-check-label" for="p5">Quản lý các gói nhu yếu phẩm</label>
+                        <input class="form-check-input float-end {{username}}" type="checkbox" id="p5-{{username}}"
+                          value="5">
+                      </div>
+                      <div class="form-check form-switch">
+                        <label class="form-check-label" for="p6">Thống kê thông tin</label>
+                        <input class="form-check-input float-end {{username}}" type="checkbox" id="p6-{{username}}"
+                          value="6">
+                      </div>
+                      <div class="form-check form-switch">
+                        <label class="form-check-label" for="p7">Quản lý thanh toán</label>
+                        <input class="form-check-input float-end {{username}}" type="checkbox" id="p7-{{username}}"
+                          value="7">
+                      </div>
+                      <div class="form-check form-switch">
+                        <label class="form-check-label" for="p8"><b>Chọn tất cả</b></label>
+                        <input class="form-check-input float-end {{username}}" type="checkbox" id="p8-{{username}}"
+                          value="all">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <input type="submit" id="cancel" value="Cancel" class="btn cancel" data-bs-dismiss="modal">
+                    <input type="submit" id="update" value="Update" class="btn update" data-bs-dismiss="modal"
+                      onclick="permissionUpdate('{{username}}')">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td>
+            <button class="state">
+              <i class="fa-solid fa-circle fa-lg state-color"></i>
+              <span class="state-text">{{state}}</span>
+            </button>
+          </td>
+          <td>
+            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#history-{{_id}}">History</button>
+            <!-- Modal -->
+            <div class="modal fade rounded-pill p-2" id="history-{{_id}}" tabindex="-1"
+              aria-labelledby="permission-popupLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-toggle="modal"
+                      aria-label="Close" data-bs-target="#mess-failed"></button>
+                  </div>
+                  <div class="modal-body py-4">
+                    <div class="title">
+                      <h4 class="text-center">Lịch sử sử dụng app của quản lý
+                      </h4>
+                    </div>
+                    <table class="table table-hover" id="data_table">
+                      <thead class="text-primary">
+                        <tr>
+                          <th>
+                            TIME
+                          </th>
+                          <th>
+                            ACTION
+                          </th>
+                          <th>
+                            DESCRIPTION
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {{#each ../history}}
+                        <tr>
+                          <td>
+                            {{localTime}}
+                          </td>
+                          <td>
+                            {{action}}
+                          </td>
+                          <td>
+                            {{description}}
+                          </td>
+                        </tr>
+                        {{/each}}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
   </div>
 </div>
 
-<div class="content">
-  <ul class="list">
-    {{#each managers}}
-    <li class="list-item">
-      <div class="display-name">
-        <span class="create_index">{{_id}}</span>
-        <i class="fa-solid fa-user-tie fa-lg"></i>
-        <span class="text">{{displayName}}</span>
-      </div>
-      <div class="username">
-        {{username}}
-      </div>
-      <button class="permission" data-bs-toggle="modal" data-bs-target="#permission-popup-{{username}}" onclick="permissionView('{{username}}')">
-        Quản lý quyền
-      </button>
-      <button class="state">
-        <i class="fa-solid fa-circle fa-lg state-color"></i>
-        <span class="state-text">{{state}}</span>
-      </button>
-      <button class="history">
-        History
-      </button>
-    </li>
-    <!-- Modal -->
-    <div class="modal fade rounded-pill p-3" id="permission-popup-{{username}}" tabindex="-1" aria-labelledby="permission-popupLabel"
-      aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-toggle="modal" aria-label="Close"
-              data-bs-target="#mess-failed"></button>
-          </div>
-          <div class="modal-body py-4">
-            <div class="title">
-              <h4 class="text-center">Danh sách các quyền hạn của người quản lý</h4>
-            </div>
-            <div class="my-4 me-4" id="permission-content">
-              <div class="form-check form-switch">
-                <label class="form-check-label" for="p1">Quản lý danh sách người liên quan Covid-19</label>
-                <input class="form-check-input float-end {{username}}" type="checkbox" id="p1-{{username}}" value="1">
-              </div>
-              <div class="form-check form-switch">
-                <label class="form-check-label" for="p2">Thêm người liên quan Covid-19 vào hệ thống</label>
-                <input class="form-check-input float-end {{username}}" type="checkbox" id="p2-{{username}}" value="2">
-              </div>
-              <div class="form-check form-switch">
-                <label class="form-check-label" for="p3">Thay đổi trạng thái người liên quan Covid-19</label>
-                <input class="form-check-input float-end {{username}}" type="checkbox" id="p3-{{username}}" value="3">
-              </div>
-              <div class="form-check form-switch">
-                <label class="form-check-label" for="p4">Quản lý các sản phẩm nhu yếu phẩm</label>
-                <input class="form-check-input float-end {{username}}" type="checkbox" id="p4-{{username}}" value="4">
-              </div>
-              <div class="form-check form-switch">
-                <label class="form-check-label" for="p5">Quản lý các gói nhu yếu phẩm</label>
-                <input class="form-check-input float-end {{username}}" type="checkbox" id="p5-{{username}}" value="5">
-              </div>
-              <div class="form-check form-switch">
-                <label class="form-check-label" for="p6">Thống kê thông tin</label>
-                <input class="form-check-input float-end {{username}}" type="checkbox" id="p6-{{username}}" value="6">
-              </div>
-              <div class="form-check form-switch">
-                <label class="form-check-label" for="p7">Quản lý thanh toán</label>
-                <input class="form-check-input float-end {{username}}" type="checkbox" id="p7-{{username}}" value="7">
-              </div>
-              <div class="form-check form-switch">
-                <label class="form-check-label" for="p8"><b>Chọn tất cả</b></label>
-                <input class="form-check-input float-end {{username}}" type="checkbox" id="p8-{{username}}" value="all">
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <input type="submit" id="cancel" value="Cancel" class="btn cancel" data-bs-dismiss="modal">
-            <input type="submit" id="update" value="Update" class="btn update" data-bs-dismiss="modal" onclick="permissionUpdate('{{username}}')">
-          </div>
-        </div>
-      </div>
-    </div>
-    {{/each}}
-  </ul>
-</div>
-
 <div id="snackbar"></div>
+
+{{#section "script1"}}
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="/js/admin/viewManager.js"></script>
 <script>
- // var divs = document.querySelectorAll('.create_index');
- // for (var i = 0; i < divs.length; ++i) {
- //   divs[i].innerHTML = i + 1;
- // }
+  var divs = document.querySelectorAll('.create_index');
+  for (var i = 0; i < divs.length; ++i) {
+    divs[i].innerHTML = i + 1;
+  }
   let stateColor = document.querySelectorAll('.fa-solid.fa-circle.fa-lg.state-color')
   let state = document.querySelectorAll('.state-text');
   for (let i = 0; i < state.length; i++) {
@@ -128,12 +213,8 @@
       stateColor[i].style.color = "red";
     }
   }
+  $(document).ready(function () {
+    $('#data_table').DataTable();
+  });
 </script>
-
-{{#section "script1"}}
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="/js/admin/viewManager.js"></script>
 {{/section}}
