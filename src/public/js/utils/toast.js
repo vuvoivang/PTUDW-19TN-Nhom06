@@ -13,7 +13,3 @@ const toastMessage = (message, type = "success", isReload = false) => {
         }
     }).showToast();
 }
-
-module.exports = {
-    toastMessage
-}
