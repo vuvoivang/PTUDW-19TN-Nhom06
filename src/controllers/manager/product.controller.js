@@ -4,6 +4,8 @@ const Product = require('../../models/Product');
 const Package = require('../../models/Package');
 const utils = require('../../utils/functions');
 const { hyperlinksSidebarManager, managerBreadCrumb } = require('../../constants/index');
+const Account = require('../../models/Account');
+const jwt = require('jsonwebtoken');
 
 const pushBreadCrumb = (label, link, isActive = true) => {
     let thisBreadCrumb = {};
@@ -27,12 +29,16 @@ module.exports = {
             products = utils.mapObjectInArray(products);
             let view = req.query.view || "table"
             let switchView = view === "table" ? "card" : "table";
+            const decoded = await jwt.decode(req.cookies.token, { complete: true });
+            const id = decoded.payload.id;
+            const user = await Account.findById(id).lean();
             res.render(`${path}/productManagement`, {
                 layout: "manager/main",
                 tag: "product",
                 products,
                 view,
-                switchView
+                switchView,
+                user
             });
         } catch (err) {
             console.log(err.message);

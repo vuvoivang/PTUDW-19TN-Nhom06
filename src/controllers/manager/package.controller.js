@@ -5,6 +5,7 @@ const Order = require('../../models/Order');
 const utils = require('../../utils/functions');
 const jwt = require('jsonwebtoken');
 const { hyperlinksSidebarManager, managerBreadCrumb } = require('../../constants/index');
+const Account = require('../../models/Account');
 
 const pushBreadCrumb = (label, link, isActive = true) => {
     let thisBreadCrumb = {};
@@ -27,6 +28,7 @@ module.exports = {
             res.locals.breadCrumb = pushBreadCrumb("Quản lý gói", '/manager/package-management');
             const decoded = await jwt.decode(req.cookies.token, { complete: true });
             const id = decoded.payload.id;
+            const user = await Account.findById(id).lean();
             let packages = await Package.find({}).populate("productList")
             packages = utils.mapObjectInArray(packages);
             let view = req.query.view || "table"
@@ -36,7 +38,8 @@ module.exports = {
                 tag: "package",
                 packages,
                 view,
-                switchView
+                switchView,
+                user
             });
         } catch (err) {
             console.log(err.message);

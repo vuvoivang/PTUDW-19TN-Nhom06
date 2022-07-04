@@ -1,5 +1,3 @@
-const API_URL = "http://localhost:3000";
-
 var searchInput = document.getElementsByClassName('search-innut');
 var addNameIn = document.getElementById('add-name');
 var addCapacityIn = document.getElementById('add-capacity');

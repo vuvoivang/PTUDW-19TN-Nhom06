@@ -1,5 +1,3 @@
-const API_URL = "http://localhost:3000";
-
 var username = document.getElementById('username');
 var pass1 = document.getElementById('password');
 var pass2 = document.getElementById('confirm-password');

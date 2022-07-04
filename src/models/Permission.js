@@ -4,6 +4,7 @@ const permissionSchema = mongoose.Schema({
     managerUsername: {
         type: String,
         required: true,
+        unique: true
     },
     permissions: [String]
 });

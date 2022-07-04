@@ -1,5 +1,3 @@
-const API_URL = "http://localhost:3000";
-
 function showToast(message, color) {
     document.getElementById("snackbar").innerHTML = message;
     document.getElementById("snackbar").style.color = color;
