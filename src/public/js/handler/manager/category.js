@@ -1,5 +1,3 @@
-const API_URL = "http://localhost:3000";
-
 const handleAddCategory = async () => {
     const name = document.querySelector("#form-add-category #category-name").value;
     const image = document.querySelector("#form-add-category #category-image").files[0];

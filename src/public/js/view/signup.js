@@ -1,5 +1,5 @@
 const { ggSignin, faceSignin } = require('../../../config/firebase.config');
-const API_URL = "http://localhost:3000";
+const API_URL = "https://covid-19-management-sys-19tn.herokuapp.com";
 
 var usernameInput = document.getElementById('username');
 var ggBtn = document.getElementById('google');

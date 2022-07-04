@@ -1,5 +1,3 @@
-const API_URL = "http://localhost:3000";
-
 const handleAddProduct = async () => {
     const formData = getFormInput("add");
     const res = await fetch(`${API_URL}/manager/product-management`, {

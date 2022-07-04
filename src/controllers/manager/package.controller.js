@@ -3,7 +3,6 @@ const Product = require('../../models/Product');
 const Package = require('../../models/Package');
 const Order = require('../../models/Order');
 const utils = require('../../utils/functions');
-const jwt = require('jsonwebtoken');
 const { hyperlinksSidebarManager, managerBreadCrumb } = require('../../constants/index');
 const Account = require('../../models/Account');
 
@@ -49,6 +48,9 @@ module.exports = {
 
     getAddPackage: async (req, res) => {
         try {
+            res.locals.hyperlinks = hyperlinksSidebarManager('package-management');
+            res.locals.breadCrumb = pushBreadCrumb("Quản lý gói", '/manager/package-management');
+
             let products = await Product.find({}).populate('category');
             products = utils.mapObjectInArray(products);
             res.render(`${path}/addPackage`, {
@@ -126,6 +128,9 @@ module.exports = {
 
     detailPackage: async (req, res) => {
         try {
+            res.locals.hyperlinks = hyperlinksSidebarManager('package-management');
+            res.locals.breadCrumb = pushBreadCrumb("Quản lý gói", '/manager/package-management');
+
             const id = req.params.id;
             let package = await Package.findById(id);
             if (!package) {

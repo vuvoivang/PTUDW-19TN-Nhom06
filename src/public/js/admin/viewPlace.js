@@ -1,3 +1,5 @@
+const API_URL = "https://covid-19-management-sys-19tn.herokuapp.com";
+
 var searchInput = document.getElementsByClassName('search-innut');
 var addNameIn = document.getElementById('add-name');
 var addCapacityIn = document.getElementById('add-capacity');

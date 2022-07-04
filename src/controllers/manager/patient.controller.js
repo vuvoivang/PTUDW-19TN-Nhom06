@@ -26,6 +26,7 @@ module.exports = {
         try {
             res.locals.hyperlinks = hyperlinksSidebarManager('patient-management');
             res.locals.breadCrumb = pushBreadCrumb("Quản lý bệnh nhân", '/manager/patient-management');
+
             let patients = await Account.find({ role: 'user' });
             const decoded = await jwt.decode(req.cookies.token, { complete: true });
             const id = decoded.payload.id;
@@ -45,6 +46,9 @@ module.exports = {
 
     getAddPatient: async (req, res) => {
         try {
+            res.locals.hyperlinks = hyperlinksSidebarManager('patient-management');
+            res.locals.breadCrumb = pushBreadCrumb("Quản lý bệnh nhân", '/manager/patient-management');
+
             let quarantineLocations = await QuarantineLocation.find({});
             quarantineLocations = utils.mapObjectInArray(quarantineLocations);
             let relates = await Account.find({ role: 'user' });
@@ -156,6 +160,9 @@ module.exports = {
 
     detailPatient: async (req, res) => {
         try {
+            res.locals.hyperlinks = hyperlinksSidebarManager('patient-management');
+            res.locals.breadCrumb = pushBreadCrumb("Quản lý bệnh nhân", '/manager/patient-management');
+
             const id = req.params.id;
             let patient = await Account.findById(id);
             if (!patient) {
@@ -192,6 +199,9 @@ module.exports = {
 
     historyPatient: async (req, res) => {
         try {
+            res.locals.hyperlinks = hyperlinksSidebarManager('patient-management');
+            res.locals.breadCrumb = pushBreadCrumb("Quản lý bệnh nhân", '/manager/patient-management');
+
             const userId = req.params.id;
             let patient = await Account.findById(userId).lean();
             let managementHistory = await LogManager.find({
@@ -245,8 +255,10 @@ module.exports = {
             }
 
             const isNewState = patient.state !== req.body.state;
+            // is have old location or null (not change)
             const oldQuarantine = patient.quarantineLocation.toString() !== req.body.quarantineLocation ? patient.quarantineLocation : null;
 
+            // change location
             if (oldQuarantine) {
                 const quarantineLocation = await QuarantineLocation.findById(req.body.quarantineLocation);
                 if (quarantineLocation.patientsNumber >= quarantineLocation.capacity) {
@@ -282,6 +294,13 @@ module.exports = {
                 const newQuarantineLocation = await QuarantineLocation.findById(req.body.quarantineLocation);
                 newQuarantineLocation.patientsNumber += 1;
                 await newQuarantineLocation.save();
+                // update log
+                LogManager.create({
+                    description: `Chuyển bệnh nhân từ ${oldQuarantineLocation.name} sang ${newQuarantineLocation.name}`,
+                    userId: id,
+                    time: new Date(),
+                    action: "UPDATE LOCATION"
+                })
             }
 
             // update related user
@@ -334,16 +353,30 @@ module.exports = {
                     }
                 }
 
-                // with relatesInBoth, each item in relatesInBoth is updated
-                for (let i = 0; i < relatesInBoth.length; i++) {
-                    await RelatedUser.updateOne({ userId: id, relatedUserId: relatesInBoth[i] }, { stateRelatedUser: utils.getNextStateRelated(req.body.state) });
+                if (req.body.state !== "Khỏi bệnh") {
+                    // with relatesInBoth, each item in relatesInBoth is updated
+                    for (let i = 0; i < relatesInBoth.length; i++) {
+                        await RelatedUser.updateOne({ userId: id, relatedUserId: relatesInBoth[i] }, { stateRelatedUser: utils.getNextStateRelated(req.body.state) });
 
-                    let relatedAccount = await Account.findById(relatesInBoth[i]);
-                    if (utils.compareState(relatedAccount.state, utils.getNextStateRelated(req.body.state))) {
-                        relatedAccount.state = utils.getNextStateRelated(req.body.state);
-                        await relatedAccount.save();
+                        let relatedAccount = await Account.findById(relatesInBoth[i]);
+                        if (utils.compareState(relatedAccount.state, utils.getNextStateRelated(req.body.state))) {
+                            relatedAccount.state = utils.getNextStateRelated(req.body.state);
+                            await relatedAccount.save();
+                        }
                     }
                 }
+
+                // save LogManager
+                let desc = "";
+                if (req.body.state === 'Khỏi bệnh') {
+                    desc = "Cho xuất viện vì đã khỏi bệnh";
+                } else desc = `Đổi trạng thái từ ${patient.state} sang ${req.body.state}`;
+                LogManager.create({
+                    description: desc,
+                    userId: id,
+                    time: new Date(),
+                    action: "UPDATE STATE"
+                })
             }
 
             res.status(200).json({

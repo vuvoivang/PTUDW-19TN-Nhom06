@@ -2,11 +2,12 @@
     <link rel='stylesheet' href='/css/package.css' />
 {{/section}}
 <div class='container py-5'>
-    <div class='d-flex justify-content-center product-info'>
-        <div class='px-3'>
-            <img src={{package.image}} alt='' class='img-fluid product-img' />
+    <div class='row product-info d-flex justify-content-center'>
+        <div class='col-lg-5 col-md-10 col-sm-10 d-flex align-items-center px-3'>
+                <img src={{package.image}} alt='' class='img-fluid product-img' />
         </div>
-        <div class='px-5'>
+        <div class='col-lg-4 col-md-8 col-sm-10 mt-lg-5 px-2'>
+
             <h2 class='product-name pt-4'>{{package.name}}</h2>
             
             <div class='pb-3 d-flex justify-content-between align-items-baseline'>
@@ -26,7 +27,8 @@
 
     <div class='package-detail'>
         <h3 class='pb-3'>Danh sách sản phẩm</h3>
-        <table id='dataTable' class='table mt-5' style='width:100%'>
+        <div class="table-responsive table-view">
+        <table id='dataTable' class='table mt-5 table-hover' style='width:100%'>
             <thead class='text-primary'>
                 <tr>
                     <th>Ảnh sản phẩm</th>
@@ -49,6 +51,7 @@
 
             </tbody>
         </table>
+        </div>
     </div>
 </div>
 {{#section 'script'}}
