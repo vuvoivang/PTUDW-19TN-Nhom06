@@ -1038,10 +1038,31 @@ table.dataTable > thead .sorting_desc_disabled:after {
 
 @media screen and (max-width: 500px) {
   #sidenav-main.navbar-vertical.navbar-expand-xs {
-    display: none;
+    top:0;
+    position: relative;
+    width: 90%;
+    height: auto;
+    overflow: hidden;
   }
+  #sidenav-collapse-main{
+    position: relative;
+    width: 100% !important;
+    height: auto;
+  }
+  #sidenav-collapse-main .navbar-nav{
+    display: block;
+  }
+  /* .navbar-vertical.navbar-expand-xs .navbar-nav .nav-item{
+    width: 100px;
+  } */
   .sidenav.fixed-start + .main-content {
     margin-left: 0;
+  }
+  .navbar-vertical.navbar-expand-xs{
+    max-width: 500px!important;
+  }
+  .navbar-vertical.navbar-expand-xs .sidenav-footer{
+    display:none;
   }
   .main-content {
     padding-bottom: 30px;
