@@ -79,7 +79,7 @@ module.exports = {
     },
     getQuarantineLocation: async (req, res) => {
         try {
-            let locations = await QuarantineLocation.find();
+            let locations = await QuarantineLocation.find().lean();
             if (locations) {
                 res.status(200).json({
                     status: "Get quarantine locations successfully",

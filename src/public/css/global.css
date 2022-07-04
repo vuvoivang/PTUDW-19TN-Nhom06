@@ -1118,3 +1118,6 @@ table.dataTable > thead .sorting_desc_disabled:after {
   border-top-right-radius: 12px;
   border-bottom-right-radius: 12px;
 }
+#main-container-role{
+  min-height: 200px;
+}
