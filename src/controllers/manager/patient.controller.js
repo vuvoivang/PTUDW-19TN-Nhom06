@@ -5,6 +5,7 @@ const QuarantineLocation = require('../../models/QuarantineLocation');
 const RelatedUser = require('../../models/RelatedUser');
 const utils = require('../../utils/functions');
 const { hyperlinksSidebarManager, managerBreadCrumb } = require('../../constants/index');
+const jwt = require('jsonwebtoken');
 
 const pushBreadCrumb = (label, link, isActive = true) => {
     let thisBreadCrumb = {};
@@ -27,11 +28,15 @@ module.exports = {
             res.locals.breadCrumb = pushBreadCrumb("Quản lý bệnh nhân", '/manager/patient-management');
 
             let patients = await Account.find({ role: 'user' });
+            const decoded = await jwt.decode(req.cookies.token, { complete: true });
+            const id = decoded.payload.id;
+            const user = await Account.findById(id).lean();
             patients = utils.mapObjectInArray(patients);
             res.render(`${path}/patientManagement`, {
                 layout: 'manager/main',
                 tag: 'patient',
                 patients,
+                user
             });
         } catch (err) {
             console.log(err.message);

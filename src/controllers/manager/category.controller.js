@@ -3,6 +3,8 @@ const Category = require('../../models/Category');
 const Product = require('../../models/Product');
 const utils = require('../../utils/functions');
 const { hyperlinksSidebarManager, managerBreadCrumb } = require('../../constants/index');
+const Account = require('../../models/Account');
+const jwt = require('jsonwebtoken');
 
 const pushBreadCrumb = (label, link, isActive = true) => {
     let thisBreadCrumb = {};
@@ -23,11 +25,15 @@ module.exports = {
             res.locals.hyperlinks = hyperlinksSidebarManager('category-management');
             res.locals.breadCrumb = pushBreadCrumb("Quản lý danh mục", '/manager/category-management');
             let categories = await Category.find({});
+            const decoded = await jwt.decode(req.cookies.token, { complete: true });
+            const id = decoded.payload.id;
+            const user = await Account.findById(id).lean();
             categories = utils.mapObjectInArray(categories);
             res.render(`${path}/categoryManagement`, {
                 layout: "manager/main",
                 tag: "category",
-                categories
+                categories,
+                user
             });
         } catch (err) {
             console.log(err.message);
