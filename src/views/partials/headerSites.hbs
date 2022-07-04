@@ -44,6 +44,7 @@
                 </div>
             </form>
             {{#if isLoggedIn}}
+            <div id="avt">
             <ul>
                 <li class="nav-item dropdown dropdown-slide">
                     <a class="nav-link dropdown-toggle btn" href="#" aria-haspopup="true" role="button"
@@ -62,6 +63,7 @@
                     </ul>
                 </li>
             </ul>
+            </div>
             {{else}}
             <div class="btn btn-dark mb-2" onclick="redirect()">Đăng nhập</div>
             {{/if}}

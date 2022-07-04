@@ -30,8 +30,12 @@ select.form-select-category {
 
 ul, li {
     list-style-type: none;
+    padding: 0;
 }
 
 
 
  
+#avt {
+    max-width: fit-content;
+}
