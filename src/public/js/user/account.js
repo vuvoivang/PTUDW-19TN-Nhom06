@@ -1,4 +1,4 @@
-const API_URL = "https://covid-19-management-sys-19tn.herokuapp.com/user"
+
 function handleChangePassword(id) {
     console.log(id);
     const oldPassword = document.getElementById('oldPassword').value;
@@ -21,7 +21,7 @@ function handleChangePassword(id) {
         return document.getElementById('newPasswordError').innerHTML = "Mật khẩu không khớp!";
     else document.getElementById('newPasswordError').innerHTML = "";
 
-    fetch(`${API_URL}/change-password`, {
+    fetch(`${API_URL}/user/change-password`, {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'

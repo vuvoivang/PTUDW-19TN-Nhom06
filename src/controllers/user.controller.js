@@ -194,7 +194,6 @@ module.exports = {
             res.render("layouts/user/accountPayment", {
                 layout: "user/main",
                 isHaveAccountPayment: paymentAccount ? true : false,
-                paymentAccount,
                 announces
             });
         } catch (error) {
