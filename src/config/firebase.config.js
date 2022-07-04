@@ -1,6 +1,6 @@
 const { initializeApp } = require('firebase/app');
 const { getAuth, GoogleAuthProvider, signInWithPopup, signOut, FacebookAuthProvider } = require('firebase/auth');
-const API_URL = "http://localhost:3000";
+const API_URL = "https://covid-19-management-sys-19tn.herokuapp.com";
 
 const firebaseConfig = {
     apiKey: "AIzaSyD9xiWK7FIWUte_ZSHtHSjgEBpjB6sCsVw",

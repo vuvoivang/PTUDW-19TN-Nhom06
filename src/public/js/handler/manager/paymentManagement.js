@@ -1,5 +1,5 @@
 
-const API_URL = "http://localhost:3000"
+const API_URL = "https://covid-19-management-sys-19tn.herokuapp.com"
 const MIN_VALUE = 30000;
 
 const handleUpdateMinimumTransfer = () => {
