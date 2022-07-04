@@ -1,11 +1,4 @@
-
-var search = document.getElementsByClassName('search-input');
-var permissionBtn = document.getElementsByClassName('permission');
-var stateBtn = document.getElementsByClassName('state');
-var historyBtn = document.getElementsByClassName('history');
-var usernameIn = document.getElementsByClassName('username');
-var updateBtn = document.getElementById('update');
-
+const API_URL = "http://localhost:3000";
 
 function showToast() {
     document.getElementById("snackbar").innerHTML = "Cập nhật quyền thành công";
@@ -17,27 +10,34 @@ function showToast() {
     }, 3000);
 }
 
-const getPermission = async (managerUsername) => {
-    const res = await axios({
+const getPermission = (managerUsername) => {
+    fetch(`${API_URL}/api/v1/manager/permission/get`, {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
         method: "POST",
-        url: "http://localhost:3000/api/v1/manager/permission/get",
-        data: {
-            managerUsername
-        }
-    });
-    if (res.data.permissions) {
-        updateCheckbox(res.data.permissions, managerUsername);
-    }
+        body: JSON.stringify({ managerUsername })
+    }).then(resp => resp.json())
+        .then(res => {
+            let { permissions } = res;
+            if (permissions) {
+                updateCheckbox(permissions, managerUsername);
+            }
+        });
 };
 
-const updatePermission = async (managerUsername, changeData) => {
-    const res = await axios({
+const updatePermission = (managerUsername, changeData) => {
+    fetch(`${API_URL}/api/v1/manager/permission/update`, {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
         method: "POST",
-        url: "http://localhost:3000/api/v1/manager/permission/update",
-        data: {
+        body: JSON.stringify({
             managerUsername,
             permissions: changeData
-        }
+        })
     });
 };
 
@@ -51,29 +51,33 @@ const showState = () => {
     }
 };
 
-const showHistory = async (managerUsername) => {
-    const res = await axios({
+const showHistory = (managerUsername) => {
+    fetch(`${API_URL}/api/v1/manager/log`, {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
         method: "POST",
-        url: "http://localhost:3000/api/v1/manager/log",
-        data: {
-            managerUsername
-        }
+        body: JSON.stringify({ managerUsername })
     });
 };
 
-const updateState = async (state) => {
-    const res = await axios({
-        method: "POST",
-        url: "http://localhost:3000/api/v1/manager/update",
-        data: {
-            managerUsername,
-            role: `${state}_manager`
-        }
-    });
-}
+// const updateState = (managerUsername, state) => {
+//     fetch(`${API_URL}/api/v1/manager/update`, {
+//         headers: {
+//             'Accept': 'application/json',
+//             'Content-Type': 'application/json'
+//         },
+//         method: "POST",
+//         body: JSON.stringify({
+//             managerUsername,
+//             role: `${state}_manager`
+//         })
+//     });
+// }
 
-const updateCheckbox = async (permissions, username) => {
-    for (let i = 0; i<permissions.length; i++) {
+const updateCheckbox = (permissions, username) => {
+    for (let i = 0; i < permissions.length; i++) {
         document.getElementById(`p${permissions[i]}-${username}`).checked = true;
     }
 };
@@ -103,4 +107,11 @@ function historyView(username) {
     showHistory(username);
 }
 
+// function stateUpdate(username) {
+//     let state = document.getElementById(`state-${username}`).innerText;
+//     if (state === 'active') {
+//         document.getElementById(`state-${username}`).innerText = 'inactive';
+//         document.getElementsByClassName
+//     }
+// }
 
