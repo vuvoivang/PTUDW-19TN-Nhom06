@@ -9,8 +9,8 @@ module.exports = {
     get: async (req, res) => {
         try {
             // get all categories
-            if(req.cookies.token) {
-                let decoded = await jwt.decode(req.cookies.token, {complete: true});
+            if (req.cookies.token) {
+                let decoded = await jwt.decode(req.cookies.token, { complete: true });
                 let id = decoded.payload.id;
                 let role = decoded.payload.role;
                 let user = await Account.findById(id).lean();
@@ -18,11 +18,9 @@ module.exports = {
                 res.locals.isLoggedIn = true;
                 if (role == 'admin') {
                     res.locals.hyperlinks = hyperlinksSidebarAdmin('view');
-                }
-                else if (role == 'user') {
+                } else if (role == 'user') {
                     res.locals.hyperlinks = hyperlinksSidebarUser(id, 'account');
-                }
-                else {
+                } else {
                     res.locals.hyperlinks = hyperlinksSidebarManager('patient-management');
                 }
             }
@@ -51,6 +49,21 @@ module.exports = {
             });
             // get max 8 packages
             packages = packages.slice(0, 8);
+            for (let i = 0; i < packages.length; i++) {
+                let totalPrice = 0;
+                for (let product of packages[i].productList) {
+                    const productItem = await Product.findById(product.product);
+                    if (!productItem) {
+                        return res.status(404).json({
+                            status: 'Not Found',
+                            message: 'Không tìm thấy sản phẩm',
+                            errorCode: 'NOT_FOUND',
+                        });
+                    }
+                    totalPrice += productItem.price;
+                }
+                packages[i].defaultPrice = totalPrice;
+            }
             res.render('layouts/sites/home', {
                 layout: 'sites/main',
                 categories,
