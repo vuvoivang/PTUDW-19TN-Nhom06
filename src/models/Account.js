@@ -55,8 +55,7 @@ const accountSchema = new Schema({
     },
     state: {
         type: String,
-        enum: ["Khỏi bệnh", 'F0', 'F1', 'F2', 'F3'],
-        state: "Khỏi bệnh"
+        enum: ["Khỏi bệnh", 'F0', 'F1', 'F2', 'F3']
     },
     auth: {
         type: String,
@@ -95,13 +94,6 @@ accountSchema.pre('save', async function (next) {
     this.password = await bcrypt.hash(this.password, 12);
     next();
 });
-
-accountSchema.pre('findOneAndUpdate', async function (next) {
-    let data = this.getUpdate();
-    this.password = await bcrypt.hash(data.password, 12);
-    this.update({}, { password: this.password });
-    next();
-})
 
 accountSchema.methods.correctPassword = async function (candidate, password) {
     return await bcrypt.compare(candidate, password);

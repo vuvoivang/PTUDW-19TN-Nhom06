@@ -55,6 +55,7 @@
                 </label>
                 <select class="form-select" name="state" id="registerState" required>
                     {{#select patient.state}}
+                    <option value="Khỏi bệnh">Khỏi bệnh</option>
                     <option value="F0">F0</option>
                     <option value="F1">F1</option>
                     <option value="F2">F2</option>
@@ -118,6 +119,7 @@
             </div>
         </div>
         <div class="row mb-3">
+            <input type="text" id="registerOldRelates" value="{{patient.relateData}}" hidden />
             <div class="form-group">
                 <label class="control-label" for="registerRelates">
                     ID những người liên quan (Vui lòng chọn trong danh sách bệnh nhân)

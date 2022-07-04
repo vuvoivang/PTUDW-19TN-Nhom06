@@ -223,8 +223,8 @@ module.exports = {
                 })
             }
 
-            const newState = patient.state !== req.body.state ? req.body.state : null;
-            const oldQuarantine = patient.quarantineLocation !== req.body.quarantineLocation ? patient.quarantineLocation : null;
+            const isNewState = patient.state !== req.body.state;
+            const oldQuarantine = patient.quarantineLocation.toString() !== req.body.quarantineLocation ? patient.quarantineLocation : null;
 
             if (oldQuarantine) {
                 const quarantineLocation = await QuarantineLocation.findById(req.body.quarantineLocation);
@@ -237,32 +237,93 @@ module.exports = {
                 }
             }
 
-            patient.displayName = req.body.displayName;
-            patient.cardID = req.body.cardID;
-            patient.dateOfBirth = req.body.dateOfBirth;
-            patient.address = {
-                province: req.body.province,
-                district: req.body.district,
-                ward: req.body.ward,
-            }
-            newState && (patient.state = newState);
-            oldQuarantine && (patient.quarantineLocation = req.body.quarantineLocation);
-            console.log("patient ne", patient);
-            await patient.save();
+            await patient.updateOne({
+                $set: {
+                    displayName: req.body.displayName,
+                    cardID: req.body.cardID,
+                    dateOfBirth: req.body.dateOfBirth,
+                    address: {
+                        province: req.body.province,
+                        district: req.body.district,
+                        ward: req.body.ward,
+                    },
+                    state: req.body.state,
+                    quarantineLocation: req.body.quarantineLocation,
+                }
+            });
 
             // update quarantine location
-            // if (oldQuarantine) {
-            //     const oldQuarantineLocation = await QuarantineLocation.findById(oldQuarantine);
-            //     oldQuarantineLocation.patientsNumber -= 1;
-            //     await oldQuarantineLocation.save();
+            if (oldQuarantine) {
+                const oldQuarantineLocation = await QuarantineLocation.findById(oldQuarantine);
+                oldQuarantineLocation.patientsNumber -= 1;
+                await oldQuarantineLocation.save();
 
-            //     const newQuarantineLocation = await QuarantineLocation.findById(req.body.quarantineLocation);
-            //     newQuarantineLocation.patientsNumber += 1;
-            //     await newQuarantineLocation.save();
-            // }
+                const newQuarantineLocation = await QuarantineLocation.findById(req.body.quarantineLocation);
+                newQuarantineLocation.patientsNumber += 1;
+                await newQuarantineLocation.save();
+            }
 
             // update related user
-            // const relates = req.body.relates ? req.body.relates.split(', ').map((item) => parseInt(item)) : [];
+            const oldRelates = req.body.oldRelates ? req.body.oldRelates.split(', ').map((item) => parseInt(item)) : [];
+            const newRelates = req.body.relates ? req.body.relates.split(', ').map((item) => parseInt(item)) : [];
+            const oldRelatesNotNewRelates = oldRelates.filter(item => !newRelates.includes(item));
+            const newRelatesNotOldRelates = newRelates.filter(item => !oldRelates.includes(item));
+            const relatesInBoth = oldRelates.filter(item => newRelates.includes(item));
+
+            if (!isNewState && req.body.oldRelates !== req.body.relates) {
+                // with oldRelatesNotNewRelates, each item in oldRelatesNotNewRelates is removed from relatedUsers has userId = id
+                for (let i = 0; i < oldRelatesNotNewRelates.length; i++) {
+                    await RelatedUser.deleteOne({ userId: id, relatedUserId: oldRelatesNotNewRelates[i] });
+                }
+
+                // with newRelatesNotOldRelates, each item in newRelatesNotOldRelates is added to relatedUsers has userId = id
+                for (let i = 0; i < newRelatesNotOldRelates.length; i++) {
+                    await RelatedUser.create({ userId: id, relatedUserId: newRelatesNotOldRelates[i], stateRelatedUser: utils.getNextStateRelated(req.body.state) });
+
+                    let relatedAccount = await Account.findById(newRelatesNotOldRelates[i]);
+                    if (utils.compareState(relatedAccount.state, utils.getNextStateRelated(req.body.state))) {
+                        relatedAccount.state = utils.getNextStateRelated(req.body.state);
+                        await relatedAccount.save();
+                    }
+                }
+            }
+
+            if (isNewState) {
+                // add this patient relate to itself
+                let relate = new RelatedUser({
+                    userId: null,
+                    relatedUserId: id,
+                    stateRelatedUser: req.body.state
+                });
+                await relate.save();
+
+                // with oldRelatesNotNewRelates, each item in oldRelatesNotNewRelates is removed from relatedUsers has userId = id
+                for (let i = 0; i < oldRelatesNotNewRelates.length; i++) {
+                    await RelatedUser.deleteOne({ userId: id, relatedUserId: oldRelatesNotNewRelates[i] });
+                }
+
+                // with newRelatesNotOldRelates, each item in newRelatesNotOldRelates is added to relatedUsers has userId = id
+                for (let i = 0; i < newRelatesNotOldRelates.length; i++) {
+                    await RelatedUser.create({ userId: id, relatedUserId: newRelatesNotOldRelates[i], stateRelatedUser: utils.getNextStateRelated(req.body.state) });
+
+                    let relatedAccount = await Account.findById(newRelatesNotOldRelates[i]);
+                    if (utils.compareState(relatedAccount.state, utils.getNextStateRelated(req.body.state))) {
+                        relatedAccount.state = utils.getNextStateRelated(req.body.state);
+                        await relatedAccount.save();
+                    }
+                }
+
+                // with relatesInBoth, each item in relatesInBoth is updated
+                for (let i = 0; i < relatesInBoth.length; i++) {
+                    await RelatedUser.updateOne({ userId: id, relatedUserId: relatesInBoth[i] }, { stateRelatedUser: utils.getNextStateRelated(req.body.state) });
+
+                    let relatedAccount = await Account.findById(relatesInBoth[i]);
+                    if (utils.compareState(relatedAccount.state, utils.getNextStateRelated(req.body.state))) {
+                        relatedAccount.state = utils.getNextStateRelated(req.body.state);
+                        await relatedAccount.save();
+                    }
+                }
+            }
 
             res.status(200).json({
                 status: 'success',
@@ -297,7 +358,7 @@ module.exports = {
             };
         });
 
-        const states = ['F0', 'F1', 'F2', 'F3']
+        const states = ['Khỏi bệnh', 'F0', 'F1', 'F2', 'F3']
         let result = {};
         states.forEach(state => {
             result[state] = {

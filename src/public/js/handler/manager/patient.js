@@ -40,9 +40,10 @@ const handleUpdatePatient = async () => {
 const getFormInput = (type) => {
     let username = "";
     let password = "";
+    let oldRelates = "";
     if (type === "add") {
-        username = document.querySelector(`#form-${type}-patient #registerUsername`).value;
-        password = document.querySelector(`#form-${type}-patient #registerPassword`).value;
+        username = document.querySelector(`#form-add-patient #registerUsername`).value;
+        password = document.querySelector(`#form-add-patient #registerPassword`).value;
     }
     const displayName = document.querySelector(`#form-${type}-patient #registerName`).value;
     const cardID = document.querySelector(`#form-${type}-patient #registerCardID`).value;
@@ -53,6 +54,9 @@ const getFormInput = (type) => {
     const ward = document.querySelector(`#form-${type}-patient #registerWard`).value;
     const quarantineLocation = document.querySelector(`#form-${type}-patient #registerQuarantine`).value;
     const relates = document.querySelector(`#form-${type}-patient #registerRelates`).value;
+    if (type === "update") {
+        oldRelates = document.querySelector(`#form-update-patient #registerOldRelates`).value;
+    }
 
     // body json data
     const data = {
@@ -69,6 +73,8 @@ const getFormInput = (type) => {
     if (type === "add") {
         data.username = username;
         data.password = password;
+    } else if (type === "update") {
+        data.oldRelates = oldRelates;
     }
 
     return JSON.stringify(data);
