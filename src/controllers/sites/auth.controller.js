@@ -204,7 +204,6 @@ const firewallUrlHandle = async (req, res, next) => {
         })
     }
 };
-
 const authorizeAccount = async (req, res) => {
     try {
         const { username } = req.body;
@@ -215,11 +214,13 @@ const authorizeAccount = async (req, res) => {
             // Check if db is empty
             let emptyCheck = await Account.find().lean();
             if (emptyCheck.length == 0) {
-                await Account.create({
+                let account = new Account({
                     username,
                     password: "1",
-                    role: "admin"
+                    role: "admin",
+                    isNew: true
                 });
+                await account.save();
                 res.status(200).json({
                     status: "Database is empty",
                     page: "/signup",
@@ -255,10 +256,11 @@ const authorizeAccount = async (req, res) => {
     } catch (error) {
         res.status(400).json({
             status: "Error while authorizing account",
-            message: error
+            message: error.message
         });
     }
 };
+
 
 
 module.exports = { signup, isLoggedIn, signOut, signIn, firebaseHandle, firewallUrlHandle, authorizeAccount }
