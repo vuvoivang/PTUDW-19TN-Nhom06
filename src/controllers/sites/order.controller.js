@@ -158,7 +158,6 @@ module.exports = {
                     }
                 });
             }
-            // console.log(result);
             res.json({ status: 'success', data: result });
         } catch (error) {
             res.status(500).json({
@@ -193,7 +192,7 @@ module.exports = {
                     }
                 });
             }
-            // console.log(result);
+            console.log(result);
             res.json({ status: 'success', data: result });
         } catch (error) {
             res.status(500).json({
