@@ -84,7 +84,8 @@ module.exports = {
                 res.status(200).json({
                     status: "Get quarantine locations successfully",
                     size: locations.length,
-                    locations
+                    locations,
+                    result: "success"
                 });
             }
             else {
@@ -110,7 +111,8 @@ module.exports = {
                     capacity: req.body.capacity
                 }).lean();
                 res.status(200).json({
-                    status: "Edit quarantine location successfully"
+                    status: "Edit quarantine location successfully",
+                    result: "success"
                 });
             }
             else {
@@ -133,7 +135,8 @@ module.exports = {
             if (location) {
                 res.status(200).json({
                     status: "Create quarantine location failed",
-                    message: "Exist location with this name"
+                    message: "Exist location with this name",
+                    result: "failed"
                 })
             }
             else {
@@ -145,7 +148,8 @@ module.exports = {
                 });
                 res.status(200).json({
                     status: "Create quarantine location successfully",
-                    location: newLocation
+                    location: newLocation,
+                    result: "success"
                 });
             }
         } catch (error) {
@@ -162,7 +166,8 @@ module.exports = {
             if (location) {
                 await QuarantineLocation.findOneAndDelete({ name });
                 res.status(200).json({
-                    status: "Delete quarantine location successfully"
+                    status: "Delete quarantine location successfully",
+                    result: "success"
                 });
             }
             else {
