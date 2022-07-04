@@ -1,5 +1,5 @@
 
-const API_URL = "https://covid-19-management-sys-19tn.herokuapp.com/banking"
+
 const MIN_DEPOSIT = 1000;
 function toastInform(message, isReload = false) {
     Toastify({
@@ -27,7 +27,7 @@ const handleBankingConnect = (id) => {
         return document.getElementById('registerPasswordError').innerHTML = "Mật khẩu không khớp!";
     else document.getElementById('registerPasswordError').innerHTML = "";
 
-    fetch(`${API_URL}/v1/account-payment`, {
+    fetch(`${API_URL}/banking/v1/account-payment`, {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
