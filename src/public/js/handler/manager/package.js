@@ -1,5 +1,3 @@
-const API_URL = "http://localhost:3000";
-
 const handleAddPackage = async () => {
     const formData = getFormInput("add");
     const res = await fetch(`${API_URL}/manager/package-management`, {

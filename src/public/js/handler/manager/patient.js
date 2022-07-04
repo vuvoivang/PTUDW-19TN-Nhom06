@@ -1,5 +1,3 @@
-const API_URL = "http://localhost:3000";
-
 const handleAddPatient = async () => {
     const body = getFormInput("add");
     const res = await fetch(`${API_URL}/manager/patient-management`, {

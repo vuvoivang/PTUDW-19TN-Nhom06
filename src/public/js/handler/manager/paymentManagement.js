@@ -1,5 +1,3 @@
-
-const API_URL = "http://localhost:3000"
 const MIN_VALUE = 30000;
 
 const handleUpdateMinimumTransfer = () => {
