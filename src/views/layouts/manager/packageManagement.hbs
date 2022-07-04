@@ -177,80 +177,11 @@
     $('#data_table').DataTable();
   });
 </script>
-<script>
-  const ctx = document.getElementById('packageStatistics').getContext('2d');
-  const data = {
-    labels: ["1/2022", "2/2022", "3/2022", "4/2022", "5/2022", "6/2022"],
-    datasets: [
-      {
-        label: 'Gói ăn vặt',
-        data: [12, 19, 3, 5, 2, 3],
-        backgroundColor: "rgba(255, 99, 132, 0.2)",
-        borderColor: "rgba(255, 99, 132, 1)",
-        borderWidth: 3,
-        fill: false,
-        tension: 0.1,
-      },
-      {
-        label: 'Gói chống virus',
-        data: [2, 3, 5, 2, 3, 12],
-        backgroundColor: "rgba(54, 162, 235, 0.2)",
-        borderColor: "rgba(54, 162, 235, 1)",
-        borderWidth: 3,
-        fill: false,
-        tension: 0.1,
-      },
-      {
-        label: 'Gói gia vị',
-        data: [3, 5, 2, 3, 12, 19],
-        backgroundColor: "rgba(255, 206, 86, 0.2)",
-        borderColor: "rgba(255, 206, 86, 1)",
-        borderWidth: 3,
-        fill: false,
-        tension: 0.1,
-      },
-      {
-        label: 'Gói đồ uống',
-        data: [5, 2, 3, 12, 19, 3],
-        backgroundColor: "rgba(75, 192, 192, 0.2)",
-        borderColor: "rgba(75, 192, 192, 1)",
-        borderWidth: 3,
-        fill: false,
-        tension: 0.1,
-      },
-    ]
-  }
-  const config = {
-    type: 'line',
-    data: data,
-    options: {
-      responsive: true,
-      maintainAspectRatio: true,
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      },
-      layout: {
-        padding: {
-          x: 50
-        }
-      },
-      plugins: {
-        legend: {
-          position: 'top',
-        },
-        title: {
-          display: true,
-          text: 'SỐ LIỆU THỐNG KÊ'
-        }
-      }
-    },
-  };
-  var packageChart = new Chart(ctx, config);
-</script>
 <script src="/js/custom/modal.js"></script>
 <script src="/js/handler/manager/package.js"></script>
 <script src="/js/custom/cardPagination.js"></script>
-<script></script>
+<script src="/js/handler/manager/statistics.js"></script>
+<script>
+  fetchStatistics("order", "package");
+</script>
 {{/section}}

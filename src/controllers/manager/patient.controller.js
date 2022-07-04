@@ -25,6 +25,7 @@ module.exports = {
         try {
             res.locals.hyperlinks = hyperlinksSidebarManager('patient-management');
             res.locals.breadCrumb = pushBreadCrumb("Quản lý bệnh nhân", '/manager/patient-management');
+
             let patients = await Account.find({ role: 'user' });
             patients = utils.mapObjectInArray(patients);
             res.render(`${path}/patientManagement`, {
@@ -40,6 +41,9 @@ module.exports = {
 
     getAddPatient: async (req, res) => {
         try {
+            res.locals.hyperlinks = hyperlinksSidebarManager('patient-management');
+            res.locals.breadCrumb = pushBreadCrumb("Quản lý bệnh nhân", '/manager/patient-management');
+
             let quarantineLocations = await QuarantineLocation.find({});
             quarantineLocations = utils.mapObjectInArray(quarantineLocations);
             let relates = await Account.find({ role: 'user' });
@@ -151,6 +155,9 @@ module.exports = {
 
     detailPatient: async (req, res) => {
         try {
+            res.locals.hyperlinks = hyperlinksSidebarManager('patient-management');
+            res.locals.breadCrumb = pushBreadCrumb("Quản lý bệnh nhân", '/manager/patient-management');
+
             const id = req.params.id;
             let patient = await Account.findById(id);
             if (!patient) {
@@ -187,6 +194,9 @@ module.exports = {
 
     historyPatient: async (req, res) => {
         try {
+            res.locals.hyperlinks = hyperlinksSidebarManager('patient-management');
+            res.locals.breadCrumb = pushBreadCrumb("Quản lý bệnh nhân", '/manager/patient-management');
+
             const userId = req.params.id;
             let patient = await Account.findById(userId).lean();
             let managementHistory = await LogManager.find({
