@@ -54,12 +54,16 @@
             <tbody>
               {{#each debts}}
               <tr>
-                <button class="userId" disabled value="{{userId}}">
-                </button>
-                <td class="text-left" id="displayName-{{userId}}">
+                <td class="userId" >
+                  {{userId}}
+                </td>
+                <td class="text-left">
                   {{displayName}}
                 </td>
-                <td id="state-{{userId}}">
+                 <td class="text-left">
+                  {{username}}
+                </td>
+                <td>
                   {{state}}
                 </td>
                 <td class="text-center" id="debt-{{userId}}">
