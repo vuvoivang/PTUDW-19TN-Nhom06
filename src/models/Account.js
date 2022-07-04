@@ -35,6 +35,7 @@ const accountSchema = new Schema({
     },
     address: {
         type: addressSchema,
+        default: null
     },
     dateOfBirth: {
         type: Date,
@@ -78,7 +79,6 @@ const accountSchema = new Schema({
         default: false
     }
 }, {
-    _id: false, // mongodb can't interfere this field
     timestamps: true,
 });
 

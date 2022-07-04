@@ -1,5 +1,5 @@
+// const API_URL = "https://covid-19-management-sys-19tn.herokuapp.com/banking";
 
-const API_URL = "https://covid-19-management-sys-19tn.herokuapp.com/banking"
 const MIN_DEPOSIT = 1000;
 function toastInform(message, isReload = false) {
     Toastify({

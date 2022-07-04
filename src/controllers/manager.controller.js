@@ -139,11 +139,14 @@ module.exports = {
                 }
                 else {
                     // Truong hop chua ton tai account
-                    let newAccount = await Account.create({
+
+                    let newAccount = new Account({
                         username,
                         password,
-                        role: "active_manager"
+                        role: "active_manager",
+                        isNew: true
                     });
+                    await newAccount.save();
                     let newPermiss = await createPermission(username, permissions);
 
                     res.status(200).json({

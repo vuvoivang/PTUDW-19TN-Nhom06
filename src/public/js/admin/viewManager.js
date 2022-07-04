@@ -1,4 +1,4 @@
-const API_URL = "https://covid-19-management-sys-19tn.herokuapp.com";
+// const API_URL = "https://covid-19-management-sys-19tn.herokuapp.com";
 
 function showToast(message, color) {
     document.getElementById("snackbar").innerHTML = message;

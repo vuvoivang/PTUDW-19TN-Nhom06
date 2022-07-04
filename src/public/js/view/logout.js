@@ -1,4 +1,5 @@
-const API_URL = "https://covid-19-management-sys-19tn.herokuapp.com";
+// const API_URL = "https://covid-19-management-sys-19tn.herokuapp.com";
+const API_URL = "http://localhost:3000";
 function signout() {
     fetch(`${API_URL}/api/v1/authentication/signout`, {
         headers: {

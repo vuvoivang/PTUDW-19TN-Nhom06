@@ -1,4 +1,5 @@
-const API_URL = "https://covid-19-management-sys-19tn.herokuapp.com/user"
+// const API_URL = "https://covid-19-management-sys-19tn.herokuapp.com/user";
+
 function handleChangePassword(id) {
     console.log(id);
     const oldPassword = document.getElementById('oldPassword').value;
