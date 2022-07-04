@@ -1,4 +1,3 @@
-const API_URL = 'http://localhost:3000';
 
 const userInputs = Array.from(document.getElementsByClassName('amount-input-product'));
 const submitOrder = async (package) => {
