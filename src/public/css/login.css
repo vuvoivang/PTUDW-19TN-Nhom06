@@ -73,8 +73,13 @@ label[for="password"] {
     margin-top: 20px;
 }
 
+label[for="confirm-password"] {
+    margin-top: 20px;
+}
+
 #username,
-#password {
+#password,
+#confirm-password {
     border: 0;
     width: 100%;
     padding-left: 8px;
@@ -87,7 +92,7 @@ label[for="password"] {
     border: 3px solid #DFE0EB;
     border-radius: 12px;
     height: 35px;
-    margin-top: 8px;
+    margin-top: 5px;
 }
 
 .input-field .icon {

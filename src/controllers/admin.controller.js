@@ -2,6 +2,7 @@ const Account = require('../models/Account');
 const jwt = require('jsonwebtoken');
 const { hyperlinksSidebarAdmin, adminBreadCrumb } = require('../constants/index');
 const QuarantineLocation = require('../models/QuarantineLocation');
+const LogManager = require('../models/LogManager');
 
 const pushBreadCrumb = (label, link, isActive = true) => {
     let thisBreadCrumb = {};
@@ -23,6 +24,10 @@ module.exports = {
         const id = decoded.payload.id;
         const user = await Account.findById(id).lean();
         res.locals.breadCrumb = pushBreadCrumb("Quản lý tài khoản", `/admin/view`);
+        let history = await LogManager.find().lean();
+        for (let i = 0; i < history.length; i++) {
+            history[i]['localTime'] = history[i].time.toLocaleString('en-GB', { timeZone: 'UTC' });
+        }
         let managers = await Account.find({
             $or: [
                 { 'role': 'active_manager' },
@@ -38,7 +43,8 @@ module.exports = {
             res.render('layouts/admin/managerView', {
                 layout: 'admin/main',
                 user,
-                managers
+                managers,
+                history
             });
         }
     },
