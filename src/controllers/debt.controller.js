@@ -1,6 +1,6 @@
 const Account = require('../models/Account');
 const Announce = require('../models/Announce');
-const Debt = require('../models/Debt');
+const Debt = require('../models/debt');
 
 module.exports = {
     getDebts: async () => {
