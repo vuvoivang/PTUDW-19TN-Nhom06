@@ -136,13 +136,11 @@ module.exports = {
     statisticProductByMonth: async (req, res) => {
         try {
             let productStatistics = await ProductStatistics.find({});
-
-            let products = new Set(productStatistics.map((statistics) => statistics.product));
+            let products = await Product.find({});
             let result = {};
             for (const product of products) {
                 // find product
-                const productDetail = await Product.findById(product);
-                result[productDetail.name] = {
+                result[product.name] = {
                     '01/2022': 0,
                     '02/2022': 0,
                     '03/2022': 0,
@@ -152,9 +150,9 @@ module.exports = {
                     '07/2022': 0,
                 };
                 productStatistics.forEach((statistics) => {
-                    if (product == statistics.product) {
+                    if (product._id == statistics.product) {
                         const month = statistics.date.substring(3);
-                        result[productDetail.name][month] += statistics.totalSold;
+                        result[product.name][month] += statistics.totalSold;
                     }
                 });
             }
@@ -171,12 +169,11 @@ module.exports = {
         try {
             let packageStatistics = await PackageStatistics.find({});
 
-            let packages = new Set(packageStatistics.map((statistics) => statistics.package));
+            let packages = await Package.find({});
             let result = {};
             for (const package of packages) {
                 // find package
-                const packageDetail = await Package.findById(package);
-                result[packageDetail.name] = {
+                result[package.name] = {
                     '01/2022': 0,
                     '02/2022': 0,
                     '03/2022': 0,
@@ -186,13 +183,13 @@ module.exports = {
                     '07/2022': 0,
                 };
                 packageStatistics.forEach((statistics) => {
-                    if (package == statistics.package) {
+                    if (package._id == statistics.package) {
                         const month = statistics.date.substring(3);
-                        result[packageDetail.name][month] += statistics.totalSold;
+                        result[package.name][month] += statistics.totalSold;
                     }
                 });
             }
-            console.log(result);
+            // console.log(result);
             res.json({ status: 'success', data: result });
         } catch (error) {
             res.status(500).json({
