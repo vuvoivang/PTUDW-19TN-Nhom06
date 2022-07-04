@@ -1,6 +1,7 @@
-const axios = require('axios');
 const { ggSignin, faceSignin } = require('../../../config/firebase.config');
+const API_URL = "http://localhost:3000";
 
+var usernameInput = document.getElementById('username');
 var ggBtn = document.getElementById('google');
 var fBtn = document.getElementById('facebook');
 
@@ -15,23 +16,28 @@ function showToast(message) {
 };
 
 
-const signInRequest = async (username, password) => {
-    try {
-        const res = await axios({
-            method: 'POST',
-            url: 'http://localhost:3000/api/v1/authentication/signin',
-            data: {
-                username, password
-            }
-        });
-        if (res.data.page) {
-            location.href = res.data.page
-        }
-        else if (res.data.result == 'failed') {
-            showToast("Username or password is incorrect!!!");
-        }
-    } catch (error) {
-        alert(error)
+const signInRequest = (username, password) => {
+    if (!username || !password) {
+        showToast("Username or password is empty");
+    }
+    else {
+        fetch(`${API_URL}/api/v1/authentication/signin`, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify({ username, password })
+        }).then(resp => resp.json())
+            .then(res => {
+                const { result } = res;
+                if (result === "success") {
+                    location.href = res.page;
+                }
+                else {
+                    showToast("Username or password is incorrect!!!");
+                }
+            });
     }
 };
 

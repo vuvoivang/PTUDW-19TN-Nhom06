@@ -1,5 +1,4 @@
 const { ggSignin, faceSignin } = require('../../../config/firebase.config');
-const axios = require('axios');
 const API_URL = 'http://localhost:3000';
 
 var usernameInput = document.getElementById('username');
@@ -16,18 +15,29 @@ function showToast(message) {
     }, 2000);
 };
 
-const sendAuthorizeRequest = async (username) => {
-    const res = await axios({
-        method: "POST",
-        url: `${API_URL}/api/v1/authentication/authorize`,
-        data: {
-            username
-        }
-    });
-
-    if (res.data.page) {
-        localStorage.username = username;
-        location.href = res.data.page;
+const sendAuthorizeRequest = (username) => {
+    if (!username) {
+        showToast("Username is empty");
+    }
+    else {
+        fetch(`${API_URL}/api/v1/authentication/authorize`, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify({ username })
+        }).then(resp => resp.json())
+            .then(res => {
+                const { result } = res;
+                if (result === "success") {
+                    localStorage.username = username;
+                    location.href = res.page;
+                }
+                else {
+                    showToast("Username or password is incorrect!!!");
+                }
+            });
     }
 };
 
@@ -42,11 +52,11 @@ function authorizeAccount() {
 };
 
 ggBtn.addEventListener('click', (e) => {
-    ggSignin()
+    ggSignin();
 });
 
 fBtn.addEventListener('click', e => {
-    faceSignin()
+    faceSignin();
 });
 
 let form = document.getElementById('form');
