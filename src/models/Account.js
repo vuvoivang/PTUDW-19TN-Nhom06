@@ -74,8 +74,7 @@ const accountSchema = new Schema({
         ref: 'QuarantineLocation',
     },
     isNew: {
-        type: Boolean,
-        default: false
+        type: Boolean
     }
 }, {
     timestamps: true,

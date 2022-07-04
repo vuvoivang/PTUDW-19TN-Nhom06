@@ -97,11 +97,10 @@ const firebaseHandle = async (req, res, next) => {
                 email: user.email,
                 displayName: user.displayName,
                 role: 'user',
-                isNew: false,
+                isNew: true,
                 auth: 'firebase'
             });
             await newUser.save();
-
             createSendToken(newUser._id, newUser.role, res, 'token');
         }
         else {
@@ -113,6 +112,7 @@ const firebaseHandle = async (req, res, next) => {
             result: "success"
         });
     } catch (error) {
+        console.log(error.message);
         res.status(400).json({
             status: "Firebase sign in failed",
             message: error

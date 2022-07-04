@@ -64,9 +64,6 @@ const sendFirebaseRequest = async (user) => {
             if (result === "success") {
                 location.href = res.page;
             }
-            else {
-                showToast("Username or password is incorrect!!!");
-            }
         });
 }
 
