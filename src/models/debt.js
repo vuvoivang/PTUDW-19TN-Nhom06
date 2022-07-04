@@ -5,9 +5,6 @@ const debtSchema = mongoose.Schema({
         type: Number,
         require: true
     },
-    username: {
-        type: String
-    },
     displayName: {
         type: String
     },
