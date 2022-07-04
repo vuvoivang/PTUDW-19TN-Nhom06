@@ -740,6 +740,7 @@ body {
 .sidenav.fixed-start + .main-content {
   margin-left: 16.625rem;
   padding: 10px 30px;
+  overflow: hidden;
 }
 #navbar .search-icon {
   margin-right: 7px;
@@ -1037,20 +1038,56 @@ table.dataTable > thead .sorting_desc_disabled:after {
 
 @media screen and (max-width: 500px) {
   #sidenav-main.navbar-vertical.navbar-expand-xs {
-    display: none;
+    top:0;
+    position: relative;
+    width: 90%;
+    height: auto;
+    overflow: hidden;
   }
+  #sidenav-collapse-main{
+    position: relative;
+    width: 100% !important;
+    height: auto;
+  }
+  #sidenav-collapse-main .navbar-nav{
+    display: block;
+  }
+  /* .navbar-vertical.navbar-expand-xs .navbar-nav .nav-item{
+    width: 100px;
+  } */
   .sidenav.fixed-start + .main-content {
     margin-left: 0;
+  }
+  .navbar-vertical.navbar-expand-xs{
+    max-width: 500px!important;
+  }
+  .navbar-vertical.navbar-expand-xs .sidenav-footer{
+    display:none;
   }
   .main-content {
     padding-bottom: 30px;
   }
 }
 
-.dropdown:not(.dropdown-hover) .dropdown-menu.show{
-  margin-top: 1.5rem !important
+.dropdown:not(.dropdown-hover) .dropdown-menu.show {
+  margin-top: 2.2rem !important;
 }
-.fixed-plugin .card{
+.fixed-plugin .card {
   width: 400px;
   right: -400px;
+}
+.amount-announce {
+  top: 18px;
+  right: 3px;
+  background-color: white;
+  border-radius: 20px;
+  padding: 0 1px;
+  border: 1px solid rgb(243, 11, 11);
+}
+#confirm-password {
+  border: 0;
+  width: 100%;
+  padding-left: 8px;
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
 }

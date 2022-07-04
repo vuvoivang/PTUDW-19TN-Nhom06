@@ -1,6 +1,6 @@
 const { initializeApp } = require('firebase/app');
-const { getAuth, GoogleAuthProvider, signInWithPopup, signOut, FacebookAuthProvider, onAuthStateChanged } = require('firebase/auth');
-const axios = require('axios');
+const { getAuth, GoogleAuthProvider, signInWithPopup, signOut, FacebookAuthProvider } = require('firebase/auth');
+const API_URL = "http://localhost:3000";
 
 const firebaseConfig = {
     apiKey: "AIzaSyD9xiWK7FIWUte_ZSHtHSjgEBpjB6sCsVw",
@@ -16,48 +16,13 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-
-const ggSignup = () => {
-    if (!auth.currentUser) {
-        let provider = new GoogleAuthProvider(app)
-        signInWithPopup(auth, provider).then(result => {
-            const user = result.user
-            signOut(auth)
-            sendFirebaseRequest(user, 'signup')
-
-        }).catch((error) => {
-            const errorMessage = error.message;
-            console.log(errorMessage)
-        })
-    } else {
-        signOut(auth)
-    }
-}
-
-const faceSignup = () => {
-    if (!auth.currentUser) {
-        let provider = new FacebookAuthProvider(app)
-        signInWithPopup(auth, provider).then(result => {
-            const user = result.user
-            signOut(auth)
-            sendFirebaseRequest(user, 'signup')
-            
-        }).catch(error => {
-            const errorMessage = error.message;
-            console.log(errorMessage)
-        })
-    } else {
-        signOut(auth)
-    }
-}
-
 const ggSignin = () => {
     if (!auth.currentUser) {
         let provider = new GoogleAuthProvider(app)
         signInWithPopup(auth, provider).then(result => {
             const user = result.user
             signOut(auth)
-            sendFirebaseRequest(user, 'signin')
+            sendFirebaseRequest(user)
 
         }).catch((error) => {
             const errorMessage = error.message;
@@ -74,7 +39,7 @@ const faceSignin = () => {
         signInWithPopup(auth, provider).then(result => {
             const user = result.user
             signOut(auth)
-            sendFirebaseRequest(user, 'signin')
+            sendFirebaseRequest(user)
             
         }).catch(error => {
             const errorMessage = error.message;
@@ -85,26 +50,27 @@ const faceSignin = () => {
     }
 }
 
-const sendFirebaseRequest = async (user, action) => {
-    try {
-        const res = await axios({
-            method: 'POST',
-            url: `http://localhost:3000/api/v1/authentication/${action}/firebase`,
-            data: {
-                user
+const sendFirebaseRequest = async (user) => {
+    fetch(`${API_URL}/api/v1/authentication/firebase`, {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        method: "POST",
+        body: JSON.stringify({ user })
+    }).then(resp => resp.json())
+        .then(res => {
+            const { result } = res;
+            if (result === "success") {
+                location.href = res.page;
             }
-        })
-        if (res.data.page) {
-            window.location.href = res.data.page
-        }
-    } catch (error) {
-        alert(error)
-    }
+            else {
+                showToast("Username or password is incorrect!!!");
+            }
+        });
 }
 
 module.exports = {
-    ggSignup,
-    faceSignup,
     ggSignin,
     faceSignin
 };

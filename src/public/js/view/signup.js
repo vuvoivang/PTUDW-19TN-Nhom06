@@ -1,4 +1,3 @@
-const axios = require('axios');
 const { ggSignin, faceSignin } = require('../../../config/firebase.config');
 
 var usernameInput = document.getElementById('username');
@@ -16,19 +15,23 @@ function showToast(message) {
 };
 
 const signUpRequest = async (username, password) => {
-    const res = await axios({
-        method: 'POST',
-        url: 'http://localhost:3000/api/v1/authentication/signup',
-        data: {
-            username, password, role: "admin"
-        }
-    })
-    if (res.data.page) {
-        window.location.href = res.data.page
-    }
-    else {
-        showToast("There is an error during creating admin!!!");
-    }
+    fetch(`${API_URL}/api/v1/authentication/signup`, {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        method: "POST",
+        body: JSON.stringify({ username, password })
+    }).then(resp => resp.json())
+        .then(res => {
+            const { result } = res;
+            if (result === "success") {
+                location.href = res.page;
+            }
+            else {
+                showToast("Username or password is incorrect!!!");
+            }
+        });
 };
 
 function signup() {
@@ -48,11 +51,11 @@ function signup() {
 };
 
 ggBtn.addEventListener('click', (e) => {
-    ggSignin()
+    ggSignin();
 });
 
 fBtn.addEventListener('click', e => {
-    faceSignin()
+    faceSignin();
 });
 
 let form = document.getElementById('form');

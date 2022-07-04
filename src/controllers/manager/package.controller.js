@@ -3,11 +3,27 @@ const Product = require('../../models/Product');
 const Package = require('../../models/Package');
 const Order = require('../../models/Order');
 const utils = require('../../utils/functions');
+const { hyperlinksSidebarManager, managerBreadCrumb } = require('../../constants/index');
+
+const pushBreadCrumb = (label, link, isActive = true) => {
+    let thisBreadCrumb = {};
+    Object.assign(thisBreadCrumb, managerBreadCrumb);
+    thisBreadCrumb.path = [...managerBreadCrumb.path];
+    thisBreadCrumb.path.push({
+        label,
+        link,
+        isActive
+    })
+    thisBreadCrumb.mainLabel = label;
+    return thisBreadCrumb;
+};
 
 module.exports = {
     getPackageManagement: async (req, res) => {
         // get All Packages
         try {
+            res.locals.hyperlinks = hyperlinksSidebarManager('package-management');
+            res.locals.breadCrumb = pushBreadCrumb("Quản lý gói", '/manager/package-management');
             let packages = await Package.find({}).populate("productList")
             packages = utils.mapObjectInArray(packages);
             let view = req.query.view || "table"
@@ -27,6 +43,9 @@ module.exports = {
 
     getAddPackage: async (req, res) => {
         try {
+            res.locals.hyperlinks = hyperlinksSidebarManager('package-management');
+            res.locals.breadCrumb = pushBreadCrumb("Quản lý gói", '/manager/package-management');
+
             let products = await Product.find({}).populate('category');
             products = utils.mapObjectInArray(products);
             res.render(`${path}/addPackage`, {
@@ -104,6 +123,9 @@ module.exports = {
 
     detailPackage: async (req, res) => {
         try {
+            res.locals.hyperlinks = hyperlinksSidebarManager('package-management');
+            res.locals.breadCrumb = pushBreadCrumb("Quản lý gói", '/manager/package-management');
+
             const id = req.params.id;
             let package = await Package.findById(id);
             if (!package) {

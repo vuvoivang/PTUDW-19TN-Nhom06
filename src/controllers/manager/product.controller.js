@@ -3,11 +3,26 @@ const Category = require('../../models/Category');
 const Product = require('../../models/Product');
 const Package = require('../../models/Package');
 const utils = require('../../utils/functions');
+const { hyperlinksSidebarManager, managerBreadCrumb } = require('../../constants/index');
 
+const pushBreadCrumb = (label, link, isActive = true) => {
+    let thisBreadCrumb = {};
+    Object.assign(thisBreadCrumb, managerBreadCrumb);
+    thisBreadCrumb.path = [...managerBreadCrumb.path];
+    thisBreadCrumb.path.push({
+        label,
+        link,
+        isActive
+    })
+    thisBreadCrumb.mainLabel = label;
+    return thisBreadCrumb;
+};
 module.exports = {
     getProductManagement: async (req, res) => {
         // get All Products 
         try {
+            res.locals.hyperlinks = hyperlinksSidebarManager('product-management');
+            res.locals.breadCrumb = pushBreadCrumb("Quản lý nhu yếu phẩm", '/manager/product-management');
             let products = await Product.find({}).populate('category');
             products = utils.mapObjectInArray(products);
             let view = req.query.view || "table"
@@ -27,6 +42,9 @@ module.exports = {
 
     getAddProduct: async (req, res) => {
         try {
+            res.locals.hyperlinks = hyperlinksSidebarManager('product-management');
+            res.locals.breadCrumb = pushBreadCrumb("Quản lý nhu yếu phẩm", '/manager/product-management');
+
             let categories = await Category.find({});
             categories = utils.mapObjectInArray(categories);
             res.render(`${path}/addProduct`, {
@@ -87,6 +105,9 @@ module.exports = {
 
     detailProduct: async (req, res) => {
         try {
+            res.locals.hyperlinks = hyperlinksSidebarManager('product-management');
+            res.locals.breadCrumb = pushBreadCrumb("Quản lý nhu yếu phẩm", '/manager/product-management');
+
             const id = req.params.id;
             let product = await Product.findById(id);
             if (!product) {

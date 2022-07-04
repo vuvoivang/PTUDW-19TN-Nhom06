@@ -32,7 +32,7 @@ const signup = async (req, res, next) => {
         if (!checkAccount) {
             res.status(200).json({
                 status: "Sign up account failed",
-                result: "account is not existed"
+                result: "failed"
             });
         }
         else {
@@ -49,12 +49,14 @@ const signup = async (req, res, next) => {
             }
             res.status(200).json({
                 status: "Sign up successfully",
+                result: "success",
                 page: `/${page}`
             });
         }
     } catch (error) {
         res.status(400).json({
             status: "Sign up failed",
+            result: "failed",
             message: error
         })
     }
@@ -77,38 +79,7 @@ const isLoggedIn = async (req, res, next) => {
     }
 };
 
-const firebaseSignupHandle = async (req, res, next) => {
-    try {
-        const { user } = req.body
-        if (!user) {
-            return next(new AppError('There is no valid request', 400))
-        }
-
-        const mongoData = {
-            username: user.uid,
-            email: user.email,
-            displayName: user.displayName,
-            role: 'user',
-            password: user.stsTokenManager.accessToken,
-            auth: 'firebase'
-        }
-
-        const newUser = await Account.create(mongoData)
-        createSendToken(newUser._id, newUser.role, res, 'token')
-
-        res.status(200).json({
-            status: "Redirect to firebase successfully",
-            page: '/user'
-        })
-    } catch (error) {
-        res.status(400).json({
-            status: "Firebase sign up failed",
-            message: error
-        })
-    }
-};
-
-const firebaseSigninHandle = async (req, res, next) => {
+const firebaseHandle = async (req, res, next) => {
     try {
         const { user } = req.body
         if (!user) {
@@ -118,12 +89,28 @@ const firebaseSigninHandle = async (req, res, next) => {
         const currentUser = await Account.findOne({
             username: user.uid,
             auth: 'firebase'
-        })
-        createSendToken(currentUser._id, currentUser.role, res, 'token')
+        }).lean();
+        if (!currentUser) {
+            let newUser = await Account.create({
+                username: user.uid,
+                password: '1',
+                email: user.email,
+                displayName: user.displayName,
+                role: 'user',
+                isNew: false,
+                auth: 'firebase'
+            });
+
+            createSendToken(newUser._id, newUser.role, res, 'token');
+        }
+        else {
+            createSendToken(currentUser._id, currentUser.role, res, 'token');
+        }
         res.status(200).json({
-            status: "Redirect to firebase successfully",
-            page: '/user'
-        })
+            status: "Authenticate with firebase successfully",
+            page: '/',
+            result: "success"
+        });
     } catch (error) {
         res.status(400).json({
             status: "Firebase sign in failed",
@@ -137,7 +124,8 @@ const signOut = async (req, res, next) => {
         if (req.cookies.token) {
             res.clearCookie('token');
             res.status(200).json({
-                status: "Signout successful"
+                status: "Signout successful",
+                result: "success"
             });
         }
     } catch (error) {
@@ -168,7 +156,8 @@ const signIn = async (req, res, next) => {
             }
             res.status(200).json({
                 status: "Sign up successfully",
-                page: `/${page}`
+                page: `/${page}`,
+                result: "success"
             });
         }
         else {
@@ -233,7 +222,8 @@ const authorizeAccount = async (req, res) => {
                 });
                 res.status(200).json({
                     status: "Database is empty",
-                    page: "/signup"
+                    page: "/signup",
+                    result: "success"
                 });
             }
             else {
@@ -248,13 +238,15 @@ const authorizeAccount = async (req, res) => {
                     if (account.isNew == false) {
                         res.status(200).json({
                             status: "Ready for sign in",
-                            page: "/signin"
+                            page: "/signin",
+                            result: "success"
                         });
                     }
                     else {
                         res.status(200).json({
                             status: "Need for sign up",
-                            page: "/signup"
+                            page: "/signup",
+                            result: "success"
                         });
                     }
                 }
@@ -269,4 +261,4 @@ const authorizeAccount = async (req, res) => {
 };
 
 
-module.exports = { signup, isLoggedIn, firebaseSignupHandle, signOut, signIn, firebaseSigninHandle, firewallUrlHandle, authorizeAccount }
+module.exports = { signup, isLoggedIn, signOut, signIn, firebaseHandle, firewallUrlHandle, authorizeAccount }

@@ -35,11 +35,11 @@
 .category-item-img img {
     display: block;
     width: 70%;
-    height: 90%;
+    height: 100px;
     max-width: 130px;
     border-radius: 50%;
     position: absolute;
-    top: -40%;
+    top: -50%;
     left: 50%;
     transform: translate(-50%, 0);
     box-shadow: 1px 3px #ccc;

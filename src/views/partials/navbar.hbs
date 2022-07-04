@@ -28,7 +28,8 @@
         <li class="nav-item dropdown pe-2 d-flex align-items-center">
           <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton" data-bs-toggle="dropdown"
             aria-expanded="false">
-            <i class="fa fa-lg fa-bell cursor-pointer"></i>
+            <i class="fa fa-xl fa-bell cursor-pointer position-relative"></i>
+            <span class="amount-announce text-danger fw-bolder position-absolute ">{{announces.length}}</span>
             <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
               {{#each announces}}
               <li class="mb-2">
@@ -101,6 +102,5 @@
 </nav>
 
 {{#section "script2"}}
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script type="text/javascript" src="/js/view/logout.js"></script>
 {{/section}}

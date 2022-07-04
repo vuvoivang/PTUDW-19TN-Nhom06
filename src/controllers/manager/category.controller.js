@@ -2,11 +2,26 @@ const path = "layouts/manager";
 const Category = require('../../models/Category');
 const Product = require('../../models/Product');
 const utils = require('../../utils/functions');
+const { hyperlinksSidebarManager, managerBreadCrumb } = require('../../constants/index');
 
+const pushBreadCrumb = (label, link, isActive = true) => {
+    let thisBreadCrumb = {};
+    Object.assign(thisBreadCrumb, managerBreadCrumb);
+    thisBreadCrumb.path = [...managerBreadCrumb.path];
+    thisBreadCrumb.path.push({
+        label,
+        link,
+        isActive
+    })
+    thisBreadCrumb.mainLabel = label;
+    return thisBreadCrumb;
+};
 module.exports = {
     getCategoryManagement: async (req, res) => {
         // get All Categories
         try {
+            res.locals.hyperlinks = hyperlinksSidebarManager('category-management');
+            res.locals.breadCrumb = pushBreadCrumb("Quản lý danh mục", '/manager/category-management');
             let categories = await Category.find({});
             categories = utils.mapObjectInArray(categories);
             res.render(`${path}/categoryManagement`, {

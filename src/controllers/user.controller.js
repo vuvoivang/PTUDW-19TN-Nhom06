@@ -33,7 +33,7 @@ module.exports = {
             let userId = decoded.payload.id;
             const user = await Account.findById(userId).lean();
 
-            res.locals.hyperlinks = hyperlinksSidebarUser(userId, 'myManagementHistory');
+            res.locals.hyperlinks = hyperlinksSidebarUser( 'myManagementHistory');
             res.locals.userId = userId;
             res.locals.breadCrumb = pushBreadCrumb("Lịch sử được quản lý", `/user/${userId}/myManagementHistory`);
 
@@ -71,14 +71,10 @@ module.exports = {
             let userId = decoded.payload.id;
             const user = await Account.findById(userId).lean();
 
-            res.locals.hyperlinks = hyperlinksSidebarUser(userId, 'myPaymentHistory');
+            res.locals.hyperlinks = hyperlinksSidebarUser( 'myPaymentHistory');
             res.locals.userId = userId;
             res.locals.breadCrumb = pushBreadCrumb("Lịch sử mua hàng", `/user/${userId}/myPaymentHistory`);
             let announces = await announceController.getAnnounceById(userId);
-            // for (let i = 0; i< announces.length; i++) {
-            //     announces[i]['time'] = announceController.formatTime(announces[i].createdAt);
-            // }
-            console.log(announces);
             const ordersOfUser = await Order.find({ user: Number(userId) }).lean();
             for (let i = 0; i < ordersOfUser.length; i++) {
                 const order = ordersOfUser[i];
@@ -109,14 +105,14 @@ module.exports = {
             const user = await Account.findById(userId).lean();
 
             let orderId = (req.params.orderId);
-            res.locals.hyperlinks = hyperlinksSidebarUser(userId, "myPaymentHistory");
+            res.locals.hyperlinks = hyperlinksSidebarUser( "myPaymentHistory");
             res.locals.userId = userId;
             res.locals.breadCrumb = pushBreadCrumb("Lịch sử mua hàng", `/user/${userId}/myPaymentHistory`);
             let announces = await announceController.getAnnounceById(userId);
             // for (let i = 0; i< announces.length; i++) {
             //     announces[i]['time'] = announceController.formatTime(announces[i].createdAt);
             // }
-            console.log(announces);
+            
             const order = await Order.findById(orderId).lean();
             for (let i = 0; i < order.detail.length; i++) {
                 const pId = order.detail[i].product;
@@ -144,7 +140,7 @@ module.exports = {
             let userId = decoded.payload.id;
             const user = await Account.findById(userId).lean();
 
-            res.locals.hyperlinks = hyperlinksSidebarUser(userId, 'account');
+            res.locals.hyperlinks = hyperlinksSidebarUser( 'account');
             res.locals.userId = userId;
             res.locals.breadCrumb = pushBreadCrumb("Tài khoản của tôi", `/user/${userId}/account`);
             let announces = await announceController.getAnnounceById(userId);
@@ -174,7 +170,7 @@ module.exports = {
             let userId = decoded.payload.id;
             const user = await Account.findById(userId).lean();
 
-            res.locals.hyperlinks = hyperlinksSidebarUser(userId, 'accountPayment');
+            res.locals.hyperlinks = hyperlinksSidebarUser( 'accountPayment');
             res.locals.userId = userId;
             res.locals.breadCrumb = pushBreadCrumb("Tài khoản thanh toán", `/user/${userId}/accountPayment`);
             let announces = await announceController.getAnnounceById(userId);
